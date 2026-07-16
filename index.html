@@ -279,22 +279,28 @@ function se(e,a){for(var k in a)e.setAttribute(k,a[k]);return e;}
 function te(t,a,x){var e=ne(t);se(e,a);if(x!==undefined)e.textContent=x;return e;}
 function xi(i){
   if(Gs.length===0)return Math.floor(W/2);
-  var centerOffset=Math.floor(W/2)-(Gs.length-1)*Gst/2;
-  return Math.floor(centerOffset+i*Gst);
+  return Math.floor(_XI_MARGIN+i*Gst);
 }
+var _XI_MARGIN=2000; // updated each draw()
 function xOf(y){
   var s=Gs,n=s.length;
-  if(!n)return Math.floor(W/2)||400;
-  var co=Math.floor(W/2)-(n-1)*Gst/2;
-  if(y<=s[0].year)return Math.floor(co);
-  if(y>=s[n-1].year)return Math.floor(co+(n-1)*Gst);
+  if(!n)return _XI_MARGIN;
+  if(n>=2){
+    var totalYears=s[n-1].year-s[0].year;
+    var pxPerYear=totalYears>0?(n-1)*Gst/totalYears:Gst;
+    if(y<=s[0].year) return Math.floor(_XI_MARGIN+(y-s[0].year)*pxPerYear);
+    if(y>=s[n-1].year) return Math.floor(_XI_MARGIN+(n-1)*Gst+(y-s[n-1].year)*pxPerYear);
+  } else {
+    if(y<=s[0].year) return _XI_MARGIN;
+    if(y>=s[n-1].year) return Math.floor(_XI_MARGIN+(n-1)*Gst);
+  }
   for(var i=0;i<n-1;i++){
     if(s[i].year<=y&&y<=s[i+1].year){
       var t=(y-s[i].year)/(s[i+1].year-s[i].year);
-      return Math.floor(co+(i+t)*Gst);
+      return Math.floor(_XI_MARGIN+(i+t)*Gst);
     }
   }
-  return Math.floor(co);
+  return _XI_MARGIN;
 }
 
 function draw(pc){
@@ -305,7 +311,9 @@ function draw(pc){
   var vpW=wp3?wp3.clientWidth:800;
   // Width = just enough for content + one viewport of padding on each side
   var contentW=n>0?(n-1)*Gst:0;
-  var W=contentW+vpW*2;
+  // Padding = max(2 viewports, same size as content) so always scrollable
+  _XI_MARGIN=Math.max(vpW*2, contentW);
+  var W=_XI_MARGIN+contentW+_XI_MARGIN;
   if(W<vpW) W=vpW;
   var ef=efs(), bf=bfs(), LH=ef*1.55;
   var maxEv=0;
@@ -1138,7 +1146,6 @@ function fbLoad(){
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
-          // Scroll to first mark after loading
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
             _lastAddedYear=sorted2[sorted2.length-1].year;
@@ -1394,11 +1401,10 @@ function handleImport(event){
       status.textContent = '✓ Importado! ('+marks.length+' datas, '+brackets.length+' chaves)';
       status.style.color = '#166534';
       cf = 0.5;
-      // Scroll to first mark so user can see the beginning
       if(marks.length>0){
         var si=marks.slice().sort(function(a,b){return a.year-b.year;});
         _lastAddedYear=si[si.length-1].year;
-        _scrollToYear=si[0].year; // scroll to first mark
+        _scrollToYear=si[0].year;
       }
       cm(); draw(true);
       updateBlankState();
