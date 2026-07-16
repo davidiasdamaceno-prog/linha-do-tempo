@@ -592,6 +592,8 @@ wp2.addEventListener('touchmove',function(e){
     wp2.scrollLeft=touch.mx*ratio-cx;
     wp2.scrollTop =touch.my*ratio-cy;
 
+    // Track current midpoint for touchend
+    touch._cx=cx; touch._cy=cy;
     touch._lastRatio=ratio;
     touch._lastNewZoom=newZoom;
   } else if(touch.on&&e.touches.length===1){
@@ -614,7 +616,8 @@ wp2.addEventListener('touchend',function(e){
     var finalZoom=touch._lastNewZoom||zoom;
     var ratio=touch._lastRatio||1;
     // Find the YEAR under the pinch midpoint (before draw)
-    var pinchPixel=wp2.scrollLeft+touch.cx;
+    var finalCx=touch._cx!==undefined?touch._cx:touch.cx;
+    var pinchPixel=wp2.scrollLeft+finalCx;
     var pinchYear=null;
     if(Gs.length>0){
       var best=Gs[0], bestD=Infinity;
@@ -629,7 +632,7 @@ wp2.addEventListener('touchend',function(e){
     // After draw: scroll so pinchYear is still under touch.cx
     requestAnimationFrame(function(){
       if(pinchYear!==null){
-        wp2.scrollLeft=xOf(pinchYear)-touch.cx;
+        wp2.scrollLeft=xOf(pinchYear)-finalCx;
       }
     });
     touch.pinch=false;
