@@ -280,6 +280,10 @@ function te(t,a,x){var e=ne(t);se(e,a);if(x!==undefined)e.textContent=x;return e
 function xi(i){
   if(Gs.length===0)return Math.floor(W/2);
   var centerOffset=Math.floor(W/2)-(Gs.length-1)*Gst/2;
+  // Ensure first mark is never too close to the left edge
+  var wp4=document.getElementById('wrap');
+  var minOffset=wp4?wp4.clientWidth*0.8:600;
+  if(centerOffset<minOffset) centerOffset=minOffset;
   return Math.floor(centerOffset+i*Gst);
 }
 function xOf(y){
@@ -1138,10 +1142,12 @@ function fbLoad(){
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
-          // Center on last mark after loading
+          // Center on middle of timeline after loading so user can scroll both ways
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
-            _scrollToYear=sorted2[sorted2.length-1].year;
+            _lastAddedYear=sorted2[sorted2.length-1].year;
+            var midIdx2=Math.floor(sorted2.length/2);
+            _scrollToYear=sorted2[midIdx2].year;
           }
           cm(); draw(true);
         } catch(e){ console.error('Erro:', e); }
