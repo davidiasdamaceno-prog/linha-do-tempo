@@ -280,10 +280,6 @@ function te(t,a,x){var e=ne(t);se(e,a);if(x!==undefined)e.textContent=x;return e
 function xi(i){
   if(Gs.length===0)return Math.floor(W/2);
   var centerOffset=Math.floor(W/2)-(Gs.length-1)*Gst/2;
-  // Ensure first mark is never too close to the left edge
-  var wp4=document.getElementById('wrap');
-  var minOffset=wp4?wp4.clientWidth*0.8:600;
-  if(centerOffset<minOffset) centerOffset=minOffset;
   return Math.floor(centerOffset+i*Gst);
 }
 function xOf(y){
@@ -309,7 +305,7 @@ function draw(pc){
   var vpW=wp3?wp3.clientWidth:800;
   // Width = just enough for content + one viewport of padding on each side
   var contentW=n>0?(n-1)*Gst:0;
-  var W=contentW+vpW*3; // 1.5 viewport padding on each side
+  var W=contentW+vpW*2;
   if(W<vpW) W=vpW;
   var ef=efs(), bf=bfs(), LH=ef*1.55;
   var maxEv=0;
@@ -1142,12 +1138,11 @@ function fbLoad(){
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
-          // Center on middle of timeline after loading so user can scroll both ways
+          // Scroll to first mark after loading
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
             _lastAddedYear=sorted2[sorted2.length-1].year;
-            var midIdx2=Math.floor(sorted2.length/2);
-            _scrollToYear=sorted2[midIdx2].year;
+            _scrollToYear=sorted2[0].year;
           }
           cm(); draw(true);
         } catch(e){ console.error('Erro:', e); }
@@ -1399,13 +1394,11 @@ function handleImport(event){
       status.textContent = '✓ Importado! ('+marks.length+' datas, '+brackets.length+' chaves)';
       status.style.color = '#166534';
       cf = 0.5;
-      // Scroll to show full timeline - center on middle mark
+      // Scroll to first mark so user can see the beginning
       if(marks.length>0){
         var si=marks.slice().sort(function(a,b){return a.year-b.year;});
         _lastAddedYear=si[si.length-1].year;
-        // Center on the middle of the timeline so user can scroll both ways
-        var midIdx=Math.floor(si.length/2);
-        _scrollToYear=si[midIdx].year;
+        _scrollToYear=si[0].year; // scroll to first mark
       }
       cm(); draw(true);
       updateBlankState();
