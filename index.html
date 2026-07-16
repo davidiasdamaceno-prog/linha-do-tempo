@@ -441,10 +441,15 @@ function draw(pc){
   requestAnimationFrame(function(){
     var w=document.getElementById('wrap');
     if(_scrollToYear!==null){
-      // Scroll to the newly added year, centered
       var x=xOf(_scrollToYear);
       w.scrollLeft=x-w.clientWidth/2;
       _scrollToYear=null;
+    } else if(touch && touch._pinchYear!==undefined && touch._pinchYear!==null){
+      // After pinch zoom: keep the pinched year under the finger
+      var px=xOf(touch._pinchYear);
+      w.scrollLeft=px-touch._pinchClientX;
+      touch._pinchYear=null;
+      touch._pinchClientX=0;
     } else {
       w.scrollLeft=w.scrollWidth*cf-w.clientWidth/2;
     }
@@ -612,14 +617,25 @@ wp2.addEventListener('touchend',function(e){
     // Commit: remove CSS scale, apply real zoom, redraw
     svgEl.style.transform='';
     var finalZoom=touch._lastNewZoom||zoom;
-    var ratio=touch._lastRatio||1;
     zoom=finalZoom;
-    // Keep anchor point: cf = fraction of scrollWidth at pinch midpoint
-    var rc=wp2.getBoundingClientRect();
-    cf=(touch.mx*ratio)/( (svgEl.getBoundingClientRect().width/ratio)*ratio ) ;
-    // Simpler: just preserve current scroll centre
+    // Anchor: find the year under the pinch midpoint and scroll back to it
     var sw=wp2.scrollWidth||1;
-    cf=(wp2.scrollLeft+touch.cx)/sw;
+    var pinchX=wp2.scrollLeft+touch.cx; // pixel position of pinch in SVG
+    var pinchFrac=pinchX/sw; // fraction of scroll width
+    // After draw with new zoom, restore so same fraction is under pinch
+    cf=pinchFrac;
+    // Also set _scrollToYear to the year closest to pinch point for precision
+    if(Gs.length>0){
+      var bestYear=Gs[0].year, bestDist=Infinity;
+      for(var gi=0;gi<Gs.length;gi++){
+        var gx=xOf(Gs[gi].year);
+        var d=Math.abs(gx-pinchX);
+        if(d<bestDist){bestDist=d;bestYear=Gs[gi].year;}
+      }
+      // Store pinch client position to restore after draw
+      touch._pinchClientX=touch.cx;
+      touch._pinchYear=bestYear;
+    }
     draw(false);
     touch.pinch=false;
     if(e.touches.length===1){
