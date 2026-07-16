@@ -605,13 +605,15 @@ wp2.addEventListener('touchend',function(e){
     svgEl.style.transform='';
     var finalZoom=touch._lastNewZoom||zoom;
     var ratio=touch._lastRatio||1;
-    // Pixel in SVG under the pinch midpoint (before draw)
-    var pinchSvgX=wp2.scrollLeft+touch.cx;
+    // Fraction of scrollWidth under pinch BEFORE draw
+    var swBefore=wp2.scrollWidth||1;
+    var fracBefore=(wp2.scrollLeft+touch.cx)/swBefore;
     zoom=finalZoom;
     draw(false);
-    // After draw: scroll so pinchSvgX*ratio is still under touch.cx
+    // After draw: same fraction should be under touch.cx
     requestAnimationFrame(function(){
-      wp2.scrollLeft=pinchSvgX*ratio-touch.cx;
+      var swAfter=wp2.scrollWidth||1;
+      wp2.scrollLeft=fracBefore*swAfter-touch.cx;
     });
     touch.pinch=false;
     if(e.touches.length===1){
