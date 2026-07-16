@@ -640,11 +640,6 @@ function sm(el){
 }
 function cm(){
   document.getElementById('ov').className='';
-  // Clean up era dropdown listener if present
-  if(window._eraCloseHandler){
-    document.removeEventListener('click', window._eraCloseHandler);
-    window._eraCloseHandler = null;
-  }
 }
 
 function mkEl(tag,props,txt){
@@ -701,15 +696,7 @@ function mkBox(title,body,buttons){
     if(e.key!=='Enter')return;
     var tag=(e.target.tagName||'').toLowerCase();
     if(tag==='textarea')return;
-    // Se o foco está no botão de era (dropdown), fecha o dropdown em vez de submeter
-    if(e.target.id==='era-btn'){
-      var drop=document.getElementById('era-drop');
-      if(drop&&drop.style.display!=='none'){drop.style.display='none';return;}
-    }
     e.preventDefault();
-    // Fecha dropdown se aberto
-    var drop=document.getElementById('era-drop');
-    if(drop) drop.style.display='none';
     // Encontra o botão de ação (último com classe bg/bo/bb)
     var btns=mb.querySelectorAll('button');
     var saveBtn=null;
@@ -754,70 +741,32 @@ function pcn(pid,v){
 function gc(pid){var t=document.getElementById('ct-'+pid);return t?t.value:'#374151';}
 
 function onm(){
-  var yi=mkInp('number','','nmy'); yi.placeholder='753'; yi.min='1';
-  yi.style.cssText='font-size:13px;padding:6px 9px;border-radius:8px 0 0 8px;border:1px solid #ddd;border-right:none;background:#fafaf8;color:#111;outline:none;width:100px;flex-shrink:0';
-
-  // Era dropdown button
+  var yi=mkInp('number','','nmy');
+  yi.placeholder='753'; yi.min='1';
+  yi.style.cssText='font-size:13px;padding:6px 9px;border-radius:8px;border:1px solid #ddd;background:#fafaf8;color:#111;outline:none;width:110px;flex-shrink:0';
   var eraVal=mkEl('input',{id:'nmera',type:'hidden',value:'dc'});
-  var eraBtn=mkEl('button',{id:'era-btn'});
-  eraBtn.style.cssText='padding:6px 10px;border-radius:0 8px 8px 0;border:1.5px solid #2563eb;background:#2563eb;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;position:relative';
-  eraBtn.innerHTML='d.C. ▾';
-
-  // Dropdown
-  var eraDrop=mkEl('div',{id:'era-drop'});
-  eraDrop.style.cssText='position:absolute;top:100%;left:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:200;min-width:100px;overflow:hidden;display:none;margin-top:2px';
-  var optDC=mkEl('div');
-  optDC.style.cssText='padding:8px 14px;cursor:pointer;font-size:12px;font-weight:600;color:#2563eb';
-  optDC.textContent='d.C. — depois de Cristo';
-  var optAC=mkEl('div');
-  optAC.style.cssText='padding:8px 14px;cursor:pointer;font-size:12px;font-weight:600;color:#888;border-top:1px solid #f0ece6';
-  optAC.textContent='a.C. — antes de Cristo';
-
-  optDC.addEventListener('mouseenter',function(){optDC.style.background='#eff6ff';});
-  optDC.addEventListener('mouseleave',function(){optDC.style.background='';});
-  optAC.addEventListener('mouseenter',function(){optAC.style.background='#fef2f2';});
-  optAC.addEventListener('mouseleave',function(){optAC.style.background='';});
-
-  optDC.addEventListener('click',function(e){
-    e.stopPropagation();
+  var btnDC=mkEl('button',{id:'era-dc'});
+  btnDC.textContent='d.C.';
+  btnDC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #2563eb;background:#2563eb;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
+  var btnAC=mkEl('button',{id:'era-ac'});
+  btnAC.textContent='a.C.';
+  btnAC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #ddd;background:#fff;color:#888;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
+  btnDC.addEventListener('click',function(e){
+    e.preventDefault();
     eraVal.value='dc';
-    eraBtn.innerHTML='d.C. ▾';
-    eraBtn.style.background='#2563eb'; eraBtn.style.borderColor='#2563eb'; eraBtn.style.color='#fff';
-    eraDrop.style.display='none';
+    btnDC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #2563eb;background:#2563eb;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
+    btnAC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #ddd;background:#fff;color:#888;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
   });
-  optAC.addEventListener('click',function(e){
-    e.stopPropagation();
+  btnAC.addEventListener('click',function(e){
+    e.preventDefault();
     eraVal.value='ac';
-    eraBtn.innerHTML='a.C. ▾';
-    eraBtn.style.background='#c0392b'; eraBtn.style.borderColor='#c0392b'; eraBtn.style.color='#fff';
-    eraDrop.style.display='none';
+    btnAC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #c0392b;background:#c0392b;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
+    btnDC.style.cssText='padding:6px 12px;border-radius:8px;border:2px solid #ddd;background:#fff;color:#888;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit';
   });
-
-  eraBtn.addEventListener('click',function(e){
-    e.preventDefault(); e.stopPropagation();
-    eraDrop.style.display=eraDrop.style.display==='none'?'block':'none';
-  });
-  // Use named function so we can remove it when modal closes
-  window._eraCloseHandler = function(e){
-    var drop=document.getElementById('era-drop');
-    var btn=document.getElementById('era-btn');
-    if(drop && btn && !btn.contains(e.target) && !drop.contains(e.target)){
-      drop.style.display='none';
-    }
-  };
-  // Remove any previous listener first
-  document.removeEventListener('click', window._eraCloseHandler);
-  document.addEventListener('click', window._eraCloseHandler);
-
-  ap(eraDrop,[optDC,optAC]);
-  ap(eraBtn,[eraDrop]);
-
-  var inputRow=mkEl('div',{style:'display:flex;align-items:center'});
-  ap(inputRow,[yi,eraBtn,eraVal]);
-
+  var inputRow=mkEl('div',{style:'display:flex;align-items:center;gap:6px'});
+  ap(inputRow,[yi,btnDC,btnAC,eraVal]);
   var fi=mkEl('div',{className:'fi'});
   ap(fi,[mkEl('label',{textContent:'Ano'}),inputRow]);
-
   sm(mkBox('Nova Data',[fi],[
     mkBtn('Cancelar','',cm),
     mkBtn('Criar','bg',snm)
