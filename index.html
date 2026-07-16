@@ -612,10 +612,17 @@ wp2.addEventListener('touchend',function(e){
     // Commit: remove CSS scale, apply real zoom, redraw
     svgEl.style.transform='';
     var finalZoom=touch._lastNewZoom||zoom;
+    var ratio=touch._lastRatio||1;
+    // Store anchor position in content-space BEFORE draw
+    var oldMargin=_XI_MARGIN;
+    var pinchContentX=wp2.scrollLeft+touch.cx-oldMargin; // position relative to content start
     zoom=finalZoom;
-    var sw=wp2.scrollWidth||1;
-    cf=(wp2.scrollLeft+touch.cx)/sw;
     draw(false);
+    // After draw: restore so same content position is under the pinch point
+    // _XI_MARGIN may have changed, so recalculate scroll
+    requestAnimationFrame(function(){
+      wp2.scrollLeft=_XI_MARGIN+pinchContentX*ratio-touch.cx;
+    });
     touch.pinch=false;
     if(e.touches.length===1){
       touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
