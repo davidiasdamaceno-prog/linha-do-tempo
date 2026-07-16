@@ -279,22 +279,28 @@ function se(e,a){for(var k in a)e.setAttribute(k,a[k]);return e;}
 function te(t,a,x){var e=ne(t);se(e,a);if(x!==undefined)e.textContent=x;return e;}
 function xi(i){
   if(Gs.length===0)return Math.floor(W/2);
-  var centerOffset=Math.floor(W/2)-(Gs.length-1)*Gst/2;
-  return Math.floor(centerOffset+i*Gst);
+  return Math.floor(_XI_MARGIN+i*Gst);
 }
+var _XI_MARGIN=2000; // updated each draw()
 function xOf(y){
   var s=Gs,n=s.length;
-  if(!n)return Math.floor(W/2)||400;
-  var co=Math.floor(W/2)-(n-1)*Gst/2;
-  if(y<=s[0].year)return Math.floor(co);
-  if(y>=s[n-1].year)return Math.floor(co+(n-1)*Gst);
+  if(!n)return _XI_MARGIN;
+  if(n>=2){
+    var totalYears=s[n-1].year-s[0].year;
+    var pxPerYear=totalYears>0?(n-1)*Gst/totalYears:Gst;
+    if(y<=s[0].year) return Math.floor(_XI_MARGIN+(y-s[0].year)*pxPerYear);
+    if(y>=s[n-1].year) return Math.floor(_XI_MARGIN+(n-1)*Gst+(y-s[n-1].year)*pxPerYear);
+  } else {
+    if(y<=s[0].year) return _XI_MARGIN;
+    if(y>=s[n-1].year) return Math.floor(_XI_MARGIN+(n-1)*Gst);
+  }
   for(var i=0;i<n-1;i++){
     if(s[i].year<=y&&y<=s[i+1].year){
       var t=(y-s[i].year)/(s[i+1].year-s[i].year);
-      return Math.floor(co+(i+t)*Gst);
+      return Math.floor(_XI_MARGIN+(i+t)*Gst);
     }
   }
-  return Math.floor(co);
+  return _XI_MARGIN;
 }
 
 function draw(pc){
@@ -306,7 +312,9 @@ function draw(pc){
   // Width = just enough for content + one viewport of padding on each side
   var contentW=n>0?(n-1)*Gst:0;
   // Padding = max(2 viewports, same size as content) so always scrollable
-  var W=contentW+vpW*2;
+  // Fixed large margin so SVG structure is stable across zoom changes
+  _XI_MARGIN=Math.max(3000, contentW);
+  var W=_XI_MARGIN+contentW+_XI_MARGIN;
   if(W<vpW) W=vpW;
   var ef=efs(), bf=bfs(), LH=ef*1.55;
   var maxEv=0;
@@ -605,15 +613,24 @@ wp2.addEventListener('touchend',function(e){
     svgEl.style.transform='';
     var finalZoom=touch._lastNewZoom||zoom;
     var ratio=touch._lastRatio||1;
-    // Fraction of scrollWidth under pinch BEFORE draw
-    var swBefore=wp2.scrollWidth||1;
-    var fracBefore=(wp2.scrollLeft+touch.cx)/swBefore;
+    // Find the YEAR under the pinch midpoint (before draw)
+    var pinchPixel=wp2.scrollLeft+touch.cx;
+    var pinchYear=null;
+    if(Gs.length>0){
+      var best=Gs[0], bestD=Infinity;
+      for(var gi=0;gi<Gs.length;gi++){
+        var d=Math.abs(xOf(Gs[gi].year)-pinchPixel);
+        if(d<bestD){bestD=d;best=Gs[gi];}
+      }
+      pinchYear=best.year;
+    }
     zoom=finalZoom;
     draw(false);
-    // After draw: same fraction should be under touch.cx
+    // After draw: scroll so pinchYear is still under touch.cx
     requestAnimationFrame(function(){
-      var swAfter=wp2.scrollWidth||1;
-      wp2.scrollLeft=fracBefore*swAfter-touch.cx;
+      if(pinchYear!==null){
+        wp2.scrollLeft=xOf(pinchYear)-touch.cx;
+      }
     });
     touch.pinch=false;
     if(e.touches.length===1){
