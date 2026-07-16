@@ -305,7 +305,7 @@ function draw(pc){
   var vpW=wp3?wp3.clientWidth:800;
   // Width = just enough for content + one viewport of padding on each side
   var contentW=n>0?(n-1)*Gst:0;
-  var W=contentW+vpW*2;
+  var W=contentW+vpW*3; // 1.5 viewport padding on each side
   if(W<vpW) W=vpW;
   var ef=efs(), bf=bfs(), LH=ef*1.55;
   var maxEv=0;
@@ -1393,11 +1393,13 @@ function handleImport(event){
       status.textContent = '✓ Importado! ('+marks.length+' datas, '+brackets.length+' chaves)';
       status.style.color = '#166534';
       cf = 0.5;
-      // Center on last mark
+      // Scroll to show full timeline - center on middle mark
       if(marks.length>0){
         var si=marks.slice().sort(function(a,b){return a.year-b.year;});
-        _scrollToYear=si[si.length-1].year;
-        _lastAddedYear=_scrollToYear;
+        _lastAddedYear=si[si.length-1].year;
+        // Center on the middle of the timeline so user can scroll both ways
+        var midIdx=Math.floor(si.length/2);
+        _scrollToYear=si[midIdx].year;
       }
       cm(); draw(true);
       updateBlankState();
