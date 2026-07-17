@@ -537,65 +537,74 @@ wp2.addEventListener('wheel',function(e){
 },{passive:false});
 
 // ── Touch: single-finger pan (H+V) + two-finger pinch zoom ──
-// Pinch uses CSS transform for silky-smooth gesture; draw() fires only on release.
-var touch={on:false,x:0,y:0,sl:0,st:0,moved:false,pinch:false,dist:0,zoomStart:1,mx:0,my:0};
+var touch={on:false,x:0,y:0,sl:0,st:0,moved:false,pinch:false};
+var DRAG_THRESHOLD=5;
+var lastCenter=null, lastDist=0;
+var svgEl=document.getElementById('svg');
 
-function tDist(t){
-  var dx=t[0].pageX-t[1].pageX, dy=t[0].pageY-t[1].pageY;
+function getCenter(t){
+  return {
+    x:(t[0].clientX+t[1].clientX)/2,
+    y:(t[0].clientY+t[1].clientY)/2
+  };
+}
+function getDist(t){
+  var dx=t[0].clientX-t[1].clientX, dy=t[0].clientY-t[1].clientY;
   return Math.sqrt(dx*dx+dy*dy);
 }
-function tMid(t){
-  return {x:(t[0].clientX+t[1].clientX)/2, y:(t[0].clientY+t[1].clientY)/2};
-}
-
-var svgEl=document.getElementById('svg');
 
 wp2.addEventListener('touchstart',function(e){
   if(e.touches.length===1){
+    lastCenter=null; lastDist=0;
     touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
-           sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false,dist:0,zoomStart:zoom,mx:0,my:0};
-  } else if(e.touches.length>=2){
+           sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
+  } else if(e.touches.length===2){
     e.preventDefault();
-    var mid=tMid(e.touches);
-    var rc=wp2.getBoundingClientRect();
-    touch={on:false,pinch:true,moved:false,
-           dist:tDist(e.touches),
-           zoomStart:zoom,
-           // anchor point in scroll-space (stays fixed under fingers)
-           mx:wp2.scrollLeft+(mid.x-rc.left),
-           my:wp2.scrollTop+(mid.y-rc.top),
-           // client midpoint for compensating scroll
-           cx:mid.x-rc.left, cy:mid.y-rc.top,
-           sl:wp2.scrollLeft, st:wp2.scrollTop,
-           x:0,y:0,st:0};
-    // Reset any leftover transform
-    svgEl.style.transformOrigin='0 0';
-    svgEl.style.transform='';
+    touch.on=false; touch.pinch=true;
+    lastCenter=null; lastDist=0;
   }
 },{passive:false});
 
 wp2.addEventListener('touchmove',function(e){
-  if(touch.pinch&&e.touches.length>=2){
+  if(touch.pinch&&e.touches.length===2){
     e.preventDefault();
-    var newDist=tDist(e.touches);
-    var ratio=newDist/touch.dist;
-    var newZoom=Math.max(0.25,Math.min(5,touch.zoomStart*ratio));
-
-    // Scale SVG visually via CSS transform — zero reflow, GPU-composited
-    svgEl.style.transformOrigin='0 0';
-    svgEl.style.transform='scale('+ratio+')';
-
-    // Shift scroll so the pinch midpoint stays anchored
     var rc=wp2.getBoundingClientRect();
-    var mid=tMid(e.touches);
-    var cx=mid.x-rc.left, cy=mid.y-rc.top;
-    wp2.scrollLeft=touch.mx*ratio-cx;
-    wp2.scrollTop =touch.my*ratio-cy;
+    var p1={x:e.touches[0].clientX-rc.left, y:e.touches[0].clientY-rc.top};
+    var p2={x:e.touches[1].clientX-rc.left, y:e.touches[1].clientY-rc.top};
+    var newCenter={x:(p1.x+p2.x)/2, y:(p1.y+p2.y)/2};
+    var newDist=Math.sqrt(Math.pow(p2.x-p1.x,2)+Math.pow(p2.y-p1.y,2));
 
-    // Track current midpoint for touchend
-    touch._cx=cx; touch._cy=cy;
-    touch._lastRatio=ratio;
-    touch._lastNewZoom=newZoom;
+    if(!lastCenter){lastCenter=newCenter; lastDist=newDist; return;}
+    if(!lastDist){lastDist=newDist; return;}
+
+    var scaleFactor=newDist/lastDist;
+    var newZoom=Math.max(0.25,Math.min(5,zoom*scaleFactor));
+
+    // Point in content-space under the pinch center (before zoom)
+    var pointTo={
+      x:(newCenter.x+wp2.scrollLeft)/zoom,
+      y:(newCenter.y+wp2.scrollTop)/zoom
+    };
+
+    // Pan delta
+    var dx=newCenter.x-lastCenter.x;
+    var dy=newCenter.y-lastCenter.y;
+
+    zoom=newZoom;
+    document.getElementById('zl').textContent=Math.round(zoom*100)+'%';
+
+    // Redraw SVG at new zoom
+    // Instead of full draw() (heavy), use CSS transform for smoothness
+    svgEl.style.transformOrigin='0 0';
+    svgEl.style.transform='scale('+scaleFactor+')';
+
+    // Adjust scroll to keep pinch point fixed + apply pan
+    wp2.scrollLeft=pointTo.x*newZoom-newCenter.x+dx;
+    wp2.scrollTop=pointTo.y*newZoom-newCenter.y+dy;
+
+    lastDist=newDist;
+    lastCenter=newCenter;
+
   } else if(touch.on&&e.touches.length===1){
     var dx=e.touches[0].pageX-touch.x, dy=e.touches[0].pageY-touch.y;
     if(!touch.moved&&(Math.abs(dx)>DRAG_THRESHOLD||Math.abs(dy)>DRAG_THRESHOLD)){
@@ -610,42 +619,22 @@ wp2.addEventListener('touchmove',function(e){
 },{passive:false});
 
 wp2.addEventListener('touchend',function(e){
-  if(touch.pinch&&e.touches.length<2){
-    // Commit: remove CSS scale, apply real zoom, redraw
-    svgEl.style.transform='';
-    var finalZoom=touch._lastNewZoom||zoom;
-    var ratio=touch._lastRatio||1;
-    // Find the YEAR under the pinch midpoint (before draw)
-    var finalCx=touch._cx!==undefined?touch._cx:touch.cx;
-    var pinchPixel=wp2.scrollLeft+finalCx;
-    var pinchYear=null;
-    if(Gs.length>0){
-      var best=Gs[0], bestD=Infinity;
-      for(var gi=0;gi<Gs.length;gi++){
-        var d=Math.abs(xOf(Gs[gi].year)-pinchPixel);
-        if(d<bestD){bestD=d;best=Gs[gi];}
+  if(touch.pinch){
+    if(e.touches.length<2){
+      // Commit: remove CSS transform and redraw at final zoom
+      svgEl.style.transform='';
+      var sw=wp2.scrollWidth||1;
+      cf=wp2.scrollLeft/sw;
+      draw(false);
+      touch.pinch=false;
+      lastCenter=null; lastDist=0;
+      if(e.touches.length===1){
+        touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
+               sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
       }
-      pinchYear=best.year;
-    }
-    zoom=finalZoom;
-    draw(false);
-    // After draw: scroll so pinchYear is still under touch.cx
-    requestAnimationFrame(function(){
-      if(pinchYear!==null){
-        wp2.scrollLeft=xOf(pinchYear)-finalCx;
-      }
-    });
-    touch.pinch=false;
-    if(e.touches.length===1){
-      touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
-             sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false,dist:0,zoomStart:zoom,mx:0,my:0};
     }
   } else if(e.touches.length===0){
     touch.on=false;
-    touch.pinch=false;
-  } else if(e.touches.length===1&&!touch.pinch){
-    touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
-           sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false,dist:0,zoomStart:zoom,mx:0,my:0};
   }
 },{passive:true});
 
