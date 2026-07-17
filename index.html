@@ -541,110 +541,102 @@ var touch={on:false,x:0,y:0,sl:0,st:0,moved:false,pinch:false};
 var DRAG_THRESHOLD=5;
 var svgEl=document.getElementById('svg');
 
-// Pinch state - relative to gesture START (not previous frame)
-var _pinch={
-  active:false,
-  startDist:0,
-  startZoom:1,
-  startScrollLeft:0,
-  startScrollTop:0,
-  startCx:0,   // midpoint at gesture start, relative to wrap
-  startCy:0
-};
+// Pinch state
+var distanciaInicial=0;
+var zoomInicial=1;
+var scrollInicialL=0;
+var scrollInicialT=0;
+var anchorX=0; // ponto do conteúdo sob os dedos no inicio
+var anchorY=0;
+var startCx=0; // posição dos dedos na tela no inicio
+var startCy=0;
+var escalaAtual=1;
+
+function distancia(t){
+  return Math.hypot(t[0].clientX-t[1].clientX, t[0].clientY-t[1].clientY);
+}
 
 wp2.addEventListener('touchstart',function(e){
   if(e.touches.length===2){
     e.preventDefault();
-    touch.on=false; touch.moved=false;
-    var rc=wp2.getBoundingClientRect();
-    var cx=(e.touches[0].clientX+e.touches[1].clientX)/2-rc.left;
-    var cy=(e.touches[0].clientY+e.touches[1].clientY)/2-rc.top;
-    var dx=e.touches[0].clientX-e.touches[1].clientX;
-    var dy=e.touches[0].clientY-e.touches[1].clientY;
-    _pinch={
-      active:true,
-      startDist:Math.sqrt(dx*dx+dy*dy),
-      startZoom:zoom,
-      startScrollLeft:wp2.scrollLeft,
-      startScrollTop:wp2.scrollTop,
-      startCx:cx,
-      startCy:cy
-    };
+    touch.on=false;
     touch.pinch=true;
+    var rc=wp2.getBoundingClientRect();
+    // Centro entre os dois dedos (relativo ao container)
+    startCx=(e.touches[0].clientX+e.touches[1].clientX)/2-rc.left;
+    startCy=(e.touches[0].clientY+e.touches[1].clientY)/2-rc.top;
+    // Distância inicial entre os dedos
+    distanciaInicial=distancia(e.touches);
+    // Zoom e scroll no início do gesto
+    zoomInicial=zoom;
+    scrollInicialL=wp2.scrollLeft;
+    scrollInicialT=wp2.scrollTop;
+    // Ponto do conteúdo sob os dedos
+    anchorX=scrollInicialL+startCx;
+    anchorY=scrollInicialT+startCy;
+    escalaAtual=1;
     svgEl.style.transformOrigin='0 0';
     svgEl.style.transform='';
-  } else if(e.touches.length===1){
+  } else if(e.touches.length===1&&!touch.pinch){
     touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
            sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
-    _pinch.active=false;
   }
 },{passive:false});
 
 wp2.addEventListener('touchmove',function(e){
-  if(_pinch.active&&e.touches.length===2){
+  if(touch.pinch&&e.touches.length===2){
     e.preventDefault();
     var rc=wp2.getBoundingClientRect();
+    // Centro atual dos dedos
     var cx=(e.touches[0].clientX+e.touches[1].clientX)/2-rc.left;
     var cy=(e.touches[0].clientY+e.touches[1].clientY)/2-rc.top;
-    var dx=e.touches[0].clientX-e.touches[1].clientX;
-    var dy=e.touches[0].clientY-e.touches[1].clientY;
-    var dist=Math.sqrt(dx*dx+dy*dy);
-
-    // Scale relative to gesture START (not previous frame — avoids drift)
-    var totalScale=dist/_pinch.startDist;
-    var newZoom=Math.max(0.25,Math.min(5,_pinch.startZoom*totalScale));
-
-    // CSS transform: scale relative to start, origin at top-left of SVG
-    svgEl.style.transform='scale('+totalScale+')';
-
-    // Scroll: keep the start-midpoint anchored
-    // The pixel under startCx at gesture start was: startScrollLeft + startCx
-    // After scaling by totalScale it should be at: (startScrollLeft + startCx) * totalScale
-    // So scrollLeft = that - currentCx + pan delta
-    var anchorX=_pinch.startScrollLeft+_pinch.startCx;
-    var anchorY=_pinch.startScrollTop+_pinch.startCy;
-    var panX=cx-_pinch.startCx;
-    var panY=cy-_pinch.startCy;
-
-    wp2.scrollLeft=anchorX*totalScale-cx+panX*(1-totalScale);
-    wp2.scrollTop=anchorY*totalScale-cy+panY*(1-totalScale);
-
-    // Store for touchend
-    _pinch._lastScale=totalScale;
-    _pinch._lastZoom=newZoom;
-    _pinch._lastCx=cx;
-    _pinch._lastCy=cy;
-
+    // Nova distância
+    var distanciaAtual=distancia(e.touches);
+    // Fator de escala relativo ao INÍCIO (não ao frame anterior — evita drift)
+    var fatorEscala=distanciaAtual/distanciaInicial;
+    // Limita o zoom
+    var novoZoom=Math.min(Math.max(zoomInicial*fatorEscala,0.25),5);
+    fatorEscala=novoZoom/zoomInicial;
+    // Aplica transform visual (suave, GPU)
+    svgEl.style.transform='scale('+fatorEscala+')';
+    // Ajusta scroll para manter o ponto anchorado sob os dedos
+    wp2.scrollLeft=anchorX*fatorEscala-cx;
+    wp2.scrollTop=anchorY*fatorEscala-cy;
+    // Guarda para touchend
+    escalaAtual=fatorEscala;
+    zoom=novoZoom;
+    document.getElementById('zl').textContent=Math.round(zoom*100)+'%';
   } else if(touch.on&&e.touches.length===1){
-    var dx2=e.touches[0].pageX-touch.x, dy2=e.touches[0].pageY-touch.y;
-    if(!touch.moved&&(Math.abs(dx2)>DRAG_THRESHOLD||Math.abs(dy2)>DRAG_THRESHOLD)){
-      touch.moved=true;
-    }
-    if(touch.moved){
-      wp2.scrollLeft=touch.sl-dx2;
-      wp2.scrollTop=touch.st-dy2;
-      e.preventDefault();
-    }
+    var dx=e.touches[0].pageX-touch.x,dy=e.touches[0].pageY-touch.y;
+    if(!touch.moved&&(Math.abs(dx)>DRAG_THRESHOLD||Math.abs(dy)>DRAG_THRESHOLD))touch.moved=true;
+    if(touch.moved){wp2.scrollLeft=touch.sl-dx;wp2.scrollTop=touch.st-dy;e.preventDefault();}
   }
 },{passive:false});
 
 wp2.addEventListener('touchend',function(e){
-  if(_pinch.active&&e.touches.length<2){
-    // Commit: remove CSS transform, apply real zoom, redraw
+  if(touch.pinch&&e.touches.length<2){
+    // Salva scroll atual ANTES de remover transform
+    var sl=wp2.scrollLeft;
+    var st=wp2.scrollTop;
+    // Remove transform visual e redesenha com zoom real
     svgEl.style.transform='';
-    zoom=_pinch._lastZoom||zoom;
-    // cf = current scrollLeft / scrollWidth (before draw)
-    cf=wp2.scrollLeft/(wp2.scrollWidth||1);
+    // cf = posição relativa no SVG para o draw manter o scroll
+    cf=sl/(wp2.scrollWidth*escalaAtual||1);
     draw(false);
-    _pinch.active=false;
+    // Após draw, restaura scroll proporcional ao novo tamanho do SVG
+    requestAnimationFrame(function(){
+      wp2.scrollLeft=sl*escalaAtual;
+      wp2.scrollTop=st*escalaAtual;
+    });
     touch.pinch=false;
+    escalaAtual=1;
     if(e.touches.length===1){
       touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
              sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
     }
   } else if(e.touches.length===0){
     touch.on=false;
-    _pinch.active=false;
+    touch.pinch=false;
   }
 },{passive:true});
 
