@@ -551,6 +551,8 @@ var anchorY=0;
 var startCx=0; // posição dos dedos na tela no inicio
 var startCy=0;
 var escalaAtual=1;
+var pinchFIdx=null; // índice fracionário do conteúdo sob os dedos
+var lastCx=0, lastCy=0; // última posição dos dedos
 
 function distancia(t){
   return Math.hypot(t[0].clientX-t[1].clientX, t[0].clientY-t[1].clientY);
@@ -574,6 +576,14 @@ wp2.addEventListener('touchstart',function(e){
     // Ponto do conteúdo sob os dedos
     anchorX=scrollInicialL+startCx;
     anchorY=scrollInicialT+startCy;
+    // Converte anchorX para índice fracionário entre as marcas (independe de zoom)
+    // xi(i) = centerOffset + i*Gst, então: fIdx = (anchorX - centerOffset)/Gst
+    if(Gs.length>0&&Gst>0){
+      pinchFIdx=(anchorX-_XI_MARGIN)/Gst;
+    } else {
+      pinchFIdx=null;
+    }
+    lastCx=startCx; lastCy=startCy;
     escalaAtual=1;
     svgEl.style.transformOrigin='0 0';
     svgEl.style.transform='';
@@ -603,6 +613,7 @@ wp2.addEventListener('touchmove',function(e){
     wp2.scrollLeft=anchorX*fatorEscala-cx;
     wp2.scrollTop=anchorY*fatorEscala-cy;
     // Guarda para touchend
+    lastCx=cx; lastCy=cy;
     escalaAtual=fatorEscala;
     zoom=novoZoom;
     document.getElementById('zl').textContent=Math.round(zoom*100)+'%';
@@ -615,18 +626,21 @@ wp2.addEventListener('touchmove',function(e){
 
 wp2.addEventListener('touchend',function(e){
   if(touch.pinch&&e.touches.length<2){
-    // Salva scroll atual ANTES de remover transform
-    var sl=wp2.scrollLeft;
-    var st=wp2.scrollTop;
-    // Remove transform visual e redesenha com zoom real
+    // Remove transform e redesenha com zoom real
     svgEl.style.transform='';
-    // cf = posição relativa no SVG para o draw manter o scroll
-    cf=sl/(wp2.scrollWidth*escalaAtual||1);
+    var _fIdx=pinchFIdx, _cx=lastCx, _cy=lastCy;
+    var _fallbackSL=anchorX*escalaAtual-lastCx;
+    var _fallbackST=anchorY*escalaAtual-lastCy;
     draw(false);
-    // Após draw, restaura scroll proporcional ao novo tamanho do SVG
+    // Após o draw, _XI_MARGIN e Gst foram recalculados para o novo zoom.
+    // Reconverte o índice fracionário para pixel na nova geometria — exato.
     requestAnimationFrame(function(){
-      wp2.scrollLeft=sl*escalaAtual;
-      wp2.scrollTop=st*escalaAtual;
+      if(_fIdx!==null&&Gs.length>0&&Gst>0){
+        wp2.scrollLeft=(_XI_MARGIN+_fIdx*Gst)-_cx;
+      } else {
+        wp2.scrollLeft=_fallbackSL;
+      }
+      wp2.scrollTop=_fallbackST;
     });
     touch.pinch=false;
     escalaAtual=1;
