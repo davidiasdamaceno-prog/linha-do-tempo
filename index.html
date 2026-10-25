@@ -433,15 +433,15 @@ function layoutProp(margin){
   var byDec={}; decs.forEach(function(D){byDec[D.d]=D;});
   var mset={};
   Gs.forEach(function(m,i){byDec[_dec(m.year)].marks.push({m:m,i:i}); mset[m.year]=1;});
-  // largura de cada ponto (px por ano) em cada década: o suficiente para os textos não se sobreporem
-  decs.forEach(function(D){
-    var u=minU;
-    for(var j=1;j<D.marks.length;j++){
-      var a=D.marks[j-1], b=D.marks[j];
-      u=Math.max(u,req(a.m,b.m)/(b.m.year-a.m.year));
-    }
-    D.u=u;
-  });
+  // Espaçamento ÚNICO (px por ano) para todas as décadas com datas: o da década mais "apertada",
+  // ou seja, o menor valor com o qual nenhum texto de nenhuma década se sobrepõe.
+  // Décadas vazias (preenchidas só com pontos) mantêm o espaçamento mínimo, e os grandes buracos viram quebra.
+  var uAll=minU;
+  for(var pi=1;pi<Gs.length;pi++){
+    var pa=Gs[pi-1], pb=Gs[pi];
+    if(_dec(pb.year)-_dec(pa.year)<=10)uAll=Math.max(uAll,req(pa,pb)/(pb.year-pa.year));
+  }
+  decs.forEach(function(D){D.u=D.marks.length?uAll:minU;});
   var x=margin, last=null;
   decs.forEach(function(D,di){
     var prev=di>0?decs[di-1]:null;
@@ -593,7 +593,7 @@ function draw(pc){
   }));
   // Modo Décadas: pontinhos para os anos sem data (sem texto) e símbolo de quebra nos grandes intervalos
   if(propMode&&n>0){
-    var dr=Math.max(1,1.5*zoom), dcol=darkMode?'#5a554b':'#cfc7bc';
+    var dr=Math.max(2,3*zoom), dcol=darkMode?'#6b665b':'#bdb4a8';
     _pDots.forEach(function(d){
       g.appendChild(te('circle',{cx:d.x,cy:TLY,r:d.big?dr*1.5:dr,fill:dcol,'pointer-events':'none'}));
     });
