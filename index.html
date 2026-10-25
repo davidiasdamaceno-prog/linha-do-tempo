@@ -67,6 +67,34 @@ body.dark .sb-divider{background:#2a2720}
 #hamburger{background:none;border:none;cursor:pointer;padding:4px 8px;font-size:20px;color:#888;line-height:1;border-radius:6px}
 #hamburger:hover{background:#f0ece6}
 body.dark #hamburger:hover{background:#2a2a25}
+
+/* ── Filtros ── */
+#fbar{display:flex;align-items:center;gap:8px;padding:5px 16px;flex-shrink:0;flex-wrap:wrap;border-bottom:1px solid #f0ece6;background:#fff;transition:background .3s,border-color .3s}
+body.dark #fbar{background:#1e1e1a;border-color:#2a2720}
+.flbl{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+#fchips{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+#fstat{margin-left:auto;font-size:10px;color:#999}
+.fchip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:14px;border:1px solid var(--fc,#888);color:var(--fc,#888);font-size:11px;font-weight:500;cursor:pointer;user-select:none;background:transparent;transition:background .15s,color .15s}
+.fchip:hover{background:color-mix(in srgb,var(--fc,#888) 14%,transparent)}
+.fchip.on{background:var(--fc,#888);color:#fff}
+.fchip .fe{opacity:.7;font-size:11px}
+.fchip .fe:hover{opacity:1}
+.fpk-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+.fpk-none{font-size:11px;color:#bbb}
+.fpk-add{display:flex;gap:6px;align-items:center}
+.fpk-add input{flex:1}
+.flt-list{max-height:230px;overflow-y:auto;border:1px solid #e8e4df;border-radius:8px;padding:4px;margin-bottom:2px}
+body.dark .flt-list{border-color:#3a3730}
+.flt-row{display:flex;align-items:flex-start;gap:7px;padding:4px 6px;border-radius:6px;cursor:pointer;font-size:11px;line-height:1.35}
+.flt-row:hover{background:#f5f2ee}
+body.dark .flt-row:hover{background:#2a2a25}
+.flt-row input{width:auto;margin-top:2px;flex-shrink:0;cursor:pointer}
+.flt-yr{color:#999;min-width:50px;flex-shrink:0;font-size:10px;padding-top:1px}
+.flt-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;margin-top:3px}
+.flt-sub{color:#999;font-size:10px;margin-left:4px}
+.flt-sec{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;padding:6px 6px 2px;font-weight:600}
+.flt-count{font-size:10px;color:#999;margin-bottom:6px}
+.flt-empty{font-size:11px;color:#bbb;padding:8px;text-align:center}
 </style>
 
 <!-- Firebase SDK -->
@@ -135,6 +163,7 @@ auth.getRedirectResult().then(function(result){
     <button class="bg" onclick="onm()">+ Data</button>
     <button class="bo" onclick="onb()">+ Chave</button>
     <button onclick="toggleSearch()" title="Buscar ano (Ctrl+F)">⚲</button>
+    <button onclick="toggleSpacing()" id="modebtn" title="Espaçamento proporcional por década">Décadas</button>
     <button onclick="toggleDark()" id="darkbtn" title="Modo escuro (D)">☾</button>
     <span id="zl" style="font-size:11px;color:#aaa;min-width:36px;text-align:center;cursor:default">100%</span>
     <button onclick="rv()" title="Ir para última data adicionada" style="font-size:13px">⌖</button>
@@ -143,6 +172,12 @@ auth.getRedirectResult().then(function(result){
   </div>
 </div>
 <div id="hint">Scroll: zoom · Arrastar: navegar · Pinça: zoom · Clique: editar · <kbd>+</kbd><kbd>-</kbd><kbd>0</kbd> zoom · <kbd>Ctrl+F</kbd> buscar</div>
+<div id="fbar">
+  <span class="flbl">Filtros</span>
+  <span id="fchips"></span>
+  <button class="bb" onclick="newFilter()" title="Criar um novo filtro">+ Filtro</button>
+  <span id="fstat"></span>
+</div>
 <div id="wrap" style="cursor:grab"><svg id="svg"></svg></div>
 </div>
 <div id="searchpanel">
@@ -197,6 +232,7 @@ auth.getRedirectResult().then(function(result){
 <div id="tip" style="position:fixed;display:none;background:#1a1a18;color:#f5f2ee;font-size:12px;font-family:'DM Sans',sans-serif;padding:7px 11px;border-radius:8px;max-width:260px;line-height:1.5;pointer-events:none;z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:pre-wrap"></div>
 <script type="application/json" id="mdata">[{"year":-8000,"events":[{"id":"e1","text":"REVOLUÇÃO AGRÍCOLA","color":"#a3a3a3"}]},{"year":-5000,"events":[{"id":"e2","text":"EGITO ANTIGO","color":"#a3a3a3"}]},{"year":-4000,"events":[{"id":"e3","text":"ESCRITA","color":"#a3a3a3"}]},{"year":-3000,"events":[]},{"year":-2000,"events":[{"id":"e5","text":"GRÉCIA ANTIGA","color":"#a3a3a3"}]},{"year":-1200,"events":[]},{"year":-1100,"events":[]},{"year":-1000,"events":[]},{"year":-900,"events":[]},{"year":-800,"events":[{"id":"e10","text":"ROMA ANTIGA","color":"#a3a3a3"}]},{"year":-700,"events":[]},{"year":-600,"events":[]},{"year":-500,"events":[]},{"year":-400,"events":[]},{"year":-100,"events":[]},{"year":100,"events":[]},{"year":500,"events":[{"id":"e17","text":"476 — QUEDA DO IMP. ROMANO DO OCIDENTE","color":"#a3a3a3"}]},{"year":1000,"events":[]},{"year":1100,"events":[]},{"year":1200,"events":[]},{"year":1300,"events":[]},{"year":1400,"events":[]},{"year":1453,"events":[{"id":"e23","text":"QUEDA DO IMP. ROMANO DO ORIENTE","color":"#a3a3a3"}]},{"year":1494,"events":[{"id":"e24","text":"TRATADO DE TORDESILHAS","color":"#f97316"}]},{"year":1500,"events":[{"id":"e25","text":"D. PEDRO CHEGA AO BRASIL","color":"#22c55e"}]},{"year":1501,"events":[]},{"year":1517,"events":[{"id":"e27","text":"REFORMA PROTESTANTE","color":"#3b82f6"}]},{"year":1534,"events":[{"id":"e28","text":"CAPITANIAS HEREDITÁRIAS","color":"#22c55e"}]},{"year":1545,"events":[{"id":"e29","text":"CONTRARREFORMA","color":"#3b82f6"}]},{"year":1549,"events":[{"id":"e30","text":"GOVERNO GERAL","color":"#22c55e"},{"id":"u1781735374610","text":"CHEGADA JESUÍTAS","color":"#9ca3af"}]},{"year":1555,"events":[{"id":"e31","text":"FRANÇA ANTÁRTICA","color":"#06b6d4"}]},{"year":1560,"events":[{"id":"e32","text":"CONFEDERAÇÃO DOS TAMOIOS","color":"#22c55e"}]},{"year":1580,"events":[]},{"year":1600,"events":[]},{"year":1601,"events":[]},{"year":1612,"events":[{"id":"e36","text":"FRANÇA EQUINOCIAL","color":"#06b6d4"}]},{"year":1621,"events":[{"id":"e37","text":"WIC","color":"#ec4899"}]},{"year":1624,"events":[{"id":"e38","text":"INVASÕES HOLANDESAS","color":"#22c55e"}]},{"year":1640,"events":[{"id":"e39a","text":"GUERRAS DE RESTAURAÇÃO","color":"#f97316"},{"id":"e39b","text":"REVOLUÇÃO PURITANA","color":"#3b82f6"}]},{"year":1641,"events":[{"id":"e40","text":"REVOLTA DE AMADOR BUENO","color":"#22c55e"}]},{"year":1645,"events":[{"id":"e41","text":"INSURREIÇÃO PERNAMBUCANA","color":"#22c55e"}]},{"year":1660,"events":[{"id":"e42","text":"REVOLUÇÃO DA CACHAÇA","color":"#22c55e"}]},{"year":1684,"events":[{"id":"e43","text":"REVOLTA DE BECKMAN","color":"#22c55e"}]},{"year":1688,"events":[{"id":"e44","text":"REVOLUÇÃO GLORIOSA","color":"#3b82f6"}]},{"year":1700,"events":[]},{"year":1701,"events":[]},{"year":1703,"events":[{"id":"e47","text":"TRATADO DE METHUEN","color":"#f97316"}]},{"year":1707,"events":[{"id":"e48","text":"GUERRA DOS EMBOABAS","color":"#22c55e"}]},{"year":1710,"events":[{"id":"e49","text":"GUERRA DOS MASCATES","color":"#22c55e"}]},{"year":1720,"events":[{"id":"e50a","text":"CASAS DE FUNDIÇÃO","color":"#22c55e"},{"id":"e50b","text":"REVOLTA DE VILA RICA/FILIPE DOS SANTOS","color":"#22c55e"}]},{"year":1750,"events":[{"id":"e51","text":"TRATADO DE MADRID","color":"#f97316"}]},{"year":1760,"events":[{"id":"e52","text":"INÍCIO DA REV. INDUSTRIAL","color":"#3b82f6"}]},{"year":1776,"events":[{"id":"e53","text":"INDEPENDÊNCIA DOS EUA","color":"#ef4444"}]},{"year":1777,"events":[]},{"year":1789,"events":[{"id":"e55a","text":"REVOLUÇÃO FRANCESA","color":"#06b6d4"},{"id":"e55b","text":"CONJURAÇÃO MINEIRA","color":"#22c55e"}]},{"year":1791,"events":[{"id":"e56","text":"REVOLUÇÃO DO HAITI","color":"#06b6d4"}]},{"year":1798,"events":[{"id":"e57","text":"CONJURAÇÃO BAIANA","color":"#22c55e"}]},{"year":1800,"events":[]},{"year":1801,"events":[]},{"year":1808,"events":[{"id":"e61","text":"CHEGADA DE DOM JOÃO","color":"#f97316"}]},{"year":1810,"events":[{"id":"e62","text":"TRATADOS DE 1810","color":"#3b82f6"}]},{"year":1815,"events":[{"id":"e63","text":"CONGRESSO DE VIENA","color":"#a3a3a3"}]},{"year":1817,"events":[{"id":"e64","text":"REVOLUÇÃO PERNAMBUCANA","color":"#22c55e"}]},{"year":1820,"events":[{"id":"e65","text":"REVOLUÇÃO DO PORTO","color":"#f97316"}]},{"year":1822,"events":[{"id":"e66","text":"INDEPENDÊNCIA DO BRASIL","color":"#22c55e"}]},{"year":1823,"events":[{"id":"e67","text":"DOUTRINA MONROE","color":"#ef4444","desc":"América para os americanos"},{"id":"u1783818006299","text":"NOITE DA AGONIA","color":"#16a34a","desc":""}]},{"year":1824,"events":[{"id":"e68a","text":"CONSTITUIÇÃO DA MANDIOCA","color":"#22c55e"},{"id":"e68b","text":"CONFEDERAÇÃO DO EQUADOR","color":"#22c55e"}]},{"year":1825,"events":[{"id":"e69","text":"GUERRA DA CISPLATINA","color":"#eab308"}]},{"year":1831,"events":[{"id":"e70a","text":"LEI FEIJÓ","color":"#22c55e"},{"id":"e70b","text":"NOITE DAS GARRAFADAS","color":"#22c55e"}]},{"year":1834,"events":[{"id":"e71","text":"ATO ADICIONAL","color":"#22c55e"}]},{"year":1835,"events":[{"id":"e72a","text":"CABANAGEM","color":"#22c55e"},{"id":"e72b","text":"G. DOS FARRAPOS","color":"#22c55e"},{"id":"e72c","text":"REV. DOS MALÊS","color":"#22c55e"}]},{"year":1837,"events":[{"id":"e73","text":"SABINADA","color":"#22c55e"}]},{"year":1838,"events":[{"id":"e74","text":"BALAIADA","color":"#22c55e"}]},{"year":1840,"events":[{"id":"e75","text":"GOLPE DA MAIORIDADE","color":"#22c55e"}]},{"year":1844,"events":[{"id":"e76","text":"TARIFA ALVES BRANCO","color":"#22c55e"}]},{"year":1845,"events":[{"id":"e77a","text":"BILL ABERDEEN","color":"#3b82f6","desc":"Apreensão de navios negreiros no atlântico"},{"id":"e77b","text":"DESTINO MANIFESTO","color":"#ef4444","desc":"Americanos foram escolhidos por Deus para expandir seu território do oceano Atlântico ao Pacífico, justificou a tomada de terras indígenas e guerras, em nome do progresso."}]},{"year":1848,"events":[{"id":"e78a","text":"REVOLUÇÃO PRAIEIRA","color":"#22c55e"},{"id":"e78b","text":"PRIMAVERA DOS POVOS","color":"#a3a3a3"},{"id":"e78c","text":"UNIF. ITALIANA","color":"#eab308"}]},{"year":1850,"events":[{"id":"e79a","text":"LEI EUSÉBIO DE QUEIRÓS","color":"#22c55e"},{"id":"e79b","text":"LEI DE TERRAS","color":"#22c55e"},{"id":"e79c","text":"ERA MAUÁ","color":"#22c55e"},{"id":"e79d","text":"2ª REV. INDUSTRIAL","color":"#3b82f6"}]},{"year":1862,"events":[{"id":"e80","text":"HOMESTEAD ACT","color":"#ef4444"}]},{"year":1864,"events":[{"id":"e81","text":"GUERRA DO PARAGUAI","color":"#22c55e"}]},{"year":1888,"events":[{"id":"e82","text":"LEI ÁUREA","color":"#22c55e"}]},{"year":1889,"events":[{"id":"e83","text":"GOLPE MILITAR DEODORO","color":"#16a34a"}]},{"year":1891,"events":[{"id":"e84a","text":"1ª CONSTITUIÇÃO REPUBLICANA","color":"#16a34a"},{"id":"e84b","text":"RENÚNCIA DE DEODORO","color":"#16a34a"},{"id":"e84c","text":"1ª REVOLTA DA ARMADA","color":"#16a34a"}]},{"year":1893,"events":[{"id":"e85a","text":"2ª REVOLTA DA ARMADA","color":"#22c55e"},{"id":"e85b","text":"REV. FEDERALISTA","color":"#16a34a","desc":""}]},{"year":1894,"events":[{"id":"e86","text":"GUERRA DE CANUDOS","color":"#22c55e"}]},{"year":1896,"events":[]},{"year":1898,"events":[]},{"year":1900,"events":[]},{"year":1901,"events":[]},{"year":1799,"events":[]},{"year":1836,"events":[{"id":"u1782156139020","text":"ROMANTISMO NO BRASIL","color":"#8b5cf6"}]},{"year":1881,"events":[{"id":"u1782426487762","text":"REALISMO NO BRASIL","color":"#8b5cf6"}]},{"year":1902,"events":[]},{"year":1922,"events":[]}]</script>
 <script type="application/json" id="bdata">[{"id":"b1","label":"PRÉ-HISTÓRIA","from":-8000,"to":-4000,"color":"#f97316","lane":6,"side":"top"},{"id":"b2","label":"IDADE ANTIGA","from":-4000,"to":500,"color":"#f97316","lane":6,"side":"top"},{"id":"b3","label":"ALTA IDADE MÉDIA","from":500,"to":1000,"color":"#f97316","lane":6,"side":"top"},{"id":"b4","label":"BAIXA IDADE MÉDIA","from":1000,"to":1453,"color":"#f97316","lane":6,"side":"top"},{"id":"b5","label":"IDADE MODERNA","from":1453,"to":1789,"color":"#f97316","lane":6,"side":"top"},{"id":"b6","label":"IDADE CONTEMPORÂNEA","from":1789,"to":1901,"color":"#f97316","lane":6,"side":"top"},{"id":"b7","label":"PRÉ-HOMÉRICO","from":-2000,"to":-1200,"color":"#9ca3af","lane":2,"side":"top"},{"id":"b8","label":"HOMÉRICO","from":-1200,"to":-800,"color":"#9ca3af","lane":2,"side":"top"},{"id":"b9","label":"ARCAICO","from":-800,"to":-500,"color":"#9ca3af","lane":2,"side":"top"},{"id":"b10","label":"CLÁSSICO","from":-500,"to":-400,"color":"#9ca3af","lane":2,"side":"top"},{"id":"b11","label":"HELENÍSTICO","from":-400,"to":-100,"color":"#9ca3af","lane":2,"side":"top"},{"id":"b12","label":"RENASCIMENTO CULTURAL","from":1301,"to":1600,"color":"#f472b6","lane":4,"side":"top"},{"id":"b13","label":"UNIÃO IBÉRICA","from":1580,"to":1640,"color":"#f97316","lane":2,"side":"top"},{"id":"b14","label":"CICLO DO OURO","from":1701,"to":1800,"color":"#eab308","lane":3,"side":"top"},{"id":"b15","label":"REFORMAS POMBALINAS","from":1750,"to":1777,"color":"#16a34a","lane":1,"side":"top"},{"id":"u1782156139017","label":"ERA NAPOLEÔNICA","from":1799,"to":1815,"color":"#06b6d4","lane":2,"side":"top"},{"id":"u1782156139018","label":"PERÍODO JOANINO","from":1808,"to":1822,"color":"#f97316","lane":1,"side":"top"},{"id":"u1782156139019","label":"1° REINADO","from":1822,"to":1831,"color":"#16a34a","lane":1,"side":"top"},{"id":"u1782426487757","label":"QUINHENTISMO","from":1501,"to":1600,"color":"#16a34a","lane":1,"side":"bottom"},{"id":"u1782426487758","label":"BARROCO","from":1601,"to":1700,"color":"#8b5cf6","lane":3,"side":"bottom"},{"id":"u1782426487759","label":"ARCADISMO","from":1701,"to":1800,"color":"#8b5cf6","lane":3,"side":"bottom"},{"id":"u1782426487760","label":"ROMANTISMO","from":1801,"to":1850,"color":"#8b5cf6","lane":3,"side":"bottom"},{"id":"u1782426487761","label":"REALISMO/NATURALISMO/PARNASIANISMO/SIMBOLISMO","from":1850,"to":1900,"color":"#8b5cf6","lane":3,"side":"bottom"},{"id":"u1782426487763","label":"TROVADORISMO","from":1100,"to":1500,"color":"#3b82f6","lane":3,"side":"bottom"},{"id":"u1782426487766","label":"HUMANISMO","from":1301,"to":1600,"color":"#eab308","lane":2,"side":"bottom"},{"id":"u1782426487767","label":"CLASSICISMO","from":1401,"to":1600,"color":"#8b5cf6","lane":3,"side":"bottom"},{"id":"u1783454209250","label":"PERÍODO REGENCIAL","from":1831,"to":1840,"color":"#ef4444","lane":1,"side":"top"},{"id":"u1783454209251","label":"2° REINADO","from":1840,"to":1889,"color":"#eab308","lane":1,"side":"top"}]</script>
+<script type="application/json" id="fdata">[]</script>
 <script>
 
 // Data from file (used only for import reference)
@@ -205,28 +241,35 @@ var _fileBrackets=JSON.parse(document.getElementById('bdata').textContent);
 // Always start blank — data loads from Firebase on login
 var marks=[];
 var brackets=[];
+var filters=[];        // definições dos filtros: {id,name,color}
+var activeFilters=[];  // ids dos filtros ligados agora (não é salvo)
 var _currentProjectId=null;
 var _currentProjectName='Sem título';
 // ── Undo/Redo stack ──
 var _undoStack=[], _redoStack=[], _MAX_UNDO=30;
 function _snapshot(){
-  _undoStack.push(JSON.stringify({marks:marks,brackets:brackets}));
+  _undoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   if(_undoStack.length>_MAX_UNDO)_undoStack.shift();
   _redoStack=[];
   _updateUndoBtn();
 }
+function _applyState(state){
+  marks=state.marks; brackets=state.brackets; filters=state.filters||[];
+  activeFilters=activeFilters.filter(function(id){return !!findFilter(id);});
+  renderFilterBar();
+}
 function _undo(){
   if(!_undoStack.length)return;
-  _redoStack.push(JSON.stringify({marks:marks,brackets:brackets}));
+  _redoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   var state=JSON.parse(_undoStack.pop());
-  marks=state.marks; brackets=state.brackets;
+  _applyState(state);
   cm(); draw(true); _updateUndoBtn();
 }
 function _redo(){
   if(!_redoStack.length)return;
-  _undoStack.push(JSON.stringify({marks:marks,brackets:brackets}));
+  _undoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   var state=JSON.parse(_redoStack.pop());
-  marks=state.marks; brackets=state.brackets;
+  _applyState(state);
   cm(); draw(true); _updateUndoBtn();
 }
 function _updateUndoBtn(){
@@ -252,9 +295,62 @@ var _srcTemplate=(function(){
   };
   h=_replaceScriptContent(h,'mdata','<!--MDATA-->');
   h=_replaceScriptContent(h,'bdata','<!--BDATA-->');
+  h=_replaceScriptContent(h,'fdata','<!--FDATA-->');
   return h;
 })();
-var PAL=['#374151','#ef4444','#f97316','#d97706','#16a34a','#0891b2','#2563eb','#7c3aed','#db2777','#be185d','#6b7280','#166534'];
+// ── Cores: não há paleta pré-definida. As cores disponíveis são as que já foram usadas ──
+// em algum evento ou chave da linha do tempo (as mais usadas primeiro).
+function usedColors(){
+  var cnt={}, order=[];
+  function add(c){
+    if(!c||typeof c!=='string'||c.charAt(0)!=='#')return;
+    c=c.toLowerCase();
+    if(!(c in cnt)){cnt[c]=0;order.push(c);}
+    cnt[c]++;
+  }
+  marks.slice().sort(function(a,b){return a.year-b.year;}).forEach(function(m){
+    (m.events||[]).forEach(function(e){add(e.color);});
+  });
+  brackets.forEach(function(b){add(b.color);});
+  return order.map(function(c,i){return {c:c,i:i,n:cnt[c]};})
+    .sort(function(a,b){return (b.n-a.n)||(a.i-b.i);})
+    .map(function(o){return o.c;});
+}
+
+// ── Descrição: nunca mais larga que o título do evento ──
+function dfs(){return Math.max(5,efs()*0.78);}       // fonte da descrição do evento
+function dcw(fs){return fs*0.54;}                     // largura estimada por caractere (itálico, minúsculas)
+function fitOneLine(text,maxW,fs){                    // uma linha só, cortada com … se não couber
+  var cw=dcw(fs), maxCh=Math.max(1,Math.floor(maxW/cw));
+  if(text.length<=maxCh)return text;
+  return text.slice(0,Math.max(1,maxCh-1)).replace(/\s+$/,'')+'…';
+}
+// Descrição do evento: sempre UMA linha, com no máximo a largura do título.
+// Se o título for tão curto que nem 4 palavras cabem, mostra pelo menos 4 palavras inteiras.
+var MIN_DESC_WORDS=4;
+function evDescLine(ev){
+  if(!ev||!ev.desc)return '';
+  var full=String(ev.desc).trim().replace(/\s+/g,' ');
+  if(!full)return '';
+  var maxCh=Math.max(1,Math.floor(tw(ev.text,efs())/dcw(dfs())));
+  if(full.length<=maxCh)return full;                   // cabe inteira
+  var words=full.split(' '), line='', n=0;
+  for(var i=0;i<words.length;i++){                     // palavras inteiras que cabem (1 caractere fica para o …)
+    var cand=line?line+' '+words[i]:words[i];
+    if(cand.length>maxCh-1)break;
+    line=cand; n++;
+  }
+  if(n<MIN_DESC_WORDS){                                // título curto: garante o mínimo de palavras
+    n=Math.min(MIN_DESC_WORDS,words.length);
+    line=words.slice(0,n).join(' ');
+  }
+  return n<words.length?line+'…':line;
+}
+function evDescW(ev){var l=evDescLine(ev);return l?l.length*dcw(dfs()):0;}
+function evH(ev){                                      // altura que o evento ocupa na coluna
+  var h=efs()*1.55;
+  return ev&&ev.desc&&evDescLine(ev)?h+dfs()*1.2+2:h;
+}
 var BG='#fafaf8', FN="'DM Sans',sans-serif";
 var zoom=1, _id=Date.now(), cf=0.5, TLY=280, BLH=24, W=3200, H=600;
 var _scrollToYear=null;
@@ -262,7 +358,36 @@ var _lastAddedYear=null;
 var Gs=[], Gst=1;
 
 function uid(){return 'u'+(++_id);}
-function gs(){return marks.slice().sort(function(a,b){return a.year-b.year;});}
+// ── Filtros: lógica de visibilidade ──
+function findFilter(id){for(var i=0;i<filters.length;i++){if(filters[i].id===id)return filters[i];}return null;}
+function inF(it,fid){return !!(it&&it.flt&&it.flt.indexOf(fid)>=0);}
+function passF(it){
+  if(!it||!it.flt)return false;
+  for(var i=0;i<activeFilters.length;i++){if(it.flt.indexOf(activeFilters[i])>=0)return true;}
+  return false;
+}
+function isFiltering(){return activeFilters.length>0;}
+function visBrackets(){return isFiltering()?brackets.filter(passF):brackets;}
+// Com filtro ligado: TODOS os anos continuam na linha. Só mudam os eventos:
+// os do filtro aparecem com texto (events) e os de fora viram bolinhas coloridas embaixo do ano (hid).
+function gs(){
+  var all=marks.slice().sort(function(a,b){return a.year-b.year;});
+  if(!isFiltering())return all;
+  return all.map(function(m){
+    var evs=[], hid=[];
+    (m.events||[]).forEach(function(e){(passF(e)?evs:hid).push(e);});
+    return {year:m.year,events:evs,hid:hid};
+  });
+}
+// altura que a coluna de um ano ocupa: textos dos eventos + pilha de bolinhas
+function dotR(){return Math.max(2,2.8*zoom);}
+function dotStep(){return dotR()*2+2.5;}
+function colH(mk){
+  var h=0;
+  (mk.events||[]).forEach(function(e){h+=evH(e);});
+  if(mk.hid&&mk.hid.length)h+=mk.hid.length*dotStep()+4;
+  return h;
+}
 var RM=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
 function rom(n){var r='';for(var i=0;i<RM.length;i++){while(n>=RM[i][0]){r+=RM[i][1];n-=RM[i][0];}}return r;}
 function yl(y){if(y<0)return Math.abs(y)+' a.C.';if(y>=100&&y<=1400&&y%100===0)return 'SEC '+rom(Math.round(y/100));return String(y);}
@@ -271,18 +396,125 @@ function efs(){return Math.max(6,Math.min(16,8*zoom));}
 function yfs(r){return Math.max(7,Math.min(18,(r?11.5:9.5)*zoom));}
 function bfs(){return Math.max(6,Math.min(14,8.5*zoom));}
 function tw(s,f){return s.length*(f||efs())*0.62;}
-function ch(mk){var f=efs();if(!mk.events||!mk.events.length)return 10*zoom;var x=0;for(var i=0;i<mk.events.length;i++){var w=tw(mk.events[i].text,f);if(w>x)x=w;}return x/2+10*zoom;}
+function ch(mk){var f=efs();if(!mk.events||!mk.events.length)return 10*zoom;var x=0;for(var i=0;i<mk.events.length;i++){var w=Math.max(tw(mk.events[i].text,f),evDescW(mk.events[i]));if(w>x)x=w;}return x/2+10*zoom;}
 function cs(){var s=gs(),st=50*zoom;for(var i=0;i<s.length-1;i++){var n=ch(s[i])+ch(s[i+1])+4*zoom;if(n>st)st=n;}return st;}
 var NS='http://www.w3.org/2000/svg';
 function ne(t){return document.createElementNS(NS,t);}
 function se(e,a){for(var k in a)e.setAttribute(k,a[k]);return e;}
 function te(t,a,x){var e=ne(t);se(e,a);if(x!==undefined)e.textContent=x;return e;}
+// ══════════ Modo "Décadas": espaçamento proporcional ══════════
+// Cada década é dividida em 10 pontos (um por ano). Anos com data ocupam o seu ponto;
+// os demais aparecem só como pontinhos sobre a linha, sem texto.
+var propMode=false;
+try{propMode=localStorage.getItem('ldt_prop')==='1';}catch(e){}
+var _pAnch=[], _pMarkX=[], _pDots=[], _pBreaks=[], _pDecs={}, _pStart=0, _pEnd=0, _pU0=9, _pU1=9;
+var PROP_FILL_MAX=3;      // até 3 décadas vazias entre duas décadas com datas são preenchidas com pontos
+function _dec(y){return Math.floor(y/10)*10;}
+function layoutProp(margin){
+  var n=Gs.length;
+  _pAnch=[]; _pMarkX=[]; _pDots=[]; _pBreaks=[]; _pDecs={};
+  if(!n){_pStart=_pEnd=margin;return;}
+  var minU=Math.max(3,9*zoom), gapW=44*zoom;
+  function req(a,b){return ch(a)+ch(b)+4*zoom;}
+  // décadas que têm datas
+  var occ=[];
+  Gs.forEach(function(m){var d=_dec(m.year);if(!occ.length||occ[occ.length-1]!==d)occ.push(d);});
+  // décadas desenhadas = as com datas + as vazias pequenas entre elas; buracos grandes viram uma quebra
+  var decs=[];
+  occ.forEach(function(d,i){
+    var brk=false;
+    if(i>0){
+      var empty=(d-occ[i-1])/10-1;
+      if(empty<=PROP_FILL_MAX){for(var k=1;k<=empty;k++)decs.push({d:occ[i-1]+10*k,marks:[],brk:false});}
+      else brk=true;
+    }
+    decs.push({d:d,marks:[],brk:brk});
+  });
+  var byDec={}; decs.forEach(function(D){byDec[D.d]=D;});
+  var mset={};
+  Gs.forEach(function(m,i){byDec[_dec(m.year)].marks.push({m:m,i:i}); mset[m.year]=1;});
+  // largura de cada ponto (px por ano) em cada década: o suficiente para os textos não se sobreporem
+  decs.forEach(function(D){
+    var u=minU;
+    for(var j=1;j<D.marks.length;j++){
+      var a=D.marks[j-1], b=D.marks[j];
+      u=Math.max(u,req(a.m,b.m)/(b.m.year-a.m.year));
+    }
+    D.u=u;
+  });
+  var x=margin, last=null;
+  decs.forEach(function(D,di){
+    var prev=di>0?decs[di-1]:null;
+    if(D.brk)x+=gapW;
+    var first=D.marks[0];
+    if(first&&last){                                   // afasta a década se o último texto da anterior encostar no primeiro desta
+      var need=last.x+req(last.m,first.m)-(x+(first.m.year-D.d)*D.u);
+      if(need>0)x+=need;
+    }
+    D.x0=x;
+    if(D.brk&&prev)_pBreaks.push((prev.x0+9*prev.u+D.x0)/2);
+    D.marks.forEach(function(o){var mx=x+(o.m.year-D.d)*D.u; _pMarkX[o.i]=mx; last={x:mx,m:o.m};});
+    for(var k=0;k<10;k++){
+      var yr=D.d+k;
+      if(!mset[yr])_pDots.push({x:x+k*D.u,year:yr,big:k===0});
+    }
+    _pAnch.push({y:D.d,x:x},{y:D.d+9,x:x+9*D.u});
+    _pDecs[D.d]=D;
+    x+=10*D.u;
+  });
+  _pU0=decs[0].u; _pU1=decs[decs.length-1].u;
+  _pStart=decs[0].x0; _pEnd=decs[decs.length-1].x0+9*decs[decs.length-1].u;
+}
+function xOfProp(y){
+  var a=_pAnch, n=a.length;
+  if(y<=a[0].y)return a[0].x+(y-a[0].y)*_pU0;
+  if(y>=a[n-1].y)return a[n-1].x+(y-a[n-1].y)*_pU1;
+  for(var i=0;i<n-1;i++){
+    if(a[i].y<=y&&y<=a[i+1].y){
+      var t=(y-a[i].y)/(a[i+1].y-a[i].y);
+      return a[i].x+t*(a[i+1].x-a[i].x);
+    }
+  }
+  return a[0].x;
+}
+function yearAtX(x){                                   // inverso de xOfProp
+  var a=_pAnch, n=a.length;
+  if(!n)return null;
+  if(x<=a[0].x)return a[0].y+(x-a[0].x)/_pU0;
+  if(x>=a[n-1].x)return a[n-1].y+(x-a[n-1].x)/_pU1;
+  for(var i=0;i<n-1;i++){
+    if(a[i].x<=x&&x<=a[i+1].x){
+      var t=(x-a[i].x)/((a[i+1].x-a[i].x)||1);
+      return a[i].y+t*(a[i+1].y-a[i].y);
+    }
+  }
+  return a[0].y;
+}
+function updateModeBtn(){
+  var b=document.getElementById('modebtn'); if(!b)return;
+  b.className=propMode?'bb':'';
+  b.title=propMode?'Espaçamento proporcional por década: LIGADO (clique para voltar ao espaçamento igual)':'Espaçamento proporcional por década: desligado';
+}
+function toggleSpacing(){
+  var cy=centerYear();
+  propMode=!propMode;
+  _pAnch=[]; _pMarkX=[];
+  try{localStorage.setItem('ldt_prop',propMode?'1':'0');}catch(e){}
+  updateModeBtn();
+  var s=gs();
+  if(cy===null&&s.length)cy=s[0].year;
+  if(cy!==null)_scrollToYear=cy;
+  draw(false);
+}
+
 function xi(i){
+  if(propMode&&i<_pMarkX.length&&_pMarkX.length===Gs.length)return _pMarkX[i];
   if(Gs.length===0)return Math.floor(W/2);
   return Math.floor(_XI_MARGIN+i*Gst);
 }
 var _XI_MARGIN=2000; // updated each draw()
 function xOf(y){
+  if(propMode&&_pAnch.length)return xOfProp(y);
   var s=Gs,n=s.length;
   if(!n)return _XI_MARGIN;
   if(n>=2){
@@ -305,7 +537,12 @@ function xOf(y){
 
 function draw(pc){
   var wp=document.getElementById('wrap');
+  // No modo Décadas, guarda o ANO que está no centro da tela para manter a posição depois de redesenhar
+  var _pcY=null;
+  if(pc&&propMode&&_pAnch.length)_pcY=yearAtX(wp.scrollLeft+wp.clientWidth/2);
   Gs=gs(); Gst=cs();
+  var VB=visBrackets();
+  updateFilterStat(VB);
   var n=Gs.length;
   var wp3=document.getElementById('wrap');
   var vpW=wp3?wp3.clientWidth:800;
@@ -314,18 +551,26 @@ function draw(pc){
   // Padding = max(2 viewports, same size as content) so always scrollable
   // Fixed large margin so SVG structure is stable across zoom changes
   _XI_MARGIN=Math.max(3000, contentW);
+  if(propMode){
+    _XI_MARGIN=3000;
+    layoutProp(_XI_MARGIN);
+    contentW=n>0?(_pEnd-_XI_MARGIN):0;
+  }
   var W=_XI_MARGIN+contentW+_XI_MARGIN;
   if(W<vpW) W=vpW;
   var ef=efs(), bf=bfs(), LH=ef*1.55;
-  var maxEv=0;
-  for(var i=0;i<Gs.length;i++)if(Gs[i].events&&Gs[i].events.length>maxEv)maxEv=Gs[i].events.length;
+  var maxEvH=0;   // altura da coluna de eventos mais alta (conta as linhas de descrição)
+  for(var i=0;i<Gs.length;i++){
+    var _sh=colH(Gs[i]);
+    if(_sh>maxEvH)maxEvH=_sh;
+  }
   var mlt=0,mlb=0;
-  for(var i=0;i<brackets.length;i++){
-    var b=brackets[i];
+  for(var i=0;i<VB.length;i++){
+    var b=VB[i];
     if(b.side==='top'&&b.lane>mlt)mlt=b.lane;
     if(b.side==='bottom'&&b.lane>mlb)mlb=b.lane;
   }
-  var ABOVE=(mlt+2)*BLH*zoom+30, BELOW=30+maxEv*LH+70+(mlb>0?(mlb+2)*BLH*zoom:0);
+  var ABOVE=(mlt+2)*BLH*zoom+30, BELOW=30+maxEvH+70+(mlb>0?(mlb+2)*BLH*zoom:0);
   var H=ABOVE+TLY+BELOW;
   if(pc){var sw=wp.scrollWidth||1;cf=(wp.scrollLeft+wp.clientWidth/2)/sw;}
   var svg=document.getElementById('svg');
@@ -336,16 +581,30 @@ function draw(pc){
   var g=ne('g'); g.setAttribute('transform','translate(0,'+ABOVE+')'); svg.appendChild(g);
   for(var i=0;i<n;i++){
     var gx=xi(i);
-    g.appendChild(te('line',{x1:gx,y1:-ABOVE+5,x2:gx,y2:TLY+BELOW-5,stroke:'#ede9e3','stroke-width':'0.3',opacity:'0.45'}));
+    // linhas verticais dos anos: mais suaves (50%) no modo escuro
+    g.appendChild(te('line',{x1:gx,y1:-ABOVE+5,x2:gx,y2:TLY+BELOW-5,stroke:'#ede9e3','stroke-width':'0.3',opacity:darkMode?'0.22':'0.45'}));
   }
   g.appendChild(te('line',{
-    x1: Gs.length>0 ? xi(0)-60 : W/2-100,
+    x1: Gs.length>0 ? (propMode?_pStart-30:xi(0)-60) : W/2-100,
     y1: TLY,
-    x2: Gs.length>0 ? xi(Gs.length-1)+60 : W/2+100,
+    x2: Gs.length>0 ? (propMode?_pEnd+30:xi(Gs.length-1)+60) : W/2+100,
     y2: TLY,
     stroke:'#c8bfb5','stroke-width':'1.5'
   }));
-  for(var bi=0;bi<brackets.length;bi++){
+  // Modo Décadas: pontinhos para os anos sem data (sem texto) e símbolo de quebra nos grandes intervalos
+  if(propMode&&n>0){
+    var dr=Math.max(1,1.5*zoom), dcol=darkMode?'#5a554b':'#cfc7bc';
+    _pDots.forEach(function(d){
+      g.appendChild(te('circle',{cx:d.x,cy:TLY,r:d.big?dr*1.5:dr,fill:dcol,'pointer-events':'none'}));
+    });
+    _pBreaks.forEach(function(bx){
+      var s2=Math.max(3,4*zoom), bc=darkMode?'#8a8478':'#b0a898';
+      g.appendChild(te('rect',{x:bx-s2*1.6,y:TLY-s2,width:s2*3.2,height:s2*2,fill:BG,'pointer-events':'none'}));
+      g.appendChild(te('line',{x1:bx-s2*0.9,y1:TLY+s2,x2:bx-s2*0.1,y2:TLY-s2,stroke:bc,'stroke-width':Math.max(1,zoom),'pointer-events':'none'}));
+      g.appendChild(te('line',{x1:bx+s2*0.1,y1:TLY+s2,x2:bx+s2*0.9,y2:TLY-s2,stroke:bc,'stroke-width':Math.max(1,zoom),'pointer-events':'none'}));
+    });
+  }
+  for(var bi=0;bi<VB.length;bi++){
     (function(br){
       var x1=xOf(br.from),x2=xOf(br.to); if(x2<=x1)x2=x1+20;
       var isT=(br.side==='top'), base=isT?TLY-8:TLY+8, sign=isT?-1:1;
@@ -358,9 +617,9 @@ function draw(pc){
       var phit=ne('path'); se(phit,{d:pd,stroke:'transparent','stroke-width':Math.max(8,10*zoom),fill:'none','stroke-linecap':'round'}); phit.style.cursor='pointer'; gr.appendChild(phit);
       var p=ne('path'); se(p,{d:pd,stroke:br.color,'stroke-width':Math.max(1,1.5*zoom),fill:'none','stroke-linecap':'round','pointer-events':'none'}); gr.appendChild(p);
       var lw=br.label.length*bf*0.6+12;
-      // Rect width based on actual rendered text (truncated desc)
-      var descRendered=br.desc?(br.desc.length>50?br.desc.slice(0,48)+'…':br.desc):'';
-      var lw2=br.desc?Math.max(lw,descRendered.length*bf*0.48+8):lw;
+      // A descrição nunca fica mais larga que o nome da chave (o texto completo aparece ao passar o mouse)
+      var descRendered=br.desc?fitOneLine(br.desc,br.label.length*bf*0.6,Math.max(5,bf*0.82)):'';
+      var lw2=lw;
       var descH=br.desc?(bf*0.85+2):0;
       var totalH=bf+3+descH;
       var rectY=isT?(ly-bf-1):(ly-bf-1);
@@ -369,7 +628,7 @@ function draw(pc){
       if(br.desc){
         var df=Math.max(5,bf*0.82);
         var dy=isT?(ly+df+1):(ly+df+1);
-        var dtx=te('text',{x:mid,y:dy,'text-anchor':'middle','font-size':df,fill:br.color+'aa','font-family':FN,'font-style':'italic','pointer-events':'none'},br.desc.length>50?br.desc.slice(0,48)+'…':br.desc);
+        var dtx=te('text',{x:mid,y:dy,'text-anchor':'middle','font-size':df,fill:br.color+'aa','font-family':FN,'font-style':'italic','pointer-events':'none'},descRendered);
         gr.appendChild(dtx);
         attachTip(ltx,br.label+' — '+br.desc);
         attachTip(lrect,br.label+' — '+br.desc);
@@ -381,11 +640,11 @@ function draw(pc){
         ltx.addEventListener('click',openBr);
       })(br.id);
       g.appendChild(gr);
-    })(brackets[bi]);
+    })(VB[bi]);
   }
   var si=-1; for(var i=0;i<Gs.length;i++){if(Gs[i].year===100){si=i;break;}}
   var ax=si>=0?xi(si):xi(Math.floor(n/2)), afs=Math.max(7,Math.min(12,8.5*zoom));
-  var ay=TLY+30+maxEv*LH+20, al=Math.max(50,90*zoom);
+  var ay=TLY+30+maxEvH+20, al=Math.max(50,90*zoom);
   var ag=ne('g');
   // Only show BC/AD arrows when timeline has data spanning both sides of year 0
   var _hasBC = Gs.some(function(m){ return m.year < 0; });
@@ -423,18 +682,33 @@ function draw(pc){
             mg.appendChild(te('rect',{x:x-etW/2,y:ey-ef2,width:etW,height:ef2+2,fill:BG,'pointer-events':'none'}));
             var etx=te('text',{x:x,y:ey,'text-anchor':'middle','font-size':ef2,fill:ev.color,'font-family':FN,'font-weight':'500'},ev.text);
             etx.style.cursor='pointer';
-            if(ev.desc){
-              var df=Math.max(5,ef2*0.78);
-              var descTx=te('text',{x:x,y:ey+df,'text-anchor':'middle','font-size':df,fill:ev.color+'99','font-family':FN,'font-style':'italic','pointer-events':'none'},ev.desc.length>40?ev.desc.slice(0,38)+'…':ev.desc);
-              mg.appendChild(descTx);
-              attachTip(etx,ev.text+(ev.desc?' — '+ev.desc:''));
+            var dline=evDescLine(ev);
+            if(dline){
+              // Descrição em uma linha só (texto completo aparece ao passar o mouse sobre o título)
+              var df=dfs(), dw=dline.length*dcw(df);
+              mg.appendChild(te('rect',{x:x-(dw+6)/2,y:ey+2,width:dw+6,height:df*1.2+2,fill:BG,'pointer-events':'none'}));
+              mg.appendChild(te('text',{x:x,y:ey+df,'text-anchor':'middle','font-size':df,fill:ev.color+'99','font-family':FN,'font-style':'italic','pointer-events':'none'},dline));
+              attachTip(etx,ev.text+' — '+ev.desc);
             }
             (function(y,id){etx.addEventListener('click',function(e){e.stopPropagation();oee(y,id);});})(mk.year,ev.id);
             mg.appendChild(etx);
           })(mk.events[ei],_eyAcc);
           // Avança o acumulador levando em conta se o evento tem descrição
-          _eyAcc+=mk.events[ei].desc ? LH2+Math.max(5,ef2*0.78)+2 : LH2;
+          _eyAcc+=evH(mk.events[ei]);
         }
+      }
+      // Com filtro ligado: eventos de fora do filtro viram bolinhas coloridas, empilhadas na vertical embaixo do ano
+      if(mk.hid&&mk.hid.length){
+        var hr=dotR(), hstep=dotStep(), hy=evTop;
+        (mk.events||[]).forEach(function(e0){hy+=evH(e0);});
+        hy+=hr+2;
+        mk.hid.forEach(function(hev,hk){
+          var del=te('circle',{cx:x,cy:hy+hk*hstep,r:hr,fill:hev.color,stroke:BG,'stroke-width':1});
+          del.style.cursor='pointer';
+          attachTip(del,hev.text+(hev.desc?' — '+hev.desc:''));
+          (function(y,id){del.addEventListener('click',function(e){e.stopPropagation();hideTip();oee(y,id);});})(mk.year,hev.id);
+          mg.appendChild(del);
+        });
       }
       g.appendChild(mg);
     })(Gs[mi],mi);
@@ -445,6 +719,8 @@ function draw(pc){
       var x=xOf(_scrollToYear);
       w.scrollLeft=x-w.clientWidth/2;
       _scrollToYear=null;
+    } else if(_pcY!==null){
+      w.scrollLeft=xOf(_pcY)-w.clientWidth/2;
     } else {
       w.scrollLeft=w.scrollWidth*cf-w.clientWidth/2;
     }
@@ -521,6 +797,8 @@ wp2.addEventListener('wheel',function(e){
   var fracX=cursorX/wp2.scrollWidth;
   var fracY=cursorY/wp2.scrollHeight;
   var oldZoom=zoom;
+  // Modo Décadas: fixa o ANO que está sob o cursor (em vez de uma fração da largura)
+  var yUnder=(propMode&&_pAnch.length)?yearAtX(cursorX):null;
   zoom=Math.max(0.25,Math.min(5,zoom+(e.deltaY<0?0.1:-0.1)));
   // cf aponta para a fração horizontal — draw() vai reposicionar scrollLeft como centro
   // Mas queremos que o ponto sob o cursor fique fixo, não o centro
@@ -531,7 +809,7 @@ wp2.addEventListener('wheel',function(e){
   requestAnimationFrame(function(){
     var newScrollW=wp2.scrollWidth;
     var newScrollH=wp2.scrollHeight;
-    wp2.scrollLeft=fracX*newScrollW-(e.clientX-rc.left);
+    wp2.scrollLeft=(yUnder!==null)?xOf(yUnder)-(e.clientX-rc.left):fracX*newScrollW-(e.clientX-rc.left);
     wp2.scrollTop=fracY*newScrollH-(e.clientY-rc.top);
   });
 },{passive:false});
@@ -552,6 +830,7 @@ var startCx=0; // posição dos dedos na tela no inicio
 var startCy=0;
 var escalaAtual=1;
 var pinchFIdx=null; // índice fracionário do conteúdo sob os dedos
+var pinchYear=null; // modo Décadas: ano sob os dedos
 var lastCx=0, lastCy=0; // última posição dos dedos
 
 function distancia(t){
@@ -583,6 +862,7 @@ wp2.addEventListener('touchstart',function(e){
     } else {
       pinchFIdx=null;
     }
+    pinchYear=(propMode&&_pAnch.length)?yearAtX(anchorX):null;
     lastCx=startCx; lastCy=startCy;
     escalaAtual=1;
     svgEl.style.transformOrigin='0 0';
@@ -629,13 +909,16 @@ wp2.addEventListener('touchend',function(e){
     // Remove transform e redesenha com zoom real
     svgEl.style.transform='';
     var _fIdx=pinchFIdx, _cx=lastCx, _cy=lastCy;
+    var _py=pinchYear;   // modo Décadas: ano que estava sob os dedos
     var _fallbackSL=anchorX*escalaAtual-lastCx;
     var _fallbackST=anchorY*escalaAtual-lastCy;
     draw(false);
     // Após o draw, _XI_MARGIN e Gst foram recalculados para o novo zoom.
     // Reconverte o índice fracionário para pixel na nova geometria — exato.
     requestAnimationFrame(function(){
-      if(_fIdx!==null&&Gs.length>0&&Gst>0){
+      if(_py!==null){
+        wp2.scrollLeft=xOf(_py)-_cx;
+      } else if(_fIdx!==null&&Gs.length>0&&Gst>0){
         wp2.scrollLeft=(_XI_MARGIN+_fIdx*Gst)-_cx;
       } else {
         wp2.scrollLeft=_fallbackSL;
@@ -656,6 +939,7 @@ wp2.addEventListener('touchend',function(e){
 
 function sm(el){
   var md=document.getElementById('md');
+  md.style.width='';
   while(md.firstChild)md.removeChild(md.firstChild);
   md.appendChild(el);
   document.getElementById('ov').className='on';
@@ -739,11 +1023,15 @@ function mkBox(title,body,buttons){
 function mkCph(pid,val){
   var wrap=mkEl('div',{});
   var pal=mkEl('div',{style:'display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px'});
-  PAL.forEach(function(c){
-    var s=mkEl('div',{style:'width:22px;height:22px;border-radius:5px;cursor:pointer;background:'+c+';border:'+(c===val?'2px solid #000':'2px solid transparent')+';box-sizing:border-box'});
+  pal.id='cpal-'+pid;
+  // Sem cores pré-definidas: só aparecem as cores que já foram usadas na linha do tempo
+  var used=usedColors();
+  used.forEach(function(c){
+    var s=mkEl('div',{title:c,'data-c':c,style:'width:22px;height:22px;border-radius:5px;cursor:pointer;background:'+c+';border:'+(String(val).toLowerCase()===c?'2px solid #000':'2px solid transparent')+';box-sizing:border-box'});
     s.addEventListener('click',function(){pcn(pid,c);});
     pal.appendChild(s);
   });
+  if(!used.length)pal.appendChild(mkEl('span',{style:'font-size:11px;color:#bbb',textContent:'As cores que você usar ficam salvas aqui. Escolha a primeira no seletor abaixo.'}));
   var row=mkEl('div',{style:'display:flex;align-items:center;gap:5px;margin-top:4px'});
   var nc=mkEl('input',{type:'color',value:val,style:'width:30px;height:26px;border:none;padding:0;cursor:pointer;background:none'});
   nc.id='cn-'+pid;
@@ -764,6 +1052,13 @@ function pcn(pid,v){
   if(t)t.value=v;
   if(n){try{n.value=v;}catch(x){}}
   if(p)p.style.background=v;
+  var pal=document.getElementById('cpal-'+pid);
+  if(pal){
+    Array.prototype.forEach.call(pal.children,function(s){
+      var c=s.getAttribute('data-c'); if(!c)return;
+      s.style.border=(c===String(v).toLowerCase())?'2px solid #000':'2px solid transparent';
+    });
+  }
 }
 function gc(pid){var t=document.getElementById('ct-'+pid);return t?t.value:'#374151';}
 
@@ -857,17 +1152,18 @@ function oee(year,eid){
   var di=mkEl('textarea',{id:'eed'});di.value=ev.desc||'';di.placeholder='Descrição opcional...';
   var cplbl=mkEl('div',{className:'fi'});
   ap(cplbl,[mkEl('label',{textContent:'Cor'}),mkCph('ev',ev.color)]);
-  sm(mkBox('Editar Evento',[mkField('Texto',ti),mkField('Descrição',di),cplbl],[
+  var pk=mkFilterPicker(ev.flt);
+  sm(mkBox('Editar Evento',[mkField('Texto',ti),mkField('Descrição',di),cplbl,pk.el],[
     mkBtn('Excluir','',function(){dle(year,eid);}),
     mkBtn('Voltar','',function(){oem(year);}),
-    mkBtn('Salvar','bg',function(){sev(year,eid);})
+    mkBtn('Salvar','bg',function(){sev(year,eid,pk.get());})
   ]));
 }
-function sev(year,eid){
+function sev(year,eid,fl){
   _snapshot();
   var txt=document.getElementById('eet').value.toUpperCase().trim(), col=gc('ev');
   var desc=document.getElementById('eed').value.trim();
-  for(var i=0;i<marks.length;i++){if(marks[i].year===year){for(var j=0;j<marks[i].events.length;j++){if(marks[i].events[j].id===eid){marks[i].events[j].text=txt;marks[i].events[j].color=col;marks[i].events[j].desc=desc;break;}}break;}}
+  for(var i=0;i<marks.length;i++){if(marks[i].year===year){for(var j=0;j<marks[i].events.length;j++){if(marks[i].events[j].id===eid){marks[i].events[j].text=txt;marks[i].events[j].color=col;marks[i].events[j].desc=desc;_setFlt(marks[i].events[j],fl);break;}}break;}}
   cm(); draw(true);
 }
 function dle(year,eid){
@@ -884,18 +1180,21 @@ function onb(){
   ap(cplbl,[mkEl('label',{textContent:'Cor'}),mkCph('nb','#f97316')]);
   var lni=mkInp('number',2,'nbln'); lni.min=0; lni.max=10;
   var si=mkSel('nbs',[['top','Acima'],['bottom','Abaixo']],'top');
-  sm(mkBox('Nova Chave',[mkField('Nome',li),mkRow([mkField('Ano inicio',fi),mkField('Ano fim',ti)]),cplbl,mkRow([mkField('Lane (0=prox)',lni),mkField('Posicao',si)])],[
+  var pk=mkFilterPicker([]);
+  sm(mkBox('Nova Chave',[mkField('Nome',li),mkRow([mkField('Ano inicio',fi),mkField('Ano fim',ti)]),cplbl,mkRow([mkField('Lane (0=prox)',lni),mkField('Posicao',si)]),pk.el],[
     mkBtn('Cancelar','',cm),
-    mkBtn('Salvar','bo',snb)
+    mkBtn('Salvar','bo',function(){snb(pk.get());})
   ]));
 }
-function snb(){
+function snb(fl){
   _snapshot();
   var l=document.getElementById('nbl').value.trim().toUpperCase();
   var f=parseInt(document.getElementById('nbf').value), t=parseInt(document.getElementById('nbt').value);
   var c=gc('nb'), ln=parseInt(document.getElementById('nbln').value)||2, s=document.getElementById('nbs').value;
   if(!l||isNaN(f)||isNaN(t)){alert('Preencha todos os campos.');return;}
-  brackets.push({id:uid(),label:l,desc:'',from:f,to:t,color:c,lane:ln,side:s}); cm(); draw(true);
+  var nb={id:uid(),label:l,desc:'',from:f,to:t,color:c,lane:ln,side:s};
+  _setFlt(nb,fl);
+  brackets.push(nb); cm(); draw(true);
 }
 
 function oeb(bid){
@@ -907,30 +1206,252 @@ function oeb(bid){
   ap(cplbl,[mkEl('label',{textContent:'Cor'}),mkCph('eb',br.color)]);
   var lni=mkInp('number',br.lane,'ebln'); lni.min=0; lni.max=10;
   var si=mkSel('ebs',[['top','Acima'],['bottom','Abaixo']],br.side);
-  sm(mkBox('Editar Chave',[mkField('Nome',li),mkField('Descrição',di),mkRow([mkField('Ano inicio',fi),mkField('Ano fim',ti)]),cplbl,mkRow([mkField('Lane (0=prox)',lni),mkField('Posicao',si)])],[
+  var pk=mkFilterPicker(br.flt);
+  sm(mkBox('Editar Chave',[mkField('Nome',li),mkField('Descrição',di),mkRow([mkField('Ano inicio',fi),mkField('Ano fim',ti)]),cplbl,mkRow([mkField('Lane (0=prox)',lni),mkField('Posicao',si)]),pk.el],[
     mkBtn('Excluir','',function(){dlb(bid);}),
     mkBtn('Cancelar','',cm),
-    mkBtn('Salvar','bo',function(){seb(bid);})
+    mkBtn('Salvar','bo',function(){seb(bid,pk.get());})
   ]));
 }
-function seb(bid){
+function seb(bid,fl){
   _snapshot();
   var l=document.getElementById('ebl').value.trim().toUpperCase();
   var desc=document.getElementById('ebd').value.trim();
   var f=parseInt(document.getElementById('ebf').value), t=parseInt(document.getElementById('ebt').value);
   var c=gc('eb'), ln=parseInt(document.getElementById('ebln').value)||0, s=document.getElementById('ebs').value;
-  for(var i=0;i<brackets.length;i++){if(brackets[i].id===bid){brackets[i]={id:bid,label:l,desc:desc,from:f,to:t,color:c,lane:ln,side:s};break;}}
+  for(var i=0;i<brackets.length;i++){if(brackets[i].id===bid){var _nb={id:bid,label:l,desc:desc,from:f,to:t,color:c,lane:ln,side:s};_setFlt(_nb,(fl!==undefined)?fl:brackets[i].flt);brackets[i]=_nb;break;}}
   cm(); draw(true);
 }
 function dlb(bid){_snapshot();
   if(!confirm('Excluir esta chave?'))return;brackets=brackets.filter(function(b){return b.id!==bid;});cm();draw(true);}
 
+// ══════════════ FILTROS: interface ══════════════
+var FPAL=['#2563eb','#16a34a','#c0392b','#d97706','#7c3aed','#0891b2','#db2777','#65a30d'];
+function nextFilterColor(){return FPAL[filters.length%FPAL.length];}
+function _nz(s){return String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+function _setFlt(it,fl){
+  if(!it||!fl)return;
+  if(fl.length)it.flt=fl.slice(); else delete it.flt;
+}
+function eachItem(fn){
+  marks.forEach(function(m){(m.events||[]).forEach(function(ev){fn(ev);});});
+  brackets.forEach(function(b){fn(b);});
+}
+function countItems(fid){var n=0;eachItem(function(it){if(inF(it,fid))n++;});return n;}
+function loadFilters(raw){
+  var arr=[];
+  try{arr=(typeof raw==='string')?JSON.parse(raw||'[]'):(raw||[]);}catch(e){arr=[];}
+  if(!Array.isArray(arr))arr=[];
+  filters=arr.filter(function(f){return f&&f.id&&f.name;});
+  activeFilters=[];
+  renderFilterBar();
+}
+
+// Ano que está no centro da tela (para não "pular" ao ligar/desligar um filtro)
+function centerYear(){
+  var w=document.getElementById('wrap');
+  if(!w||!Gs.length)return null;
+  var cx=w.scrollLeft+w.clientWidth/2,best=null,bd=1e15;
+  for(var i=0;i<Gs.length;i++){var d=Math.abs(xi(i)-cx);if(d<bd){bd=d;best=Gs[i].year;}}
+  return best;
+}
+function applyFilterChange(change){
+  var cy=centerYear();
+  change();
+  var s=gs();
+  if(s.length){
+    if(cy===null)cy=s[0].year;
+    _scrollToYear=Math.max(s[0].year,Math.min(cy,s[s.length-1].year));
+  }
+  renderFilterBar();
+  draw(false);
+}
+function updateFilterStat(VB){
+  var el=document.getElementById('fstat'); if(!el)return;
+  if(!isFiltering()){el.textContent='';return;}
+  var n2=0; Gs.forEach(function(m){n2+=(m.events||[]).length;});
+  if(!n2&&!VB.length){el.textContent='Nenhum item neste filtro ainda — use ✎ para adicionar';return;}
+  el.textContent=n2+(n2===1?' evento':' eventos')+' · '+VB.length+(VB.length===1?' chave':' chaves');
+}
+function renderFilterBar(){
+  var c=document.getElementById('fchips'); if(!c)return;
+  while(c.firstChild)c.removeChild(c.firstChild);
+  var all=mkEl('span',{className:'fchip'+(activeFilters.length?'':' on'),title:'Mostrar tudo'});
+  all.style.setProperty('--fc','#6b7280');
+  all.textContent='Todos';
+  all.addEventListener('click',function(){
+    if(!activeFilters.length)return;
+    applyFilterChange(function(){activeFilters=[];});
+  });
+  c.appendChild(all);
+  filters.forEach(function(f){
+    var on=activeFilters.indexOf(f.id)>=0;
+    var ch=mkEl('span',{className:'fchip'+(on?' on':''),title:countItems(f.id)+' item(ns) — clique para ligar/desligar'});
+    ch.style.setProperty('--fc',f.color);
+    var nm=mkEl('span',{}); nm.textContent=f.name;
+    var ed=mkEl('span',{className:'fe',title:'Editar filtro'}); ed.textContent='✎';
+    ed.addEventListener('click',function(e){e.stopPropagation();openFilterEditor(f.id);});
+    ap(ch,[nm,ed]);
+    ch.addEventListener('click',function(){
+      applyFilterChange(function(){
+        var ix=activeFilters.indexOf(f.id);
+        if(ix>=0)activeFilters.splice(ix,1); else activeFilters.push(f.id);
+      });
+    });
+    c.appendChild(ch);
+  });
+}
+
+// Seletor de filtros usado nos cards de evento e de chave.
+// Retorna {el, get()} — get() devolve os ids dos filtros marcados.
+function mkFilterPicker(sel){
+  var selected=(sel||[]).filter(function(id){return !!findFilter(id);});
+  var box=mkEl('div',{className:'fi'});
+  var chips=mkEl('div',{className:'fpk-chips'});
+  var inp=mkEl('input',{type:'text',placeholder:'Criar novo filtro e adicionar...'});
+  var addBtn=mkEl('button',{type:'button',className:'bb',title:'Criar filtro'});
+  addBtn.textContent='+ Criar';
+  var row=mkEl('div',{className:'fpk-add'});
+  ap(row,[inp,addBtn]);
+  ap(box,[mkEl('label',{textContent:'Filtros'}),chips,row]);
+  function render(){
+    while(chips.firstChild)chips.removeChild(chips.firstChild);
+    if(!filters.length){chips.appendChild(mkEl('span',{className:'fpk-none',textContent:'Nenhum filtro ainda — crie o primeiro abaixo.'}));return;}
+    filters.forEach(function(f){
+      var on=selected.indexOf(f.id)>=0;
+      var c=mkEl('span',{className:'fchip'+(on?' on':'')});
+      c.style.setProperty('--fc',f.color);
+      c.textContent=(on?'✓ ':'')+f.name;
+      c.addEventListener('click',function(){
+        var ix=selected.indexOf(f.id);
+        if(ix>=0)selected.splice(ix,1); else selected.push(f.id);
+        render();
+      });
+      chips.appendChild(c);
+    });
+  }
+  function add(){
+    var nm=inp.value.trim(); if(!nm)return;
+    var ex=null;
+    filters.forEach(function(f){if(_nz(f.name)===_nz(nm))ex=f;});
+    if(!ex){
+      _snapshot();
+      ex={id:uid(),name:nm,color:nextFilterColor()};
+      filters.push(ex);
+      renderFilterBar();
+    }
+    if(selected.indexOf(ex.id)<0)selected.push(ex.id);
+    inp.value='';
+    render();
+  }
+  addBtn.addEventListener('click',function(e){e.preventDefault();add();});
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();e.stopPropagation();add();}
+  });
+  render();
+  return {el:box,get:function(){return selected.slice();}};
+}
+
+function newFilter(){openFilterEditor(null);}
+function openFilterEditor(fid){
+  var f=fid?findFilter(fid):null;
+  if(fid&&!f)return;
+  var sel={};
+  if(f)eachItem(function(it){if(inF(it,f.id))sel[it.id]=true;});
+  var ni=mkInp('text',f?f.name:'','flt-name'); ni.placeholder='Ex: Brasil Império';
+  var cp=mkEl('div',{className:'fi'});
+  ap(cp,[mkEl('label',{textContent:'Cor'}),mkCph('fl',f?f.color:nextFilterColor())]);
+  var si=mkInp('text','','flt-search'); si.placeholder='Buscar por nome ou ano...';
+  var list=mkEl('div',{className:'flt-list'});
+  var cnt=mkEl('div',{className:'flt-count'});
+  function updCount(){var n=Object.keys(sel).length;cnt.textContent=n+(n===1?' item selecionado':' itens selecionados');}
+  function mkItemRow(id,dotColor,yr,text,sub){
+    var lb=mkEl('label',{className:'flt-row'});
+    var cb=mkEl('input',{type:'checkbox'}); cb.checked=!!sel[id];
+    cb.addEventListener('change',function(){if(cb.checked)sel[id]=true; else delete sel[id]; updCount();});
+    var dot=mkEl('span',{className:'flt-dot',style:'background:'+dotColor});
+    var y=mkEl('span',{className:'flt-yr'}); y.textContent=yr;
+    var tx=mkEl('span',{}); tx.textContent=text;
+    if(sub){var sp=mkEl('span',{className:'flt-sub'}); sp.textContent=sub; tx.appendChild(sp);}
+    ap(lb,[cb,dot,y,tx]);
+    return lb;
+  }
+  function rebuild(){
+    while(list.firstChild)list.removeChild(list.firstChild);
+    var q=_nz(si.value.trim());
+    var evRows=[];
+    marks.slice().sort(function(a,b){return a.year-b.year;}).forEach(function(m){
+      (m.events||[]).forEach(function(ev){
+        if(!q||_nz(ev.text+' '+yl(m.year)+' '+m.year).indexOf(q)>=0)evRows.push({m:m,ev:ev});
+      });
+    });
+    var brRows=brackets.slice().sort(function(a,b){return a.from-b.from;}).filter(function(b){
+      return !q||_nz(b.label+' '+b.from+' '+b.to+' '+yl(b.from)+' '+yl(b.to)).indexOf(q)>=0;
+    });
+    if(evRows.length){
+      list.appendChild(mkEl('div',{className:'flt-sec',textContent:'Eventos'}));
+      evRows.forEach(function(o){list.appendChild(mkItemRow(o.ev.id,o.ev.color,yl(o.m.year),o.ev.text));});
+    }
+    if(brRows.length){
+      list.appendChild(mkEl('div',{className:'flt-sec',textContent:'Chaves'}));
+      brRows.forEach(function(b){list.appendChild(mkItemRow(b.id,b.color,yl(b.from),b.label,yl(b.from)+' – '+yl(b.to)));});
+    }
+    if(!evRows.length&&!brRows.length){
+      list.appendChild(mkEl('div',{className:'flt-empty',textContent:q?'Nada encontrado.':'Ainda não há eventos nem chaves na linha do tempo.'}));
+    }
+  }
+  si.addEventListener('input',rebuild);
+  si.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();e.stopPropagation();}});
+  function saveFilter(){
+    var nm=ni.value.trim();
+    if(!nm){alert('Dê um nome ao filtro.');return;}
+    var dup=false;
+    filters.forEach(function(o){if((!f||o.id!==f.id)&&_nz(o.name)===_nz(nm))dup=true;});
+    if(dup){alert('Já existe um filtro com esse nome.');return;}
+    _snapshot();
+    var col=gc('fl');
+    var target=f;
+    if(!target){target={id:uid(),name:nm,color:col};filters.push(target);}
+    else{target.name=nm;target.color=col;}
+    eachItem(function(it){
+      var want=!!sel[it.id], has=inF(it,target.id);
+      if(want&&!has){it.flt=(it.flt||[]).concat([target.id]);}
+      else if(!want&&has){
+        it.flt=it.flt.filter(function(x){return x!==target.id;});
+        if(!it.flt.length)delete it.flt;
+      }
+    });
+    cm(); renderFilterBar(); draw(true);
+  }
+  var btns=[];
+  if(f)btns.push(mkBtn('Excluir filtro','',function(){deleteFilter(f.id);}));
+  btns.push(mkBtn('Cancelar','',cm));
+  btns.push(mkBtn(f?'Salvar':'Criar filtro','bg',saveFilter));
+  sm(mkBox(f?'Editar Filtro':'Novo Filtro',[mkField('Nome',ni),cp,mkField('Eventos e chaves do filtro',si),list,cnt],btns));
+  document.getElementById('md').style.width='380px';
+  rebuild(); updCount();
+}
+function deleteFilter(fid){
+  var f=findFilter(fid); if(!f)return;
+  if(!confirm('Excluir o filtro "'+f.name+'"? Os eventos continuam na linha do tempo, só deixam de pertencer a ele.'))return;
+  _snapshot();
+  eachItem(function(it){
+    if(inF(it,fid)){
+      it.flt=it.flt.filter(function(x){return x!==fid;});
+      if(!it.flt.length)delete it.flt;
+    }
+  });
+  filters=filters.filter(function(x){return x.id!==fid;});
+  cm();
+  applyFilterChange(function(){activeFilters=activeFilters.filter(function(x){return x!==fid;});});
+}
+
 function doExp(){
-  var ms=JSON.stringify(marks), bs=JSON.stringify(brackets);
+  var ms=JSON.stringify(marks), bs=JSON.stringify(brackets), fs2=JSON.stringify(filters);
   // Use the cached source template captured at page load (avoids outerHTML corruption)
   var h=_srcTemplate;
   var M1='<!--MDATA-->', M2='<!--BDATA-->';
-  h=h.replace(M1,ms).replace(M2,bs);
+  h=h.replace(M1,ms).replace(M2,bs).replace('<!--FDATA-->',function(){return fs2;});
   var blob=new Blob([h],{type:'text/html;charset=utf-8'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='linha_do_tempo.html';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -977,6 +1498,7 @@ function flashYear(y){
   // Estimate x position before draw (Gs and Gst are from last draw)
   var x=xOf(y);
   if(x>80) cf=(x)/(sw);
+  if(propMode)_scrollToYear=y;   // modo Décadas: centraliza pelo ano
   draw(false);
   if(flashTimer)clearTimeout(flashTimer);
   flashTimer=setTimeout(function(){flashYear_=null;draw(false);},1500);
@@ -1131,6 +1653,7 @@ function fbSave(){
     name: _currentProjectName,
     marks: JSON.stringify(marks),
     brackets: JSON.stringify(brackets),
+    filters: JSON.stringify(filters),
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
   var ref;
@@ -1162,6 +1685,7 @@ function fbLoad(){
         try {
           marks = JSON.parse(d.marks||'[]');
           brackets = JSON.parse(d.brackets||'[]');
+          loadFilters(d.filters);
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
@@ -1182,7 +1706,7 @@ function fbLoad(){
               var om = JSON.parse(d.marks||'[]');
               var ob = JSON.parse(d.brackets||'[]');
               if(om.length>0||ob.length>0){
-                marks=om; brackets=ob;
+                marks=om; brackets=ob; loadFilters([]);
                 _currentProjectName='Minha Linha do Tempo';
                 _currentProjectId=null;
                 _undoStack=[]; _redoStack=[];
@@ -1236,7 +1760,7 @@ auth.onAuthStateChanged(function(user){
       if(blankHint) blankHint.style.display = '';
       var sbN2=document.getElementById('sidebar-user-name');
       if(sbN2) sbN2.textContent = '';
-      marks=[]; brackets=[]; _currentProjectId=null; _currentProjectName='Sem título';
+      marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título';
       cm(); draw(false);
       updateBlankState();
       updateProjectNameDisplay();
@@ -1314,7 +1838,7 @@ function loadProjectsList(){
 function _doCreateProject(){
   var name=document.getElementById('new-proj-name');
   if(!name||!name.value.trim()){alert('Digite um nome para o projeto.');return;}
-  marks=[]; brackets=[];
+  marks=[]; brackets=[]; loadFilters([]);
   _currentProjectName=name.value.trim();
   _currentProjectId=null;
   cf=0.5;
@@ -1340,6 +1864,7 @@ function openProject(id, name){
     try {
       marks = JSON.parse(d.marks||'[]');
       brackets = JSON.parse(d.brackets||'[]');
+      loadFilters(d.filters);
       _currentProjectId = id;
       _currentProjectName = name;
       _undoStack = []; _redoStack = [];
@@ -1355,7 +1880,7 @@ function deleteProject(id, encodedName){
   var name = decodeURIComponent(encodedName);
   if(!confirm('Excluir o projeto "'+name+'"? Isso não pode ser desfeito.')) return;
   db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).delete().then(function(){
-    if(_currentProjectId === id){ marks=[]; brackets=[]; _currentProjectId=null; _currentProjectName='Sem título'; cm(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
+    if(_currentProjectId === id){ marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; cm(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
     loadProjectsList();
   });
 }
@@ -1380,13 +1905,14 @@ function handleImport(event){
   reader.onload = function(e){
     var text = e.target.result;
     try {
-      var importedMarks, importedBrackets;
+      var importedMarks, importedBrackets, importedFilters=[];
       if(file.name.endsWith('.json')){
         // JSON format: {marks: [...], brackets: [...]}
         var parsed = JSON.parse(text);
         if(Array.isArray(parsed.marks) && Array.isArray(parsed.brackets)){
           importedMarks = parsed.marks;
           importedBrackets = parsed.brackets;
+          importedFilters = parsed.filters||[];
         } else { throw new Error('Formato JSON inválido'); }
       } else {
         // HTML format — try multiple strategies to extract mdata/bdata
@@ -1409,11 +1935,20 @@ function handleImport(event){
         if(!mText || !bText) throw new Error('Arquivo HTML não reconhecido como exportação deste site. Certifique-se de usar o botão "↓ HTML" para exportar.');
         importedMarks = JSON.parse(mText);
         importedBrackets = JSON.parse(bText);
+        // Filtros (opcional: arquivos exportados antes dos filtros não têm)
+        var fEl = doc.getElementById('fdata');
+        var fText = fEl ? (fEl.textContent||'').trim() : '';
+        if(!fText){
+          var fMatch = text.match(/id=["']fdata["'][^>]*>([\s\S]*?)<\/script>/i);
+          if(fMatch) fText = fMatch[1].trim();
+        }
+        try{ importedFilters = fText ? JSON.parse(fText) : []; }catch(fe){ importedFilters = []; }
       }
       // Always create as NEW project (never overwrite current)
       var projectName = file.name.replace(/\.(html|json)$/i,'').replace(/_/g,' ') || 'Importado';
       marks = importedMarks;
       brackets = importedBrackets;
+      loadFilters(importedFilters);
       _currentProjectId = null; // force new project
       _currentProjectName = projectName;
       _undoStack = []; _redoStack = [];
@@ -1442,6 +1977,8 @@ function handleImport(event){
 
 
 cf=0.5;
+renderFilterBar();
+updateModeBtn();
 draw(false);
 updateBlankState();
 updateProjectNameDisplay();
