@@ -24,9 +24,13 @@ body.dark .bb{color:#60a5fa;border-color:#1e3a5f;background:#0c1a2e}
 body.dark #hint{color:#6b6456;border-color:#2a2720}
 #wrap{flex:1;overflow:scroll;position:relative}
 svg{display:block}
-#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.0);z-index:60;align-items:center;justify-content:center}
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.0);z-index:60;align-items:center;justify-content:center;pointer-events:none}
 #ov.on{display:flex}
-#md{background:#fff;border-radius:14px;padding:14px 16px;width:300px;max-height:86vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+#md{background:#fff;border-radius:14px;padding:14px 16px;width:300px;max-height:86vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.18);pointer-events:auto;position:relative}
+#mdbar{position:sticky;top:-14px;z-index:2;display:flex;align-items:center;justify-content:space-between;margin:-14px -16px 6px;padding:7px 8px 5px 14px;background:inherit;border-radius:14px 14px 0 0;cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}
+#mdbar span{font-size:10px;color:#a8a095;letter-spacing:.3px}
+#mdx{border:0;background:transparent;color:#8a8478;font-size:17px;line-height:1;width:24px;height:24px;border-radius:6px;cursor:pointer;padding:0}
+#mdx:hover{background:rgba(128,120,110,.18);color:#c0392b}
 body.dark #md{background:#23231f;box-shadow:0 8px 40px rgba(0,0,0,.5)}
 .mh{font-family:'DM Serif Display',serif;font-size:15px;margin-bottom:8px}
 .fi{display:flex;flex-direction:column;gap:3px;margin-bottom:6px}
@@ -186,7 +190,7 @@ auth.getRedirectResult().then(function(result){
   <button onclick="toggleSearch()">✕</button>
 </div>
 
-<div id="ov" onclick="if(event.target===this)cm()"><div id="md"></div></div>
+<div id="ov"><div id="md"></div></div>
 
 <!-- Projects Modal -->
 <div id="projects-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;align-items:center;justify-content:center">
@@ -952,7 +956,9 @@ function sm(el){
   var md=document.getElementById('md');
   md.style.width='';
   while(md.firstChild)md.removeChild(md.firstChild);
+  md.appendChild(mkMdBar());
   md.appendChild(el);
+  _mdPlace();
   document.getElementById('ov').className='on';
   // Auto-focus first input so Enter works immediately
   setTimeout(function(){
@@ -963,6 +969,45 @@ function sm(el){
 function cm(){
   document.getElementById('ov').className='';
 }
+// Cartão móvel: fica por cima da linha do tempo sem bloquear o fundo (dá para rolar, dar zoom e ler a linha com ele aberto).
+// Só fecha pelo X (ou pelos botões do próprio cartão); arraste pela barra de cima para mudar de lugar.
+var _mdPos=null;   // última posição escolhida (vale até recarregar a página)
+function _mdPlace(){
+  var md=document.getElementById('md');
+  if(!_mdPos){md.style.position='';md.style.left='';md.style.top='';md.style.margin='';return;}
+  md.style.position='fixed'; md.style.margin='0';
+  _mdMove(_mdPos.x,_mdPos.y);
+}
+function _mdMove(x,y){
+  var md=document.getElementById('md');
+  var mw=md.offsetWidth||300, vw=window.innerWidth, vh=window.innerHeight;
+  x=Math.max(-mw+90,Math.min(vw-90,x)); y=Math.max(0,Math.min(vh-40,y));
+  md.style.left=x+'px'; md.style.top=y+'px'; _mdPos={x:x,y:y};
+}
+function mkMdBar(){
+  var bar=document.createElement('div'); bar.id='mdbar';
+  var hint=document.createElement('span'); hint.textContent='⠿ arraste para mover'; bar.appendChild(hint);
+  var x=document.createElement('button'); x.id='mdx'; x.type='button'; x.title='Fechar'; x.textContent='✕';
+  x.addEventListener('pointerdown',function(e){e.stopPropagation();});
+  x.addEventListener('click',function(e){e.stopPropagation();cm();});
+  bar.appendChild(x);
+  var st=null;
+  bar.addEventListener('pointerdown',function(e){
+    if(e.button!==undefined&&e.button!==0)return;
+    var md=document.getElementById('md'), r=md.getBoundingClientRect();
+    md.style.position='fixed'; md.style.margin='0';
+    md.style.left=r.left+'px'; md.style.top=r.top+'px';
+    st={px:e.clientX,py:e.clientY,x:r.left,y:r.top};
+    try{bar.setPointerCapture(e.pointerId);}catch(err){}
+    e.preventDefault();
+  });
+  bar.addEventListener('pointermove',function(e){if(st)_mdMove(st.x+e.clientX-st.px,st.y+e.clientY-st.py);});
+  function end(){st=null;}
+  bar.addEventListener('pointerup',end);
+  bar.addEventListener('pointercancel',end);
+  return bar;
+}
+window.addEventListener('resize',function(){if(_mdPos&&document.getElementById('ov').className==='on')_mdMove(_mdPos.x,_mdPos.y);});
 
 function mkEl(tag,props,txt){
   var e=document.createElement(tag);
