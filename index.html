@@ -452,7 +452,7 @@ function layoutProp(margin){
       if(need>0)x+=need;
     }
     D.x0=x;
-    if(D.brk&&prev)_pBreaks.push((prev.x0+9*prev.u+D.x0)/2);
+    if(D.brk&&prev)_pBreaks.push({x:(prev.x0+9*prev.u+D.x0)/2,from:prev.d+10,to:D.d-1});
     D.marks.forEach(function(o){var mx=x+(o.m.year-D.d)*D.u; _pMarkX[o.i]=mx; last={x:mx,m:o.m};});
     for(var k=0;k<10;k++){
       var yr=D.d+k;
@@ -595,13 +595,24 @@ function draw(pc){
   if(propMode&&n>0){
     var dr=Math.max(2,3*zoom), dcol=darkMode?'#6b665b':'#bdb4a8';
     _pDots.forEach(function(d){
-      g.appendChild(te('circle',{cx:d.x,cy:TLY,r:d.big?dr*1.5:dr,fill:dcol,'pointer-events':'none'}));
+      var dvr=d.big?dr*1.5:dr;
+      g.appendChild(te('circle',{cx:d.x,cy:TLY,r:dvr,fill:dcol,'pointer-events':'none'}));
+      // área de passar o mouse (maior que a bolinha): mostra o ano
+      var dh=te('circle',{cx:d.x,cy:TLY,r:dvr+2,fill:'transparent','class':'ydot'});
+      attachTip(dh,yl(d.year));
+      g.appendChild(dh);
     });
-    _pBreaks.forEach(function(bx){
+    _pBreaks.forEach(function(brk){
+      var bx=brk.x;
       var s2=Math.max(3,4*zoom), bc=darkMode?'#8a8478':'#b0a898';
       g.appendChild(te('rect',{x:bx-s2*1.6,y:TLY-s2,width:s2*3.2,height:s2*2,fill:BG,'pointer-events':'none'}));
       g.appendChild(te('line',{x1:bx-s2*0.9,y1:TLY+s2,x2:bx-s2*0.1,y2:TLY-s2,stroke:bc,'stroke-width':Math.max(1,zoom),'pointer-events':'none'}));
       g.appendChild(te('line',{x1:bx+s2*0.1,y1:TLY+s2,x2:bx+s2*0.9,y2:TLY-s2,stroke:bc,'stroke-width':Math.max(1,zoom),'pointer-events':'none'}));
+      // área de passar o mouse: explica o que o símbolo // significa
+      var bh=te('rect',{x:bx-s2*2,y:TLY-s2*1.6,width:s2*4,height:s2*3.2,fill:'transparent'});
+      var nAn=brk.to-brk.from+1;
+      attachTip(bh,'Intervalo sem eventos: '+yl(brk.from)+' a '+yl(brk.to)+' ('+nAn+' anos não representados na linha, para ela não ficar muito longa)');
+      g.appendChild(bh);
     });
   }
   for(var bi=0;bi<VB.length;bi++){
