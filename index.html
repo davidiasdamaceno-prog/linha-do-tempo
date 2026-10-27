@@ -202,7 +202,7 @@ auth.getRedirectResult().then(function(result){
   <button onclick="toggleSearch()">✕</button>
 </div>
 
-<div id="ov"><div id="md"></div></div>
+<div id="ov"></div>
 
 <!-- Projects Modal -->
 <div id="projects-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;align-items:center;justify-content:center">
@@ -296,14 +296,14 @@ function _undo(){
   _redoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   var state=JSON.parse(_undoStack.pop());
   _applyState(state);
-  cm(); draw(true); _updateUndoBtn();
+  cmAll(); draw(true); _updateUndoBtn();
 }
 function _redo(){
   if(!_redoStack.length)return;
   _undoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   var state=JSON.parse(_redoStack.pop());
   _applyState(state);
-  cm(); draw(true); _updateUndoBtn();
+  cmAll(); draw(true); _updateUndoBtn();
 }
 function _updateUndoBtn(){
   var u=document.getElementById('undobtn'), r=document.getElementById('redobtn');
@@ -569,7 +569,7 @@ function xOf(y){
 }
 
 function draw(pc){
-  try{return _drawImpl(pc);}finally{updateDirtyUI();}
+  try{return _drawImpl(pc);}finally{updateDirtyUI();refreshCards();}
 }
 function _drawImpl(pc){
   var wp=document.getElementById('wrap');
@@ -984,62 +984,164 @@ wp2.addEventListener('touchend',function(e){
   }
 },{passive:true});
 
-function sm(el){
-  var md=document.getElementById('md');
-  md.style.width='';
-  while(md.firstChild)md.removeChild(md.firstChild);
-  md.appendChild(mkMdBar());
-  md.appendChild(el);
-  _mdPlace();
-  document.getElementById('ov').className='on';
-  // Auto-focus first input so Enter works immediately
+// ══════════ Cartões (vários ao mesmo tempo) ══════════
+// Cada cartão é uma janela independente: dá para abrir vários, mover cada um e editar mais de um ao mesmo tempo.
+// Os campos dos cartões usam os mesmos "ids" em todos; por isso document.getElementById procura primeiro
+// dentro do cartão em que o usuário está mexendo (_ctxCard) e só depois no resto da página.
+var _ctxCard=null;     // cartão em uso agora (null = o usuário está fora dos cartões)
+var _cardZ=1;
+(function(){
+  var orig=document.getElementById.bind(document);
+  var busy=false;
+  document.getElementById=function(id){
+    var c=_ctxCard;
+    if(!busy&&c&&c.isConnected){
+      if(c.id===id)return c;
+      busy=true;
+      try{
+        var el=c.querySelector('[id="'+String(id).replace(/"/g,'\\"')+'"]');
+        if(el)return el;
+      }finally{busy=false;}
+    }
+    return orig(id);
+  };
+})();
+['pointerdown','mousedown','touchstart','click','dblclick','keydown','input','change','focusin','contextmenu'].forEach(function(t){
+  document.addEventListener(t,function(e){
+    var n=e.target;
+    _ctxCard=(n&&n.closest)?n.closest('.mcard'):null;
+  },true);
+});
+function _cards(){return Array.prototype.slice.call(document.querySelectorAll('#ov > .mcard'));}
+function _front(card){card.style.zIndex=String(++_cardZ);}
+function _topCard(list){
+  var best=null,bz=-1;
+  (list||_cards()).forEach(function(c){var z=parseInt(c.style.zIndex)||0;if(z>=bz){bz=z;best=c;}});
+  return best;
+}
+function _syncOv(){document.getElementById('ov').className=_cards().length?'on':'';}
+// Só fecha pelo X (ou pelos botões do próprio cartão); arraste pela barra de cima para mudar de lugar.
+var _mdPos=null;   // última posição em que um cartão foi deixado (o próximo cartão abre ali)
+function _mdMove(card,x,y){
+  var mw=card.offsetWidth||300, vw=window.innerWidth, vh=window.innerHeight;
+  x=Math.max(-mw+90,Math.min(vw-90,x)); y=Math.max(0,Math.min(vh-40,y));
+  card.style.position='fixed'; card.style.margin='0';
+  card.style.left=x+'px'; card.style.top=y+'px';
+}
+function _placeNew(card){
+  var others=_cards().filter(function(c){return c!==card;});
+  var w=card.offsetWidth||300, h=card.offsetHeight||420, vw=window.innerWidth, vh=window.innerHeight, x, y;
+  if(others.length){            // abre escalonado em relação ao cartão que está por cima
+    var t=_topCard(others);
+    x=(parseFloat(t.style.left)||0)+32; y=(parseFloat(t.style.top)||0)+32;
+    if(x+w>vw-10||y+h>vh-10){x=24+others.length*8;y=70+others.length*8;}
+  } else if(_mdPos){x=_mdPos.x;y=_mdPos.y;}
+  else {x=(vw-w)/2; y=Math.max(10,(vh-h)/2);}
+  _mdMove(card,x,y);
+}
+function closeCard(card){
+  if(!card||!card.parentNode)return;
+  var last=_cards().length===1;
+  var x=parseFloat(card.style.left), y=parseFloat(card.style.top);
+  if(last&&!isNaN(x)&&!isNaN(y))_mdPos={x:x,y:y};
+  card.parentNode.removeChild(card);
+  if(_ctxCard===card)_ctxCard=null;
+  _syncOv();
+}
+function cmAll(){_cards().forEach(function(c){closeCard(c);});_ctxCard=null;_syncOv();}
+// cm(): fecha o cartão em uso; se o chamador está fora de qualquer cartão (desfazer, trocar de projeto…), fecha todos
+function cm(){
+  var c=_ctxCard;
+  if(c&&c.isConnected)closeCard(c); else cmAll();
+}
+// sm(el, opts): mostra o conteúdo em um cartão.
+//   - chamado de dentro de um cartão (botões do cartão): troca o conteúdo daquele cartão (navegação);
+//   - chamado de fora (clique na linha, botões da barra): abre um cartão novo.
+//   opts.key: identifica o item (evento/chave/ano) — um item só tem um cartão; opts.mode: 'view' (atualiza sozinho) ou 'edit';
+//   opts.rebuild: como refazer o conteúdo de um cartão de leitura.
+function sm(el,opts){
+  opts=opts||{};
+  var ov=document.getElementById('ov'), card=null, isNew=false;
+  var same=null;
+  if(opts.key){
+    _cards().forEach(function(c){if(!same&&c.getAttribute('data-key')===opts.key)same=c;});
+    if(same&&same!==_ctxCard){
+      if(opts.mode==='view'&&same.getAttribute('data-mode')==='edit'){   // já está sendo editado: só traz para a frente
+        _front(same); _ctxCard=same; return same;
+      }
+      card=same;
+    }
+  }
+  if(!card&&_ctxCard&&_ctxCard.isConnected)card=_ctxCard;
+  if(!card){
+    card=document.createElement('div'); card.id='md'; card.className='mcard'; isNew=true;
+    card.addEventListener('pointerdown',function(){_front(card);},true);
+    card.addEventListener('mousedown',function(){_front(card);},true);
+  }
+  card.setAttribute('data-key',opts.key||'');
+  card.setAttribute('data-mode',opts.mode||'edit');
+  card._rebuild=opts.rebuild||null;
+  card.style.width='';
+  while(card.firstChild)card.removeChild(card.firstChild);
+  card.appendChild(mkMdBar(card));
+  card.appendChild(el);
+  if(isNew){ov.appendChild(card);_placeNew(card);}
+  _front(card);
+  _ctxCard=card;
+  _syncOv();
+  // Foco no primeiro campo para o Enter funcionar de imediato
   setTimeout(function(){
-    var first=md.querySelector('input:not([type=hidden]),textarea,select');
+    if(!card.isConnected)return;
+    var first=card.querySelector('input:not([type=hidden]),textarea,select');
     if(first) first.focus();
   },60);
+  return card;
 }
-function cm(){
-  document.getElementById('ov').className='';
-}
-// Cartão móvel: fica por cima da linha do tempo sem bloquear o fundo (dá para rolar, dar zoom e ler a linha com ele aberto).
-// Só fecha pelo X (ou pelos botões do próprio cartão); arraste pela barra de cima para mudar de lugar.
-var _mdPos=null;   // última posição escolhida (vale até recarregar a página)
-function _mdPlace(){
-  var md=document.getElementById('md');
-  if(!_mdPos){md.style.position='';md.style.left='';md.style.top='';md.style.margin='';return;}
-  md.style.position='fixed'; md.style.margin='0';
-  _mdMove(_mdPos.x,_mdPos.y);
-}
-function _mdMove(x,y){
-  var md=document.getElementById('md');
-  var mw=md.offsetWidth||300, vw=window.innerWidth, vh=window.innerHeight;
-  x=Math.max(-mw+90,Math.min(vw-90,x)); y=Math.max(0,Math.min(vh-40,y));
-  md.style.left=x+'px'; md.style.top=y+'px'; _mdPos={x:x,y:y};
-}
-function mkMdBar(){
+function mkMdBar(card){
   var bar=document.createElement('div'); bar.id='mdbar';
   var hint=document.createElement('span'); hint.textContent='⠿ arraste para mover'; bar.appendChild(hint);
   var x=document.createElement('button'); x.id='mdx'; x.type='button'; x.title='Fechar'; x.textContent='✕';
   x.addEventListener('pointerdown',function(e){e.stopPropagation();});
-  x.addEventListener('click',function(e){e.stopPropagation();cm();});
+  x.addEventListener('click',function(e){e.stopPropagation();closeCard(card);});
   bar.appendChild(x);
   var st=null;
   bar.addEventListener('pointerdown',function(e){
     if(e.button!==undefined&&e.button!==0)return;
-    var md=document.getElementById('md'), r=md.getBoundingClientRect();
-    md.style.position='fixed'; md.style.margin='0';
-    md.style.left=r.left+'px'; md.style.top=r.top+'px';
+    var r=card.getBoundingClientRect();
+    card.style.position='fixed'; card.style.margin='0';
+    card.style.left=r.left+'px'; card.style.top=r.top+'px';
     st={px:e.clientX,py:e.clientY,x:r.left,y:r.top};
     try{bar.setPointerCapture(e.pointerId);}catch(err){}
     e.preventDefault();
   });
-  bar.addEventListener('pointermove',function(e){if(st)_mdMove(st.x+e.clientX-st.px,st.y+e.clientY-st.py);});
-  function end(){st=null;}
+  bar.addEventListener('pointermove',function(e){if(st)_mdMove(card,st.x+e.clientX-st.px,st.y+e.clientY-st.py);});
+  function end(){if(st){var xx=parseFloat(card.style.left),yy=parseFloat(card.style.top);if(!isNaN(xx)&&!isNaN(yy))_mdPos={x:xx,y:yy};}st=null;}
   bar.addEventListener('pointerup',end);
   bar.addEventListener('pointercancel',end);
   return bar;
 }
-window.addEventListener('resize',function(){if(_mdPos&&document.getElementById('ov').className==='on')_mdMove(_mdPos.x,_mdPos.y);});
+window.addEventListener('resize',function(){_cards().forEach(function(c){_mdMove(c,parseFloat(c.style.left)||0,parseFloat(c.style.top)||0);});});
+// Cartões de leitura acompanham as mudanças nos dados (nome, cor, filtros…); se o item foi excluído, o cartão fecha.
+var _lastRefSig=null;
+function refreshCards(){
+  var cs=_cards().filter(function(c){return c.getAttribute('data-mode')==='view'&&c._rebuild;});
+  var sig=_curSig();
+  if(sig===_lastRefSig)return;
+  _lastRefSig=sig;
+  if(!cs.length)return;
+  var prev=_ctxCard;
+  cs.forEach(function(c){
+    if(!c.isConnected)return;
+    _ctxCard=c;
+    var okk=false; try{okk=c._rebuild();}catch(err){okk=false;}
+    if(okk===false)closeCard(c);
+  });
+  _ctxCard=(prev&&prev.isConnected)?prev:null;
+}
+function _evYear(eid){
+  for(var i=0;i<marks.length;i++){var es=marks[i].events||[];for(var j=0;j<es.length;j++){if(es[j].id===eid)return marks[i].year;}}
+  return null;
+}
 
 function mkEl(tag,props,txt){
   var e=document.createElement(tag);
@@ -1223,7 +1325,7 @@ function oem(year){
   sm(mkBox('Editar: '+yl(year),[mkField('Ano',yrow),evSec,addb],[
     mkBtn('Excluir data','',function(){dlm(year);}),
     mkBtn('Fechar','',cm)
-  ]));
+  ]),{key:'yr:'+year,mode:'edit'});
 }
 function smy(oldY){_snapshot();
   var ny=parseInt(document.getElementById('emy').value);if(isNaN(ny))return;for(var i=0;i<marks.length;i++){if(marks[i].year===oldY){marks[i]=Object.assign({},marks[i],{year:ny});break;}}cm();draw(true);}
@@ -1249,11 +1351,6 @@ function ove(year,eid){
   var desc=ev.desc&&ev.desc.trim()
     ? mkEl('div',{id:'evv-d',style:'font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:132px;overflow-y:auto;padding:6px 8px;border:1px solid rgba(128,120,110,.25);border-radius:8px;background:rgba(128,120,110,.07)',textContent:ev.desc})
     : mkEl('div',{id:'evv-d',style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Sem descrição.'});
-  var col=ap(mkEl('div',{style:'display:flex;align-items:center;gap:7px;font-size:12px'}),[
-    mkEl('span',{style:'width:14px;height:14px;border-radius:4px;flex-shrink:0;border:1px solid rgba(128,120,110,.35);background:'+ev.color}),
-    mkEl('span',{style:'color:#8a8478;font-family:monospace',textContent:ev.color})
-  ]);
-  col.id='evv-c';
   var fl=mkEl('div',{id:'evv-f',style:'display:flex;flex-wrap:wrap;gap:5px'});
   var fs=(ev.flt||[]).map(findFilter).filter(Boolean);
   if(!fs.length)fl.appendChild(mkEl('span',{style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Não pertence a nenhum filtro.'}));
@@ -1279,15 +1376,14 @@ function ove(year,eid){
     } else srcEl.textContent=ev.src;
     ap(body,[mkEl('div',{style:lbl,textContent:'Fonte'}),srcEl]);
   }
-  ap(body,[mkEl('div',{style:lbl,textContent:'Cor'}),col,
-    mkEl('div',{style:lbl,textContent:'Filtros'}),fl]);
+  ap(body,[mkEl('div',{style:lbl,textContent:'Filtros'}),fl]);
   var box=mkBox('Evento · '+yl(year),[body],[mkBtn('Fechar','',cm)]);
   var mh=box.querySelector('.mh');
   var pen=mkEl('button',{type:'button',id:'evv-edit',title:'Editar evento',style:'border:1px solid rgba(128,120,110,.35);background:transparent;border-radius:8px;width:28px;height:28px;font-size:14px;line-height:1;cursor:pointer;color:#8a8478;padding:0;margin-left:8px;flex-shrink:0'},'✎');
   pen.addEventListener('click',function(){oee(year,eid,'view');});
   mh.style.display='flex'; mh.style.alignItems='center'; mh.style.justifyContent='space-between';
   mh.appendChild(pen);
-  sm(box);
+  sm(box,{key:'ev:'+eid,mode:'view',rebuild:function(){var y=_evYear(eid);if(y===null)return false;ove(y,eid);return true;}});
 }
 
 function oee(year,eid,from){
@@ -1305,7 +1401,7 @@ function oee(year,eid,from){
     mkBtn('Excluir','',function(){dle(year,eid);}),
     mkBtn('Voltar','',function(){if(from==='view')ove(year,eid);else oem(year);}),
     mkBtn('Salvar','bg',function(){sev(year,eid,pk.get());})
-  ]));
+  ]),{key:'ev:'+eid,mode:'edit'});
 }
 function sev(year,eid,fl){
   _snapshot();
@@ -1355,15 +1451,9 @@ function ovb(bid){
   var lbl='font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.6px;margin:10px 0 4px';
   var title=mkEl('div',{id:'bv-t',style:'font-size:15px;font-weight:700;line-height:1.25;word-break:break-word;color:'+br.color,textContent:br.label});
   var per=mkEl('div',{id:'bv-p',style:'font-size:12px',textContent:yl(br.from)+' → '+yl(br.to)+'  ('+Math.abs(br.to-br.from)+' anos)'});
-  var pos=mkEl('div',{id:'bv-s',style:'font-size:12px',textContent:(br.side==='bottom'?'Abaixo':'Acima')+' da linha · lane '+(br.lane||0)});
   var desc=br.desc&&br.desc.trim()
     ? mkEl('div',{id:'bv-d',style:'font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:132px;overflow-y:auto;padding:6px 8px;border:1px solid rgba(128,120,110,.25);border-radius:8px;background:rgba(128,120,110,.07)',textContent:br.desc})
     : mkEl('div',{id:'bv-d',style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Sem descrição.'});
-  var col=ap(mkEl('div',{style:'display:flex;align-items:center;gap:7px;font-size:12px'}),[
-    mkEl('span',{style:'width:14px;height:14px;border-radius:4px;flex-shrink:0;border:1px solid rgba(128,120,110,.35);background:'+br.color}),
-    mkEl('span',{style:'color:#8a8478;font-family:monospace',textContent:br.color})
-  ]);
-  col.id='bv-c';
   var fl=mkEl('div',{id:'bv-f',style:'display:flex;flex-wrap:wrap;gap:5px'});
   var fs=(br.flt||[]).map(findFilter).filter(Boolean);
   if(!fs.length)fl.appendChild(mkEl('span',{style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Não pertence a nenhum filtro.'}));
@@ -1373,9 +1463,7 @@ function ovb(bid){
   var body=mkEl('div',{});
   ap(body,[title,
     mkEl('div',{style:lbl,textContent:'Período'}),per,
-    mkEl('div',{style:lbl,textContent:'Posição'}),pos,
     mkEl('div',{style:lbl,textContent:'Descrição'}),desc,
-    mkEl('div',{style:lbl,textContent:'Cor'}),col,
     mkEl('div',{style:lbl,textContent:'Filtros'}),fl]);
   var box=mkBox('Chave',[body],[mkBtn('Fechar','',cm)]);
   var mh=box.querySelector('.mh');
@@ -1383,7 +1471,7 @@ function ovb(bid){
   pen.addEventListener('click',function(){oeb(bid,'view');});
   mh.style.display='flex'; mh.style.alignItems='center'; mh.style.justifyContent='space-between';
   mh.appendChild(pen);
-  sm(box);
+  sm(box,{key:'br:'+bid,mode:'view',rebuild:function(){if(!brackets.some(function(b){return b.id===bid;}))return false;ovb(bid);return true;}});
 }
 
 function oeb(bid,from){
@@ -1400,7 +1488,7 @@ function oeb(bid,from){
     mkBtn('Excluir','',function(){dlb(bid);}),
     from==='view'?mkBtn('Voltar','',function(){ovb(bid);}):mkBtn('Cancelar','',cm),
     mkBtn('Salvar','bo',function(){seb(bid,pk.get());})
-  ]));
+  ]),{key:'br:'+bid,mode:'edit'});
 }
 function seb(bid,fl){
   _snapshot();
@@ -1702,8 +1790,10 @@ document.addEventListener('click',function(e){
 // ── Keyboard shortcuts ──
 // Esc fecha o card aberto (vale também com o cursor dentro de um campo), além do X
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&e.target.id!=='searchinput'&&document.getElementById('ov').className==='on'){
-    e.preventDefault(); hideTip(); cm();
+  if(e.key==='Escape'&&e.target.id!=='searchinput'&&_cards().length){
+    // fecha o cartão em que está o cursor; se não houver, o que está por cima
+    var cEsc=(e.target&&e.target.closest)?e.target.closest('.mcard'):null;
+    e.preventDefault(); hideTip(); closeCard(cEsc||_topCard());
   }
 });
 document.addEventListener('keydown',function(e){
@@ -1955,7 +2045,7 @@ function fbLoad(){
             _lastAddedYear=sorted2[sorted2.length-1].year;
             _scrollToYear=sorted2[0].year;
           }
-          cm(); draw(true);
+          cmAll(); draw(true);
         } catch(e){ console.error('Erro:', e); }
         updateBlankState(); updateProjectNameDisplay();
       } else {
@@ -1971,7 +2061,7 @@ function fbLoad(){
                 _currentProjectName='Minha Linha do Tempo';
                 _currentProjectId=null;
                 _undoStack=[]; _redoStack=[];
-                cm(); draw(true);
+                cmAll(); draw(true);
                 fbSave(); // salva no novo formato
               }
             } catch(e){ console.error('Erro migração:',e); }
@@ -2022,7 +2112,7 @@ auth.onAuthStateChanged(function(user){
       var sbN2=document.getElementById('sidebar-user-name');
       if(sbN2) sbN2.textContent = '';
       marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título';
-      cm(); draw(false);
+      cmAll(); draw(false);
       updateBlankState();
       updateProjectNameDisplay();
     }
@@ -2106,7 +2196,7 @@ function _doCreateProject(){
   _currentProjectId=null;
   cf=0.5;
   closeProjects();
-  cm(); draw(false);
+  cmAll(); draw(false);
   updateBlankState();
   updateProjectNameDisplay();
   if(_fbUser) fbSave();
@@ -2133,7 +2223,7 @@ function openProject(id, name){
       _undoStack = []; _redoStack = [];
       markClean();
       closeProjects();
-      cm(); draw(true);
+      cmAll(); draw(true);
       updateBlankState();
       updateProjectNameDisplay();
     } catch(e){ alert('Erro ao abrir projeto.'); }
@@ -2144,7 +2234,7 @@ function deleteProject(id, encodedName){
   var name = decodeURIComponent(encodedName);
   if(!confirm('Excluir o projeto "'+name+'"? Isso não pode ser desfeito.')) return;
   db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).delete().then(function(){
-    if(_currentProjectId === id){ marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; cm(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
+    if(_currentProjectId === id){ marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
     loadProjectsList();
   });
 }
@@ -2224,7 +2314,7 @@ function handleImport(event){
         _lastAddedYear=si[si.length-1].year;
         _scrollToYear=si[0].year;
       }
-      cm(); draw(true);
+      cmAll(); draw(true);
       updateBlankState();
       updateProjectNameDisplay();
       setTimeout(function(){
