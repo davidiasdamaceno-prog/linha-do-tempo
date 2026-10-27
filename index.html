@@ -39,6 +39,21 @@ svg{display:block}
 #md{background:#fff;border-radius:14px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.18);pointer-events:auto;position:relative;min-width:250px;max-width:96vw}
 .mscroll{padding:14px 16px;max-height:86vh;overflow-y:auto;border-radius:14px;box-sizing:border-box}
 .mrz{position:absolute;z-index:3;touch-action:none}
+/* Cartão esticado na vertical: o conteúdo se reorganiza — listas e campos de texto crescem/encolhem com o cartão
+   e os botões ficam sempre colados no rodapé (se o cartão ficar pequeno demais, rola por inteiro). */
+.mcard.vsz .mscroll{display:flex;flex-direction:column}
+.mcard.vsz .mscroll>#mdbar{flex-shrink:0}
+.mcard.vsz .mbody{flex:1 0 auto;display:flex;flex-direction:column}
+.mcard.vsz .mbody>*{flex-shrink:0}
+.mcard.vsz .gfill{flex:1 0 auto;display:flex;flex-direction:column}
+.mcard.vsz .gfill>*{flex-shrink:0}
+.mcard.vsz .gg,.mcard.vsz .mbody>.flt-list{flex:var(--g,1) 1 64px!important;min-height:64px;max-height:none!important;height:auto!important}
+.mcard.vsz .gd{display:flex;flex-direction:column}
+.mcard.vsz .gd>div:first-child{flex:1 1 auto;min-height:36px;height:auto!important;max-height:none!important;resize:none!important}
+.mcard.vsz .desc-toggle{display:none!important}
+.mcard.vsz .fi:has(textarea){flex:1 1 90px!important}
+.mcard.vsz .fi textarea{flex:1 1 auto;resize:none;max-height:none;min-height:60px}
+.mcard.vsz .mbody>.mb{margin-top:auto;padding-top:8px}
 #mdbar{position:sticky;top:-14px;z-index:2;display:flex;align-items:center;justify-content:space-between;margin:-14px -16px 6px;padding:7px 8px 5px 14px;background:inherit;border-radius:14px 14px 0 0;cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}
 #mdbar span{font-size:10px;color:#a8a095;letter-spacing:.3px}
 #mdbar .mbtns{display:flex;align-items:center}
@@ -1109,9 +1124,10 @@ function sm(el,opts){
   card.setAttribute('data-key',opts.key||'');
   card.setAttribute('data-mode',opts.mode||'edit');
   card._rebuild=opts.rebuild||null;
-  if(!card._userSized){card.style.width='';card.style.height='';card._sc.style.height='';card._sc.style.maxHeight='';}
+  if(!card._userSized){card.style.width='';card.style.height='';card._sc.style.height='';card._sc.style.maxHeight='';card.classList.remove('vsz');}
   while(card._sc.firstChild)card._sc.removeChild(card._sc.firstChild);
   card._sc.appendChild(mkMdBar(card));
+  if(el.classList)el.classList.add('mbody');
   card._sc.appendChild(el);
   if(isNew){ov.appendChild(card);_placeNew(card);}
   _front(card);
@@ -1163,7 +1179,7 @@ function _addResizeHandles(card){
       if(dir.indexOf('n')>=0)t=st.t+(st.h-hh);
       card.style.width=w+'px'; card.style.left=l+'px'; card.style.top=t+'px';
       if(dir.indexOf('n')>=0||dir.indexOf('s')>=0){
-        card.style.height=hh+'px';
+        card.style.height=hh+'px'; card.classList.add('vsz');
         if(card._sc){card._sc.style.height='100%';card._sc.style.maxHeight='none';}
       }
       card._userSized=true;
@@ -1223,7 +1239,7 @@ function refreshCards(){
 // Caixa de descrição dos cartões de leitura: começa compacta (se o texto for longo), dá para esticar pela alça
 // do canto ou clicar em "Mostrar tudo" para ver o texto por inteiro.
 function _descBox(id,text){
-  var wrap=mkEl('div',{});
+  var wrap=mkEl('div',{className:'gg gd'});
   var box=mkEl('div',{id:id,style:'font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:75vh;min-height:36px;overflow-y:auto;resize:vertical;padding:6px 8px;border:1px solid rgba(128,120,110,.25);border-radius:8px;background:rgba(128,120,110,.07)',textContent:text});
   var tg=mkEl('button',{type:'button',className:'desc-toggle',style:'display:none;margin-top:4px;border:0;background:transparent;color:#2563eb;font-size:11px;padding:0;cursor:pointer;border-radius:0'},'Mostrar tudo ▾');
   var open=false;
@@ -1458,7 +1474,7 @@ function ove(year,eid){
   fs.forEach(function(f){
     fl.appendChild(mkEl('span',{className:'evv-chip',style:'display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:2px 9px;border-radius:12px;border:1px solid '+f.color+';background:'+f.color+'22'},f.name));
   });
-  var body=mkEl('div',{});
+  var body=mkEl('div',{className:'gfill'});
   ap(body,[title,
     mkEl('div',{style:lbl,textContent:'Descrição'}),desc]);
   var imgUrl=_safeUrl(ev.img);
@@ -1562,7 +1578,7 @@ function ovb(bid){
   fs.forEach(function(f){
     fl.appendChild(mkEl('span',{className:'evv-chip',style:'display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:2px 9px;border-radius:12px;border:1px solid '+f.color+';background:'+f.color+'22'},f.name));
   });
-  var body=mkEl('div',{});
+  var body=mkEl('div',{className:'gfill'});
   ap(body,[title,
     mkEl('div',{style:lbl,textContent:'Período'}),per,
     mkEl('div',{style:lbl,textContent:'Descrição'}),desc,
@@ -1645,7 +1661,7 @@ function gotoFilterRegion(){
   var wp=document.getElementById('wrap'), it=_fnavItems();
   if(!wp||!it.length)return;
   var minX=it[0].x, maxX=it[it.length-1].x, W=wp.clientWidth;
-  _scrollWrapTo((maxX-minX)<=W*0.8 ? (minX+maxX)/2-W/2 : minX-W*0.2);
+  _scrollWrapTo((maxX-minX)<=W*0.8 ? (minX+maxX)/2-W/2 : minX-W/2);
 }
 function updateFilterNav(){
   var L=document.getElementById('fnav-l'), R=document.getElementById('fnav-r'), wp=document.getElementById('wrap');
@@ -1669,10 +1685,12 @@ function updateFilterNav(){
 (function(){
   var L=document.getElementById('fnav-l'), R=document.getElementById('fnav-r');
   L.addEventListener('click',function(){
-    var wp=document.getElementById('wrap'); if(L._t)_scrollWrapTo(L._t.x-wp.clientWidth*0.8);
+    updateFilterNav();     // recalcula a partir da posição atual (evita alvo velho se a rolagem ainda está animando)
+    var wp=document.getElementById('wrap'); if(L._t)_scrollWrapTo(L._t.x-wp.clientWidth/2);   // próximo evento, centralizado
   });
   R.addEventListener('click',function(){
-    var wp=document.getElementById('wrap'); if(R._t)_scrollWrapTo(R._t.x-wp.clientWidth*0.2);
+    updateFilterNav();
+    var wp=document.getElementById('wrap'); if(R._t)_scrollWrapTo(R._t.x-wp.clientWidth/2);
   });
   var raf=null;
   document.getElementById('wrap').addEventListener('scroll',function(){
@@ -1798,7 +1816,7 @@ function ovf(fid){
   brackets.slice().sort(function(a,b){return a.from-b.from;}).forEach(function(b){if(inF(b,f.id))brs.push(b);});
   var title=mkEl('div',{id:'flv-t',style:'font-size:15px;font-weight:700;line-height:1.25;word-break:break-word;color:'+f.color,textContent:f.name});
   var stat=mkEl('div',{id:'flv-n',style:'font-size:11px;color:#8a8478;margin-top:2px',textContent:evs.length+(evs.length===1?' evento':' eventos')+' · '+brs.length+(brs.length===1?' chave':' chaves')});
-  var body=mkEl('div',{});
+  var body=mkEl('div',{className:'gfill'});
   ap(body,[title,stat]);
   function row(dot,yr,text,fn){
     var r=mkEl('div',{className:'flv-row',style:'display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:7px;border:1px solid rgba(128,120,110,.2);margin-bottom:3px;cursor:pointer;font-size:11px'});
@@ -1808,12 +1826,12 @@ function ovf(fid){
     r.addEventListener('click',function(){ _ctxCard=null; fn(); });      // abre em um card novo, ao lado deste
     return r;
   }
-  var evBox=mkEl('div',{id:'flv-e',style:'max-height:220px;overflow-y:auto'});
+  var evBox=mkEl('div',{id:'flv-e',className:'gg',style:'max-height:220px;overflow-y:auto;--g:'+Math.max(1,evs.length)});
   if(!evs.length)evBox.appendChild(mkEl('div',{style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Nenhum evento neste filtro.'}));
   evs.forEach(function(o){evBox.appendChild(row(o.ev.color,yl(o.year),o.ev.text,function(){ove(o.year,o.ev.id);}));});
   ap(body,[mkEl('div',{style:lbl,textContent:'Eventos'}),evBox]);
   if(brs.length){
-    var brBox=mkEl('div',{id:'flv-b',style:'max-height:160px;overflow-y:auto'});
+    var brBox=mkEl('div',{id:'flv-b',className:'gg',style:'max-height:160px;overflow-y:auto;--g:'+Math.max(1,brs.length)});
     brs.forEach(function(b){brBox.appendChild(row(b.color,yl(b.from)+' – '+yl(b.to),b.label,function(){ovb(b.id);}));});
     ap(body,[mkEl('div',{style:lbl,textContent:'Chaves'}),brBox]);
   }
