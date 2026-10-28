@@ -727,7 +727,7 @@ function _drawImpl(pc){
       var x1=xOf(br.from),x2=xOf(br.to); if(x2<=x1)x2=x1+20;
       var isT=(br.side==='top'), base=isT?TLY-8:TLY+8, sign=isT?-1:1;
       var by=base+sign*(br.lane+1)*BLH*zoom, mid=(x1+x2)/2, ly=isT?by-5:by+bf+3;
-      var gr=ne('g');
+      var gr=ne('g'); gr.setAttribute('data-keep','1');
       var r=Math.max(2,3*zoom), pd;
       if(isT){pd='M'+x1+','+base+' L'+x1+','+(by+r)+' Q'+x1+','+by+' '+(x1+r)+','+by+' L'+(x2-r)+','+by+' Q'+x2+','+by+' '+x2+','+(by+r)+' L'+x2+','+base;}
       else{pd='M'+x1+','+base+' L'+x1+','+(by-r)+' Q'+x1+','+by+' '+(x1+r)+','+by+' L'+(x2-r)+','+by+' Q'+x2+','+by+' '+x2+','+(by-r)+' L'+x2+','+base;}
@@ -763,7 +763,7 @@ function _drawImpl(pc){
   var si=-1; for(var i=0;i<Gs.length;i++){if(Gs[i].year===100){si=i;break;}}
   var ax=si>=0?xi(si):xi(Math.floor(n/2)), afs=Math.max(7,Math.min(12,8.5*zoom));
   var ay=TLY+30+maxEvH+20, al=Math.max(50,90*zoom);
-  var ag=ne('g');
+  var ag=ne('g'); ag.setAttribute('data-keep',isFiltering()?'0':'1');
   // Only show BC/AD arrows when timeline has data spanning both sides of year 0
   var _hasBC = Gs.some(function(m){ return m.year < 0; });
   var _hasAD = Gs.some(function(m){ return m.year > 0; });
@@ -783,6 +783,7 @@ function _drawImpl(pc){
       var th=red?Math.max(4,7*zoom):Math.max(2,4*zoom);
       var ylY=TLY-th-Math.max(4,5*zoom), evTop=TLY+th+Math.max(5,6*zoom);
       var ef2=efs(), LH2=ef2*1.55, mg=ne('g');
+      mg.setAttribute('data-keep',(!isFiltering()||(mk.events&&mk.events.length))?'1':'0');   // usado no recorte da exportação
       var isFlash=(typeof flashYear_!=='undefined'&&flashYear_!==null&&mk.year===flashYear_);
       mg.appendChild(te('line',{x1:x,y1:TLY-th,x2:x,y2:TLY+th,stroke:isFlash?'#2563eb':(red?'#c0392b':'#c8bfb5'),'stroke-width':isFlash?Math.max(2,3*zoom):(red?Math.max(1.5,2*zoom):Math.max(0.8,zoom)),'stroke-linecap':'round'}));
       if(isFlash){mg.appendChild(te('circle',{cx:x,cy:TLY,r:Math.max(4,6*zoom),fill:'#2563eb44',stroke:'#2563eb','stroke-width':1.5}));}
@@ -2178,26 +2179,73 @@ function _exportTitle(){
   if(hn.length)parts.push('Sem: '+hn.join(', '));
   return {title:t,sub:parts.join(' · '),fileSub:fn.join(' + ')+(hn.length?(fn.length?' ':'')+'sem '+hn.join(', sem '):'')};
 }
+// Limites do conteúdo de verdade (do primeiro ao último elemento), em coordenadas do SVG. Com filtro ligado só
+// contam os anos que têm evento com texto e as chaves visíveis; sem filtro, tudo. Fora do navegador (sem getBBox)
+// devolve null e entra a estimativa por dados.
+function _exportBounds(el){
+  var flt=isFiltering(), g=null, i;
+  for(i=0;i<el.childNodes.length;i++){if(el.childNodes[i].nodeName==='g'){g=el.childNodes[i];break;}}
+  if(!g)return null;
+  var tr=/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/.exec(g.getAttribute('transform')||'');
+  var tx=tr?parseFloat(tr[1]):0, ty=tr?parseFloat(tr[2]):0;
+  var dots=Array.prototype.slice.call(g.querySelectorAll('.hdot')), prev=dots.map(function(d){return d.style.display;});
+  dots.forEach(function(d){d.style.display='none';});      // as bolinhas não vão para o arquivo
+  var x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity,any=false;
+  try{
+    Array.prototype.forEach.call(g.childNodes,function(ch){
+      if(ch.nodeType!==1)return;
+      var keep=ch.getAttribute('data-keep');
+      if(keep==='0'||(flt&&keep!=='1'))return;
+      if(ch.nodeName==='line'&&ch.getAttribute('stroke')==='#ede9e3')return;      // linhas-guia verticais dos anos
+      var bb=ch.getBBox(); if(!bb||!(bb.width||bb.height))return;
+      x0=Math.min(x0,bb.x+tx); x1=Math.max(x1,bb.x+bb.width+tx);
+      y0=Math.min(y0,bb.y+ty); y1=Math.max(y1,bb.y+bb.height+ty);
+      any=true;
+    });
+  }catch(e){any=false;}
+  dots.forEach(function(d,k){d.style.display=prev[k];});
+  return any?{x0:x0,x1:x1,y0:y0,y1:y1}:null;
+}
+function _exportBoundsEst(){
+  var flt=isFiltering(), xs=[], i;
+  for(i=0;i<Gs.length;i++){if(!flt||(Gs[i].events&&Gs[i].events.length))xs.push(xi(i));}
+  visBrackets().forEach(function(b){xs.push(xOf(b.from),xOf(b.to));});
+  if(!xs.length)return null;
+  var lo=xs[0], hi=xs[0];
+  for(i=1;i<xs.length;i++){if(xs[i]<lo)lo=xs[i]; if(xs[i]>hi)hi=xs[i];}
+  return {x0:lo-120,x1:hi+120,y0:0,y1:null};      // y1 nulo = altura inteira
+}
 function _exportSvg(){
   var el=document.getElementById('svg');
+  var W=parseInt(el.getAttribute('width')), H=parseInt(el.getAttribute('height'));
+  var bd=_exportBounds(el)||_exportBoundsEst();
   var c=el.cloneNode(true);
   Array.prototype.slice.call(c.querySelectorAll('.hdot')).forEach(function(n){n.parentNode.removeChild(n);});
   c.setAttribute('xmlns','http://www.w3.org/2000/svg');
-  return {svg:c,w:parseInt(el.getAttribute('width')),h:parseInt(el.getAttribute('height'))};
+  // Recorte: começa no começo do conteúdo e termina no fim (só uma folga pequena), sem as margens em branco da tela
+  var PAD=28, x0=0, x1=W, y0=0, y1=H;
+  if(bd){
+    x0=Math.max(0,Math.floor(bd.x0-PAD)); x1=Math.min(W,Math.ceil(bd.x1+PAD));
+    if(bd.y1!=null){y0=Math.max(0,Math.floor(bd.y0-PAD)); y1=Math.min(H,Math.ceil(bd.y1+PAD));}
+    if(x1<=x0||y1<=y0){x0=0;x1=W;y0=0;y1=H;}
+  }
+  var MINW=420;      // largura mínima para o cabeçalho (título) caber
+  if(x1-x0<MINW){var ex=(MINW-(x1-x0))/2; x0=Math.max(0,Math.floor(x0-ex)); x1=Math.min(W,Math.ceil(x1+ex));}
+  return {svg:c,w:W,h:H,x0:x0,x1:x1,y0:y0,y1:y1,cw:x1-x0,ch:y1-y0};
 }
-// Rasteriza o trecho [x, x+segW] da linha em um canvas (com cabeçalho). cb(canvas) ou cb(null) se falhar.
+// Rasteriza o trecho [x, x+segW] da área recortada em um canvas (com cabeçalho). cb(canvas) ou cb(null) se falhar.
 function _rasterSlice(src,x,segW,scale,info,page,pages,cb){
   var c=src.svg.cloneNode(true);
-  c.setAttribute('viewBox',x+' 0 '+segW+' '+src.h);
-  c.setAttribute('width',segW); c.setAttribute('height',src.h);
+  c.setAttribute('viewBox',x+' '+src.y0+' '+segW+' '+src.ch);
+  c.setAttribute('width',segW); c.setAttribute('height',src.ch);
   var data=new XMLSerializer().serializeToString(c);
   var img=new Image();
   img.onload=function(){
     var hh=_EXP_HDR, canvas=document.createElement('canvas');
-    canvas.width=Math.max(1,Math.round(segW*scale)); canvas.height=Math.max(1,Math.round((src.h+hh)*scale));
+    canvas.width=Math.max(1,Math.round(segW*scale)); canvas.height=Math.max(1,Math.round((src.ch+hh)*scale));
     var ctx=canvas.getContext('2d');
     ctx.scale(scale,scale);
-    ctx.fillStyle=BG; ctx.fillRect(0,0,segW,src.h+hh);
+    ctx.fillStyle=BG; ctx.fillRect(0,0,segW,src.ch+hh);
     ctx.fillStyle=darkMode?'#e0dbd5':'#1a1a18';
     ctx.textBaseline='alphabetic';
     ctx.font="600 17px 'DM Sans',Arial,sans-serif";
@@ -2206,7 +2254,7 @@ function _rasterSlice(src,x,segW,scale,info,page,pages,cb){
     ctx.fillStyle=darkMode?'#a8a095':'#6b6459';
     var sub=(info.sub||'')+(pages>1?(info.sub?'   ·   ':'')+'página '+page+' de '+pages:'');
     if(sub)ctx.fillText(sub,14,40);
-    ctx.drawImage(img,0,hh,segW,src.h);
+    ctx.drawImage(img,0,hh,segW,src.ch);
     cb(canvas);
   };
   img.onerror=function(){cb(null);};
@@ -2215,10 +2263,10 @@ function _rasterSlice(src,x,segW,scale,info,page,pages,cb){
 function _fileBase(){var ex=_exportTitle();return (ex.title+(ex.fileSub?' - '+ex.fileSub:'')).replace(/[\\/:*?"<>|]+/g,' ').trim()||'linha_do_tempo';}
 function expPNG(){
   var src=_exportSvg(), info=_exportTitle(), MAXPX=16000;
-  var tot=src.h+_EXP_HDR;
-  var scale=Math.min(2,MAXPX/src.w,MAXPX/tot,Math.sqrt(2.4e8/(src.w*tot)));
+  var tot=src.ch+_EXP_HDR;
+  var scale=Math.min(2,MAXPX/src.cw,MAXPX/tot,Math.sqrt(2.4e8/(src.cw*tot)));
   if(scale<0.5&&!confirm('A linha é muito larga: a imagem sairia reduzida a '+Math.round(scale*100)+'% do tamanho, com pouca nitidez. Para boa qualidade, use Exportar PDF (divide em páginas). Gerar a imagem mesmo assim?'))return;
-  _rasterSlice(src,0,src.w,scale,info,1,1,function(canvas){
+  _rasterSlice(src,src.x0,src.cw,scale,info,1,1,function(canvas){
     if(!canvas){alert('Não foi possível gerar a imagem.');return;}
     canvas.toBlob(function(blob){
       if(!blob){alert('Não foi possível gerar a imagem.');return;}
@@ -2231,12 +2279,18 @@ function expPNG(){
 }
 function expPDF(){
   var src=_exportSvg(), info=_exportTitle();
-  var PAGE_W=4000, SINGLE_MAX=8000;
-  var segW=src.w<=SINGLE_MAX?src.w:PAGE_W;
-  var pages=Math.max(1,Math.ceil(src.w/segW));
-  var scale=Math.min(2,12000/segW,12000/(src.h+_EXP_HDR));
+  // Com filtro ligado: o PDF é de UMA página só, do primeiro ao último item do filtro.
+  // Sem filtro: uma página; linhas muito largas são divididas em páginas de 4000 px.
+  var PAGE_W=4000, SINGLE_MAX=8000, PDF_MAX=19000;     // PDF_MAX: limite de tamanho de uma página (14400 pt)
+  var segW=(isFiltering()||src.cw<=SINGLE_MAX)?src.cw:PAGE_W;
+  var pages=Math.max(1,Math.ceil(src.cw/segW));
+  if(pages>1)segW=Math.ceil(src.cw/pages);      // páginas do mesmo tamanho (nenhuma fica só com uma lasca no final)
+  var tot=src.ch+_EXP_HDR;
+  var scale=Math.min(2,16000/segW,16000/tot,Math.sqrt(2.4e8/(segW*tot)));
   function fallback(){
-    var svgData=new XMLSerializer().serializeToString(src.svg);
+    var c=src.svg.cloneNode(true);
+    c.setAttribute('viewBox',src.x0+' '+src.y0+' '+src.cw+' '+src.ch); c.setAttribute('width',src.cw); c.setAttribute('height',src.ch);
+    var svgData=new XMLSerializer().serializeToString(c);
     var win=window.open('','_blank');
     if(!win){alert('Não foi possível gerar o PDF.');return;}
     win.document.write('<html><head><title>'+info.title+'</title><style>body{margin:0}svg{width:100%;height:auto}</style></head><body>'+svgData+'</body></html>');
@@ -2247,10 +2301,11 @@ function expPDF(){
     var pdf=null;
     function next(p){
       if(p>=pages){pdf.save(_fileBase()+'.pdf');return;}
-      var x=p*segW, w2=Math.min(segW,src.w-x);
+      var x=src.x0+p*segW, w2=Math.min(segW,src.x1-x);
       _rasterSlice(src,x,w2,scale,info,p+1,pages,function(canvas){
         if(!canvas){fallback();return;}
-        var pw=w2, ph=src.h+_EXP_HDR;
+        var k=Math.min(1,PDF_MAX/Math.max(w2,tot));     // página gigante é reduzida (a imagem acompanha)
+        var pw=w2*k, ph=tot*k;
         if(!pdf)pdf=new window.jspdf.jsPDF({orientation:pw>ph?'landscape':'portrait',unit:'px',format:[pw,ph]});
         else pdf.addPage([pw,ph],pw>ph?'landscape':'portrait');
         pdf.addImage(canvas.toDataURL('image/jpeg',0.93),'JPEG',0,0,pw,ph);
