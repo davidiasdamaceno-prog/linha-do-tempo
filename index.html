@@ -909,7 +909,9 @@ function _drawImpl(pc){
     })(VB[bi]);
   }
   var si=-1; for(var i=0;i<Gs.length;i++){if(Gs[i].year===100){si=i;break;}}
-  var ax=si>=0?xi(si):xi(Math.floor(n/2)), afs=Math.max(7,Math.min(12,8.5*zoom));
+  // As setas ficam na virada entre a última data a.C. e a primeira d.C. (onde fica o ano zero)
+  var ib=-1, ia=-1; for(var gi=0;gi<Gs.length;gi++){ if(Gs[gi].year<0)ib=gi; if(ia<0&&Gs[gi].year>0)ia=gi; }
+  var ax=(ib>=0&&ia>=0)?(xi(ib)+xi(ia))/2:(si>=0?xi(si):xi(Math.floor(n/2))), afs=Math.max(7,Math.min(12,8.5*zoom));
   var ay=TLY+30+maxEvH+20, al=Math.max(50,90*zoom);
   var ag=ne('g'); ag.setAttribute('data-keep',isFiltering()?'0':'1');
   // Only show BC/AD arrows when timeline has data spanning both sides of year 0
