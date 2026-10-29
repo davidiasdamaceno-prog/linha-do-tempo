@@ -186,6 +186,9 @@ auth.getRedirectResult().then(function(result){
       <span class="sb-icon" style="background:#fff7ed">⬆</span> Importar linha do tempo
     </button>
     <div class="sb-divider"></div>
+    <button class="sb-btn" onclick="expJSON();closeSidebar()" title="Arquivo de backup: você pode reimportá-lo depois em “Importar”">
+      <span class="sb-icon" style="background:#ecfeff">💾</span> Baixar backup (.json)
+    </button>
     <button class="sb-btn" onclick="doExp();closeSidebar()">
       <span class="sb-icon" style="background:#eff6ff">↓</span> Exportar HTML
     </button>
@@ -258,7 +261,7 @@ auth.getRedirectResult().then(function(result){
 <div id="import-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:55;align-items:center;justify-content:center">
   <div style="background:#fff;border-radius:14px;padding:24px;width:380px;box-shadow:0 8px 40px rgba(0,0,0,.2)">
     <div style="font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:8px">⬆ Importar Linha do Tempo</div>
-    <p style="font-size:12px;color:#888;margin-bottom:16px">Selecione um arquivo HTML ou JSON exportado por este site.</p>
+    <p style="font-size:12px;color:#888;margin-bottom:16px">Selecione um backup (.json) ou um arquivo HTML exportado por este site. Ele entra como um projeto novo.</p>
     <input type="file" id="import-file" accept=".html,.json" style="display:none" onchange="handleImport(event)">
     <button onclick="document.getElementById('import-file').click()" style="width:100%;padding:12px;background:#b45309;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:8px;font-family:'DM Sans',sans-serif">Escolher arquivo (.html ou .json)</button>
     <div id="import-status" style="font-size:12px;color:#666;text-align:center;min-height:20px"></div>
@@ -313,7 +316,27 @@ function updateDirtyUI(){
   var d=isDirty(), el=document.getElementById('dirty');
   if(el)el.style.display=d?'inline':'none';
   document.title=(d?'● ':'')+'Linha do Tempo';
+  _scheduleAutosave(d);
 }
+// ── Salvamento automático ──
+// Só para quem está logado e num projeto já salvo; espera ~20 s sem novas alterações (debounce),
+// então grava 1 escrita no Firestore. Nunca cria projetos novos sozinho.
+var AUTOSAVE_MS=20000, _autoT=null, _autoSig=null, _saving=false, _autoFails=0;
+function _autoEligible(){return !!(_fbUser&&_currentProjectId&&!_saving&&isDirty());}
+function _scheduleAutosave(d){
+  if(!d||!_fbUser||!_currentProjectId){clearTimeout(_autoT);_autoT=null;_autoSig=null;return;}
+  var s=_curSig();
+  if(_autoT&&s===_autoSig)return;            // nada de novo desde o último agendamento
+  clearTimeout(_autoT); _autoSig=s;
+  _autoT=setTimeout(function(){
+    _autoT=null;_autoSig=null;
+    if(_autoEligible())fbSave({auto:true});
+    else if(_saving&&isDirty())_scheduleAutosave(true);   // salvamento em andamento: tenta de novo depois
+  },AUTOSAVE_MS);
+}
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='hidden'&&_autoEligible()){clearTimeout(_autoT);_autoT=null;fbSave({auto:true});}
+});
 window.addEventListener('beforeunload',function(e){
   if(isDirty()){e.preventDefault();e.returnValue='';}
 });
@@ -2072,6 +2095,21 @@ function doExp(){
   setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
 }
 
+// ── Backup em arquivo (.json) ──
+// Guarda tudo do projeto (nome, datas, chaves, filtros); pode ser reimportado em "Importar".
+function _backupData(){
+  return {app:'linha-do-tempo',version:1,name:_currentProjectName,marks:marks,brackets:brackets,filters:filters};
+}
+function _backupFileName(){
+  return (String(_currentProjectName||'').replace(/[\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim()||'linha_do_tempo')+'.json';
+}
+function expJSON(){
+  var blob=new Blob([JSON.stringify(_backupData(),null,1)],{type:'application/json;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=_backupFileName();
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+
 // ── Dark mode ──
 var darkMode=false;
 function toggleDark(){
@@ -2387,12 +2425,16 @@ function fbLogout(){
   auth.signOut();
 }
 
-function fbSave(){
-  if(!_fbUser){ alert('Faça login primeiro!'); return; }
-  if(marks.length === 0 && brackets.length === 0 && !_currentProjectName){ alert('Nada para salvar — a linha do tempo está vazia.'); return; }
+function fbSave(opts){
+  var auto = !!(opts && opts.auto === true);   // salvamento automático: silencioso (sem alert)
+  if(!_fbUser){ if(!auto) alert('Faça login primeiro!'); return; }
+  if(_saving) return;
+  if(marks.length === 0 && brackets.length === 0 && !_currentProjectName){ if(!auto) alert('Nada para salvar — a linha do tempo está vazia.'); return; }
   var btn = document.getElementById('save-btn');
   btn.textContent = '☁ Salvando...';
   btn.disabled = true;
+  _saving = true;
+  var pid = _currentProjectId, savedId = pid;
   var _sigAtSave=_curSig();
   var projectData = {
     name: _currentProjectName,
@@ -2402,22 +2444,29 @@ function fbSave(){
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
   var ref;
-  if(_currentProjectId){
-    ref = db.collection('users').doc(_fbUser.uid).collection('projects').doc(_currentProjectId).set(projectData);
+  if(pid){
+    ref = db.collection('users').doc(_fbUser.uid).collection('projects').doc(pid).set(projectData);
   } else {
     ref = db.collection('users').doc(_fbUser.uid).collection('projects').add(projectData).then(function(docRef){
-      _currentProjectId = docRef.id;
+      savedId = docRef.id;
+      if(_currentProjectId === pid) _currentProjectId = savedId;
     });
   }
   ref.then(function(){
-    btn.textContent = '✓ Salvo!';
-    markClean(_sigAtSave);
+    _saving = false; _autoFails = 0;
+    btn.textContent = auto ? '✓ Salvo automaticamente' : '✓ Salvo!';
+    // só marca como salvo se ainda estamos no mesmo projeto (pode ter trocado durante o salvamento)
+    if(_currentProjectId === savedId) markClean(_sigAtSave);
     updateProjectNameDisplay();
-    setTimeout(function(){ btn.textContent = '☁ Salvar'; btn.disabled = false; }, 2000);
+    setTimeout(function(){ if(!_saving){ btn.textContent = '☁ Salvar'; btn.disabled = false; } }, 2000);
   }).catch(function(e){
-    btn.textContent = '☁ Salvar';
+    _saving = false;
+    btn.textContent = auto ? '⚠ Não salvou (tentando de novo)' : '☁ Salvar';
     btn.disabled = false;
-    alert('Erro ao salvar: ' + e.message);
+    if(auto){
+      setTimeout(function(){ if(!_saving) btn.textContent = '☁ Salvar'; }, 4000);
+      if(++_autoFails < 3) updateDirtyUI();   // reagenda; depois de 3 falhas espera a próxima alteração
+    } else alert('Erro ao salvar: ' + e.message);
   });
 }
 
@@ -2656,14 +2705,16 @@ function handleImport(event){
     var text = e.target.result;
     try {
       var importedMarks, importedBrackets, importedFilters=[];
-      if(file.name.endsWith('.json')){
-        // JSON format: {marks: [...], brackets: [...]}
+      var jsonName='';
+      if(/\.json$/i.test(file.name)){
+        // JSON format: {name?, marks: [...], brackets: [...], filters?: [...]}
         var parsed = JSON.parse(text);
-        if(Array.isArray(parsed.marks) && Array.isArray(parsed.brackets)){
+        if(parsed && Array.isArray(parsed.marks) && Array.isArray(parsed.brackets)){
           importedMarks = parsed.marks;
           importedBrackets = parsed.brackets;
-          importedFilters = parsed.filters||[];
-        } else { throw new Error('Formato JSON inválido'); }
+          importedFilters = Array.isArray(parsed.filters)?parsed.filters:[];
+          if(typeof parsed.name==='string') jsonName = parsed.name.trim().slice(0,120);
+        } else { throw new Error('Arquivo inválido: não é um backup/modelo desta Linha do Tempo.'); }
       } else {
         // HTML format — try multiple strategies to extract mdata/bdata
         // Strategy 1: DOMParser
@@ -2695,7 +2746,7 @@ function handleImport(event){
         try{ importedFilters = fText ? JSON.parse(fText) : []; }catch(fe){ importedFilters = []; }
       }
       // Always create as NEW project (never overwrite current)
-      var projectName = file.name.replace(/\.(html|json)$/i,'').replace(/_/g,' ') || 'Importado';
+      var projectName = jsonName || file.name.replace(/\.(html|json)$/i,'').replace(/_/g,' ') || 'Importado';
       marks = importedMarks;
       brackets = importedBrackets;
       loadFilters(importedFilters);
