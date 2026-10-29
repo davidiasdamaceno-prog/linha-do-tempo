@@ -1,0 +1,4940 @@
+{
+ "app": "linha-do-tempo",
+ "version": 1,
+ "name": "ENEM e Vestibulares - Datas-chave",
+ "marks": [
+  {
+   "year": -10000,
+   "events": [
+    {
+     "id": "q1",
+     "text": "REVOLUÇÃO NEOLÍTICA",
+     "color": "#2563eb",
+     "desc": "Fim da última glaciação. Agricultura e domesticação de animais levam à vida sedentária, às primeiras aldeias e ao excedente de produção.",
+     "descH": "Fim da última glaciação. <b>Agricultura e domesticação de animais</b> levam à vida sedentária, às primeiras aldeias e ao excedente de produção.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -3500,
+   "events": [
+    {
+     "id": "q2",
+     "text": "ESCRITA CUNEIFORME",
+     "color": "#2563eb",
+     "desc": "Os sumérios (Mesopotâmia) criam a escrita. O surgimento da escrita marca o fim da Pré-História e o início da História.",
+     "descH": "Os <b>sumérios</b> (Mesopotâmia) criam a escrita. O surgimento da escrita marca o fim da Pré-História e o início da História.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -3100,
+   "events": [
+    {
+     "id": "q159",
+     "text": "EGITO ANTIGO",
+     "color": "#2563eb",
+     "desc": "Unificação do Alto e do Baixo Egito (c. 3100 a.C.). Faraó visto como divino, civilização do rio Nilo, politeísmo, hieróglifos, pirâmides e sociedade muito hierarquizada.",
+     "descH": "Unificação do Alto e do Baixo Egito (c. 3100 a.C.). <b>Faraó</b> visto como divino, civilização do <b>rio Nilo</b>, politeísmo, hieróglifos, pirâmides e sociedade muito hierarquizada.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -1754,
+   "events": [
+    {
+     "id": "q3",
+     "text": "CÓDIGO DE HAMURABI",
+     "color": "#2563eb",
+     "desc": "c. 1754 a.C., Babilônia. Leis escritas baseadas na lei de talião (\"olho por olho\"), com penas diferentes conforme a classe social.",
+     "descH": "c. 1754 a.C., Babilônia. Leis escritas baseadas na <b>lei de talião</b> (\"olho por olho\"), com penas diferentes conforme a classe social.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -1200,
+   "events": [
+    {
+     "id": "q160",
+     "text": "FENÍCIOS E O ALFABETO",
+     "color": "#2563eb",
+     "desc": "Povo comerciante do Mediterrâneo (c. 1200 a.C.). Difundiu o alfabeto fonético, base dos alfabetos grego e latino.",
+     "descH": "Povo comerciante do Mediterrâneo (c. 1200 a.C.). Difundiu o <b>alfabeto fonético</b>, base dos alfabetos grego e latino.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -776,
+   "events": [
+    {
+     "id": "q161",
+     "text": "PRIMEIROS JOGOS OLÍMPICOS",
+     "color": "#2563eb",
+     "desc": "776 a.C., em Olímpia. Reuniam as cidades-Estado (pólis), símbolo da identidade cultural helênica. Retomados na era moderna em 1896.",
+     "descH": "776 a.C., em Olímpia. Reuniam as cidades-Estado (pólis), símbolo da <b>identidade cultural helênica</b>. Retomados na era moderna em 1896.",
+     "flt": [
+      "f_ge",
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -753,
+   "events": [
+    {
+     "id": "q162",
+     "text": "FUNDAÇÃO DE ROMA (LENDA)",
+     "color": "#2563eb",
+     "desc": "753 a.C., segundo a tradição (Rômulo e Remo). Roma passa por Monarquia (753–509 a.C.), República (509–27 a.C.) e Império (27 a.C.–476).",
+     "descH": "753 a.C., segundo a tradição (Rômulo e Remo). Roma passa por <b>Monarquia</b> (753–509 a.C.), <b>República</b> (509–27 a.C.) e <b>Império</b> (27 a.C.–476).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -509,
+   "events": [
+    {
+     "id": "q163",
+     "text": "REPÚBLICA ROMANA",
+     "color": "#2563eb",
+     "desc": "Fim da monarquia etrusca. Senado e cônsules, conflito entre patrícios e plebeus (tribunos da plebe, Lei das XII Tábuas, c. 450 a.C.).",
+     "descH": "Fim da monarquia etrusca. <b>Senado e cônsules</b>, conflito entre patrícios e plebeus (tribunos da plebe, Lei das XII Tábuas, c. 450 a.C.).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -508,
+   "events": [
+    {
+     "id": "q4",
+     "text": "DEMOCRACIA ATENIENSE",
+     "color": "#2563eb",
+     "desc": "Reformas de Clístenes. Democracia direta, mas restrita: excluía mulheres, escravizados e estrangeiros (metecos). Muito usada para comparar com a democracia atual.",
+     "descH": "Reformas de <b>Clístenes</b>. Democracia direta, mas <b>restrita</b>: excluía mulheres, escravizados e estrangeiros (metecos). Muito usada para comparar com a democracia atual.",
+     "flt": [
+      "f_ge",
+      "f_fs",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -490,
+   "events": [
+    {
+     "id": "q164",
+     "text": "GUERRAS MÉDICAS",
+     "color": "#2563eb",
+     "desc": "490–479 a.C. Gregos contra o Império Persa (Maratona, Termópilas, Salamina). Atenas lidera a Liga de Delos e vive o apogeu na era de Péricles.",
+     "descH": "490–479 a.C. Gregos contra o Império Persa (Maratona, Termópilas, Salamina). Atenas lidera a <b>Liga de Delos</b> e vive o apogeu na <b>era de Péricles</b>.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -399,
+   "events": [
+    {
+     "id": "q5",
+     "text": "MORTE DE SÓCRATES",
+     "color": "#7c3aed",
+     "desc": "Condenado em Atenas por \"corromper a juventude\". Método do diálogo e da dúvida (maiêutica). Depois vêm Platão (mundo das ideias) e Aristóteles (lógica, ética e política).",
+     "descH": "Condenado em Atenas por \"corromper a juventude\". Método do <b>diálogo e da dúvida</b> (maiêutica). Depois vêm Platão (mundo das ideias) e Aristóteles (lógica, ética e política).",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -387,
+   "events": [
+    {
+     "id": "q165",
+     "text": "PLATÃO E ARISTÓTELES",
+     "color": "#7c3aed",
+     "desc": "Platão funda a Academia (387 a.C.): mundo das ideias e alegoria da caverna. Aristóteles: lógica, ética e política (\"o homem é um animal político\"). Duas bases da filosofia ocidental.",
+     "descH": "Platão funda a Academia (387 a.C.): <b>mundo das ideias e alegoria da caverna</b>. Aristóteles: lógica, ética e política (\"o homem é um animal político\"). Duas bases da filosofia ocidental.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -336,
+   "events": [
+    {
+     "id": "q166",
+     "text": "ALEXANDRE, O GRANDE",
+     "color": "#2563eb",
+     "desc": "336–323 a.C. Rei da Macedônia conquista da Pérsia ao Egito e à Índia. Fusão das culturas grega e oriental: helenismo.",
+     "descH": "336–323 a.C. Rei da Macedônia conquista da Pérsia ao Egito e à Índia. Fusão das culturas grega e oriental: <b>helenismo</b>.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -306,
+   "events": [
+    {
+     "id": "q167",
+     "text": "EPICURISMO E ESTOICISMO",
+     "color": "#7c3aed",
+     "desc": "Período helenístico, depois da crise da pólis: busca de felicidade e tranquilidade interior. Epicuro (prazer moderado), estoicos (virtude e aceitação do destino) e céticos.",
+     "descH": "Período helenístico, depois da crise da pólis: busca de <b>felicidade e tranquilidade interior</b>. Epicuro (prazer moderado), estoicos (virtude e aceitação do destino) e céticos.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -264,
+   "events": [
+    {
+     "id": "q168",
+     "text": "GUERRAS PÚNICAS",
+     "color": "#2563eb",
+     "desc": "264–146 a.C., Roma x Cartago (Aníbal). A vitória dá a Roma o controle do Mediterrâneo (\"Mare Nostrum\"), com escravizados e latifúndios. Crise social da República (irmãos Graco).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -44,
+   "events": [
+    {
+     "id": "q169",
+     "text": "MORTE DE JÚLIO CÉSAR",
+     "color": "#2563eb",
+     "desc": "Assassinado por senadores. As guerras civis levam ao fim da República e ao poder de Otávio (Augusto), em 27 a.C.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": -27,
+   "events": [
+    {
+     "id": "q6",
+     "text": "IMPÉRIO ROMANO",
+     "color": "#2563eb",
+     "desc": "Otávio Augusto concentra o poder e a República dá lugar ao Império. Segue a Pax Romana: estabilidade, expansão do comércio, escravismo e latifúndios.",
+     "descH": "<b>Otávio Augusto</b> concentra o poder e a República dá lugar ao Império. Segue a <b>Pax Romana</b>: estabilidade, expansão do comércio, escravismo e latifúndios.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 30,
+   "events": [
+    {
+     "id": "q170",
+     "text": "JESUS E O CRISTIANISMO",
+     "color": "#2563eb",
+     "desc": "Origem do cristianismo na Palestina romana (c. 30). Perseguido até 313 (Édito de Milão), expande-se pelo Império e depois se torna religião oficial (380).",
+     "descH": "Origem do cristianismo na Palestina romana (c. 30). <b>Perseguido até 313</b> (Édito de Milão), expande-se pelo Império e depois se torna religião oficial (380).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 313,
+   "events": [
+    {
+     "id": "q7",
+     "text": "EDITO DE MILÃO",
+     "color": "#2563eb",
+     "desc": "Constantino garante liberdade de culto aos cristãos. Em 380, Teodósio faz do cristianismo a religião oficial do Império.",
+     "descH": "<b>Constantino</b> garante liberdade de culto aos cristãos. Em 380, Teodósio faz do cristianismo a religião oficial do Império.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 395,
+   "events": [
+    {
+     "id": "q171",
+     "text": "DIVISÃO DO IMPÉRIO ROMANO",
+     "color": "#2563eb",
+     "desc": "Teodósio divide o Império em Ocidente (cai em 476) e Oriente (Bizâncio, até 1453).",
+     "descH": "Teodósio divide o Império em <b>Ocidente</b> (cai em 476) e <b>Oriente</b> (Bizâncio, até 1453).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 413,
+   "events": [
+    {
+     "id": "q172",
+     "text": "A CIDADE DE DEUS (AGOSTINHO)",
+     "color": "#7c3aed",
+     "desc": "Santo Agostinho (Patrística): une cristianismo e platonismo. Cidade de Deus x cidade dos homens. Funda a filosofia medieval.",
+     "descH": "Santo Agostinho (Patrística): une <b>cristianismo e platonismo</b>. Cidade de Deus x cidade dos homens. Funda a filosofia medieval.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 476,
+   "events": [
+    {
+     "id": "q8",
+     "text": "QUEDA DE ROMA DO OCIDENTE",
+     "color": "#2563eb",
+     "desc": "Invasões germânicas encerram o Império Romano do Ocidente. Marco do início da Idade Média; o Oriente continua como Império Bizantino.",
+     "descH": "Invasões germânicas encerram o Império Romano do Ocidente. Marco do <b>início da Idade Média</b>; o Oriente continua como Império Bizantino.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 527,
+   "events": [
+    {
+     "id": "q173",
+     "text": "JUSTINIANO E O DIREITO ROMANO",
+     "color": "#2563eb",
+     "desc": "Imperador bizantino (527–565). O Corpus Juris Civilis reúne o direito romano, base dos sistemas jurídicos ocidentais. Santa Sofia.",
+     "descH": "Imperador bizantino (527–565). O <b>Corpus Juris Civilis</b> reúne o direito romano, base dos sistemas jurídicos ocidentais. Santa Sofia.",
+     "flt": [
+      "f_ge",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 622,
+   "events": [
+    {
+     "id": "q9",
+     "text": "HÉGIRA",
+     "color": "#2563eb",
+     "desc": "Fuga de Maomé de Meca para Medina: início do calendário islâmico. A expansão árabe-islâmica depois une a Península Arábica e chega à Península Ibérica.",
+     "descH": "Fuga de <b>Maomé</b> de Meca para Medina: início do calendário islâmico. A expansão árabe-islâmica depois une a Península Arábica e chega à Península Ibérica.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 711,
+   "events": [
+    {
+     "id": "q174",
+     "text": "MUÇULMANOS NA PENÍNSULA IBÉRICA",
+     "color": "#2563eb",
+     "desc": "Invasão em 711. A Reconquista cristã dura até 1492 (Granada) e forma Portugal e Espanha. Legado árabe em ciência, agricultura, comércio e língua.",
+     "descH": "Invasão em 711. A <b>Reconquista cristã</b> dura até 1492 (Granada) e forma Portugal e Espanha. Legado árabe em ciência, agricultura, comércio e língua.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 800,
+   "events": [
+    {
+     "id": "q10",
+     "text": "CARLOS MAGNO IMPERADOR",
+     "color": "#2563eb",
+     "desc": "Coroado pelo papa no Natal de 800. Império Carolíngio e aliança entre Igreja e poder político. Base do feudalismo (suserania e vassalagem).",
+     "descH": "Coroado pelo papa no Natal de 800. <b>Império Carolíngio</b> e aliança entre Igreja e poder político. Base do feudalismo (suserania e vassalagem).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1096,
+   "events": [
+    {
+     "id": "q11",
+     "text": "PRIMEIRA CRUZADA",
+     "color": "#2563eb",
+     "desc": "Convocada pelo papa Urbano II. Motivos religiosos, mas também econômicos (terras, comércio com o Oriente). Reabre o Mediterrâneo ao comércio e ajuda a revitalizar as cidades.",
+     "descH": "Convocada pelo papa Urbano II. Motivos religiosos, mas também <b>econômicos</b> (terras, comércio com o Oriente). Reabre o Mediterrâneo ao comércio e ajuda a revitalizar as cidades.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1139,
+   "events": [
+    {
+     "id": "q175",
+     "text": "INDEPENDÊNCIA DE PORTUGAL",
+     "color": "#2563eb",
+     "desc": "Afonso Henriques. Portugal se forma na Reconquista e é um dos primeiros Estados nacionais europeus, com monarquia centralizada.",
+     "descH": "<b>Afonso Henriques</b>. Portugal se forma na Reconquista e é um dos primeiros Estados nacionais europeus, com monarquia centralizada.",
+     "flt": [
+      "f_ge",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1215,
+   "events": [
+    {
+     "id": "q12",
+     "text": "MAGNA CARTA",
+     "color": "#2563eb",
+     "desc": "João Sem Terra é obrigado pelos nobres a aceitar limites ao poder do rei. Antecedente do constitucionalismo e da monarquia parlamentar inglesa.",
+     "descH": "João Sem Terra é obrigado pelos nobres a aceitar limites ao poder do rei. Antecedente do <b>constitucionalismo</b> e da monarquia parlamentar inglesa.",
+     "flt": [
+      "f_ge",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1274,
+   "events": [
+    {
+     "id": "q176",
+     "text": "TOMÁS DE AQUINO",
+     "color": "#7c3aed",
+     "desc": "Escolástica (Suma Teológica): concilia fé e razão usando Aristóteles. Tomás morre em 1274.",
+     "descH": "<b>Escolástica</b> (Suma Teológica): concilia fé e razão usando Aristóteles. Tomás morre em 1274.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1337,
+   "events": [
+    {
+     "id": "q177",
+     "text": "GUERRA DOS CEM ANOS",
+     "color": "#2563eb",
+     "desc": "1337–1453, França x Inglaterra. Fortalece a centralização monárquica e o sentimento nacional (Joana d'Arc).",
+     "descH": "1337–1453, França x Inglaterra. Fortalece a <b>centralização monárquica</b> e o sentimento nacional (Joana d'Arc).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1347,
+   "events": [
+    {
+     "id": "q13",
+     "text": "PESTE NEGRA",
+     "color": "#2563eb",
+     "desc": "Chega à Europa em 1347 (até 1351). Mata cerca de um terço da população; crise do feudalismo, falta de mão de obra e revoltas camponesas.",
+     "descH": "Chega à Europa em 1347 (até 1351). Mata cerca de um terço da população; <b>crise do feudalismo</b>, falta de mão de obra e revoltas camponesas.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1385,
+   "events": [
+    {
+     "id": "q178",
+     "text": "REVOLUÇÃO DE AVIS",
+     "color": "#2563eb",
+     "desc": "Portugal. A burguesia mercantil apoia D. João I e leva ao poder uma dinastia aliada ao comércio. Fator que explica o pioneirismo português nas Grandes Navegações.",
+     "descH": "Portugal. A burguesia mercantil apoia <b>D. João I</b> e leva ao poder uma dinastia aliada ao comércio. Fator que explica o pioneirismo português nas Grandes Navegações.",
+     "flt": [
+      "f_ge",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1415,
+   "events": [
+    {
+     "id": "q179",
+     "text": "TOMADA DE CEUTA",
+     "color": "#2563eb",
+     "desc": "Início da expansão marítima portuguesa. Motivos: busca de ouro e especiarias, expansão da fé cristã, interesse da burguesia e da nobreza. Escola de Sagres e caravela.",
+     "descH": "Início da <b>expansão marítima portuguesa</b>. Motivos: busca de ouro e especiarias, expansão da fé cristã, interesse da burguesia e da nobreza. Escola de Sagres e caravela.",
+     "flt": [
+      "f_ge",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1450,
+   "events": [
+    {
+     "id": "q14",
+     "text": "PRENSA DE GUTENBERG",
+     "color": "#2563eb",
+     "desc": "Tipos móveis na Europa. Barateia o livro e difunde ideias do Renascimento e da Reforma. Primeira grande revolução da comunicação.",
+     "descH": "Tipos móveis na Europa. Barateia o livro e <b>difunde ideias</b> do Renascimento e da Reforma. Primeira grande revolução da comunicação.",
+     "flt": [
+      "f_ge",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1453,
+   "events": [
+    {
+     "id": "q15",
+     "text": "QUEDA DE CONSTANTINOPLA",
+     "color": "#2563eb",
+     "desc": "Tomada pelos turcos otomanos. Marco do fim da Idade Média e razão para buscar nova rota às Índias, o que impulsiona as Grandes Navegações.",
+     "descH": "Tomada pelos <b>turcos otomanos</b>. Marco do fim da Idade Média e razão para buscar nova rota às Índias, o que impulsiona as Grandes Navegações.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1492,
+   "events": [
+    {
+     "id": "q16",
+     "text": "COLOMBO CHEGA À AMÉRICA",
+     "color": "#2563eb",
+     "desc": "Espanha financia a viagem. Início da conquista e colonização da América, com genocídio e escravização de povos nativos e a \"troca colombiana\" de plantas, animais e doenças.",
+     "descH": "Espanha financia a viagem. Início da <b>conquista e colonização</b> da América, com genocídio e escravização de povos nativos e a \"troca colombiana\" de plantas, animais e doenças.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1494,
+   "events": [
+    {
+     "id": "q17",
+     "text": "TRATADO DE TORDESILHAS",
+     "color": "#2563eb",
+     "desc": "Divide o mundo entre Portugal e Espanha (370 léguas a oeste de Cabo Verde). Explica o território português na América e como o Tratado de Madri (1750) o redefine.",
+     "descH": "Divide o mundo entre <b>Portugal e Espanha</b> (370 léguas a oeste de Cabo Verde). Explica o território português na América e como o Tratado de Madri (1750) o redefine.",
+     "flt": [
+      "f_ge",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1500,
+   "events": [
+    {
+     "id": "q88",
+     "text": "CHEGADA DOS PORTUGUESES",
+     "color": "#16a34a",
+     "desc": "Cabral, 22 de abril. Início do período colonial. A carta de Pero Vaz de Caminha é a primeira \"obra literária\" (Quinhentismo, literatura informativa e jesuítica).",
+     "descH": "<b>Cabral</b>, 22 de abril. Início do período colonial. A carta de Pero Vaz de Caminha é a primeira \"obra literária\" (<b>Quinhentismo</b>, literatura informativa e jesuítica).",
+     "flt": [
+      "f_br",
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1503,
+   "events": [
+    {
+     "id": "q18",
+     "text": "MONA LISA (c. 1503)",
+     "color": "#db2777",
+     "desc": "Leonardo da Vinci. Renascimento: humanismo, antropocentrismo, racionalismo, valorização da Antiguidade clássica, perspectiva e realismo nas artes.",
+     "descH": "Leonardo da Vinci. <b>Renascimento</b>: humanismo, antropocentrismo, racionalismo, valorização da Antiguidade clássica, perspectiva e realismo nas artes.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1513,
+   "events": [
+    {
+     "id": "q19",
+     "text": "O PRÍNCIPE",
+     "color": "#7c3aed",
+     "desc": "Maquiavel separa política e moral e discute como conquistar e manter o poder. Origem da ideia de \"os fins justificam os meios\".",
+     "descH": "<b>Maquiavel</b> separa política e moral e discute como conquistar e manter o poder. Origem da ideia de \"os fins justificam os meios\".",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1517,
+   "events": [
+    {
+     "id": "q20",
+     "text": "REFORMA PROTESTANTE",
+     "color": "#2563eb",
+     "desc": "Lutero e as 95 teses contra a venda de indulgências. Rompe a unidade cristã europeia. Calvino e a predestinação dialogam com o capitalismo nascente (Weber).",
+     "descH": "<b>Lutero</b> e as 95 teses contra a venda de indulgências. Rompe a unidade cristã europeia. Calvino e a predestinação dialogam com o capitalismo nascente (Weber).",
+     "flt": [
+      "f_ge",
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1519,
+   "events": [
+    {
+     "id": "q180",
+     "text": "CONQUISTA DO MÉXICO",
+     "color": "#2563eb",
+     "desc": "Cortés derrota os astecas (1519–1521) e Pizarro, os incas (1532–33). Dizimação por guerra, trabalho forçado e doenças. Ouro e prata alimentam o capitalismo comercial europeu. Volta ao mundo de Magalhães (1519–22).",
+     "descH": "<b>Cortés</b> derrota os astecas (1519–1521) e Pizarro, os incas (1532–33). Dizimação por guerra, trabalho forçado e doenças. Ouro e prata alimentam o capitalismo comercial europeu. Volta ao mundo de Magalhães (1519–22).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1532,
+   "events": [
+    {
+     "id": "q89",
+     "text": "SÃO VICENTE",
+     "color": "#16a34a",
+     "desc": "Primeira vila, fundada por Martim Afonso de Sousa. Começa o plantio de cana-de-açúcar: o engenho, o latifúndio, o trabalho escravo e a monocultura de exportação.",
+     "descH": "Primeira vila, fundada por <b>Martim Afonso de Sousa</b>. Começa o plantio de cana-de-açúcar: o engenho, o latifúndio, o trabalho escravo e a monocultura de exportação.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1534,
+   "events": [
+    {
+     "id": "q21",
+     "text": "REFORMA ANGLICANA",
+     "color": "#2563eb",
+     "desc": "Henrique VIII rompe com Roma e cria a Igreja da Inglaterra, submetida ao rei, por razões políticas, econômicas e dinásticas.",
+     "descH": "<b>Henrique VIII</b> rompe com Roma e cria a Igreja da Inglaterra, submetida ao rei, por razões políticas, econômicas e dinásticas.",
+     "flt": [
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q90",
+     "text": "CAPITANIAS HEREDITÁRIAS",
+     "color": "#16a34a",
+     "desc": "Divisão do território em lotes entregues a donatários, que arcavam com os custos. Poucas prosperaram (São Vicente e Pernambuco).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1543,
+   "events": [
+    {
+     "id": "q22",
+     "text": "HELIOCENTRISMO (COPÉRNICO)",
+     "color": "#0891b2",
+     "desc": "A Terra gira em torno do Sol. Início da Revolução Científica, depois reforçada por Galileu (condenado em 1633) e Newton (1687).",
+     "descH": "A Terra gira em torno do Sol. Início da <b>Revolução Científica</b>, depois reforçada por Galileu (condenado em 1633) e Newton (1687).",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1545,
+   "events": [
+    {
+     "id": "q23",
+     "text": "CONTRARREFORMA",
+     "color": "#2563eb",
+     "desc": "Concílio de Trento (1545–1563): reafirma dogmas, cria o Index de livros proibidos, reativa a Inquisição e apoia a Companhia de Jesus (jesuítas).",
+     "descH": "<b>Concílio de Trento</b> (1545–1563): reafirma dogmas, cria o Index de livros proibidos, reativa a Inquisição e apoia a Companhia de Jesus (jesuítas).",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1549,
+   "events": [
+    {
+     "id": "q91",
+     "text": "GOVERNO-GERAL",
+     "color": "#16a34a",
+     "desc": "Tomé de Sousa funda Salvador. Centraliza a administração. Chegada dos jesuítas (Nóbrega e Anchieta), que catequizam os indígenas e fundam colégios.",
+     "descH": "<b>Tomé de Sousa</b> funda Salvador. Centraliza a administração. Chegada dos <b>jesuítas</b> (Nóbrega e Anchieta), que catequizam os indígenas e fundam colégios.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1565,
+   "events": [
+    {
+     "id": "q92",
+     "text": "FUNDAÇÃO DO RIO DE JANEIRO",
+     "color": "#16a34a",
+     "desc": "Estácio de Sá. Expulsão dos franceses da França Antártica (1555–1567).",
+     "descH": "Estácio de Sá. Expulsão dos franceses da <b>França Antártica</b> (1555–1567).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1580,
+   "events": [
+    {
+     "id": "q93",
+     "text": "UNIÃO IBÉRICA",
+     "color": "#16a34a",
+     "desc": "Portugal e suas colônias passam ao rei da Espanha (Filipe II) até 1640. Tordesilhas perde sentido na prática, e bandeirantes e missionários avançam sobre o território.",
+     "descH": "Portugal e suas colônias passam ao rei da Espanha (<b>Filipe II</b>) até 1640. Tordesilhas perde sentido na prática, e bandeirantes e missionários avançam sobre o território.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1601,
+   "events": [
+    {
+     "id": "q154",
+     "text": "PROSOPOPEIA (INÍCIO DO BARROCO)",
+     "color": "#db2777",
+     "desc": "Poema de Bento Teixeira (1601). Gregório de Matos e Padre Vieira: conflito entre fé e razão, e contraste. Arcadismo vem em 1768; Romantismo em 1836; Realismo em 1881.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1620,
+   "events": [
+    {
+     "id": "q181",
+     "text": "MAYFLOWER E NOVUM ORGANUM",
+     "color": "#2563eb",
+     "desc": "Puritanos chegam à América do Norte: colônias de povoamento (Nova Inglaterra), diferentes das de exploração da América Ibérica. No mesmo ano, Bacon e o empirismo: conhecimento vem da observação.",
+     "descH": "Puritanos chegam à América do Norte: <b>colônias de povoamento</b> (Nova Inglaterra), diferentes das de exploração da América Ibérica. No mesmo ano, Bacon e o <b>empirismo</b>: conhecimento vem da observação.",
+     "flt": [
+      "f_ge",
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1637,
+   "events": [
+    {
+     "id": "q24",
+     "text": "DISCURSO DO MÉTODO",
+     "color": "#7c3aed",
+     "desc": "Descartes: \"Penso, logo existo\". Racionalismo e dúvida metódica. Contrasta com o empirismo de Bacon e Locke.",
+     "descH": "<b>Descartes</b>: \"Penso, logo existo\". Racionalismo e dúvida metódica. Contrasta com o empirismo de Bacon e Locke.",
+     "flt": [
+      "f_fs"
+     ]
+    },
+    {
+     "id": "q94",
+     "text": "NASSAU NO NORDESTE",
+     "color": "#16a34a",
+     "desc": "Holandeses (Companhia das Índias Ocidentais) ocupam Pernambuco (1630–1654). Maurício de Nassau (1637–1644) moderniza o Recife. Expulsos pela Insurreição Pernambucana (Guararapes, 1648–49).",
+     "descH": "Holandeses (<b>Companhia das Índias Ocidentais</b>) ocupam Pernambuco (1630–1654). Maurício de Nassau (1637–1644) moderniza o Recife. Expulsos pela Insurreição Pernambucana (Guararapes, 1648–49).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1640,
+   "events": [
+    {
+     "id": "q182",
+     "text": "REVOLUÇÃO PURITANA",
+     "color": "#2563eb",
+     "desc": "Inglaterra, 1640–1649. Parlamento x Carlos I, liderado por Cromwell. O rei é decapitado em 1649, antecedente da Revolução Gloriosa.",
+     "descH": "Inglaterra, 1640–1649. Parlamento x Carlos I, liderado por <b>Cromwell</b>. O rei é decapitado em 1649, antecedente da Revolução Gloriosa.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1643,
+   "events": [
+    {
+     "id": "q183",
+     "text": "LUÍS XIV, O REI SOL",
+     "color": "#2563eb",
+     "desc": "1643–1715. Absolutismo na França (\"o Estado sou eu\", frase atribuída), Palácio de Versalhes, mercantilismo de Colbert.",
+     "descH": "1643–1715. <b>Absolutismo</b> na França (\"o Estado sou eu\", frase atribuída), Palácio de Versalhes, mercantilismo de Colbert.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1648,
+   "events": [
+    {
+     "id": "q25",
+     "text": "PAZ DE WESTFÁLIA",
+     "color": "#2563eb",
+     "desc": "Fim da Guerra dos Trinta Anos. Consagra a soberania dos Estados nacionais e é referência da ordem internacional moderna.",
+     "descH": "Fim da Guerra dos Trinta Anos. Consagra a <b>soberania dos Estados nacionais</b> e é referência da ordem internacional moderna.",
+     "flt": [
+      "f_ge",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1651,
+   "events": [
+    {
+     "id": "q26",
+     "text": "LEVIATÃ",
+     "color": "#7c3aed",
+     "desc": "Hobbes: sem Estado forte, \"o homem é o lobo do homem\". Contrato social que justifica o absolutismo.",
+     "descH": "<b>Hobbes</b>: sem Estado forte, \"o homem é o lobo do homem\". Contrato social que justifica o absolutismo.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1687,
+   "events": [
+    {
+     "id": "q28",
+     "text": "PRINCIPIA DE NEWTON",
+     "color": "#0891b2",
+     "desc": "Lei da gravitação universal e leis do movimento. Consolida a visão mecanicista da natureza, base do Iluminismo.",
+     "descH": "Lei da gravitação universal e leis do movimento. Consolida a <b>visão mecanicista</b> da natureza, base do Iluminismo.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1688,
+   "events": [
+    {
+     "id": "q27",
+     "text": "REVOLUÇÃO GLORIOSA",
+     "color": "#2563eb",
+     "desc": "Inglaterra. Fim do absolutismo com a Declaração de Direitos (1689). Nasce a monarquia parlamentar e o Parlamento passa a controlar o rei. Locke defende o liberalismo (vida, liberdade e propriedade).",
+     "descH": "Inglaterra. Fim do absolutismo com a <b>Declaração de Direitos (1689)</b>. Nasce a monarquia parlamentar e o Parlamento passa a controlar o rei. Locke defende o liberalismo (vida, liberdade e propriedade).",
+     "flt": [
+      "f_ge",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1695,
+   "events": [
+    {
+     "id": "q95",
+     "text": "ZUMBI DOS PALMARES",
+     "color": "#16a34a",
+     "desc": "Morto em 20 de novembro. O Quilombo dos Palmares (Serra da Barriga) foi o maior símbolo de resistência dos escravizados. Dia da Consciência Negra. Também ocorre a descoberta do ouro em Minas (c. 1693–95).",
+     "descH": "Morto em 20 de novembro. O <b>Quilombo dos Palmares</b> (Serra da Barriga) foi o maior símbolo de resistência dos escravizados. Dia da Consciência Negra. Também ocorre a descoberta do ouro em Minas (c. 1693–95).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1707,
+   "events": [
+    {
+     "id": "q96",
+     "text": "GUERRA DOS EMBOABAS",
+     "color": "#16a34a",
+     "desc": "1707–1709. Paulistas x forasteiros (emboabas) pelo controle das minas de ouro. Cria a capitania de Minas Gerais.",
+     "descH": "1707–1709. Paulistas x forasteiros (emboabas) pelo controle das <b>minas de ouro</b>. Cria a capitania de Minas Gerais.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1710,
+   "events": [
+    {
+     "id": "q97",
+     "text": "GUERRA DOS MASCATES",
+     "color": "#16a34a",
+     "desc": "1710–1711. Olinda (açucareiros, endividados) x Recife (comerciantes portugueses). Disputa econômica e política no Nordeste.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1720,
+   "events": [
+    {
+     "id": "q98",
+     "text": "REVOLTA DE VILA RICA",
+     "color": "#16a34a",
+     "desc": "Filipe dos Santos. Revolta contra as casas de fundição e a cobrança do quinto do ouro. Reprimida pela metrópole.",
+     "descH": "<b>Filipe dos Santos</b>. Revolta contra as casas de fundição e a cobrança do quinto do ouro. Reprimida pela metrópole.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1748,
+   "events": [
+    {
+     "id": "q29",
+     "text": "O ESPÍRITO DAS LEIS",
+     "color": "#7c3aed",
+     "desc": "Montesquieu: separação dos poderes (Executivo, Legislativo e Judiciário) para limitar o poder. Inspira as constituições modernas.",
+     "descH": "<b>Montesquieu</b>: separação dos poderes (Executivo, Legislativo e Judiciário) para limitar o poder. Inspira as constituições modernas.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1750,
+   "events": [
+    {
+     "id": "q99",
+     "text": "TRATADO DE MADRI",
+     "color": "#16a34a",
+     "desc": "Substitui Tordesilhas pelo princípio do uti possidetis (quem ocupa, possui). Define o território brasileiro quase como hoje. Mesmo ano em que Pombal chega ao poder (1750–1777).",
+     "descH": "Substitui Tordesilhas pelo princípio do <b><i>uti possidetis</i></b> (quem ocupa, possui). Define o <b>território brasileiro</b> quase como hoje. Mesmo ano em que Pombal chega ao poder (1750–1777).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1759,
+   "events": [
+    {
+     "id": "q184",
+     "text": "EXPULSÃO DOS JESUÍTAS",
+     "color": "#16a34a",
+     "desc": "Pombal expulsa os jesuítas de Portugal e das colônias e reforma a administração e o ensino. Despotismo esclarecido: modernizar sem abrir mão do poder do rei.",
+     "descH": "<b>Pombal</b> expulsa os jesuítas de Portugal e das colônias e reforma a administração e o ensino. Despotismo esclarecido: modernizar sem abrir mão do poder do rei.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1760,
+   "events": [
+    {
+     "id": "q31",
+     "text": "REVOLUÇÃO INDUSTRIAL",
+     "color": "#2563eb",
+     "desc": "Começa na Inglaterra (c. 1760): máquina a vapor, indústria têxtil, carvão. Urbanização, burguesia industrial, proletariado e exploração do trabalho (infantil e feminino).",
+     "descH": "Começa na <b>Inglaterra</b> (c. 1760): máquina a vapor, indústria têxtil, carvão. Urbanização, burguesia industrial, proletariado e exploração do trabalho (infantil e feminino).",
+     "flt": [
+      "f_ge",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1762,
+   "events": [
+    {
+     "id": "q30",
+     "text": "O CONTRATO SOCIAL",
+     "color": "#7c3aed",
+     "desc": "Rousseau: soberania popular e \"vontade geral\". Inspira a democracia e os ideais da Revolução Francesa.",
+     "descH": "<b>Rousseau</b>: soberania popular e \"vontade geral\". Inspira a democracia e os ideais da Revolução Francesa.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1776,
+   "events": [
+    {
+     "id": "q32",
+     "text": "INDEPENDÊNCIA DOS EUA",
+     "color": "#2563eb",
+     "desc": "Declaração de 4 de julho de 1776. Primeira independência nas Américas. Constituição de 1787: federalismo e república presidencialista.",
+     "descH": "Declaração de 4 de julho de 1776. Primeira independência nas Américas. <b>Constituição de 1787</b>: federalismo e república presidencialista.",
+     "flt": [
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q185",
+     "text": "A RIQUEZA DAS NAÇÕES",
+     "color": "#7c3aed",
+     "desc": "Adam Smith: liberalismo econômico, \"mão invisível\" do mercado, divisão do trabalho. Contra o mercantilismo.",
+     "descH": "<b>Adam Smith</b>: liberalismo econômico, \"mão invisível\" do mercado, divisão do trabalho. Contra o mercantilismo.",
+     "flt": [
+      "f_fs",
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1781,
+   "events": [
+    {
+     "id": "q186",
+     "text": "CRÍTICA DA RAZÃO PURA",
+     "color": "#7c3aed",
+     "desc": "Kant: limites e condições do conhecimento. Em 1784, \"O que é Esclarecimento?\" (\"Sapere aude\": ouse saber). Autonomia da razão.",
+     "descH": "<b>Kant</b>: limites e condições do conhecimento. Em 1784, \"O que é Esclarecimento?\" (\"<i>Sapere aude</i>\": ouse saber). Autonomia da razão.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1789,
+   "events": [
+    {
+     "id": "q100",
+     "text": "INCONFIDÊNCIA MINEIRA",
+     "color": "#16a34a",
+     "desc": "Elite mineira (Tiradentes, Cláudio Manuel da Costa) contra a derrama e o domínio português, inspirada no Iluminismo e na independência dos EUA. Tiradentes é enforcado em 1792. Mesmo ano da Revolução Francesa.",
+     "descH": "Elite mineira (Tiradentes, Cláudio Manuel da Costa) contra a <b>derrama</b> e o domínio português, inspirada no Iluminismo e na independência dos EUA. Tiradentes é enforcado em 1792. Mesmo ano da Revolução Francesa.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q101",
+     "text": "REVOLUÇÃO FRANCESA",
+     "color": "#2563eb",
+     "desc": "14 de julho: queda da Bastilha. Liberdade, igualdade e fraternidade. Declaração dos Direitos do Homem e do Cidadão. Fim do Antigo Regime: burguesia no poder, ideais liberais e Iluminismo. Napoleão (1799) encerra a fase revolucionária.",
+     "descH": "14 de julho: queda da Bastilha. <b>Liberdade, igualdade e fraternidade.</b> Declaração dos Direitos do Homem e do Cidadão. Fim do Antigo Regime: burguesia no poder, ideais liberais e Iluminismo. Napoleão (1799) encerra a fase revolucionária.",
+     "flt": [
+      "f_ge",
+      "f_fs",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1793,
+   "events": [
+    {
+     "id": "q187",
+     "text": "TERROR JACOBINO",
+     "color": "#2563eb",
+     "desc": "1793–94, Robespierre e o Comitê de Salvação Pública. Guilhotina e radicalização da Revolução Francesa. Cai com o golpe do Termidor.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1796,
+   "events": [
+    {
+     "id": "q33",
+     "text": "VACINA DE JENNER",
+     "color": "#0891b2",
+     "desc": "Primeira vacina (contra a varíola). Marco da imunização e da medicina preventiva. Ligue com a Revolta da Vacina (1904).",
+     "descH": "Primeira vacina (contra a varíola). Marco da <b>imunização</b> e da medicina preventiva. Ligue com a Revolta da Vacina (1904).",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1798,
+   "events": [
+    {
+     "id": "q102",
+     "text": "CONJURAÇÃO BAIANA",
+     "color": "#16a34a",
+     "desc": "Revolta dos Alfaiates: projeto republicano, abolicionista e de igualdade social, com forte presença popular e de negros e mulatos. Reprimida com dureza.",
+     "descH": "Revolta dos Alfaiates: projeto <b>republicano, abolicionista</b> e de igualdade social, com forte presença popular e de negros e mulatos. Reprimida com dureza.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1799,
+   "events": [
+    {
+     "id": "q188",
+     "text": "GOLPE DE 18 BRUMÁRIO",
+     "color": "#2563eb",
+     "desc": "Napoleão toma o poder e encerra a Revolução. Código Civil (1804) e consolidação das conquistas burguesas. Sua queda leva ao Congresso de Viena.",
+     "descH": "<b>Napoleão</b> toma o poder e encerra a Revolução. Código Civil (1804) e consolidação das conquistas burguesas. Sua queda leva ao Congresso de Viena.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1804,
+   "events": [
+    {
+     "id": "q34",
+     "text": "REVOLUÇÃO HAITIANA",
+     "color": "#2563eb",
+     "desc": "O Haiti vira a primeira república negra e a primeira independência latino-americana liderada por escravizados (Toussaint Louverture). Assusta as elites escravistas das Américas.",
+     "descH": "O Haiti vira a <b>primeira república negra</b> e a primeira independência latino-americana liderada por escravizados (Toussaint Louverture). Assusta as elites escravistas das Américas.",
+     "flt": [
+      "f_ge",
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1806,
+   "events": [
+    {
+     "id": "q35",
+     "text": "BLOQUEIO CONTINENTAL",
+     "color": "#2563eb",
+     "desc": "Napoleão proíbe o comércio europeu com a Inglaterra. Portugal não adere, é invadido em 1807 e a corte foge para o Brasil (1808).",
+     "descH": "Napoleão proíbe o comércio europeu com a <b>Inglaterra</b>. Portugal não adere, é invadido em 1807 e a corte foge para o Brasil (1808).",
+     "flt": [
+      "f_ge",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1808,
+   "events": [
+    {
+     "id": "q103",
+     "text": "CORTE PORTUGUESA NO BRASIL",
+     "color": "#16a34a",
+     "desc": "Fuga de D. João VI diante de Napoleão. Abertura dos portos às nações amigas, Imprensa Régia e Banco do Brasil. Preparação para a independência. Em 1815, o Brasil vira Reino Unido.",
+     "descH": "Fuga de <b>D. João VI</b> diante de Napoleão. Abertura dos portos às nações amigas, Imprensa Régia e Banco do Brasil. Preparação para a independência. Em 1815, o Brasil vira Reino Unido.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1810,
+   "events": [
+    {
+     "id": "q189",
+     "text": "INDEPENDÊNCIAS NA AMÉRICA ESPANHOLA",
+     "color": "#2563eb",
+     "desc": "1810–1825, com Bolívar e San Martín. Lideradas por criollos (elite local), mantêm a estrutura social. A América Espanhola se fragmenta em vários países, ao contrário do Brasil.",
+     "descH": "1810–1825, com <b>Bolívar e San Martín</b>. Lideradas por criollos (elite local), mantêm a estrutura social. A América Espanhola se fragmenta em vários países, ao contrário do Brasil.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1815,
+   "events": [
+    {
+     "id": "q36",
+     "text": "CONGRESSO DE VIENA",
+     "color": "#2563eb",
+     "desc": "Derrotado Napoleão, as potências buscam restaurar as monarquias, com os princípios da legitimidade e do equilíbrio europeu. Reação ao liberalismo.",
+     "descH": "Derrotado Napoleão, as potências buscam <b>restaurar</b> as monarquias, com os princípios da legitimidade e do equilíbrio europeu. Reação ao liberalismo.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1817,
+   "events": [
+    {
+     "id": "q104",
+     "text": "REVOLUÇÃO PERNAMBUCANA",
+     "color": "#16a34a",
+     "desc": "Republicana, contra os altos impostos e o favorecimento aos portugueses. Em 1820, a Revolução do Porto exige o retorno do rei a Portugal.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1820,
+   "events": [
+    {
+     "id": "q190",
+     "text": "REVOLUÇÃO DO PORTO",
+     "color": "#16a34a",
+     "desc": "Portugal. Liberais exigem a volta de D. João VI e a recolonização do Brasil, o que acelera a independência.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1822,
+   "events": [
+    {
+     "id": "q105",
+     "text": "INDEPENDÊNCIA DO BRASIL",
+     "color": "#16a34a",
+     "desc": "7 de setembro, com Dia do Fico (janeiro). Processo conservador, sem ruptura social: a escravidão e o latifúndio continuam, com o regime monárquico. Reconhecimento por Portugal (1825) mediante indenização.",
+     "descH": "7 de setembro, com <b>Dia do Fico</b> (janeiro). Processo conservador, sem ruptura social: a escravidão e o latifúndio continuam, com o regime monárquico. Reconhecimento por Portugal (1825) mediante indenização.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1823,
+   "events": [
+    {
+     "id": "q37",
+     "text": "DOUTRINA MONROE",
+     "color": "#ea580c",
+     "desc": "\"A América para os americanos\": os EUA rejeitam a recolonização europeia e preparam a influência norte-americana no continente (depois, o Big Stick e o pan-americanismo).",
+     "descH": "\"<b>A América para os americanos</b>\": os EUA rejeitam a recolonização europeia e preparam a influência norte-americana no continente (depois, o Big Stick e o pan-americanismo).",
+     "flt": [
+      "f_sx",
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q191",
+     "text": "GUERRA NA BAHIA (2 DE JULHO)",
+     "color": "#16a34a",
+     "desc": "Luta pela expulsão das tropas portuguesas após o 7 de setembro. Participação popular (Maria Quitéria, Joana Angélica).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1824,
+   "events": [
+    {
+     "id": "q106",
+     "text": "CONSTITUIÇÃO DO IMPÉRIO",
+     "color": "#16a34a",
+     "desc": "Outorgada por D. Pedro I. Cria o Poder Moderador, voto censitário e religião católica oficial. No mesmo ano, a Confederação do Equador (Nordeste) reage ao autoritarismo.",
+     "descH": "Outorgada por D. Pedro I. Cria o <b>Poder Moderador</b>, voto censitário e religião católica oficial. No mesmo ano, a Confederação do Equador (Nordeste) reage ao autoritarismo.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1830,
+   "events": [
+    {
+     "id": "q38",
+     "text": "POSITIVISMO (COMTE)",
+     "color": "#7c3aed",
+     "desc": "Auguste Comte (Curso de Filosofia Positiva, 1830–1842): conhecimento científico e \"ordem e progresso\". Influenciou a república brasileira e a bandeira.",
+     "descH": "<b>Auguste Comte</b> (Curso de Filosofia Positiva, 1830–1842): conhecimento científico e \"ordem e progresso\". Influenciou a república brasileira e a bandeira.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1831,
+   "events": [
+    {
+     "id": "q107",
+     "text": "ABDICAÇÃO DE D. PEDRO I",
+     "color": "#16a34a",
+     "desc": "7 de abril. Crise política e econômica. Começa o Período Regencial, repleto de revoltas: Cabanagem, Farroupilha, Sabinada, Balaiada.",
+     "descH": "7 de abril. Crise política e econômica. Começa o <b>Período Regencial</b>, repleto de revoltas: Cabanagem, Farroupilha, Sabinada, Balaiada.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1835,
+   "events": [
+    {
+     "id": "q108",
+     "text": "FARROUPILHA E MALÊS",
+     "color": "#16a34a",
+     "desc": "Farroupilha (1835–1845, Rio Grande do Sul): a maior revolta regencial, separatista e republicana. Revolta dos Malês (Salvador, 1835): escravizados muçulmanos. Cabanagem (Pará, 1835–40): revolta popular.",
+     "descH": "<b>Farroupilha</b> (1835–1845, Rio Grande do Sul): a maior revolta regencial, separatista e republicana. <b>Revolta dos Malês</b> (Salvador, 1835): escravizados muçulmanos. <b>Cabanagem</b> (Pará, 1835–40): revolta popular.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q192",
+     "text": "A DEMOCRACIA NA AMÉRICA",
+     "color": "#7c3aed",
+     "desc": "Tocqueville: igualdade, democracia e risco da \"tirania da maioria\". Observação dos EUA.",
+     "descH": "<b>Tocqueville</b>: igualdade, democracia e risco da \"tirania da maioria\". Observação dos EUA.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1836,
+   "events": [
+    {
+     "id": "q156",
+     "text": "SUSPIROS POÉTICOS E SAUDADES",
+     "color": "#db2777",
+     "desc": "Gonçalves de Magalhães: início do Romantismo brasileiro. Nacionalismo, indianismo (Gonçalves Dias, José de Alencar), ultrarromantismo e a poesia condoreira (Castro Alves).",
+     "descH": "Gonçalves de Magalhães: início do <b>Romantismo</b> brasileiro. Nacionalismo, indianismo (Gonçalves Dias, José de Alencar), ultrarromantismo e a poesia condoreira (Castro Alves).",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1839,
+   "events": [
+    {
+     "id": "q193",
+     "text": "GUERRA DO ÓPIO",
+     "color": "#2563eb",
+     "desc": "1839–1842. A Inglaterra impõe o comércio de ópio à China. O Tratado de Nanquim cede Hong Kong. Início do neocolonialismo na Ásia.",
+     "descH": "1839–1842. A Inglaterra impõe o comércio de ópio à China. O Tratado de Nanquim cede Hong Kong. Início do <b>neocolonialismo</b> na Ásia.",
+     "flt": [
+      "f_ge",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1840,
+   "events": [
+    {
+     "id": "q109",
+     "text": "GOLPE DA MAIORIDADE",
+     "color": "#16a34a",
+     "desc": "Antecipa a maioridade de D. Pedro II aos 14 anos. Fim das regências e início do Segundo Reinado (1840–1889), com estabilidade política e o café como motor da economia.",
+     "descH": "Antecipa a maioridade de <b>D. Pedro II</b> aos 14 anos. Fim das regências e início do <b>Segundo Reinado</b> (1840–1889), com estabilidade política e o café como motor da economia.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1845,
+   "events": [
+    {
+     "id": "q194",
+     "text": "BILL ABERDEEN",
+     "color": "#16a34a",
+     "desc": "Lei inglesa que dá à Marinha o direito de reprimir o tráfico de escravizados no Atlântico. Pressão que leva ao fim do tráfico no Brasil (1850).",
+     "descH": "Lei inglesa que dá à Marinha o direito de <b>reprimir o tráfico de escravizados</b> no Atlântico. Pressão que leva ao fim do tráfico no Brasil (1850).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1848,
+   "events": [
+    {
+     "id": "q39",
+     "text": "MANIFESTO COMUNISTA",
+     "color": "#7c3aed",
+     "desc": "Marx e Engels: luta de classes, crítica ao capitalismo. Ano da Primavera dos Povos, ondas de revoluções liberais e nacionais na Europa.",
+     "descH": "<b>Marx e Engels</b>: luta de classes, crítica ao capitalismo. Ano da <b>Primavera dos Povos</b>, ondas de revoluções liberais e nacionais na Europa.",
+     "flt": [
+      "f_fs",
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1850,
+   "events": [
+    {
+     "id": "q110",
+     "text": "LEI EUSÉBIO DE QUEIRÓS E LEI DE TERRAS",
+     "color": "#16a34a",
+     "desc": "Fim do tráfico negreiro (pressão inglesa). A Lei de Terras passa a exigir a compra para ter terra, o que exclui pobres, ex-escravizados e imigrantes e fortalece o latifúndio.",
+     "descH": "<b>Fim do tráfico negreiro</b> (pressão inglesa). A <b>Lei de Terras</b> passa a exigir a compra para ter terra, o que exclui pobres, ex-escravizados e imigrantes e fortalece o latifúndio.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1857,
+   "events": [
+    {
+     "id": "q195",
+     "text": "REVOLTA DOS CIPAIOS (ÍNDIA)",
+     "color": "#2563eb",
+     "desc": "1857–58. Revolta contra a Companhia das Índias; a Índia passa ao domínio direto britânico (Raj) até 1947.",
+     "descH": "1857–58. Revolta contra a Companhia das Índias; a Índia passa ao <b>domínio direto britânico</b> (Raj) até 1947.",
+     "flt": [
+      "f_ge",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1859,
+   "events": [
+    {
+     "id": "q40",
+     "text": "A ORIGEM DAS ESPÉCIES",
+     "color": "#0891b2",
+     "desc": "Darwin: evolução por seleção natural. Gera polêmica religiosa e é distorcida pelo darwinismo social, usado para justificar o imperialismo e o racismo.",
+     "descH": "<b>Darwin</b>: evolução por seleção natural. Gera polêmica religiosa e é distorcida pelo <b>darwinismo social</b>, usado para justificar o imperialismo e o racismo.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1861,
+   "events": [
+    {
+     "id": "q41",
+     "text": "GUERRA DE SECESSÃO (EUA)",
+     "color": "#2563eb",
+     "desc": "1861–1865. Norte industrial e antiescravista contra Sul agrário e escravista. Fim da escravidão nos EUA e consolidação do capitalismo industrial.",
+     "flt": [
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1864,
+   "events": [
+    {
+     "id": "q111",
+     "text": "GUERRA DO PARAGUAI",
+     "color": "#16a34a",
+     "desc": "1864–1870. Tríplice Aliança (Brasil, Argentina e Uruguai) contra o Paraguai de Solano López. Fortalece o Exército e expõe as contradições da escravidão.",
+     "descH": "1864–1870. Tríplice Aliança (Brasil, Argentina e Uruguai) contra o Paraguai de <b>Solano López</b>. Fortalece o Exército e expõe as contradições da escravidão.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1866,
+   "events": [
+    {
+     "id": "q196",
+     "text": "LEIS DE MENDEL",
+     "color": "#0891b2",
+     "desc": "Base da genética: hereditariedade, genes dominantes e recessivos.",
+     "descH": "Base da <b>genética</b>: hereditariedade, genes dominantes e recessivos.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1867,
+   "events": [
+    {
+     "id": "q42",
+     "text": "O CAPITAL",
+     "color": "#7c3aed",
+     "desc": "Marx: mais-valia, exploração do trabalho e crítica à economia política. Base do pensamento socialista.",
+     "descH": "<b>Marx</b>: mais-valia, exploração do trabalho e crítica à economia política. Base do pensamento socialista.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1868,
+   "events": [
+    {
+     "id": "q197",
+     "text": "REVOLUÇÃO MEIJI (JAPÃO)",
+     "color": "#2563eb",
+     "desc": "Modernização e industrialização aceleradas. O Japão vira potência imperialista (guerras com a China, 1894–95, e a Rússia, 1904–05).",
+     "flt": [
+      "f_ge",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1870,
+   "events": [
+    {
+     "id": "q43",
+     "text": "SEGUNDA REVOLUÇÃO INDUSTRIAL",
+     "color": "#2563eb",
+     "desc": "Aço, eletricidade, petróleo, química e linha de montagem (taylorismo e fordismo). Os EUA e a Alemanha ultrapassam a Inglaterra. Alimenta o imperialismo.",
+     "descH": "Aço, eletricidade, petróleo, química e linha de montagem (<b>taylorismo e fordismo</b>). Os EUA e a Alemanha ultrapassam a Inglaterra. Alimenta o imperialismo.",
+     "flt": [
+      "f_ge",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1871,
+   "events": [
+    {
+     "id": "q44",
+     "text": "UNIFICAÇÕES ITALIANA E ALEMÃ",
+     "color": "#2563eb",
+     "desc": "Itália (1861–1870) e Alemanha (1871, com Bismarck). Novas potências disputam mercados e colônias, uma das causas da Primeira Guerra.",
+     "descH": "Itália (1861–1870) e Alemanha (1871, com <b>Bismarck</b>). Novas potências disputam mercados e colônias, uma das causas da Primeira Guerra.",
+     "flt": [
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q112",
+     "text": "LEI DO VENTRE LIVRE",
+     "color": "#16a34a",
+     "desc": "Filhos de escravizadas nascidos a partir de 1871 seriam livres. Em 1885, a Lei dos Sexagenários também libera os idosos. Abolição gradual e controlada pelas elites.",
+     "descH": "Filhos de escravizadas nascidos a partir de 1871 seriam livres. Em 1885, a <b>Lei dos Sexagenários</b> também libera os idosos. Abolição gradual e controlada pelas elites.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q198",
+     "text": "COMUNA DE PARIS",
+     "color": "#2563eb",
+     "desc": "Primeiro governo operário (março–maio de 1871), esmagado. Referência do movimento socialista.",
+     "flt": [
+      "f_ge",
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1879,
+   "events": [
+    {
+     "id": "q199",
+     "text": "CICLO DA BORRACHA",
+     "color": "#16a34a",
+     "desc": "1879–1912, na Amazônia. Manaus e Belém enriquecem; migração nordestina para os seringais; queda por concorrência da borracha asiática.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1881,
+   "events": [
+    {
+     "id": "q155",
+     "text": "MEMÓRIAS PÓSTUMAS DE BRÁS CUBAS",
+     "color": "#db2777",
+     "desc": "Machado de Assis inaugura o Realismo no Brasil: ironia, análise psicológica e crítica social. Mesmo ano de O Mulato (Aluísio Azevedo, Naturalismo).",
+     "descH": "<b>Machado de Assis</b> inaugura o <b>Realismo</b> no Brasil: ironia, análise psicológica e crítica social. Mesmo ano de <i>O Mulato</i> (Aluísio Azevedo, Naturalismo).",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1882,
+   "events": [
+    {
+     "id": "q45",
+     "text": "\"DEUS ESTÁ MORTO\"",
+     "color": "#7c3aed",
+     "desc": "Nietzsche (A Gaia Ciência): crítica à moral cristã e aos valores tradicionais. Conceitos de \"além-do-homem\" e \"vontade de potência\".",
+     "descH": "<b>Nietzsche</b> (A Gaia Ciência): crítica à moral cristã e aos valores tradicionais. Conceitos de \"além-do-homem\" e \"vontade de potência\".",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1884,
+   "events": [
+    {
+     "id": "q46",
+     "text": "CONFERÊNCIA DE BERLIM",
+     "color": "#2563eb",
+     "desc": "1884–85. As potências europeias partilham a África em linhas traçadas no mapa, sem respeitar povos e culturas. Origem de conflitos étnicos atuais. Neocolonialismo.",
+     "descH": "1884–85. As potências europeias <b>partilham a África</b> em linhas traçadas no mapa, sem respeitar povos e culturas. Origem de conflitos étnicos atuais. Neocolonialismo.",
+     "flt": [
+      "f_ge",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1885,
+   "events": [
+    {
+     "id": "q200",
+     "text": "VACINA ANTIRRÁBICA (PASTEUR)",
+     "color": "#0891b2",
+     "desc": "Pasteur e a microbiologia. Teoria dos germes, vacinas e higiene. Inspira o sanitarismo de Oswaldo Cruz no Brasil.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1888,
+   "events": [
+    {
+     "id": "q113",
+     "text": "LEI ÁUREA",
+     "color": "#16a34a",
+     "desc": "13 de maio. Fim da escravidão, sem indenização nem inclusão dos libertos (sem terra, trabalho ou educação). Abre o debate sobre desigualdade racial e imigração europeia.",
+     "descH": "13 de maio. Fim da escravidão, <b>sem indenização nem inclusão</b> dos libertos (sem terra, trabalho ou educação). Abre o debate sobre desigualdade racial e imigração europeia.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1889,
+   "events": [
+    {
+     "id": "q114",
+     "text": "PROCLAMAÇÃO DA REPÚBLICA",
+     "color": "#16a34a",
+     "desc": "15 de novembro, Marechal Deodoro. Golpe liderado por militares e elite cafeeira, com pouca participação popular. Constituição de 1891: federalismo e presidencialismo.",
+     "descH": "15 de novembro, <b>Marechal Deodoro</b>. Golpe liderado por militares e elite cafeeira, com pouca participação popular. Constituição de 1891: federalismo e presidencialismo.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1890,
+   "events": [
+    {
+     "id": "q201",
+     "text": "ENCILHAMENTO",
+     "color": "#16a34a",
+     "desc": "Política de emissão de moeda de Rui Barbosa (1890–91) causa especulação e inflação logo após a Proclamação.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1893,
+   "events": [
+    {
+     "id": "q202",
+     "text": "REVOLTA DA ARMADA E FEDERALISTA",
+     "color": "#16a34a",
+     "desc": "Contra Floriano Peixoto (\"Marechal de Ferro\"), na República da Espada. Consolida o regime republicano.",
+     "descH": "Contra <b>Floriano Peixoto</b> (\"Marechal de Ferro\"), na República da Espada. Consolida o regime republicano.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1895,
+   "events": [
+    {
+     "id": "q47",
+     "text": "REGRAS DO MÉTODO SOCIOLÓGICO",
+     "color": "#7c3aed",
+     "desc": "Durkheim: o \"fato social\" é coercitivo, geral e exterior ao indivíduo. Ideias de solidariedade mecânica e orgânica e de anomia.",
+     "descH": "<b>Durkheim</b>: o \"fato social\" é coercitivo, geral e exterior ao indivíduo. Ideias de solidariedade mecânica e orgânica e de anomia.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1897,
+   "events": [
+    {
+     "id": "q115",
+     "text": "GUERRA DE CANUDOS",
+     "color": "#16a34a",
+     "desc": "1896–1897. Antônio Conselheiro e a comunidade sertaneja no interior da Bahia. Exército a destrói. Euclides da Cunha escreve Os Sertões (1902).",
+     "descH": "1896–1897. <b>Antônio Conselheiro</b> e a comunidade sertaneja no interior da Bahia. Exército a destrói. Euclides da Cunha escreve <i>Os Sertões</i> (1902).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1898,
+   "events": [
+    {
+     "id": "q203",
+     "text": "POLÍTICA DOS GOVERNADORES",
+     "color": "#16a34a",
+     "desc": "Campos Sales: apoio do presidente às oligarquias estaduais em troca de apoio no Congresso. Base do coronelismo e do voto de cabresto.",
+     "descH": "<b>Campos Sales</b>: apoio do presidente às oligarquias estaduais em troca de apoio no Congresso. Base do coronelismo e do voto de cabresto.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q204",
+     "text": "RADIOATIVIDADE (CURIE)",
+     "color": "#0891b2",
+     "desc": "Marie e Pierre Curie: polônio e rádio. Base da física nuclear e da radioterapia.",
+     "descH": "<b>Marie e Pierre Curie</b>: polônio e rádio. Base da física nuclear e da radioterapia.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1900,
+   "events": [
+    {
+     "id": "q48",
+     "text": "A INTERPRETAÇÃO DOS SONHOS",
+     "color": "#7c3aed",
+     "desc": "Freud e a psicanálise: inconsciente, repressão e sexualidade. Muda a visão da mente humana.",
+     "descH": "<b>Freud</b> e a psicanálise: inconsciente, repressão e sexualidade. Muda a visão da mente humana.",
+     "flt": [
+      "f_fs",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1902,
+   "events": [
+    {
+     "id": "q157",
+     "text": "OS SERTÕES",
+     "color": "#db2777",
+     "desc": "Euclides da Cunha: relato de Canudos, ciência e literatura, e crítica ao litoral. Início do Pré-Modernismo, com Lima Barreto e Monteiro Lobato.",
+     "descH": "<b>Euclides da Cunha</b>: relato de Canudos, ciência e literatura, e crítica ao litoral. Início do <b>Pré-Modernismo</b>, com Lima Barreto e Monteiro Lobato.",
+     "flt": [
+      "f_ca",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1903,
+   "events": [
+    {
+     "id": "q205",
+     "text": "ANEXAÇÃO DO ACRE",
+     "color": "#16a34a",
+     "desc": "Tratado de Petrópolis: o Brasil compra o Acre da Bolívia, por causa da borracha. Barão do Rio Branco consolida as fronteiras por diplomacia.",
+     "descH": "Tratado de Petrópolis: o Brasil compra o Acre da Bolívia, por causa da borracha. <b>Barão do Rio Branco</b> consolida as fronteiras por diplomacia.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1904,
+   "events": [
+    {
+     "id": "q116",
+     "text": "REVOLTA DA VACINA",
+     "color": "#16a34a",
+     "desc": "Oswaldo Cruz e a vacinação obrigatória contra a varíola, somada à reforma urbana do Rio (Pereira Passos), com demolição de cortiços e expulsão dos pobres. Revolta popular.",
+     "descH": "<b>Oswaldo Cruz</b> e a vacinação obrigatória contra a varíola, somada à reforma urbana do Rio (Pereira Passos), com demolição de cortiços e expulsão dos pobres. Revolta popular.",
+     "flt": [
+      "f_br",
+      "f_ct",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q206",
+     "text": "GUERRA RUSSO-JAPONESA",
+     "color": "#ea580c",
+     "desc": "1904–05. Primeira vitória de uma potência asiática sobre uma europeia. Gera a Revolução Russa de 1905.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1905,
+   "events": [
+    {
+     "id": "q49",
+     "text": "ÉTICA PROTESTANTE (WEBER)",
+     "color": "#7c3aed",
+     "desc": "Max Weber relaciona a ética calvinista ao espírito do capitalismo. Ação social e racionalização. Também em 1905: relatividade restrita de Einstein.",
+     "descH": "<b>Max Weber</b> relaciona a ética calvinista ao espírito do capitalismo. Ação social e racionalização. Também em 1905: relatividade restrita de Einstein.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1906,
+   "events": [
+    {
+     "id": "q117",
+     "text": "CONVÊNIO DE TAUBATÉ",
+     "color": "#16a34a",
+     "desc": "O governo compra o café excedente para sustentar preços. Marca a política do café com leite (SP e MG) e a política dos governadores na República Velha.",
+     "descH": "O governo compra o café excedente para sustentar preços. Marca a <b>política do café com leite</b> (SP e MG) e a política dos governadores na República Velha.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q207",
+     "text": "14-BIS (SANTOS DUMONT)",
+     "color": "#16a34a",
+     "desc": "Primeiro voo de avião homologado (Paris, 23 de outubro de 1906). O Brasil reivindica o pioneirismo.",
+     "flt": [
+      "f_br",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1908,
+   "events": [
+    {
+     "id": "q118",
+     "text": "IMIGRAÇÃO JAPONESA",
+     "color": "#16a34a",
+     "desc": "Navio Kasato Maru chega a Santos. Imigração europeia e asiática para substituir a mão de obra escravizada nas lavouras de café e ocupar o Sul.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1909,
+   "events": [
+    {
+     "id": "q50",
+     "text": "VANGUARDAS EUROPEIAS",
+     "color": "#db2777",
+     "desc": "Futurismo (1909), Cubismo (1907), Expressionismo, Dadaísmo e Surrealismo (1924): rompem com o academicismo e com a representação realista. Influenciam o Modernismo brasileiro.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1910,
+   "events": [
+    {
+     "id": "q119",
+     "text": "REVOLTA DA CHIBATA",
+     "color": "#16a34a",
+     "desc": "João Cândido lidera marinheiros negros contra os castigos corporais na Marinha. No mesmo ano, é criado o SPI (Serviço de Proteção aos Índios, de Rondon).",
+     "descH": "<b>João Cândido</b> lidera marinheiros negros contra os castigos corporais na Marinha. No mesmo ano, é criado o SPI (Serviço de Proteção aos Índios, de Rondon).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q208",
+     "text": "REVOLUÇÃO MEXICANA",
+     "color": "#ea580c",
+     "desc": "1910–1920, com Zapata e Villa. Reforma agrária e a Constituição de 1917, uma das primeiras com direitos sociais.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1912,
+   "events": [
+    {
+     "id": "q120",
+     "text": "GUERRA DO CONTESTADO",
+     "color": "#16a34a",
+     "desc": "1912–1916 (Paraná e Santa Catarina). Camponeses expulsos por ferrovia e madeireira estrangeira. Misticismo e conflito pela terra.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1913,
+   "events": [
+    {
+     "id": "q209",
+     "text": "FORDISMO",
+     "color": "#2563eb",
+     "desc": "Linha de montagem móvel na Ford: produção em massa e consumo em massa. Taylorismo (cronometragem) e toyotismo (flexível, pós-1970) são outros modelos de produção.",
+     "descH": "Linha de montagem móvel na Ford: <b>produção em massa</b> e consumo em massa. Taylorismo (cronometragem) e toyotismo (flexível, pós-1970) são outros modelos de produção.",
+     "flt": [
+      "f_ge",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1914,
+   "events": [
+    {
+     "id": "q51",
+     "text": "PRIMEIRA GUERRA MUNDIAL",
+     "color": "#ea580c",
+     "desc": "1914–1918. Causas: imperialismo, nacionalismos, militarismo e alianças (Tríplice Entente x Tríplice Aliança). Pavio: assassinato do arquiduque Francisco Ferdinando. Guerra de trincheiras e uso de armas químicas.",
+     "descH": "1914–1918. Causas: <b>imperialismo, nacionalismos, militarismo e alianças</b> (Tríplice Entente x Tríplice Aliança). Pavio: assassinato do arquiduque Francisco Ferdinando. Guerra de trincheiras e uso de armas químicas.",
+     "flt": [
+      "f_sx",
+      "f_ge"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1917,
+   "events": [
+    {
+     "id": "q52",
+     "text": "REVOLUÇÃO RUSSA",
+     "color": "#ea580c",
+     "desc": "Fevereiro derruba o czar. Outubro leva os bolcheviques (Lênin) ao poder: \"Paz, pão e terra\". Nasce a URSS em 1922. Primeiro Estado socialista.",
+     "descH": "Fevereiro derruba o czar. Outubro leva os <b>bolcheviques</b> (Lênin) ao poder: \"Paz, pão e terra\". Nasce a URSS em 1922. Primeiro Estado socialista.",
+     "flt": [
+      "f_sx",
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q210",
+     "text": "GREVE GERAL DE 1917",
+     "color": "#16a34a",
+     "desc": "São Paulo, liderada por anarquistas e imigrantes. Origem do movimento operário e das primeiras leis trabalhistas.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1918,
+   "events": [
+    {
+     "id": "q211",
+     "text": "SUFRÁGIO FEMININO",
+     "color": "#2563eb",
+     "desc": "Voto feminino parcial no Reino Unido (1918), fruto do movimento sufragista. No Brasil, em 1932.",
+     "descH": "Voto feminino parcial no Reino Unido (1918), fruto do movimento sufragista. <b>No Brasil, em 1932.</b>",
+     "flt": [
+      "f_ge",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1919,
+   "events": [
+    {
+     "id": "q53",
+     "text": "TRATADO DE VERSALHES",
+     "color": "#ea580c",
+     "desc": "Impõe à Alemanha culpa, perdas territoriais, desarmamento e reparações. O ressentimento alimenta o nazismo. Cria a Liga das Nações.",
+     "descH": "Impõe à Alemanha culpa, perdas territoriais, desarmamento e <b>reparações</b>. O ressentimento alimenta o nazismo. Cria a Liga das Nações.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1922,
+   "events": [
+    {
+     "id": "q54",
+     "text": "MARCHA SOBRE ROMA",
+     "color": "#ea580c",
+     "desc": "Mussolini chega ao poder: fascismo, nacionalismo, Estado totalitário e culto ao líder. Modelo para o nazismo.",
+     "descH": "<b>Mussolini</b> chega ao poder: fascismo, nacionalismo, Estado totalitário e culto ao líder. Modelo para o nazismo.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q121",
+     "text": "SEMANA DE ARTE MODERNA",
+     "color": "#16a34a",
+     "desc": "São Paulo. Marco do Modernismo: liberdade formal, nacionalismo crítico e língua brasileira. Em 1922: Revolta dos 18 do Forte (tenentismo) e fundação do PCB. Crise da República Velha.",
+     "descH": "São Paulo. Marco do <b>Modernismo</b>: liberdade formal, nacionalismo crítico e língua brasileira. Em 1922: Revolta dos 18 do Forte (<b>tenentismo</b>) e fundação do PCB. Crise da República Velha.",
+     "flt": [
+      "f_br",
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1925,
+   "events": [
+    {
+     "id": "q122",
+     "text": "COLUNA PRESTES",
+     "color": "#16a34a",
+     "desc": "1925–1927. Marcha de 25 mil km pelo interior contra o governo oligárquico, com bandeiras do voto secreto e de reformas.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1927,
+   "events": [
+    {
+     "id": "q212",
+     "text": "STALINISMO",
+     "color": "#ea580c",
+     "desc": "Stalin consolida o poder: planos quinquenais, coletivização forçada, industrialização acelerada, o Grande Expurgo (1936–38) e culto à personalidade.",
+     "descH": "Stalin consolida o poder: <b>planos quinquenais</b>, coletivização forçada, industrialização acelerada, o Grande Expurgo (1936–38) e culto à personalidade.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1928,
+   "events": [
+    {
+     "id": "q55",
+     "text": "PENICILINA",
+     "color": "#0891b2",
+     "desc": "Fleming descobre o primeiro antibiótico. Revoluciona a medicina. Hoje, a resistência bacteriana é tema de saúde pública.",
+     "descH": "<b>Fleming</b> descobre o primeiro antibiótico. Revoluciona a medicina. Hoje, a resistência bacteriana é tema de saúde pública.",
+     "flt": [
+      "f_ct"
+     ]
+    },
+    {
+     "id": "q123",
+     "text": "MACUNAÍMA E MANIFESTO ANTROPÓFAGO",
+     "color": "#db2777",
+     "desc": "Mário de Andrade (herói sem nenhum caráter) e Oswald de Andrade: devorar a cultura estrangeira e transformá-la. Segunda fase do Modernismo (1930–1945): romance regionalista e poesia social.",
+     "descH": "<b>Mário de Andrade</b> (herói sem nenhum caráter) e <b>Oswald de Andrade</b>: devorar a cultura estrangeira e transformá-la. Segunda fase do Modernismo (1930–1945): romance regionalista e poesia social.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1929,
+   "events": [
+    {
+     "id": "q56",
+     "text": "CRISE DE 1929",
+     "color": "#ea580c",
+     "desc": "Quebra da Bolsa de Nova York: superprodução e especulação. Desemprego em massa e crise mundial. New Deal (Roosevelt, 1933): intervenção do Estado na economia (keynesianismo). Derruba o preço do café brasileiro.",
+     "descH": "Quebra da Bolsa de Nova York: superprodução e especulação. Desemprego em massa e crise mundial. <b>New Deal</b> (Roosevelt, 1933): intervenção do Estado na economia (keynesianismo). Derruba o preço do café brasileiro.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1930,
+   "events": [
+    {
+     "id": "q124",
+     "text": "REVOLUÇÃO DE 1930",
+     "color": "#16a34a",
+     "desc": "Fim da República Velha: Getúlio Vargas assume. Centralização do poder, industrialização com intervenção do Estado e leis trabalhistas.",
+     "descH": "Fim da República Velha: <b>Getúlio Vargas</b> assume. Centralização do poder, industrialização com intervenção do Estado e leis trabalhistas.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1932,
+   "events": [
+    {
+     "id": "q125",
+     "text": "REVOLUÇÃO CONSTITUCIONALISTA",
+     "color": "#16a34a",
+     "desc": "São Paulo pede uma Constituição e autonomia. Derrotada militarmente, mas leva à Constituição de 1934. O voto feminino é instituído em 1932 (Código Eleitoral).",
+     "descH": "São Paulo pede uma Constituição e autonomia. Derrotada militarmente, mas leva à Constituição de <b>1934</b>. O <b>voto feminino</b> é instituído em 1932 (Código Eleitoral).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1933,
+   "events": [
+    {
+     "id": "q57",
+     "text": "HITLER NO PODER",
+     "color": "#ea580c",
+     "desc": "Nazismo: totalitarismo, antissemitismo, racismo, expansão territorial (\"espaço vital\") e propaganda de massa (Goebbels).",
+     "descH": "Nazismo: totalitarismo, <b>antissemitismo</b>, racismo, expansão territorial (\"espaço vital\") e propaganda de massa (Goebbels).",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q152",
+     "text": "CASA-GRANDE E SENZALA",
+     "color": "#7c3aed",
+     "desc": "Gilberto Freyre: miscigenação e \"democracia racial\". Ideia criticada por esconder o racismo. Sérgio Buarque de Holanda publica Raízes do Brasil (1936), com o \"homem cordial\".",
+     "descH": "<b>Gilberto Freyre</b>: miscigenação e \"democracia racial\". Ideia criticada por esconder o racismo. Sérgio Buarque de Holanda publica <i>Raízes do Brasil</i> (1936), com o \"homem cordial\".",
+     "flt": [
+      "f_fs",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1934,
+   "events": [
+    {
+     "id": "q213",
+     "text": "CONSTITUIÇÃO DE 1934",
+     "color": "#16a34a",
+     "desc": "Inspirada na Constituição de Weimar: voto feminino, direitos trabalhistas, Justiça do Trabalho e Eleitoral e nacionalismo econômico. Dura pouco (Estado Novo, 1937).",
+     "descH": "Inspirada na Constituição de Weimar: <b>voto feminino, direitos trabalhistas</b>, Justiça do Trabalho e Eleitoral e nacionalismo econômico. Dura pouco (Estado Novo, 1937).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1935,
+   "events": [
+    {
+     "id": "q214",
+     "text": "ANL E INTENTONA COMUNISTA",
+     "color": "#16a34a",
+     "desc": "A Aliança Nacional Libertadora (frente antifascista) e o levante comunista de 1935 servem de pretexto à repressão e ao Estado Novo. Contra isso, o Integralismo (AIB, 1932).",
+     "descH": "A Aliança Nacional Libertadora (frente antifascista) e o levante comunista de 1935 servem de pretexto à repressão e ao Estado Novo. Contra isso, o <b>Integralismo</b> (AIB, 1932).",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1936,
+   "events": [
+    {
+     "id": "q58",
+     "text": "GUERRA CIVIL ESPANHOLA",
+     "color": "#ea580c",
+     "desc": "1936–1939. República x nacionalistas de Franco. \"Ensaio\" da Segunda Guerra, com apoio alemão e italiano. Guernica (Picasso, 1937) denuncia o bombardeio.",
+     "descH": "1936–1939. República x nacionalistas de <b>Franco</b>. \"Ensaio\" da Segunda Guerra, com apoio alemão e italiano. Guernica (Picasso, 1937) denuncia o bombardeio.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q215",
+     "text": "A OBRA DE ARTE NA ERA DA REPRODUTIBILIDADE",
+     "color": "#7c3aed",
+     "desc": "Walter Benjamin: a reprodução técnica faz a obra perder a \"aura\". Debate sobre cultura de massa, arte e tecnologia.",
+     "descH": "<b>Walter Benjamin</b>: a reprodução técnica faz a obra perder a \"aura\". Debate sobre cultura de massa, arte e tecnologia.",
+     "flt": [
+      "f_fs",
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1937,
+   "events": [
+    {
+     "id": "q126",
+     "text": "ESTADO NOVO",
+     "color": "#16a34a",
+     "desc": "Golpe de Vargas com o falso Plano Cohen. Ditadura: Constituição \"Polaca\", censura (DIP), repressão e populismo. Nacionalismo e culto à imagem do líder.",
+     "descH": "Golpe de Vargas com o falso Plano Cohen. Ditadura: Constituição \"<b>Polaca</b>\", censura (DIP), repressão e populismo. Nacionalismo e culto à imagem do líder.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q158",
+     "text": "GUERNICA",
+     "color": "#db2777",
+     "desc": "Picasso denuncia o bombardeio nazifascista a uma cidade basca, na Guerra Civil Espanhola. Obra-símbolo contra a guerra.",
+     "descH": "<b>Picasso</b> denuncia o bombardeio nazifascista a uma cidade basca, na Guerra Civil Espanhola. Obra-símbolo contra a guerra.",
+     "flt": [
+      "f_ca",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1938,
+   "events": [
+    {
+     "id": "q127",
+     "text": "VIDAS SECAS",
+     "color": "#db2777",
+     "desc": "Graciliano Ramos. Romance de 30: realismo social e regionalismo nordestino. Denúncia da seca, da pobreza e da desigualdade.",
+     "descH": "<b>Graciliano Ramos</b>. Romance de 30: realismo social e regionalismo nordestino. Denúncia da seca, da pobreza e da desigualdade.",
+     "flt": [
+      "f_ca"
+     ]
+    },
+    {
+     "id": "q216",
+     "text": "NOITE DOS CRISTAIS",
+     "color": "#ea580c",
+     "desc": "Ataques nazistas a judeus na Alemanha. Etapa da perseguição que levou ao Holocausto.",
+     "descH": "Ataques nazistas a judeus na Alemanha. Etapa da perseguição que levou ao <b>Holocausto</b>.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1939,
+   "events": [
+    {
+     "id": "q59",
+     "text": "SEGUNDA GUERRA MUNDIAL",
+     "color": "#ea580c",
+     "desc": "1939–1945. Invasão da Polônia. Eixo x Aliados. Holocausto (cerca de 6 milhões de judeus mortos). Guerra total: bombas atômicas, genocídios e deslocados.",
+     "descH": "1939–1945. Invasão da Polônia. Eixo x Aliados. <b>Holocausto</b> (cerca de 6 milhões de judeus mortos). Guerra total: bombas atômicas, genocídios e deslocados.",
+     "flt": [
+      "f_sx",
+      "f_ge"
+     ]
+    },
+    {
+     "id": "q217",
+     "text": "PACTO MOLOTOV-RIBBENTROP",
+     "color": "#ea580c",
+     "desc": "Pacto de não agressão entre a URSS e a Alemanha. Permite a invasão e a partilha da Polônia, o início da Segunda Guerra.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1941,
+   "events": [
+    {
+     "id": "q218",
+     "text": "PEARL HARBOR",
+     "color": "#ea580c",
+     "desc": "O ataque japonês leva os EUA à guerra (dezembro de 1941). A guerra vira mundial e a participação norte-americana decide o conflito.",
+     "descH": "O ataque japonês leva os <b>EUA à guerra</b> (dezembro de 1941). A guerra vira mundial e a participação norte-americana decide o conflito.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1942,
+   "events": [
+    {
+     "id": "q219",
+     "text": "BRASIL ENTRA NA GUERRA",
+     "color": "#16a34a",
+     "desc": "Depois de navios mercantes serem afundados, Brasil declara guerra ao Eixo. Em troca de apoio aos EUA, ganha a Usina de Volta Redonda (CSN).",
+     "descH": "Depois de navios mercantes serem afundados, Brasil declara guerra ao Eixo. Em troca de apoio aos EUA, ganha a <b>Usina de Volta Redonda (CSN)</b>.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1943,
+   "events": [
+    {
+     "id": "q128",
+     "text": "CLT",
+     "color": "#16a34a",
+     "desc": "Consolidação das Leis do Trabalho, em 1º de maio de 1943. Direitos trabalhistas (salário mínimo, jornada, férias), com o sindicalismo atrelado ao Estado.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1944,
+   "events": [
+    {
+     "id": "q129",
+     "text": "FEB NA ITÁLIA",
+     "color": "#16a34a",
+     "desc": "Brasil entra na Segunda Guerra ao lado dos Aliados (1942). A Força Expedicionária Brasileira combate na Itália (Monte Castelo, 1945). Contradição: lutar contra a ditadura fora e ter uma dentro.",
+     "descH": "Brasil entra na <b>Segunda Guerra</b> ao lado dos Aliados (1942). A Força Expedicionária Brasileira combate na Itália (Monte Castelo, 1945). Contradição: lutar contra a ditadura fora e ter uma dentro.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q220",
+     "text": "BRETTON WOODS",
+     "color": "#ea580c",
+     "desc": "Cria o FMI e o Banco Mundial e o dólar como referência do sistema financeiro. Base da ordem econômica do pós-guerra.",
+     "descH": "Cria o <b>FMI e o Banco Mundial</b> e o dólar como referência do sistema financeiro. Base da ordem econômica do pós-guerra.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1945,
+   "events": [
+    {
+     "id": "q60",
+     "text": "ONU E BOMBA ATÔMICA",
+     "color": "#ea580c",
+     "desc": "Fim da guerra com Hiroshima e Nagasaki (agosto). A ONU nasce em outubro, e o Tribunal de Nuremberg julga crimes de guerra e contra a humanidade (1945–46).",
+     "descH": "Fim da guerra com Hiroshima e Nagasaki (agosto). A <b>ONU</b> nasce em outubro, e o Tribunal de Nuremberg julga crimes de guerra e contra a humanidade (1945–46).",
+     "flt": [
+      "f_sx",
+      "f_ct"
+     ]
+    },
+    {
+     "id": "q130",
+     "text": "FIM DO ESTADO NOVO",
+     "color": "#16a34a",
+     "desc": "Vargas é deposto em outubro. Redemocratização e a República Populista (1946–1964): Constituição de 1946, PTB, PSD e UDN.",
+     "descH": "Vargas é deposto em outubro. Redemocratização e a <b>República Populista</b> (1946–1964): Constituição de 1946, PTB, PSD e UDN.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1947,
+   "events": [
+    {
+     "id": "q61",
+     "text": "GUERRA FRIA",
+     "color": "#ea580c",
+     "desc": "Bipolaridade EUA x URSS sem confronto direto. Doutrina Truman (contenção) e Plano Marshall (1947–48). Corrida armamentista e espacial, guerras por procuração e fim em 1991.",
+     "descH": "Bipolaridade <b>EUA x URSS</b> sem confronto direto. Doutrina Truman (contenção) e Plano Marshall (1947–48). Corrida armamentista e espacial, guerras por procuração e fim em 1991.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q64",
+     "text": "DIALÉTICA DO ESCLARECIMENTO",
+     "color": "#7c3aed",
+     "desc": "Adorno e Horkheimer (Escola de Frankfurt): indústria cultural, que padroniza a cultura e transforma arte em mercadoria. Conceito muito cobrado.",
+     "descH": "<b>Adorno e Horkheimer</b> (Escola de Frankfurt): <b>indústria cultural</b>, que padroniza a cultura e transforma arte em mercadoria. Conceito muito cobrado.",
+     "flt": [
+      "f_fs"
+     ]
+    },
+    {
+     "id": "q221",
+     "text": "INDEPENDÊNCIA DA ÍNDIA",
+     "color": "#ea580c",
+     "desc": "Gandhi e a resistência não violenta. Partição entre Índia e Paquistão. Marco da descolonização afro-asiática no pós-guerra.",
+     "descH": "<b>Gandhi</b> e a resistência não violenta. Partição entre Índia e Paquistão. Marco da <b>descolonização</b> afro-asiática no pós-guerra.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1948,
+   "events": [
+    {
+     "id": "q62",
+     "text": "DECLARAÇÃO UNIVERSAL DOS DIREITOS HUMANOS",
+     "color": "#ea580c",
+     "desc": "ONU, 10 de dezembro de 1948. Direitos universais, reação aos horrores da guerra. No mesmo ano nasce o Estado de Israel, o que gera o conflito árabe-israelense e a questão palestina.",
+     "descH": "ONU, 10 de dezembro de 1948. Direitos universais, reação aos horrores da guerra. No mesmo ano nasce o <b>Estado de Israel</b>, o que gera o conflito árabe-israelense e a questão palestina.",
+     "flt": [
+      "f_sx",
+      "f_fs",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1949,
+   "events": [
+    {
+     "id": "q63",
+     "text": "REVOLUÇÃO CHINESA E OTAN",
+     "color": "#ea580c",
+     "desc": "Mao Tsé-tung proclama a República Popular da China. Criação da OTAN (aliança ocidental); o Pacto de Varsóvia vem em 1955.",
+     "descH": "<b>Mao Tsé-tung</b> proclama a República Popular da China. Criação da <b>OTAN</b> (aliança ocidental); o Pacto de Varsóvia vem em 1955.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q65",
+     "text": "O SEGUNDO SEXO",
+     "color": "#7c3aed",
+     "desc": "Simone de Beauvoir: \"Não se nasce mulher, torna-se mulher\". Base do feminismo da segunda onda e da noção de gênero como construção social.",
+     "descH": "<b>Simone de Beauvoir</b>: \"Não se nasce mulher, torna-se mulher\". Base do feminismo da segunda onda e da noção de gênero como construção social.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1950,
+   "events": [
+    {
+     "id": "q66",
+     "text": "GUERRA DA COREIA",
+     "color": "#ea580c",
+     "desc": "1950–1953. Divisão no paralelo 38: Norte comunista (URSS e China) x Sul capitalista (EUA). Primeiro grande conflito armado da Guerra Fria.",
+     "descH": "1950–1953. Divisão no <b>paralelo 38</b>: Norte comunista (URSS e China) x Sul capitalista (EUA). Primeiro grande conflito armado da Guerra Fria.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q222",
+     "text": "MARACANAZO E TV NO BRASIL",
+     "color": "#16a34a",
+     "desc": "Derrota na final da Copa de 1950. Em 1950, a TV chega ao Brasil (TV Tupi). A TV Globo (1965) e a Copa de 1970 serão usadas pela ditadura como propaganda.",
+     "flt": [
+      "f_br",
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1953,
+   "events": [
+    {
+     "id": "q131",
+     "text": "PETROBRAS",
+     "color": "#16a34a",
+     "desc": "\"O petróleo é nosso\". Monopólio estatal do petróleo no governo Vargas. Em 1954, o suicídio de Vargas (24 de agosto) com a Carta-Testamento.",
+     "descH": "\"O petróleo é nosso\". Monopólio estatal do petróleo no governo Vargas. Em 1954, o <b>suicídio de Vargas</b> (24 de agosto) com a Carta-Testamento.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q150",
+     "text": "ESTRUTURA DO DNA",
+     "color": "#0891b2",
+     "desc": "Watson e Crick (com Rosalind Franklin): dupla hélice. Base da genética moderna, da biotecnologia e da engenharia genética.",
+     "descH": "<b>Watson e Crick</b> (com Rosalind Franklin): dupla hélice. Base da genética moderna, da biotecnologia e da engenharia genética.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1955,
+   "events": [
+    {
+     "id": "q67",
+     "text": "CONFERÊNCIA DE BANDUNG",
+     "color": "#ea580c",
+     "desc": "Países da Ásia e da África defendem a descolonização e o não alinhamento. Origem do \"Terceiro Mundo\" como força política.",
+     "descH": "Países da Ásia e da África defendem a <b>descolonização</b> e o não alinhamento. Origem do \"Terceiro Mundo\" como força política.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q223",
+     "text": "DIREITOS CIVIS NOS EUA",
+     "color": "#ea580c",
+     "desc": "Rosa Parks e o boicote aos ônibus (1955). Martin Luther King e a marcha de 1963 (\"Eu tenho um sonho\"). Lei dos Direitos Civis (1964): fim da segregação legal.",
+     "descH": "Rosa Parks e o boicote aos ônibus (1955). <b>Martin Luther King</b> e a marcha de 1963 (\"Eu tenho um sonho\"). Lei dos Direitos Civis (1964): fim da segregação legal.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1956,
+   "events": [
+    {
+     "id": "q132",
+     "text": "GOVERNO JK (50 ANOS EM 5)",
+     "color": "#16a34a",
+     "desc": "Juscelino Kubitschek: Plano de Metas, abertura à indústria automobilística e ao capital estrangeiro, endividamento e inflação. Brasília inaugurada em 1960.",
+     "descH": "Juscelino Kubitschek: <b>Plano de Metas</b>, abertura à indústria automobilística e ao capital estrangeiro, endividamento e inflação. <b>Brasília inaugurada em 1960</b>.",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q135",
+     "text": "GRANDE SERTÃO: VEREDAS",
+     "color": "#db2777",
+     "desc": "Guimarães Rosa. Obra-prima da geração de 45: regionalismo universal, linguagem inventiva, o sertão como mundo, Riobaldo e Diadorim.",
+     "descH": "<b>Guimarães Rosa</b>. Obra-prima da <b>geração de 45</b>: regionalismo universal, linguagem inventiva, o sertão como mundo, Riobaldo e Diadorim.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1957,
+   "events": [
+    {
+     "id": "q68",
+     "text": "SPUTNIK",
+     "color": "#0891b2",
+     "desc": "A URSS lança o primeiro satélite. Corrida espacial. Em 1961, Gagarin é o primeiro homem no espaço; em 1969, os EUA chegam à Lua (Apolo 11).",
+     "descH": "A URSS lança o primeiro satélite. <b>Corrida espacial</b>. Em 1961, Gagarin é o primeiro homem no espaço; em 1969, os EUA chegam à Lua (Apolo 11).",
+     "flt": [
+      "f_ct",
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q224",
+     "text": "TRATADO DE ROMA (CEE)",
+     "color": "#ea580c",
+     "desc": "Cria a Comunidade Econômica Europeia, origem da União Europeia (Maastricht, 1992) e exemplo de bloco regional.",
+     "descH": "Cria a Comunidade Econômica Europeia, origem da <b>União Europeia</b> (Maastricht, 1992) e exemplo de bloco regional.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1958,
+   "events": [
+    {
+     "id": "q133",
+     "text": "BOSSA NOVA",
+     "color": "#db2777",
+     "desc": "João Gilberto, Tom Jobim, Vinicius: samba com jazz, em ambiente de otimismo urbano da era JK. Em 1967–68, a Tropicália mistura cultura popular, rock e vanguarda.",
+     "descH": "João Gilberto, Tom Jobim, Vinicius: samba com jazz, em ambiente de otimismo urbano da era JK. Em 1967–68, a <b>Tropicália</b> mistura cultura popular, rock e vanguarda.",
+     "flt": [
+      "f_ca"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1959,
+   "events": [
+    {
+     "id": "q69",
+     "text": "REVOLUÇÃO CUBANA",
+     "color": "#ea580c",
+     "desc": "Fidel Castro derruba Batista e se aproxima da URSS. Embargo dos EUA e influência na América Latina.",
+     "descH": "<b>Fidel Castro</b> derruba Batista e se aproxima da URSS. Embargo dos EUA e influência na América Latina.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1960,
+   "events": [
+    {
+     "id": "q225",
+     "text": "ANO DA ÁFRICA",
+     "color": "#ea580c",
+     "desc": "17 países africanos se tornam independentes em 1960. Descolonização muitas vezes com fronteiras artificiais herdadas da Conferência de Berlim.",
+     "descH": "17 países africanos se tornam independentes em 1960. <b>Descolonização</b> muitas vezes com fronteiras artificiais herdadas da Conferência de Berlim.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1961,
+   "events": [
+    {
+     "id": "q70",
+     "text": "MURO DE BERLIM",
+     "color": "#ea580c",
+     "desc": "Separa Berlim Oriental e Ocidental. Símbolo da divisão da Alemanha e do mundo. Em 1962, a Crise dos Mísseis em Cuba quase causa uma guerra nuclear.",
+     "descH": "Separa Berlim Oriental e Ocidental. Símbolo da <b>divisão da Alemanha</b> e do mundo. Em 1962, a Crise dos Mísseis em Cuba quase causa uma guerra nuclear.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q134",
+     "text": "RENÚNCIA DE JÂNIO",
+     "color": "#16a34a",
+     "desc": "Jânio Quadros renuncia. João Goulart assume sob parlamentarismo (até o plebiscito de 1963). Polarização política e Reformas de Base.",
+     "descH": "Jânio Quadros renuncia. <b>João Goulart</b> assume sob parlamentarismo (até o plebiscito de 1963). Polarização política e Reformas de Base.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1962,
+   "events": [
+    {
+     "id": "q226",
+     "text": "PRIMAVERA SILENCIOSA",
+     "color": "#65a30d",
+     "desc": "Rachel Carson denuncia os agrotóxicos (DDT). Marco do ambientalismo moderno.",
+     "descH": "<b>Rachel Carson</b> denuncia os agrotóxicos (DDT). Marco do ambientalismo moderno.",
+     "flt": [
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1964,
+   "events": [
+    {
+     "id": "q136",
+     "text": "GOLPE MILITAR",
+     "color": "#16a34a",
+     "desc": "31 de março: depõe João Goulart. Ditadura militar (1964–1985): bipartidarismo, censura, tortura, desaparecimentos, \"milagre econômico\" e endividamento externo. Contexto da Guerra Fria.",
+     "descH": "31 de março: depõe João Goulart. <b>Ditadura militar</b> (1964–1985): bipartidarismo, censura, tortura, desaparecimentos, \"milagre econômico\" e endividamento externo. Contexto da Guerra Fria.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q227",
+     "text": "ESTATUTO DA TERRA",
+     "color": "#16a34a",
+     "desc": "Primeira lei de reforma agrária do país, criada pelos militares. Pouco aplicada; a concentração fundiária continua.",
+     "descH": "Primeira lei de reforma agrária do país, criada pelos militares. Pouco aplicada; a <b>concentração fundiária</b> continua.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1965,
+   "events": [
+    {
+     "id": "q228",
+     "text": "CÓDIGO FLORESTAL",
+     "color": "#16a34a",
+     "desc": "Reserva legal e áreas de preservação permanente (APP). Substituído em 2012 por um novo Código, que flexibiliza regras.",
+     "flt": [
+      "f_br",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1966,
+   "events": [
+    {
+     "id": "q229",
+     "text": "REVOLUÇÃO CULTURAL (CHINA)",
+     "color": "#ea580c",
+     "desc": "1966–1976, Mao Tsé-tung mobiliza jovens (Guardas Vermelhos) contra \"burgueses\" e intelectuais. Violência, perseguições e atraso econômico.",
+     "descH": "1966–1976, <b>Mao Tsé-tung</b> mobiliza jovens (Guardas Vermelhos) contra \"burgueses\" e intelectuais. Violência, perseguições e atraso econômico.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1967,
+   "events": [
+    {
+     "id": "q230",
+     "text": "GUERRA DOS SEIS DIAS",
+     "color": "#ea580c",
+     "desc": "Israel ocupa Cisjordânia, Gaza, Golã, Sinai e Jerusalém Oriental. Origem de muitos pontos do conflito árabe-israelense atual. No Brasil, nasce a Zona Franca de Manaus.",
+     "descH": "Israel ocupa Cisjordânia, Gaza, Golã, Sinai e Jerusalém Oriental. Origem de muitos pontos do <b>conflito árabe-israelense</b> atual. No Brasil, nasce a Zona Franca de Manaus.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1968,
+   "events": [
+    {
+     "id": "q71",
+     "text": "MAIO DE 68",
+     "color": "#ea580c",
+     "desc": "Revolta de estudantes e operários na França. Contracultura: feminismo, direitos civis, hippies, pacifismo. Em 1968 também ocorre a Primavera de Praga (repressão soviética).",
+     "descH": "Revolta de estudantes e operários na França. <b>Contracultura</b>: feminismo, direitos civis, hippies, pacifismo. Em 1968 também ocorre a Primavera de Praga (repressão soviética).",
+     "flt": [
+      "f_sx",
+      "f_fs"
+     ]
+    },
+    {
+     "id": "q137",
+     "text": "AI-5",
+     "color": "#16a34a",
+     "desc": "13 de dezembro. Endurece a ditadura: fecha o Congresso, suspende o habeas corpus e institucionaliza a censura e a tortura. Começa a luta armada e o exílio de artistas (Caetano, Gil, Chico).",
+     "descH": "13 de dezembro. <b>Endurece a ditadura</b>: fecha o Congresso, suspende o habeas corpus e institucionaliza a censura e a tortura. Começa a luta armada e o exílio de artistas (Caetano, Gil, Chico).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q153",
+     "text": "PEDAGOGIA DO OPRIMIDO",
+     "color": "#7c3aed",
+     "desc": "Paulo Freire: crítica à \"educação bancária\", com educação dialógica e libertadora. Exilado pela ditadura. Patrono da educação brasileira.",
+     "descH": "<b>Paulo Freire</b>: crítica à \"educação bancária\", com educação dialógica e libertadora. Exilado pela ditadura. Patrono da educação brasileira.",
+     "flt": [
+      "f_fs",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1969,
+   "events": [
+    {
+     "id": "q149",
+     "text": "HOMEM NA LUA",
+     "color": "#0891b2",
+     "desc": "Apolo 11 (EUA, 20 de julho). Auge da corrida espacial. No mesmo ano nasce a ARPANET, ancestral da internet.",
+     "descH": "<b>Apolo 11</b> (EUA, 20 de julho). Auge da corrida espacial. No mesmo ano nasce a ARPANET, ancestral da internet.",
+     "flt": [
+      "f_ct",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1970,
+   "events": [
+    {
+     "id": "q138",
+     "text": "MILAGRE ECONÔMICO",
+     "color": "#16a34a",
+     "desc": "1968–1973. Crescimento alto do PIB com arrocho salarial, concentração de renda e obras faraônicas (Transamazônica), financiado por dívida externa. Fim com a crise do petróleo de 1973.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1972,
+   "events": [
+    {
+     "id": "q87",
+     "text": "CONFERÊNCIA DE ESTOCOLMO",
+     "color": "#ea580c",
+     "desc": "Primeira grande conferência da ONU sobre meio ambiente. Início da agenda global do desenvolvimento sustentável.",
+     "descH": "Primeira grande conferência da ONU sobre meio ambiente. Início da agenda global do <b>desenvolvimento sustentável</b>.",
+     "flt": [
+      "f_sx",
+      "f_ma"
+     ]
+    },
+    {
+     "id": "q231",
+     "text": "LIMITES DO CRESCIMENTO",
+     "color": "#65a30d",
+     "desc": "Relatório do Clube de Roma: o crescimento econômico e populacional tem limites ambientais. Em 1972 ocorre a Conferência de Estocolmo.",
+     "descH": "Relatório do Clube de Roma: o crescimento econômico e populacional tem limites ambientais. Em 1972 ocorre a <b>Conferência de Estocolmo</b>.",
+     "flt": [
+      "f_ma",
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q232",
+     "text": "GUERRILHA DO ARAGUAIA",
+     "color": "#16a34a",
+     "desc": "1972–1974: militantes do PCdoB no Pará. Reprimida pelo Exército, com desaparecimentos. Abre debate na Comissão da Verdade.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1973,
+   "events": [
+    {
+     "id": "q233",
+     "text": "CRISE DO PETRÓLEO",
+     "color": "#ea580c",
+     "desc": "Embargo da OPEP (guerra do Yom Kippur): preço do petróleo dispara. Fim do crescimento do pós-guerra e do \"milagre\". Origem das estagflações.",
+     "descH": "Embargo da OPEP (guerra do Yom Kippur): preço do petróleo dispara. Fim do crescimento do pós-guerra e do \"milagre\". Origem das <b>estagflações</b>.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q234",
+     "text": "GOLPE NO CHILE",
+     "color": "#ea580c",
+     "desc": "Pinochet derruba Allende (11 de setembro). Ditaduras latino-americanas, Operação Condor (1975), tortura e desaparecidos. No Brasil, a ditadura vem desde 1964.",
+     "descH": "<b>Pinochet</b> derruba Allende (11 de setembro). Ditaduras latino-americanas, <b>Operação Condor</b> (1975), tortura e desaparecidos. No Brasil, a ditadura vem desde 1964.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q235",
+     "text": "ESTATUTO DO ÍNDIO",
+     "color": "#16a34a",
+     "desc": "Define a tutela do Estado sobre os indígenas, vista como assimilacionista. A Constituição de 1988 reconhece direitos originários e a diversidade (art. 231).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1974,
+   "events": [
+    {
+     "id": "q236",
+     "text": "DISTENSÃO LENTA E GRADUAL",
+     "color": "#16a34a",
+     "desc": "Geisel inicia a abertura política controlada. Fim do \"milagre\" e crise econômica. Oposição vence eleições legislativas de 1974.",
+     "descH": "<b>Geisel</b> inicia a abertura política controlada. Fim do \"milagre\" e crise econômica. Oposição vence eleições legislativas de 1974.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1975,
+   "events": [
+    {
+     "id": "q72",
+     "text": "FIM DA GUERRA DO VIETNÃ",
+     "color": "#ea580c",
+     "desc": "Derrota dos EUA diante da guerrilha comunista (Vietcongues). Opinião pública norte-americana contra a guerra. Foucault publica Vigiar e Punir (poder disciplinar e prisão).",
+     "descH": "Derrota dos EUA diante da guerrilha comunista (Vietcongues). Opinião pública norte-americana contra a guerra. Foucault publica <b>Vigiar e Punir</b> (poder disciplinar e prisão).",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q237",
+     "text": "CASO HERZOG",
+     "color": "#16a34a",
+     "desc": "O jornalista Vladimir Herzog morre sob tortura no DOI-CODI (SP). Reação da sociedade civil e da Igreja marca o início do declínio da repressão.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1976,
+   "events": [
+    {
+     "id": "q238",
+     "text": "DITADURA ARGENTINA",
+     "color": "#ea580c",
+     "desc": "Golpe de 24 de março. Milhares de desaparecidos (organizações de direitos humanos falam em 30 mil) e as Mães da Praça de Maio. Fim em 1983, com a Guerra das Malvinas (1982).",
+     "descH": "Golpe de 24 de março. Milhares de desaparecidos (organizações de direitos humanos falam em 30 mil) e as <b>Mães da Praça de Maio</b>. Fim em 1983, com a Guerra das Malvinas (1982).",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1978,
+   "events": [
+    {
+     "id": "q239",
+     "text": "ABERTURA DA CHINA (DENG XIAOPING)",
+     "color": "#ea580c",
+     "desc": "Reformas econômicas: \"socialismo de mercado\" e zonas econômicas especiais. A China vira a \"fábrica do mundo\".",
+     "descH": "Reformas econômicas: \"socialismo de mercado\" e zonas econômicas especiais. A China vira a <b>\"fábrica do mundo\"</b>.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1979,
+   "events": [
+    {
+     "id": "q73",
+     "text": "REVOLUÇÃO IRANIANA",
+     "color": "#ea580c",
+     "desc": "Derruba o xá e instaura uma república islâmica (Aiatolá Khomeini). Mistura religião e Estado e muda a geopolítica do petróleo no Oriente Médio.",
+     "descH": "Derruba o xá e instaura uma <b>república islâmica</b> (Aiatolá Khomeini). Mistura religião e Estado e muda a geopolítica do petróleo no Oriente Médio.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q139",
+     "text": "LEI DA ANISTIA",
+     "color": "#16a34a",
+     "desc": "28 de agosto. Permite o retorno de exilados, mas anistia também os agentes da ditadura, questão ainda debatida. Início da transição política.",
+     "descH": "28 de agosto. Permite o retorno de exilados, mas <b>anistia também os agentes da ditadura</b>, questão ainda debatida. Início da transição política.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q240",
+     "text": "THATCHER E NEOLIBERALISMO",
+     "color": "#ea580c",
+     "desc": "Thatcher (1979, Reino Unido) e Reagan (1981, EUA): Estado mínimo, privatizações, desregulamentação e corte de direitos. Contra o Estado de bem-estar social.",
+     "descH": "<b>Thatcher</b> (1979, Reino Unido) e Reagan (1981, EUA): Estado mínimo, privatizações, desregulamentação e corte de direitos. Contra o Estado de bem-estar social.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q241",
+     "text": "A DISTINÇÃO (BOURDIEU)",
+     "color": "#7c3aed",
+     "desc": "Capital cultural, habitus e violência simbólica: a escola e o gosto reproduzem desigualdades sociais.",
+     "descH": "Capital cultural, <b>habitus</b> e violência simbólica: a escola e o gosto reproduzem desigualdades sociais.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1980,
+   "events": [
+    {
+     "id": "q242",
+     "text": "GREVES DO ABC E FUNDAÇÃO DO PT",
+     "color": "#16a34a",
+     "desc": "Novo sindicalismo (Lula) contra o arrocho da ditadura. Fundação do PT em 1980 e da CUT em 1983.",
+     "descH": "Novo sindicalismo (Lula) contra o arrocho da ditadura. Fundação do <b>PT</b> em 1980 e da CUT em 1983.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1981,
+   "events": [
+    {
+     "id": "q243",
+     "text": "EPIDEMIA DE AIDS",
+     "color": "#0891b2",
+     "desc": "Primeiros casos em 1981; HIV identificado em 1983. O Brasil garante acesso universal ao tratamento (Lei 9.313, 1996), referência mundial.",
+     "descH": "Primeiros casos em 1981; HIV identificado em 1983. O Brasil garante <b>acesso universal ao tratamento</b> (Lei 9.313, 1996), referência mundial.",
+     "flt": [
+      "f_ct",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1982,
+   "events": [
+    {
+     "id": "q244",
+     "text": "CRISE DA DÍVIDA (DÉCADA PERDIDA)",
+     "color": "#16a34a",
+     "desc": "Moratória do México (1982). Brasil e a América Latina sofrem com dívida externa, inflação alta e estagnação nos anos 1980.",
+     "flt": [
+      "f_br",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1984,
+   "events": [
+    {
+     "id": "q140",
+     "text": "DIRETAS JÁ",
+     "color": "#16a34a",
+     "desc": "Maior mobilização popular da história brasileira até então. A emenda das eleições diretas é rejeitada, e em 1985 Tancredo Neves vence no Colégio Eleitoral; Sarney assume após a sua morte.",
+     "descH": "Maior mobilização popular da história brasileira até então. A emenda das eleições diretas é rejeitada, e em 1985 <b>Tancredo Neves</b> vence no Colégio Eleitoral; Sarney assume após a sua morte.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q245",
+     "text": "FUNDAÇÃO DO MST",
+     "color": "#16a34a",
+     "desc": "Movimento dos Trabalhadores Rurais Sem Terra: luta por reforma agrária e uso social da terra. Concentração fundiária e conflitos no campo.",
+     "descH": "Movimento dos Trabalhadores Rurais Sem Terra: luta por <b>reforma agrária</b> e uso social da terra. Concentração fundiária e conflitos no campo.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1985,
+   "events": [
+    {
+     "id": "q74",
+     "text": "GLASNOST E PERESTROIKA",
+     "color": "#ea580c",
+     "desc": "Gorbachev tenta reformar a URSS (transparência e reestruturação econômica). Abre caminho para o fim do bloco soviético.",
+     "descH": "<b>Gorbachev</b> tenta reformar a URSS (transparência e reestruturação econômica). Abre caminho para o fim do bloco soviético.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1986,
+   "events": [
+    {
+     "id": "q75",
+     "text": "ACIDENTE DE CHERNOBYL",
+     "color": "#0891b2",
+     "desc": "Explosão de reator nuclear na Ucrânia (URSS). Maior acidente nuclear da época; debate sobre energia nuclear e risco ambiental. Fukushima (2011) reacende o tema.",
+     "descH": "Explosão de reator nuclear na Ucrânia (URSS). Maior acidente nuclear da época; debate sobre <b>energia nuclear e risco ambiental</b>. Fukushima (2011) reacende o tema.",
+     "flt": [
+      "f_ct",
+      "f_sx",
+      "f_ma"
+     ]
+    },
+    {
+     "id": "q246",
+     "text": "PLANO CRUZADO",
+     "color": "#16a34a",
+     "desc": "Congelamento de preços e nova moeda (cruzado). Sucesso curto; seguem Plano Verão e Collor, até o Real.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1987,
+   "events": [
+    {
+     "id": "q141",
+     "text": "CÉSIO-137 EM GOIÂNIA",
+     "color": "#16a34a",
+     "desc": "Acidente radioativo com cápsula de césio abandonada. Maior acidente radiológico do Brasil, com mortes e vítimas. Debate sobre riscos tecnológicos e fiscalização.",
+     "descH": "Acidente radioativo com cápsula de césio abandonada. Maior acidente radiológico do Brasil, com mortes e vítimas. Debate sobre <b>riscos tecnológicos</b> e fiscalização.",
+     "flt": [
+      "f_br",
+      "f_ct",
+      "f_ma"
+     ]
+    },
+    {
+     "id": "q247",
+     "text": "RELATÓRIO BRUNDTLAND",
+     "color": "#65a30d",
+     "desc": "Nosso Futuro Comum: define desenvolvimento sustentável (atender às necessidades de hoje sem comprometer as futuras gerações).",
+     "descH": "<b>Nosso Futuro Comum</b>: define desenvolvimento sustentável (atender às necessidades de hoje sem comprometer as futuras gerações).",
+     "flt": [
+      "f_ma",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1988,
+   "events": [
+    {
+     "id": "q142",
+     "text": "CONSTITUIÇÃO CIDADÃ",
+     "color": "#16a34a",
+     "desc": "5 de outubro. Amplia direitos individuais, sociais e coletivos: racismo crime inafiançável, voto aos 16, direitos indígenas e quilombolas, SUS e saúde como dever do Estado.",
+     "descH": "5 de outubro. Amplia <b>direitos individuais, sociais e coletivos</b>: racismo crime inafiançável, voto aos 16, direitos indígenas e quilombolas, SUS e saúde como dever do Estado.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q248",
+     "text": "CHICO MENDES E O IPCC",
+     "color": "#16a34a",
+     "desc": "Chico Mendes (seringueiro) é assassinado em dezembro de 1988. Defendia reservas extrativistas. No mesmo ano nasce o IPCC (painel de mudanças climáticas da ONU).",
+     "descH": "<b>Chico Mendes</b> (seringueiro) é assassinado em dezembro de 1988. Defendia <b>reservas extrativistas</b>. No mesmo ano nasce o IPCC (painel de mudanças climáticas da ONU).",
+     "flt": [
+      "f_br",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1989,
+   "events": [
+    {
+     "id": "q76",
+     "text": "QUEDA DO MURO DE BERLIM",
+     "color": "#ea580c",
+     "desc": "9 de novembro. Fim simbólico da Guerra Fria e reunificação alemã (1990). Revoluções no Leste Europeu. Tim Berners-Lee propõe a World Wide Web.",
+     "descH": "9 de novembro. Fim simbólico da Guerra Fria e reunificação alemã (1990). Revoluções no Leste Europeu. Tim Berners-Lee propõe a <b>World Wide Web</b>.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1990,
+   "events": [
+    {
+     "id": "q143",
+     "text": "ECA E CÓDIGO DO CONSUMIDOR",
+     "color": "#16a34a",
+     "desc": "Estatuto da Criança e do Adolescente (criança como sujeito de direitos) e Código de Defesa do Consumidor. Regulamentam a Constituição de 1988.",
+     "descH": "<b>Estatuto da Criança e do Adolescente</b> (criança como sujeito de direitos) e Código de Defesa do Consumidor. Regulamentam a Constituição de 1988.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q249",
+     "text": "GOVERNO COLLOR",
+     "color": "#16a34a",
+     "desc": "Confisco da poupança, abertura às importações e privatizações (neoliberalismo). Termina com o impeachment (1992). Reunificação da Alemanha (1990).",
+     "flt": [
+      "f_br"
+     ]
+    },
+    {
+     "id": "q250",
+     "text": "SUS",
+     "color": "#16a34a",
+     "desc": "Sistema Único de Saúde (previsto na CF/88; regulado pela Lei 8.080/1990): universalidade, integralidade e equidade.",
+     "descH": "Sistema Único de Saúde (previsto na CF/88; regulado pela Lei 8.080/1990): <b>universalidade, integralidade e equidade</b>.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1991,
+   "events": [
+    {
+     "id": "q77",
+     "text": "FIM DA URSS",
+     "color": "#ea580c",
+     "desc": "Dissolução em dezembro. Mundo unipolar sob liderança dos EUA e avanço da globalização e do neoliberalismo. Bloco regional: UE (Maastricht, 1992).",
+     "descH": "Dissolução em dezembro. <b>Mundo unipolar</b> sob liderança dos EUA e avanço da <b>globalização</b> e do neoliberalismo. Bloco regional: UE (Maastricht, 1992).",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q151",
+     "text": "INTERNET E WWW",
+     "color": "#0891b2",
+     "desc": "A web se populariza, com a revolução digital e a sociedade da informação. Globalização, redes sociais e novas formas de trabalho e de exclusão digital.",
+     "descH": "A web se populariza, com a revolução digital e a <b>sociedade da informação</b>. Globalização, redes sociais e novas formas de trabalho e de exclusão digital.",
+     "flt": [
+      "f_ct",
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q251",
+     "text": "GUERRA DO GOLFO",
+     "color": "#ea580c",
+     "desc": "Coalizão liderada pelos EUA expulsa o Iraque do Kuwait. \"Nova Ordem Mundial\" unipolar e transmissão ao vivo da guerra.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q252",
+     "text": "MERCOSUL",
+     "color": "#16a34a",
+     "desc": "Tratado de Assunção: bloco econômico de Brasil, Argentina, Paraguai e Uruguai. Livre circulação de bens e integração regional.",
+     "descH": "Tratado de Assunção: bloco econômico de Brasil, Argentina, Paraguai e Uruguai. Livre circulação de bens e <b>integração regional</b>.",
+     "flt": [
+      "f_br",
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q253",
+     "text": "GUERRAS DA IUGOSLÁVIA",
+     "color": "#ea580c",
+     "desc": "1991–1995 (e Kosovo, 1999). Conflitos étnicos e religiosos, limpeza étnica e massacre de Srebrenica. Acordos de Dayton (1995).",
+     "descH": "1991–1995 (e Kosovo, 1999). Conflitos étnicos e religiosos, <b>limpeza étnica</b> e massacre de Srebrenica. Acordos de Dayton (1995).",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1992,
+   "events": [
+    {
+     "id": "q144",
+     "text": "ECO-92 E IMPEACHMENT DE COLLOR",
+     "color": "#16a34a",
+     "desc": "Rio-92: Agenda 21 e Convenção do Clima. Em dezembro, o impeachment de Collor, com mobilização dos \"caras-pintadas\". Maastricht cria a UE.",
+     "descH": "<b>Rio-92</b>: Agenda 21 e Convenção do Clima. Em dezembro, o impeachment de Collor, com mobilização dos \"caras-pintadas\". Maastricht cria a UE.",
+     "flt": [
+      "f_br",
+      "f_sx",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1993,
+   "events": [
+    {
+     "id": "q254",
+     "text": "ACORDOS DE OSLO",
+     "color": "#ea580c",
+     "desc": "Israel e OLP (Rabin e Arafat) se reconhecem e preveem autonomia palestina. Processo de paz que não se completa.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1994,
+   "events": [
+    {
+     "id": "q78",
+     "text": "FIM DO APARTHEID",
+     "color": "#ea580c",
+     "desc": "Nelson Mandela é eleito presidente da África do Sul após décadas de segregação racial. Em 1994 também ocorre o genocídio em Ruanda.",
+     "descH": "<b>Nelson Mandela</b> é eleito presidente da África do Sul após décadas de segregação racial. Em 1994 também ocorre o genocídio em Ruanda.",
+     "flt": [
+      "f_sx",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q145",
+     "text": "PLANO REAL",
+     "color": "#16a34a",
+     "desc": "Estabilização com a URV e nova moeda, governo de Itamar e depois FHC. Fim da hiperinflação e início de uma nova fase da economia brasileira.",
+     "descH": "Estabilização com a <b>URV</b> e nova moeda, governo de Itamar e depois FHC. Fim da hiperinflação e início de uma nova fase da economia brasileira.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1995,
+   "events": [
+    {
+     "id": "q255",
+     "text": "O POVO BRASILEIRO",
+     "color": "#7c3aed",
+     "desc": "Darcy Ribeiro: o Brasil como povo novo, formado de indígenas, europeus e africanos. Debate sobre identidade nacional e miscigenação.",
+     "descH": "<b>Darcy Ribeiro</b>: o Brasil como povo novo, formado de indígenas, europeus e africanos. Debate sobre identidade nacional e miscigenação.",
+     "flt": [
+      "f_fs",
+      "f_br"
+     ]
+    },
+    {
+     "id": "q256",
+     "text": "INTERNET COMERCIAL NO BRASIL",
+     "color": "#16a34a",
+     "desc": "Abertura à exploração comercial da internet. Democratização do acesso e inclusão digital viram temas.",
+     "descH": "Abertura à exploração comercial da internet. Democratização do acesso e <b>inclusão digital</b> viram temas.",
+     "flt": [
+      "f_br",
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1996,
+   "events": [
+    {
+     "id": "q257",
+     "text": "LDB E ELDORADO DOS CARAJÁS",
+     "color": "#16a34a",
+     "desc": "LDB (Lei 9.394/96) organiza a educação nacional. Chacina de Eldorado dos Carajás (PA): 19 sem-terra mortos pela PM, símbolo da violência no campo.",
+     "descH": "<b>LDB</b> (Lei 9.394/96) organiza a educação nacional. Chacina de Eldorado dos Carajás (PA): 19 sem-terra mortos pela PM, símbolo da violência no campo.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1997,
+   "events": [
+    {
+     "id": "q79",
+     "text": "PROTOCOLO DE KYOTO",
+     "color": "#ea580c",
+     "desc": "Metas de redução de gases do efeito estufa para países desenvolvidos. Depois vem o Acordo de Paris (2015), com metas para todos. Eixo ambiental muito cobrado.",
+     "descH": "Metas de redução de gases do efeito estufa para países desenvolvidos. Depois vem o <b>Acordo de Paris (2015)</b>, com metas para todos. Eixo ambiental muito cobrado.",
+     "flt": [
+      "f_sx",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1998,
+   "events": [
+    {
+     "id": "q258",
+     "text": "CRIAÇÃO DO ENEM",
+     "color": "#16a34a",
+     "desc": "Exame Nacional do Ensino Médio, criado em 1998. Desde 2009, base para o Sisu e o Prouni. Também em 1998: Lei de Crimes Ambientais.",
+     "descH": "Exame Nacional do Ensino Médio, criado em 1998. Desde 2009, base para o Sisu e o Prouni. Também em 1998: <b>Lei de Crimes Ambientais</b>.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 1999,
+   "events": [
+    {
+     "id": "q259",
+     "text": "EURO",
+     "color": "#ea580c",
+     "desc": "Moeda única europeia, adotada em 1999 (circulação em 2002). Auge da integração da União Europeia.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2000,
+   "events": [
+    {
+     "id": "q80",
+     "text": "MODERNIDADE LÍQUIDA",
+     "color": "#7c3aed",
+     "desc": "Zygmunt Bauman: relações, trabalho e identidades fluidas e instáveis na sociedade de consumo. Aparece muito em textos de apoio.",
+     "descH": "<b>Zygmunt Bauman</b>: relações, trabalho e identidades fluidas e instáveis na sociedade de consumo. Aparece muito em textos de apoio.",
+     "flt": [
+      "f_fs"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2001,
+   "events": [
+    {
+     "id": "q81",
+     "text": "11 DE SETEMBRO",
+     "color": "#ea580c",
+     "desc": "Atentados da Al-Qaeda aos EUA. \"Guerra ao Terror\": invasões do Afeganistão (2001) e do Iraque (2003), terrorismo global e restrição de liberdades.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2003,
+   "events": [
+    {
+     "id": "q82",
+     "text": "GENOMA HUMANO",
+     "color": "#0891b2",
+     "desc": "Sequenciamento concluído. Avanços da biotecnologia e debates éticos: transgênicos, clonagem (ovelha Dolly, 1996) e edição genética.",
+     "descH": "Sequenciamento concluído. Avanços da <b>biotecnologia</b> e debates éticos: transgênicos, clonagem (ovelha Dolly, 1996) e edição genética.",
+     "flt": [
+      "f_ct"
+     ]
+    },
+    {
+     "id": "q260",
+     "text": "LEI 10.639 E BOLSA FAMÍLIA",
+     "color": "#16a34a",
+     "desc": "Lei 10.639: ensino de história e cultura afro-brasileira (a Lei 11.645, de 2008, inclui a indígena). Bolsa Família: transferência de renda condicionada. Estatuto do Idoso (2003).",
+     "descH": "<b>Lei 10.639</b>: ensino de história e cultura afro-brasileira (a Lei 11.645, de 2008, inclui a indígena). <b>Bolsa Família</b>: transferência de renda condicionada. Estatuto do Idoso (2003).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q261",
+     "text": "GUERRA DO IRAQUE",
+     "color": "#ea580c",
+     "desc": "Invasão liderada pelos EUA sem aval da ONU. Instabilidade no Oriente Médio e surgimento do Estado Islâmico.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2006,
+   "events": [
+    {
+     "id": "q146",
+     "text": "LEI MARIA DA PENHA",
+     "color": "#16a34a",
+     "desc": "Cria mecanismos contra a violência doméstica e familiar contra a mulher, com medidas protetivas e agravamento das penas. Em 2015, a Lei do Feminicídio.",
+     "descH": "Cria mecanismos contra a <b>violência doméstica e familiar</b> contra a mulher, com medidas protetivas e agravamento das penas. Em 2015, a Lei do Feminicídio.",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2008,
+   "events": [
+    {
+     "id": "q83",
+     "text": "CRISE FINANCEIRA GLOBAL",
+     "color": "#ea580c",
+     "desc": "Quebra do banco Lehman Brothers e da bolha imobiliária nos EUA. Recessão mundial, desemprego e debate sobre regulação do capitalismo financeiro.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2009,
+   "events": [
+    {
+     "id": "q262",
+     "text": "BRICS",
+     "color": "#ea580c",
+     "desc": "Primeira cúpula do bloco (Brasil, Rússia, Índia, China; África do Sul em 2011). Ascensão de potências emergentes.",
+     "descH": "Primeira cúpula do bloco (Brasil, Rússia, Índia, China; África do Sul em 2011). Ascensão de <b>potências emergentes</b>.",
+     "flt": [
+      "f_sx",
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2010,
+   "events": [
+    {
+     "id": "q84",
+     "text": "PRIMAVERA ÁRABE",
+     "color": "#ea580c",
+     "desc": "2010–2011. Protestos contra ditaduras no mundo árabe (Tunísia, Egito, Líbia, Síria), organizados com redes sociais. Gera guerra na Síria e crise de refugiados.",
+     "descH": "2010–2011. Protestos contra ditaduras no mundo árabe (Tunísia, Egito, Líbia, Síria), organizados com <b>redes sociais</b>. Gera guerra na Síria e crise de refugiados.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q263",
+     "text": "ESTATUTO DA IGUALDADE RACIAL",
+     "color": "#16a34a",
+     "desc": "Lei 12.288: políticas de combate ao racismo e promoção da população negra. Mesmo debate da Lei de Cotas (2012).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2011,
+   "events": [
+    {
+     "id": "q264",
+     "text": "ACIDENTE DE FUKUSHIMA",
+     "color": "#0891b2",
+     "desc": "Terremoto e tsunami causam desastre nuclear no Japão. Reabre o debate sobre energia nuclear e riscos tecnológicos.",
+     "descH": "Terremoto e tsunami causam desastre nuclear no Japão. Reabre o debate sobre <b>energia nuclear</b> e riscos tecnológicos.",
+     "flt": [
+      "f_ct",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2012,
+   "events": [
+    {
+     "id": "q147",
+     "text": "COTAS E COMISSÃO DA VERDADE",
+     "color": "#16a34a",
+     "desc": "Lei de Cotas nas universidades federais (escola pública, renda e raça). A Comissão Nacional da Verdade investiga as violações da ditadura (relatório em 2014).",
+     "descH": "<b>Lei de Cotas</b> nas universidades federais (escola pública, renda e raça). A Comissão Nacional da Verdade investiga as violações da ditadura (relatório em 2014).",
+     "flt": [
+      "f_br",
+      "f_dc"
+     ]
+    },
+    {
+     "id": "q265",
+     "text": "NOVO CÓDIGO FLORESTAL E RIO+20",
+     "color": "#16a34a",
+     "desc": "Lei 12.651: mantém reserva legal e APP com flexibilizações e cria o Cadastro Ambiental Rural. Rio+20: economia verde e desenvolvimento sustentável.",
+     "descH": "Lei 12.651: mantém reserva legal e APP com flexibilizações e cria o Cadastro Ambiental Rural. <b>Rio+20</b>: economia verde e desenvolvimento sustentável.",
+     "flt": [
+      "f_br",
+      "f_ma"
+     ]
+    },
+    {
+     "id": "q266",
+     "text": "CRISPR (EDIÇÃO GENÉTICA)",
+     "color": "#0891b2",
+     "desc": "Técnica de edição de genes que abre possibilidades na saúde e na agricultura e levanta questões bioéticas. Prêmio Nobel em 2020.",
+     "descH": "Técnica de edição de genes que abre possibilidades na saúde e na agricultura e levanta <b>questões bioéticas</b>. Prêmio Nobel em 2020.",
+     "flt": [
+      "f_ct"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2013,
+   "events": [
+    {
+     "id": "q267",
+     "text": "JUNHO DE 2013",
+     "color": "#16a34a",
+     "desc": "Protestos por tarifa de transporte viram atos contra a política e por serviços públicos. Uso das redes sociais na mobilização. Em 2013, a PEC das Domésticas amplia direitos.",
+     "descH": "Protestos por tarifa de transporte viram atos contra a política e por serviços públicos. Uso das <b>redes sociais</b> na mobilização. Em 2013, a PEC das Domésticas amplia direitos.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2014,
+   "events": [
+    {
+     "id": "q148",
+     "text": "MARCO CIVIL DA INTERNET",
+     "color": "#16a34a",
+     "desc": "Lei 12.965: direitos e deveres na internet (neutralidade da rede, privacidade, liberdade de expressão). Antecede a LGPD (2018). Debates sobre fake news e inclusão digital.",
+     "descH": "Lei 12.965: direitos e deveres na internet (neutralidade da rede, privacidade, liberdade de expressão). Antecede a LGPD (2018). Debates sobre <b>fake news</b> e inclusão digital.",
+     "flt": [
+      "f_br",
+      "f_ct",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2015,
+   "events": [
+    {
+     "id": "q85",
+     "text": "ACORDO DE PARIS",
+     "color": "#ea580c",
+     "desc": "COP21: limitar o aquecimento global a bem abaixo de 2 °C. Cada país apresenta metas voluntárias.",
+     "descH": "COP21: limitar o aquecimento global a <b>bem abaixo de 2 °C</b>. Cada país apresenta metas voluntárias.",
+     "flt": [
+      "f_sx",
+      "f_ma"
+     ]
+    },
+    {
+     "id": "q268",
+     "text": "AGENDA 2030 (ODS)",
+     "color": "#ea580c",
+     "desc": "ONU: 17 Objetivos de Desenvolvimento Sustentável (pobreza, educação, clima, igualdade). Em 2015 também: crise de refugiados na Europa e Estatuto da Pessoa com Deficiência.",
+     "flt": [
+      "f_sx",
+      "f_ma"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2016,
+   "events": [
+    {
+     "id": "q86",
+     "text": "BREXIT",
+     "color": "#ea580c",
+     "desc": "Referendo em que os britânicos votam por sair da União Europeia (saída efetiva em 2020). Debate sobre soberania nacional x integração regional.",
+     "descH": "Referendo em que os britânicos votam por sair da <b>União Europeia</b> (saída efetiva em 2020). Debate sobre soberania nacional x integração regional.",
+     "flt": [
+      "f_sx"
+     ]
+    },
+    {
+     "id": "q269",
+     "text": "IMPEACHMENT DE DILMA",
+     "color": "#16a34a",
+     "desc": "Presidenta Dilma Rousseff é afastada em agosto de 2016 depois de processo no Congresso. Debate sobre crise política e econômica.",
+     "flt": [
+      "f_br"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2018,
+   "events": [
+    {
+     "id": "q270",
+     "text": "LGPD",
+     "color": "#16a34a",
+     "desc": "Lei Geral de Proteção de Dados (Lei 13.709): direitos sobre os dados pessoais. Debate sobre privacidade, algoritmos e fake news.",
+     "descH": "Lei Geral de Proteção de Dados (Lei 13.709): direitos sobre os dados pessoais. Debate sobre <b>privacidade, algoritmos e fake news</b>.",
+     "flt": [
+      "f_br",
+      "f_ct",
+      "f_dc"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2020,
+   "events": [
+    {
+     "id": "q271",
+     "text": "PANDEMIA DE COVID-19",
+     "color": "#0891b2",
+     "desc": "A OMS declara a pandemia em março de 2020. Desigualdade no acesso à saúde, vacinas, ensino remoto, trabalho a distância e desinformação.",
+     "flt": [
+      "f_ct",
+      "f_sx"
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2022,
+   "events": [
+    {
+     "id": "q272",
+     "text": "GUERRA NA UCRÂNIA",
+     "color": "#ea580c",
+     "desc": "Invasão russa em fevereiro de 2022. Sanções, crise energética e alimentar e tensão com a OTAN.",
+     "flt": [
+      "f_sx"
+     ]
+    }
+   ]
+  }
+ ],
+ "brackets": [
+  {
+   "id": "qb1",
+   "label": "PRÉ-COLONIAL",
+   "desc": "Pau-brasil, escambo com indígenas e feitorias. Pouca ocupação.",
+   "from": 1500,
+   "to": 1530,
+   "color": "#9ca3af",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb2",
+   "label": "UNIÃO IBÉRICA",
+   "desc": "Portugal sob o rei da Espanha. Fim de Tordesilhas na prática; invasões holandesas.",
+   "from": 1580,
+   "to": 1640,
+   "color": "#f97316",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb3",
+   "label": "REFORMAS POMBALINAS",
+   "desc": "Despotismo esclarecido: centralização, Companhia de Comércio, expulsão dos jesuítas.",
+   "from": 1750,
+   "to": 1777,
+   "color": "#16a34a",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb4",
+   "label": "PERÍODO JOANINO",
+   "desc": "Corte portuguesa no Brasil; abertura dos portos.",
+   "from": 1808,
+   "to": 1822,
+   "color": "#f97316",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb5",
+   "label": "1º REINADO",
+   "desc": "D. Pedro I: Independência, Constituição de 1824 e Poder Moderador.",
+   "from": 1822,
+   "to": 1831,
+   "color": "#16a34a",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb6",
+   "label": "REGÊNCIAS",
+   "desc": "Revoltas regenciais e disputa pelo poder.",
+   "from": 1831,
+   "to": 1840,
+   "color": "#ef4444",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb7",
+   "label": "2º REINADO",
+   "desc": "D. Pedro II: café, Guerra do Paraguai e abolição.",
+   "from": 1840,
+   "to": 1889,
+   "color": "#eab308",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb8",
+   "label": "REPÚBLICA VELHA",
+   "desc": "Oligarquias, café com leite, coronelismo e voto de cabresto.",
+   "from": 1889,
+   "to": 1930,
+   "color": "#8b5cf6",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb9",
+   "label": "ERA VARGAS",
+   "desc": "Governo provisório, constitucional e Estado Novo.",
+   "from": 1930,
+   "to": 1945,
+   "color": "#ef4444",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb10",
+   "label": "REPÚBLICA POPULISTA",
+   "desc": "Democracia limitada, nacional-desenvolvimentismo e trabalhismo.",
+   "from": 1946,
+   "to": 1964,
+   "color": "#06b6d4",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb11",
+   "label": "DITADURA MILITAR",
+   "desc": "Regime autoritário, com censura e repressão.",
+   "from": 1964,
+   "to": 1985,
+   "color": "#374151",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb12",
+   "label": "NOVA REPÚBLICA",
+   "desc": "Redemocratização, Constituição de 1988 e estabilização econômica.",
+   "from": 1985,
+   "to": 2026,
+   "color": "#16a34a",
+   "lane": 1,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb13",
+   "label": "AÇÚCAR",
+   "desc": "Engenhos, latifúndio e trabalho escravo no Nordeste.",
+   "from": 1530,
+   "to": 1700,
+   "color": "#f97316",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb14",
+   "label": "OURO",
+   "desc": "Mineração em Minas Gerais: quinto, derrama e urbanização do interior. Deslocamento do eixo para o Sudeste (capital no Rio, 1763).",
+   "from": 1700,
+   "to": 1800,
+   "color": "#eab308",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb15",
+   "label": "CAFÉ",
+   "desc": "Vale do Paraíba e Oeste Paulista. Escravos, depois imigrantes. Elite cafeeira domina a política.",
+   "from": 1830,
+   "to": 1930,
+   "color": "#16a34a",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb16",
+   "label": "INDUSTRIALIZAÇÃO (SUBSTITUIÇÃO DE IMPORTAÇÕES)",
+   "desc": "Estado impulsiona a indústria (CSN, Petrobras, JK, milagre econômico).",
+   "from": 1930,
+   "to": 1980,
+   "color": "#ef4444",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb17",
+   "label": "DÍVIDA E INFLAÇÃO",
+   "desc": "Década perdida, hiperinflação e planos de estabilização.",
+   "from": 1980,
+   "to": 1994,
+   "color": "#9ca3af",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb18",
+   "label": "ESTABILIDADE E ABERTURA",
+   "desc": "Plano Real, privatizações, abertura comercial e programas de transferência de renda.",
+   "from": 1994,
+   "to": 2026,
+   "color": "#2563eb",
+   "lane": 2,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb19",
+   "label": "BRASIL COLÔNIA",
+   "desc": "Exploração colonial: açúcar, ouro, escravidão e pacto colonial.",
+   "from": 1500,
+   "to": 1822,
+   "color": "#16a34a",
+   "lane": 3,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb20",
+   "label": "BRASIL IMPÉRIO",
+   "desc": "Monarquia, escravidão e café. Termina com a República.",
+   "from": 1822,
+   "to": 1889,
+   "color": "#eab308",
+   "lane": 3,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb21",
+   "label": "BRASIL REPÚBLICA",
+   "desc": "Da República Velha à democracia atual.",
+   "from": 1889,
+   "to": 2026,
+   "color": "#2563eb",
+   "lane": 3,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb22",
+   "label": "ESCRAVIDÃO NO BRASIL",
+   "desc": "Perto de 5 milhões de africanos escravizados desembarcaram no Brasil, o país que mais recebeu. Última nação das Américas a abolir.",
+   "from": 1530,
+   "to": 1888,
+   "color": "#7f1d1d",
+   "lane": 4,
+   "side": "top",
+   "flt": [
+    "f_br",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb23",
+   "label": "PÓS-ABOLIÇÃO E IMIGRAÇÃO",
+   "desc": "Imigrantes europeus e asiáticos no lugar dos libertos, sem políticas de inclusão para negros.",
+   "from": 1888,
+   "to": 1930,
+   "color": "#0891b2",
+   "lane": 4,
+   "side": "top",
+   "flt": [
+    "f_br",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb24",
+   "label": "ÊXODO RURAL E URBANIZAÇÃO",
+   "desc": "Migração do campo para as cidades; crescimento de periferias e metrópoles.",
+   "from": 1950,
+   "to": 1980,
+   "color": "#9ca3af",
+   "lane": 4,
+   "side": "top",
+   "flt": [
+    "f_br"
+   ]
+  },
+  {
+   "id": "qb25",
+   "label": "ABOLICIONISMO",
+   "desc": "Nabuco, Rebouças, Luiz Gama e quilombos; leis gradualistas (1850, 1871, 1885).",
+   "from": 1850,
+   "to": 1888,
+   "color": "#16a34a",
+   "lane": 5,
+   "side": "top",
+   "flt": [
+    "f_br",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb26",
+   "label": "ANOS DE CHUMBO",
+   "desc": "Do AI-5 ao fim do governo Médici: auge da repressão e da luta armada.",
+   "from": 1968,
+   "to": 1974,
+   "color": "#374151",
+   "lane": 5,
+   "side": "top",
+   "flt": [
+    "f_br",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb27",
+   "label": "ABERTURA POLÍTICA",
+   "desc": "Distensão, anistia, Diretas Já e Constituinte.",
+   "from": 1974,
+   "to": 1988,
+   "color": "#16a34a",
+   "lane": 5,
+   "side": "top",
+   "flt": [
+    "f_br",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb28",
+   "label": "PRÉ-HISTÓRIA",
+   "desc": "Paleolítico e Neolítico. A história começa com a escrita.",
+   "from": -10000,
+   "to": -3500,
+   "color": "#a3a3a3",
+   "lane": 6,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb29",
+   "label": "IDADE ANTIGA",
+   "desc": "Da invenção da escrita à queda de Roma do Ocidente.",
+   "from": -3500,
+   "to": 476,
+   "color": "#f97316",
+   "lane": 6,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb30",
+   "label": "IDADE MÉDIA",
+   "desc": "Feudalismo, Igreja, cruzadas, cidades e comércio. Termina com a queda de Constantinopla.",
+   "from": 476,
+   "to": 1453,
+   "color": "#f97316",
+   "lane": 6,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb31",
+   "label": "IDADE MODERNA",
+   "desc": "Absolutismo, mercantilismo, Renascimento, Reforma, Grandes Navegações e Iluminismo.",
+   "from": 1453,
+   "to": 1789,
+   "color": "#f97316",
+   "lane": 6,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb32",
+   "label": "IDADE CONTEMPORÂNEA",
+   "desc": "Revoluções burguesas, industrialização, imperialismo, guerras mundiais, Guerra Fria e globalização.",
+   "from": 1789,
+   "to": 2026,
+   "color": "#f97316",
+   "lane": 6,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb33",
+   "label": "EGITO ANTIGO",
+   "desc": "Faraós, Nilo, religião politeísta e pirâmides.",
+   "from": -3100,
+   "to": -30,
+   "color": "#eab308",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb34",
+   "label": "IMPÉRIO BIZANTINO",
+   "desc": "Império Romano do Oriente: Constantinopla, Justiniano e o cristianismo ortodoxo.",
+   "from": 395,
+   "to": 1453,
+   "color": "#7c3aed",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb35",
+   "label": "ABSOLUTISMO",
+   "desc": "Poder concentrado no rei, apoiado pela burguesia mercantilista.",
+   "from": 1500,
+   "to": 1789,
+   "color": "#9ca3af",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb36",
+   "label": "ERA NAPOLEÔNICA",
+   "desc": "Napoleão: Código Civil, expansão da França e Bloqueio Continental.",
+   "from": 1799,
+   "to": 1815,
+   "color": "#06b6d4",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb37",
+   "label": "IMPERIALISMO / NEOCOLONIALISMO",
+   "desc": "Partilha da África e da Ásia por potências industriais.",
+   "from": 1870,
+   "to": 1914,
+   "color": "#ef4444",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb38",
+   "label": "ENTREGUERRAS",
+   "desc": "Crise de 1929, fascismos, nazismo e URSS.",
+   "from": 1918,
+   "to": 1939,
+   "color": "#9ca3af",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb39",
+   "label": "GUERRA FRIA",
+   "desc": "Bipolaridade EUA x URSS.",
+   "from": 1947,
+   "to": 1991,
+   "color": "#2563eb",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb40",
+   "label": "MUNDO GLOBALIZADO",
+   "desc": "Globalização, blocos regionais, terrorismo e crise ambiental.",
+   "from": 1991,
+   "to": 2026,
+   "color": "#16a34a",
+   "lane": 7,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb41",
+   "label": "MESOPOTÂMIA",
+   "desc": "Sumérios, babilônios e assírios: escrita cuneiforme, Código de Hamurabi.",
+   "from": -3500,
+   "to": -539,
+   "color": "#d97706",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb42",
+   "label": "FEUDALISMO",
+   "desc": "Sociedade estamental e rural: suserania, vassalagem e servidão.",
+   "from": 476,
+   "to": 1453,
+   "color": "#8b5cf6",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb43",
+   "label": "REFORMA E CONTRARREFORMA",
+   "desc": "Reforma Protestante, Concílio de Trento e guerras religiosas.",
+   "from": 1517,
+   "to": 1648,
+   "color": "#eab308",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb44",
+   "label": "ILUMINISMO",
+   "desc": "Razão, liberdade e crítica ao Antigo Regime: Locke, Montesquieu, Voltaire e Rousseau.",
+   "from": 1685,
+   "to": 1789,
+   "color": "#eab308",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_fs"
+   ]
+  },
+  {
+   "id": "qb45",
+   "label": "ERA DAS REVOLUÇÕES",
+   "desc": "Revolução Francesa, Industrial e independências. Liberalismo, nacionalismo e socialismo.",
+   "from": 1789,
+   "to": 1848,
+   "color": "#ef4444",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb46",
+   "label": "GUERRAS E CRISES MUNDIAIS",
+   "desc": "Duas guerras mundiais, Revolução Russa, crise de 1929 e totalitarismos.",
+   "from": 1914,
+   "to": 1945,
+   "color": "#374151",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb47",
+   "label": "DESCOLONIZAÇÃO",
+   "desc": "Independência de países da Ásia e da África; Terceiro Mundo e não alinhamento.",
+   "from": 1945,
+   "to": 1975,
+   "color": "#06b6d4",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_sx",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb48",
+   "label": "NEOLIBERALISMO E GLOBALIZAÇÃO",
+   "desc": "Estado mínimo, financeirização, cadeias globais e revolução digital.",
+   "from": 1979,
+   "to": 2026,
+   "color": "#2563eb",
+   "lane": 8,
+   "side": "top",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb49",
+   "label": "ARCAICO",
+   "desc": "Grécia: formação das pólis, colonização e surgimento da oligarquia e da tirania.",
+   "from": -800,
+   "to": -500,
+   "color": "#9ca3af",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb50",
+   "label": "CLÁSSICO",
+   "desc": "Auge de Atenas e Esparta; democracia e filosofia.",
+   "from": -500,
+   "to": -338,
+   "color": "#3b82f6",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb51",
+   "label": "HELENÍSTICO",
+   "desc": "Expansão de Alexandre e fusão das culturas grega e oriental.",
+   "from": -338,
+   "to": -30,
+   "color": "#eab308",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb52",
+   "label": "ALTA IDADE MÉDIA",
+   "desc": "Reinos germânicos, Igreja, feudalismo e expansão árabe.",
+   "from": 476,
+   "to": 1000,
+   "color": "#7c3aed",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb53",
+   "label": "BAIXA IDADE MÉDIA",
+   "desc": "Renascimento comercial e urbano, cruzadas e crise do século XIV.",
+   "from": 1000,
+   "to": 1453,
+   "color": "#8b5cf6",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb54",
+   "label": "QUINHENTISMO",
+   "desc": "Literatura de informação (Caminha) e jesuítica (Anchieta).",
+   "from": 1500,
+   "to": 1601,
+   "color": "#16a34a",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb55",
+   "label": "BARROCO",
+   "desc": "Contraste, culto ao rebuscado, conflito entre fé e razão.",
+   "from": 1601,
+   "to": 1768,
+   "color": "#8b5cf6",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb56",
+   "label": "ARCADISMO",
+   "desc": "Retorno ao equilíbrio clássico, bucolismo e ideais iluministas.",
+   "from": 1768,
+   "to": 1836,
+   "color": "#8b5cf6",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb57",
+   "label": "ROMANTISMO",
+   "desc": "Nacionalismo, indianismo, subjetividade e idealização.",
+   "from": 1836,
+   "to": 1881,
+   "color": "#db2777",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb58",
+   "label": "REALISMO / NATURALISMO / PARNASIANISMO",
+   "desc": "Crítica social, observação da realidade, cientificismo e arte pela arte.",
+   "from": 1881,
+   "to": 1902,
+   "color": "#2563eb",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb59",
+   "label": "PRÉ-MODERNISMO",
+   "desc": "Transição, denúncia social e regionalismo.",
+   "from": 1902,
+   "to": 1922,
+   "color": "#0891b2",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb60",
+   "label": "MODERNISMO",
+   "desc": "Ruptura com o passado e valorização da identidade nacional.",
+   "from": 1922,
+   "to": 1945,
+   "color": "#16a34a",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb61",
+   "label": "PÓS-MODERNISMO",
+   "desc": "Geração de 45, poesia concreta, literatura contemporânea.",
+   "from": 1945,
+   "to": 2026,
+   "color": "#eab308",
+   "lane": 1,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb62",
+   "label": "MONARQUIA",
+   "desc": "Roma: reis etruscos.",
+   "from": -753,
+   "to": -509,
+   "color": "#9ca3af",
+   "lane": 2,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb63",
+   "label": "REPÚBLICA ROMANA",
+   "desc": "Senado, cônsules, expansão militar e crise social.",
+   "from": -509,
+   "to": -27,
+   "color": "#ef4444",
+   "lane": 2,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb64",
+   "label": "IMPÉRIO ROMANO",
+   "desc": "Pax Romana, cristianismo e crise do século III. Divisão em 395.",
+   "from": -27,
+   "to": 476,
+   "color": "#f97316",
+   "lane": 2,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb65",
+   "label": "RECONQUISTA IBÉRICA",
+   "desc": "Cristãos retomam a Península Ibérica dos muçulmanos; formação de Portugal e Espanha.",
+   "from": 711,
+   "to": 1492,
+   "color": "#16a34a",
+   "lane": 2,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb66",
+   "label": "SIMBOLISMO",
+   "desc": "Musicalidade, misticismo e subjetividade (Cruz e Sousa).",
+   "from": 1893,
+   "to": 1902,
+   "color": "#7c3aed",
+   "lane": 2,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb67",
+   "label": "CRUZADAS",
+   "desc": "Expedições cristãs ao Oriente: religiosas, econômicas e políticas.",
+   "from": 1096,
+   "to": 1291,
+   "color": "#eab308",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb68",
+   "label": "GUERRA DOS CEM ANOS",
+   "desc": "França x Inglaterra.",
+   "from": 1337,
+   "to": 1453,
+   "color": "#ef4444",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb69",
+   "label": "REVOLUÇÃO CIENTÍFICA",
+   "desc": "Copérnico, Galileu, Kepler, Newton: método experimental.",
+   "from": 1543,
+   "to": 1687,
+   "color": "#0891b2",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ct"
+   ]
+  },
+  {
+   "id": "qb70",
+   "label": "1ª REVOLUÇÃO INDUSTRIAL",
+   "desc": "Carvão, máquina a vapor e indústria têxtil na Inglaterra.",
+   "from": 1760,
+   "to": 1850,
+   "color": "#ea580c",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb71",
+   "label": "2ª REVOLUÇÃO INDUSTRIAL",
+   "desc": "Aço, eletricidade, petróleo, fordismo e taylorismo.",
+   "from": 1850,
+   "to": 1945,
+   "color": "#ea580c",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb72",
+   "label": "3ª REVOLUÇÃO (TÉCNICO-CIENTÍFICA)",
+   "desc": "Informática, telecomunicações, biotecnologia e globalização.",
+   "from": 1945,
+   "to": 2026,
+   "color": "#0891b2",
+   "lane": 3,
+   "side": "bottom",
+   "flt": [
+    "f_ct"
+   ]
+  },
+  {
+   "id": "qb73",
+   "label": "RENASCIMENTO CULTURAL",
+   "desc": "Humanismo, antropocentrismo e redescoberta da Antiguidade clássica. Itália (Florença).",
+   "from": 1300,
+   "to": 1600,
+   "color": "#f472b6",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_ca"
+   ]
+  },
+  {
+   "id": "qb74",
+   "label": "REVOLUÇÕES INGLESAS",
+   "desc": "Puritana e Gloriosa: fim do absolutismo.",
+   "from": 1640,
+   "to": 1689,
+   "color": "#2563eb",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb75",
+   "label": "INDEPENDÊNCIAS LATINO-AMERICANAS",
+   "desc": "Bolívar e San Martín; fragmentação da América Espanhola.",
+   "from": 1810,
+   "to": 1825,
+   "color": "#16a34a",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_ge"
+   ]
+  },
+  {
+   "id": "qb76",
+   "label": "1ª GUERRA MUNDIAL",
+   "desc": "Imperialismo, nacionalismos e alianças.",
+   "from": 1914,
+   "to": 1918,
+   "color": "#ef4444",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb77",
+   "label": "2ª GUERRA MUNDIAL",
+   "desc": "Eixo x Aliados; Holocausto e bomba atômica.",
+   "from": 1939,
+   "to": 1945,
+   "color": "#374151",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb78",
+   "label": "REGIMES MILITARES NA AMÉRICA LATINA",
+   "desc": "Brasil (1964), Chile (1973), Argentina (1976), Operação Condor.",
+   "from": 1964,
+   "to": 1990,
+   "color": "#6b7280",
+   "lane": 4,
+   "side": "bottom",
+   "flt": [
+    "f_sx",
+    "f_dc"
+   ]
+  },
+  {
+   "id": "qb79",
+   "label": "STALINISMO",
+   "desc": "Planos quinquenais, coletivização, expurgos e culto a Stalin.",
+   "from": 1927,
+   "to": 1953,
+   "color": "#b91c1c",
+   "lane": 5,
+   "side": "bottom",
+   "flt": [
+    "f_sx"
+   ]
+  },
+  {
+   "id": "qb80",
+   "label": "NAZIFASCISMO",
+   "desc": "Fascismo de Mussolini (1922) e nazismo de Hitler (1933).",
+   "from": 1922,
+   "to": 1945,
+   "color": "#111827",
+   "lane": 6,
+   "side": "bottom",
+   "flt": [
+    "f_sx"
+   ]
+  }
+ ],
+ "filters": [
+  {
+   "id": "f_br",
+   "name": "Brasil",
+   "color": "#16a34a"
+  },
+  {
+   "id": "f_ge",
+   "name": "História Geral",
+   "color": "#2563eb"
+  },
+  {
+   "id": "f_sx",
+   "name": "Séc. XX e Geopolítica",
+   "color": "#ea580c"
+  },
+  {
+   "id": "f_fs",
+   "name": "Filosofia e Sociologia",
+   "color": "#7c3aed"
+  },
+  {
+   "id": "f_ct",
+   "name": "Ciência e Tecnologia",
+   "color": "#0891b2"
+  },
+  {
+   "id": "f_ca",
+   "name": "Cultura e Artes",
+   "color": "#db2777"
+  },
+  {
+   "id": "f_dc",
+   "name": "Direitos e Cidadania",
+   "color": "#0d9488"
+  },
+  {
+   "id": "f_ma",
+   "name": "Meio Ambiente",
+   "color": "#65a30d"
+  }
+ ]
+}
