@@ -1541,6 +1541,8 @@ function _placeNew(card){
     if(x+w>vw-10||y+h>vh-10){x=24+others.length*8;y=70+others.length*8;}
   } else if(_mdPos){x=_mdPos.x;y=_mdPos.y;}
   else {x=(vw-w)/2; y=Math.max(10,(vh-h)/2);}
+  // em telas pequenas o cartão novo nunca fica saindo pela lateral
+  if(w<=vw-16)x=Math.max(8,Math.min(vw-w-8,x));
   _mdMove(card,x,y);
 }
 function closeCard(card){
@@ -1592,7 +1594,7 @@ function sm(el,opts){
   card._sc.appendChild(mkMdBar(card));
   if(el.classList)el.classList.add('mbody');
   card._sc.appendChild(el);
-  if(isNew){ov.appendChild(card);_placeNew(card);}
+  if(isNew){ov.appendChild(card);_syncOv();_placeNew(card);}
   _front(card);
   _ctxCard=card;
   _syncOv();
