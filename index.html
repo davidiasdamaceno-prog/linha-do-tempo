@@ -160,12 +160,13 @@ body.home #bar .ri,body.home #bar #project-name-display,body.home #bar #dirty,bo
 .st-desc{font-size:13.5px;line-height:1.55;color:#3a362f;max-width:440px}
 .st-tag{font-size:11px;background:#ede9ff;color:#5b21b6;border-radius:10px;padding:2px 9px}
 .st-hint{font-size:11.5px;color:#6b665d}
+.st-seg{margin-bottom:12px}.st-seg .st-tab{font-size:12.5px}.st-link{display:block;margin:12px auto 0;background:none;border:none;color:#6b665d;font-size:12px;text-decoration:underline;cursor:pointer;font-family:'DM Sans',sans-serif}
 .st-keys{font-size:11px;color:#6b665d;margin-top:10px;text-align:right}
 body.dark #study-box{background:#1f1f1b;color:#e8e4df}body.dark .st-tabs{background:#2a2a25}body.dark .st-tab{color:#b5b0a6}body.dark .st-tab.on{background:#3a3a33;color:#e8e4df}
 body.dark .st-opt,body.dark .st-card{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.16)}body.dark .st-card.flip{background:#2f2a3d}body.dark .st-k{background:#3a3a33;color:#cfcac0}
 body.dark .st-opt.ok{background:#14532d;color:#bbf7d0}body.dark .st-opt.bad{background:#5b1a1a;color:#fecaca}
 body.dark .st-ctx,body.dark .st-wrong{background:#2a2a25;color:#d9d4ca}body.dark .st-desc,body.dark .st-ex,body.dark .st-scs{color:#cfcac0}body.dark .st-bar{background:#3a3a33}
-body.dark .st-chk{color:#cfcac0}body.dark .st-yes{color:#86efac}body.dark .st-no{color:#fca5a5}body.dark .st-prog,body.dark .st-hint,body.dark .st-keys,body.dark .st-side{color:#a8a399}
+body.dark .st-chk,body.dark .st-link{color:#cfcac0}body.dark .st-yes{color:#86efac}body.dark .st-no{color:#fca5a5}body.dark .st-prog,body.dark .st-hint,body.dark .st-keys,body.dark .st-side{color:#a8a399}
 .sh-go{padding:8px 18px;border-radius:10px;border:none;background:#7c3aed;color:#fff;font-weight:600;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 #viewbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:7px 16px;background:#eff6ff;border-bottom:1px solid #bfdbfe;font-size:12px;color:#1e3a8a}
 #viewbar .vb-b{display:flex;gap:8px;flex-wrap:wrap}
@@ -2910,6 +2911,18 @@ function _stPool(){
   });
   return P;
 }
+var _stStop={para:1,entre:1,sobre:1,como:1,mais:1,pela:1,pelo:1,suas:1,seus:1,essa:1,esse:1,dessa:1,desse:1,onde:1,qual:1,quando:1};
+function _stStems(title){
+  var st=[]; _nz(title).split(/[^a-z0-9]+/).forEach(function(w){ if(w.length>=4&&!_stStop[w])st.push(w.length>=6?w.slice(0,5):w); });
+  return st;
+}
+// troca na descrição as palavras do título (e parentes, como "imperador" para "império") por ____, para não entregar a resposta
+function _stMask(desc,title){
+  var stems=_stStems(title), n=0;
+  var out=desc.replace(/[A-Za-zÀ-ÿ0-9]+/g,function(w){var z=_nz(w); for(var i=0;i<stems.length;i++){if(z.indexOf(stems[i])===0){n++;return '_____';}} return w;});
+  return {text:out,n:n};
+}
+function _stOverlap(desc,title){return _stMask(desc,title).n;}
 function _stPick(arr,n){return _stShuf(arr).slice(0,n);}
 function _stYearOpts(year,P){
   var ys={},near=[];
@@ -2928,7 +2941,8 @@ function _stMakeQ(p,P){
     var others=evs.filter(function(x){return x.year!==p.year&&x.title!==p.title;});
     var seen={},uniq=others.filter(function(x){if(seen[x.title])return false;seen[x.title]=1;return true;});
     if(uniq.length>=3)types.push('B');
-    if(p.desc.length>=50&&_nz(p.desc).indexOf(_nz(p.title))<0&&uniq.length>=3)types.push('C');
+    var mk=p.desc.length>=50?_stMask(p.desc,p.title):null;
+    if(mk&&mk.n<=4&&mk.text.replace(/_____/g,'').replace(/\s+/g,' ').trim().length>=45&&uniq.length>=3)types.push('C');
     var ty=types[Math.floor(Math.random()*types.length)];
     if(ty==='A'){
       var ds=_stYearOpts(p.year,P), opts=_stShuf([{t:_stY(p.year),ok:true}].concat(ds.map(function(y){return {t:_stY(y)};})));
@@ -2938,7 +2952,9 @@ function _stMakeQ(p,P){
       var ds2=_stPick(uniq,3);
       return {p:p,q:'Qual destes eventos aconteceu em '+_stY(p.year)+'?',opts:_stShuf([{t:p.title,ok:true}].concat(ds2.map(function(x){return {t:x.title};}))),ans:p.title};
     }
-    var ds3=_stPick(uniq,3), d=p.desc.length>230?(p.desc.slice(0,227).replace(/\s\S*$/,'')+'…'):p.desc;
+    // alternativas erradas: de preferência as que não aparecem na própria descrição
+    var clean=uniq.filter(function(x){return _stOverlap(p.desc,x.title)===0;});
+    var ds3=_stPick(clean.length>=3?clean:uniq,3), dm=_stMask(p.desc,p.title).text, d=dm.length>230?(dm.slice(0,227).replace(/\s\S*$/,'')+'…'):dm;
     return {p:p,q:'Qual evento corresponde a esta descrição?',ctx:d,opts:_stShuf([{t:p.title,ok:true}].concat(ds3.map(function(x){return {t:x.title};}))),ans:p.title};
   }
   // chave (período)
@@ -2955,6 +2971,9 @@ function showStudy(){
   _stRender();
 }
 function closeStudy(){document.getElementById('study-modal').style.display='none';_st=null;}
+function _stKey(){return 'jt_known:'+(_currentProjectId?('p'+_currentProjectId):('n'+_nz(_currentProjectName||'')));}
+function _stKnownLoad(){try{var v=JSON.parse(localStorage.getItem(_stKey())||'{}'); return (v&&typeof v==='object')?v:{};}catch(e){return {};}}
+function _stKnownSave(k){try{if(Object.keys(k).length)localStorage.setItem(_stKey(),JSON.stringify(k)); else localStorage.removeItem(_stKey());}catch(e){}}
 function _stEl(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
 function _stRender(){
   var root=document.getElementById('study-body'); root.textContent='';
@@ -3037,7 +3056,7 @@ function _stQuizView(area){
 function _stAnswer(i){
   var Q=_st&&_st.quiz; if(!Q||Q.answered)return; var q=Q.qs[Q.i]; if(!q||!q.opts[i])return;
   Q.answered=true; var ok=!!q.opts[i].ok;
-  if(ok)Q.score++; else Q.wrong.push(q);
+  if(ok)Q.score++; else {Q.wrong.push(q); var kk=_stKnownLoad(); if(kk[q.p.id]){delete kk[q.p.id]; _stKnownSave(kk);}}
   var bs=document.querySelectorAll('#study-area .st-opt');
   bs.forEach(function(b,k){b.disabled=true; if(q.opts[k].ok)b.classList.add('ok'); else if(k===i)b.classList.add('bad');});
   var fb=document.getElementById('study-fb'); fb.textContent='';
@@ -3049,21 +3068,35 @@ function _stAnswer(i){
   var nx=document.getElementById('study-nx'); nx.style.display='flex';
   var nb=document.getElementById('study-next'); if(nb)nb.focus();
 }
-function _stStartCards(P,yearFirst){
-  var keep=(_st.fc&&_st.fc.yearFirst);
-  _st.fc={queue:_stShuf(P),known:0,total:P.length,flipped:false,yearFirst:(yearFirst==null?!!keep:yearFirst)};
+function _stStartCards(P,yearFirst,onlyUnknown){
+  var old=_st.fc, kn=_stKnownLoad();
+  var yf=(yearFirst==null?!!(old&&old.yearFirst):yearFirst), ou=(onlyUnknown==null?!!(old&&old.onlyUnknown):onlyUnknown);
+  var deck=ou?P.filter(function(x){return !kn[x.id];}):P;
+  _st.fc={queue:_stShuf(deck),known:0,total:deck.length,flipped:false,yearFirst:yf,onlyUnknown:ou,kn:kn};
 }
 function _stCardsView(area){
   var F=_st.fc; area.textContent='';
+  var nKnown=_st.P.filter(function(x){return F.kn[x.id];}).length, nUnk=_st.P.length-nKnown;
+  // escolha do baralho: todos ou só os que ainda não sei (o que você marca fica salvo neste navegador)
+  var seg=_stEl('div','st-tabs st-seg'); seg.setAttribute('role','group'); seg.setAttribute('aria-label','Baralho');
+  [[false,'Todos ('+_st.P.length+')'],[true,'Só os que ainda não sei ('+nUnk+')']].forEach(function(o){
+    var b=_stEl('button','st-tab'+(F.onlyUnknown===o[0]?' on':''),o[1]); b.type='button'; b.setAttribute('aria-pressed',F.onlyUnknown===o[0]?'true':'false');
+    b.onclick=function(){_stStartCards(_st.P,null,o[0]);_stRender();};
+    seg.appendChild(b);
+  });
+  area.appendChild(seg);
   if(!F.queue.length){
-    area.appendChild(_stEl('div','st-score','Deck concluído'));
-    area.appendChild(_stEl('div','st-scs','Você marcou os '+F.total+' cartões como sabidos.'));
-    var bt=_stEl('div','mg-btns'); var again=_stEl('button','go','Estudar de novo'); again.type='button'; again.onclick=function(){_stStartCards(_st.P);_stRender();};
+    var all=F.onlyUnknown&&F.total===0;
+    area.appendChild(_stEl('div','st-score',all?'Nada pendente':'Deck concluído'));
+    area.appendChild(_stEl('div','st-scs',all?'Você já marcou todos os cartões como sabidos.':'Você marcou os '+F.total+' cartões como sabidos.'));
+    var bt=_stEl('div','mg-btns'); var again=_stEl('button','go',all?'Rever todos':'Estudar de novo'); again.type='button'; again.onclick=function(){_stStartCards(_st.P,null,all?false:null);_stRender();};
     var qz=_stEl('button',null,'Fazer um quiz'); qz.type='button'; qz.onclick=function(){_st.mode='quiz';_st.quiz=null;_stRender();};
-    bt.appendChild(qz); bt.appendChild(again); area.appendChild(bt); return;
+    bt.appendChild(qz); bt.appendChild(again); area.appendChild(bt);
+    if(nKnown){var rs=_stEl('button','st-link','Zerar o que marquei como sabido'); rs.type='button'; rs.onclick=function(){_stKnownSave({});_stStartCards(_st.P);_stRender();}; area.appendChild(rs);}
+    return;
   }
   var c=F.queue[0];
-  area.appendChild(_stEl('div','st-prog',F.known+' de '+F.total+' sabidos · '+F.queue.length+' para ver'));
+  area.appendChild(_stEl('div','st-prog',F.known+' de '+F.total+' nesta rodada · '+F.queue.length+' para ver · '+nKnown+' já marcados como sabidos'));
   var bar=_stEl('div','st-bar'); var fill=_stEl('i'); fill.style.width=Math.round(100*F.known/F.total)+'%'; bar.appendChild(fill); area.appendChild(bar);
   var lab=_stEl('label','st-chk'); var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=F.yearFirst; cb.onchange=function(){F.yearFirst=cb.checked;F.flipped=false;_stCardsView(document.getElementById('study-area'));}; lab.appendChild(cb); lab.appendChild(document.createTextNode(' Mostrar a data primeiro')); area.appendChild(lab);
   var when=c.kind==='br'?_stR(c.year,c.to):_stY(c.year);
@@ -3085,11 +3118,13 @@ function _stCardsView(area){
   card.onclick=function(){F.flipped=!F.flipped;_stCardsView(document.getElementById('study-area'));var n=document.getElementById('study-card');if(n)n.focus();};
   area.appendChild(card);
   var bt2=_stEl('div','mg-btns st-cb');
-  var no=_stEl('button',null,'Ainda não sei'); no.type='button'; no.onclick=function(){F.queue.push(F.queue.shift());F.flipped=false;_stCardsView(document.getElementById('study-area'));};
-  var yes=_stEl('button','go','Já sei'); yes.type='button'; yes.onclick=function(){F.queue.shift();F.known++;F.flipped=false;_stCardsView(document.getElementById('study-area'));};
+  var no=_stEl('button',null,'Ainda não sei'); no.type='button'; no.onclick=function(){_stNo();};
+  var yes=_stEl('button','go','Já sei'); yes.type='button'; yes.onclick=function(){_stYes();};
   bt2.appendChild(no); bt2.appendChild(yes); area.appendChild(bt2);
   area.appendChild(_stEl('div','st-keys','Atalhos: espaço vira o cartão · ← ainda não sei · → já sei'));
 }
+function _stYes(){var F=_st.fc,c=F.queue.shift(); F.kn[c.id]=1; _stKnownSave(F.kn); F.known++; F.flipped=false; _stCardsView(document.getElementById('study-area'));}
+function _stNo(){var F=_st.fc,c=F.queue.shift(); delete F.kn[c.id]; _stKnownSave(F.kn); F.queue.push(c); F.flipped=false; _stCardsView(document.getElementById('study-area'));}
 document.addEventListener('keydown',function(e){
   var m=document.getElementById('study-modal'); if(!m||m.style.display!=='flex'||!_st)return;
   var t=e.target; if(t&&(t.tagName==='INPUT'&&t.type!=='checkbox'||t.tagName==='TEXTAREA'))return;
@@ -3100,8 +3135,8 @@ document.addEventListener('keydown',function(e){
   } else if(_st.mode==='cards'&&_st.fc&&_st.fc.queue.length){
     var F=_st.fc, area=document.getElementById('study-area');
     if((e.key===' '||e.key==='Enter')&&!(t&&t.tagName==='BUTTON')){F.flipped=!F.flipped;_stCardsView(area);var n2=document.getElementById('study-card');if(n2)n2.focus();e.preventDefault();}
-    else if(e.key==='ArrowRight'){F.queue.shift();F.known++;F.flipped=false;_stCardsView(area);e.preventDefault();}
-    else if(e.key==='ArrowLeft'){F.queue.push(F.queue.shift());F.flipped=false;_stCardsView(area);e.preventDefault();}
+    else if(e.key==='ArrowRight'){_stYes();e.preventDefault();}
+    else if(e.key==='ArrowLeft'){_stNo();e.preventDefault();}
   }
 });
 
