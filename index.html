@@ -173,7 +173,9 @@ body.dark .jt-logo{color:#e8e4df}
 .jt-logo.bar .lg-t{font-size:15px;line-height:1}
 .jt-logo.bar svg{width:0;min-width:100%;aspect-ratio:300/28;height:auto}   /* a linha acompanha a largura do título */
 .jt-logo .lg-yr{font:600 11px 'DM Sans',sans-serif;text-anchor:middle;opacity:0;animation:spFade .4s ease forwards}
-@media (prefers-reduced-motion:reduce){.jt-logo .lg-line{animation:none;stroke-dashoffset:0}.jt-logo .lg-dot{animation:none;transform:none}.jt-logo .lg-yr{animation:none;opacity:1}}
+.jt-logo .lg-t{clip-path:inset(-.25em 100% -.25em 0);animation:lgReveal .9s cubic-bezier(.65,0,.35,1) calc(var(--lgd,0s) + .1s) forwards}
+@keyframes lgReveal{to{clip-path:inset(-.25em -.1em -.25em 0)}}
+@media (prefers-reduced-motion:reduce){.jt-logo .lg-t{animation:none;clip-path:none}.jt-logo .lg-line{animation:none;stroke-dashoffset:0}.jt-logo .lg-dot{animation:none;transform:none}.jt-logo .lg-yr{animation:none;opacity:1}}
 #blank-state{padding:24px;overflow:auto}
 .bs-tag{font-size:15px;color:#8a867e;text-align:center;max-width:380px}
 .bs-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:6px}
