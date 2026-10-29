@@ -169,10 +169,11 @@ body.dark .jt-logo .lg-t{color:#e8e4df}
 body.dark .jt-logo{color:#e8e4df}
 .jt-logo .lg-line{stroke:currentColor;stroke-opacity:.55;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:spDraw .9s cubic-bezier(.65,0,.35,1) calc(var(--lgd,0s) + .1s) forwards}
 .jt-logo .lg-dot{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:spPop .45s cubic-bezier(.2,1.6,.4,1) forwards}
-.jt-logo.bar{display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;margin-left:4px}
+.jt-logo.bar{display:inline-flex;flex-direction:column;align-items:stretch;gap:4px;margin-left:4px}
 .jt-logo.bar .lg-t{font-size:15px;line-height:1}
-.jt-logo.bar svg{width:120px;height:auto}
-@media (prefers-reduced-motion:reduce){.jt-logo .lg-line{animation:none;stroke-dashoffset:0}.jt-logo .lg-dot{animation:none;transform:none}}
+.jt-logo.bar svg{width:0;min-width:100%;aspect-ratio:300/28;height:auto}   /* a linha acompanha a largura do título */
+.jt-logo .lg-yr{font:600 11px 'DM Sans',sans-serif;text-anchor:middle;opacity:0;animation:spFade .4s ease forwards}
+@media (prefers-reduced-motion:reduce){.jt-logo .lg-line{animation:none;stroke-dashoffset:0}.jt-logo .lg-dot{animation:none;transform:none}.jt-logo .lg-yr{animation:none;opacity:1}}
 #blank-state{padding:24px;overflow:auto}
 .bs-tag{font-size:15px;color:#8a867e;text-align:center;max-width:380px}
 .bs-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:6px}
@@ -2980,9 +2981,16 @@ function handleImport(event){
     document.documentElement.style.setProperty('--lgd','2.2s');
     setTimeout(function(){document.documentElement.style.setProperty('--lgd','0s');},2800);
   }
+  var yrs=['1789','1822','1889','1964','2026'];
   Array.prototype.forEach.call(document.querySelectorAll('[data-logo]'),function(el){
-    var svg='<svg viewBox="0 0 300 28" aria-hidden="true"><line class="lg-line" x1="6" y1="14" x2="294" y2="14" pathLength="1"/>'
-      +cols.map(function(c,i){return '<circle class="lg-dot" cx="'+(30+i*60)+'" cy="14" r="7" fill="'+c+'" style="animation-delay:calc(var(--lgd,0s) + '+(0.2+i*0.16).toFixed(2)+'s)"/>';}).join('')+'</svg>';
+    var years=el.getAttribute('data-logo')!=='bar';     // na barra de cima é pequeno demais para os anos
+    var cy=years?40:14;
+    var svg='<svg viewBox="0 0 300 '+(years?80:28)+'" aria-hidden="true"><line class="lg-line" x1="6" y1="'+cy+'" x2="294" y2="'+cy+'" pathLength="1"/>'
+      +cols.map(function(c,i){
+        var d=(0.2+i*0.16).toFixed(2);
+        return '<circle class="lg-dot" cx="'+(30+i*60)+'" cy="'+cy+'" r="'+(years?7:10)+'" fill="'+c+'" style="animation-delay:calc(var(--lgd,0s) + '+d+'s)"/>'
+          +(years?'<text class="lg-yr" x="'+(30+i*60)+'" y="'+(i%2===0?20:66)+'" fill="'+c+'" style="animation-delay:calc(var(--lgd,0s) + '+(0.2+i*0.16+0.15).toFixed(2)+'s)">'+yrs[i]+'</text>':'');
+      }).join('')+'</svg>';
     el.innerHTML='<div class="lg-t">Linha do Tempo</div>'+svg;
   });
 })();
