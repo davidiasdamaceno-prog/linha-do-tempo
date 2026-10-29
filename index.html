@@ -165,6 +165,14 @@ body.dark .flt-row:hover{background:#2a2a25}
 .jt-logo.mid .lg-t{font-size:28px}
 .jt-logo.mid svg{width:220px;height:auto}
 body.dark .jt-logo .lg-t{color:#e8e4df}
+.jt-logo{color:#1a1a18}
+body.dark .jt-logo{color:#e8e4df}
+.jt-logo .lg-line{stroke:currentColor;stroke-opacity:.55;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:spDraw .9s cubic-bezier(.65,0,.35,1) calc(var(--lgd,0s) + .1s) forwards}
+.jt-logo .lg-dot{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:spPop .45s cubic-bezier(.2,1.6,.4,1) forwards}
+.jt-logo.bar{display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;margin-left:4px}
+.jt-logo.bar .lg-t{font-size:15px;line-height:1}
+.jt-logo.bar svg{width:120px;height:auto}
+@media (prefers-reduced-motion:reduce){.jt-logo .lg-line{animation:none;stroke-dashoffset:0}.jt-logo .lg-dot{animation:none;transform:none}}
 #blank-state{padding:24px;overflow:auto}
 .bs-tag{font-size:15px;color:#8a867e;text-align:center;max-width:380px}
 .bs-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:6px}
@@ -189,9 +197,6 @@ body.dark .bs-card span{color:#e8e4df}
 body.dark #project-name-display:hover{background:rgba(255,255,255,.09)}
 #rename-inline{font:italic 12px 'DM Sans',sans-serif;margin-left:6px;padding:3px 7px;border-radius:7px;border:1.5px solid #7c3aed;outline:none;width:190px;max-width:42vw;background:#fff;color:#111}
 body.dark #rename-inline{background:#2b2b26;color:#e8e4df}
-.jt-logo circle{stroke:#fafaf8;stroke-width:3}
-.jt-logo.mid circle{stroke:#fff}
-body.dark .jt-logo.big circle{stroke:#181814}
 body.dark .bs-card.c1{color:#60a5fa}body.dark .bs-card.c2{color:#f59e0b}body.dark .bs-card.c3{color:#a78bfa}
 </style>
 
@@ -296,7 +301,7 @@ auth.getRedirectResult().then(function(result){
 
 <div id="bar">
   <button id="hamburger" onclick="toggleSidebar()" title="Menu">☰</button>
-  <span class="ti" style="margin-left:4px">Linha do Tempo</span>
+  <span class="ti jt-logo bar" data-logo="bar" title="Linha do Tempo"></span>
   <span id="dirty" onclick="fbSave()" title="Há alterações que ainda não foram salvas — clique para salvar (Ctrl+S)" style="display:none;font-size:11px;color:#c0392b;font-weight:600;cursor:pointer;margin-left:8px;white-space:nowrap">● não salvo</span>
   <span id="project-name-display" style="font-size:12px;color:#888;font-style:italic;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
   <button id="local-badge" type="button" onclick="fbLogin()" title="Não salvo na nuvem: este projeto está só neste navegador. Clique para entrar com Google e salvar."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .9-7.9A5.5 5.5 0 0 0 7.4 8.6 4.7 4.7 0 0 0 7 18z"/><path d="M3.5 3.5l17 17"/></svg><span>só neste navegador</span></button>
@@ -2968,15 +2973,16 @@ function handleImport(event){
 }
 
 
-// Logo: título + linha colorida com bolinhas (tela inicial e lista de projetos)
+// Logo: título + linha do tempo (linha cinza, bolinhas coloridas) que se desenha ao aparecer
 (function(){
   var cols=['#16a34a','#2563eb','#b45309','#7c3aed','#e11d48'];
-  Array.prototype.forEach.call(document.querySelectorAll('[data-logo]'),function(el,k){
-    var gid='lgg'+k;
-    var svg='<svg viewBox="0 0 300 28" aria-hidden="true"><defs><linearGradient id="'+gid+'" gradientUnits="userSpaceOnUse" x1="6" y1="0" x2="294" y2="0">'
-      +cols.map(function(c,i){return '<stop offset="'+(i/(cols.length-1))+'" stop-color="'+c+'"/>';}).join('')
-      +'</linearGradient></defs><line x1="6" y1="14" x2="294" y2="14" stroke="url(#'+gid+')" stroke-width="4" stroke-linecap="round"/>'
-      +cols.map(function(c,i){return '<circle cx="'+(30+i*60)+'" cy="14" r="7" fill="'+c+'"/>';}).join('')+'</svg>';
+  if(document.getElementById('splash')){   // com a animação de abertura na tela, o logo espera ela terminar
+    document.documentElement.style.setProperty('--lgd','2.2s');
+    setTimeout(function(){document.documentElement.style.setProperty('--lgd','0s');},2800);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-logo]'),function(el){
+    var svg='<svg viewBox="0 0 300 28" aria-hidden="true"><line class="lg-line" x1="6" y1="14" x2="294" y2="14" pathLength="1"/>'
+      +cols.map(function(c,i){return '<circle class="lg-dot" cx="'+(30+i*60)+'" cy="14" r="7" fill="'+c+'" style="animation-delay:calc(var(--lgd,0s) + '+(0.2+i*0.16).toFixed(2)+'s)"/>';}).join('')+'</svg>';
     el.innerHTML='<div class="lg-t">Linha do Tempo</div>'+svg;
   });
 })();
