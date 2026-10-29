@@ -124,6 +124,33 @@ body.home #bar .ri,body.home #bar #project-name-display,body.home #bar #dirty,bo
 body.dark #viewbar{background:#1e293b;border-color:#334155;color:#cbd5e1}
 body.viewonly #bar .rg.txt .bg,body.viewonly #bar .rg.txt .bo,body.viewonly #undobtn,body.viewonly #redobtn,body.viewonly #dirty,body.viewonly #local-badge,body.viewonly #save-btn,body.viewonly #fbar .bb,body.viewonly button[title^="Editar"],body.viewonly #evv-edit{display:none!important}
 body.viewonly #project-name-display{cursor:default}
+#tour{position:fixed;inset:0;z-index:9000}
+#tour-block{position:absolute;inset:0}
+#tour-ring{position:absolute;border-radius:12px;box-shadow:0 0 0 9999px rgba(15,15,20,.62);pointer-events:none;transition:left .25s ease,top .25s ease,width .25s ease,height .25s ease}
+#tour-ring.none{box-shadow:none;background:rgba(15,15,20,.62);left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0}
+#tour-ring.glow{outline:3px solid #fbbf24;outline-offset:0}
+#tour-card{position:absolute;width:min(360px,calc(100vw - 24px));background:#fff;color:#1a1a18;border-radius:16px;padding:16px 18px 14px;box-shadow:0 12px 44px rgba(0,0,0,.35);font-family:'DM Sans',sans-serif;outline:none}
+.tr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+#tour-count{font-size:11px;color:#6b665d;letter-spacing:.4px;text-transform:uppercase;font-weight:600}
+#tour-x{border:none;background:transparent;font-size:15px;cursor:pointer;color:#6b665d;border-radius:8px;padding:2px 7px}#tour-x:hover{background:rgba(0,0,0,.07)}
+#tour-title{font-family:'DM Serif Display',serif;font-size:21px;line-height:1.2;margin-bottom:6px}
+#tour-body{font-size:13px;line-height:1.5;color:#3d3a34}
+#tour-body b{color:#1a1a18}
+#tour-dots{display:flex;gap:6px;margin:12px 0 12px;flex-wrap:wrap}
+#tour-dots button{width:9px;height:9px;border-radius:50%;border:none;padding:0;background:#d6d1c7;cursor:pointer}
+#tour-dots button.on{background:#7c3aed;width:22px;border-radius:5px}
+#tour-dots button.seen{background:#c4b5fd}
+.tr-btns{display:flex;align-items:center;gap:8px}
+.tr-btns button{padding:8px 16px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.tr-btns button:disabled{opacity:.4;cursor:default}
+.tr-btns .tr-go{background:#7c3aed;color:#fff;border-color:#7c3aed;font-weight:600}
+.tr-btns .tr-link{border:none;background:transparent;color:#6b665d;padding:8px 4px;text-decoration:underline}
+@media (max-width:520px){#tour-card{position:fixed;left:12px!important;right:12px;bottom:12px;top:auto!important;width:auto}.tr-btns{flex-wrap:wrap}}
+body.touring #bar .ri,body.touring #bar #project-name-display{visibility:visible!important}
+body.touring #fbar{position:relative;z-index:13}
+@media (prefers-reduced-motion:reduce){#tour-ring{transition:none}}
+body.dark #tour-card{background:#23231f;color:#e8e4df}body.dark #tour-body{color:#cfcac0}body.dark #tour-body b{color:#fff}body.dark #tour-title{color:#fff}
+body.dark .tr-btns button:not(.tr-go):not(.tr-link){background:#2a2a25;border-color:#3a3730;color:#e8e4df}
 /* Sidebar */
 #sidebar{position:fixed;top:0;left:-280px;width:280px;height:100vh;background:#fff;box-shadow:2px 0 20px rgba(0,0,0,.12);z-index:100;display:flex;flex-direction:column;transition:left .25s cubic-bezier(.4,0,.2,1)}
 body.dark #sidebar{background:#1e1e1a}
@@ -384,6 +411,9 @@ auth.getRedirectResult().then(function(result){
     <button class="sb-btn" onclick="showShare();closeSidebar()" title="Gera um link para outras pessoas verem esta linha do tempo, só para leitura">
       <span class="sb-icon" style="background:#e0f2fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#0369a1;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></span> Compartilhar link
     </button>
+    <button class="sb-btn" onclick="closeSidebar();startTour(true)" title="Passo a passo rápido do site">
+      <span class="sb-icon" style="background:#fef9c3"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#a16207;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6v.1"/></svg></span> Ver tutorial
+    </button>
     <button class="sb-btn" onclick="showImport();closeSidebar()">
       <span class="sb-icon" style="background:#fff7ed">⬆</span> Importar linha do tempo
     </button>
@@ -466,6 +496,19 @@ auth.getRedirectResult().then(function(result){
     </div>
     <div id="proj-merge" style="display:none"></div>
   </div></div>
+</div>
+
+<!-- Tutorial inicial -->
+<div id="tour" style="display:none" aria-hidden="true">
+  <div id="tour-block"></div>
+  <div id="tour-ring"></div>
+  <div id="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title" tabindex="-1">
+    <div class="tr-top"><span id="tour-count"></span><button type="button" id="tour-x" aria-label="Pular tutorial" title="Pular tutorial">✕</button></div>
+    <div id="tour-title"></div>
+    <div id="tour-body"></div>
+    <div id="tour-dots" role="tablist" aria-label="Etapas"></div>
+    <div class="tr-btns"><button type="button" id="tour-skip" class="tr-link">Pular tutorial</button><span style="flex:1"></span><button type="button" id="tour-back">Voltar</button><button type="button" id="tour-next" class="tr-go">Próximo</button></div>
+  </div>
 </div>
 
 <!-- Share Modal -->
@@ -2768,6 +2811,115 @@ function _initShared(){
   });
 })();
 
+// ══════════════ Tutorial inicial (primeiro login) ══════════════
+// Passo a passo com destaque no elemento. Dá para pular tudo, voltar, avançar ou ir direto a uma etapa pelas bolinhas.
+var _tour=null;
+function _tourSteps(){
+  var first=''; try{ if(_fbUser&&_fbUser.displayName)first=String(_fbUser.displayName).split(' ')[0]; }catch(e){}
+  var home=document.body.classList.contains('home');
+  return [
+    {t:first?('Bem-vindo(a), '+first+'!'):'Bem-vindo(a)!',b:'Em cerca de 1 minuto você vê o essencial. Pode <b>pular o tutorial inteiro</b> ou ir direto a qualquer etapa pelas bolinhas. Para rever depois: menu ☰ → <b>Ver tutorial</b>.',sel:null},
+    {t:'Comece como preferir',b:home?'Crie um <b>projeto em branco</b>, <b>importe</b> um arquivo, abra seus <b>projetos</b> salvos ou veja <b>modelos prontos</b> (Brasil, Revoluções, Guerras e o ENEM completo).':'Pelo menu ☰ você cria um projeto em branco, importa um arquivo, abre seus projetos ou vê os <b>modelos prontos</b>.',sel:home?'#blank-state .bs-cards':null,side:'below'},
+    {t:'Datas e chaves',b:'<b>+ Data</b> coloca um acontecimento num ano (pode ser a.C.). <b>+ Chave</b> marca um período, como “Segundo Reinado”, em cima ou embaixo da linha.',sel:'#bar .rg.txt'},
+    {t:'Filtros por tema',b:'Separe os eventos por assunto (política, economia, cultura…). Clique num filtro para <b>mostrar só aquele tema</b>; o ⓘ mostra os detalhes.',sel:'#fbar'},
+    {t:'Clique para ler e editar',b:'Clique em um <b>evento</b> ou <b>chave</b> para ver a descrição; o lápis edita. Arraste a tela para andar na linha, use <b>+ / −</b> (ou a pinça no celular) para o zoom e <b>Décadas</b> para espaçar pelo tempo real.',sel:null},
+    {t:'Buscar',b:'Procure por <b>ano</b> (1500, 500 a.C.) ou por <b>palavra</b> (Napoleão, abolição). Atalho: tecla <b>/</b>.',sel:'#bar button[onclick="toggleSearch()"]'},
+    {t:'Menu',b:'Aqui ficam <b>Projetos</b> (com fundir e excluir nos 3 pontinhos), <b>Modelos prontos</b>, <b>Compartilhar link</b> (só leitura), importar e exportar (HTML, PNG, PDF). Seus projetos ficam salvos na sua conta.',sel:'#sidebar',pre:function(){document.getElementById('sidebar').classList.add('open');},post:function(){closeSidebar();},delay:320,side:'right'},
+    {t:'Tudo pronto!',b:'Dica: abra um <b>modelo pronto</b> para ver como fica uma linha do tempo completa, depois use <b>＋ Meus projetos</b> para guardar uma cópia.',sel:null,last:true}
+  ];
+}
+function startTour(force){
+  if(_tour)return;
+  if(!force&&_tourSeen())return;
+  var steps=_tourSteps();
+  _tour={i:0,steps:steps,seen:{},prevFocus:document.activeElement};
+  var el=document.getElementById('tour'); el.style.display='block'; el.setAttribute('aria-hidden','false');
+  document.body.classList.add('touring');
+  _tourShow(0);
+}
+function _tourKey(){return 'jt_tour_'+((_fbUser&&_fbUser.uid)||'anon');}
+function _tourSeen(){try{return localStorage.getItem(_tourKey())==='1';}catch(e){return false;}}
+function _tourMark(){try{localStorage.setItem(_tourKey(),'1');}catch(e){}}
+function _tourShow(i){
+  var T=_tour; if(!T)return; var st=T.steps[T.i]; if(st&&st.post&&i!==T.i){try{st.post();}catch(e){}}
+  T.i=Math.max(0,Math.min(T.steps.length-1,i)); st=T.steps[T.i]; T.seen[T.i]=1;
+  if(st.pre){try{st.pre();}catch(e){}}
+  document.getElementById('tour-count').textContent='Etapa '+(T.i+1)+' de '+T.steps.length;
+  document.getElementById('tour-title').textContent=st.t;
+  document.getElementById('tour-body').innerHTML=st.b;   // textos fixos escritos aqui (sem dados de usuário)
+  var dots=document.getElementById('tour-dots'); dots.textContent='';
+  T.steps.forEach(function(s2,k){var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Ir para a etapa '+(k+1)+': '+s2.t); b.className=(k===T.i?'on':(T.seen[k]?'seen':'')); b.onclick=function(){_tourShow(k);}; dots.appendChild(b);});
+  document.getElementById('tour-back').disabled=(T.i===0);
+  var nx=document.getElementById('tour-next'); nx.textContent=st.last?'Concluir':'Próximo';
+  document.getElementById('tour-skip').style.visibility=st.last?'hidden':'visible';
+  setTimeout(function(){ if(_tour===T)_tourPlace(); },st.delay||30);
+  nx.focus();
+}
+function _tourPlace(){
+  var T=_tour; if(!T)return; var st=T.steps[T.i], ring=document.getElementById('tour-ring'), card=document.getElementById('tour-card');
+  var target=st.sel?document.querySelector(st.sel):null, r=target?target.getBoundingClientRect():null;
+  if(r&&(r.width<2||r.height<2))r=null;
+  var vw=window.innerWidth, vh=window.innerHeight, pad=6;
+  if(r){
+    ring.className='';
+    ring.style.left=(r.left-pad)+'px'; ring.style.top=(r.top-pad)+'px'; ring.style.width=(r.width+pad*2)+'px'; ring.style.height=(r.height+pad*2)+'px';
+  } else { ring.className='none'; }
+  var cw=card.offsetWidth, ch=card.offsetHeight, x, y;
+  if(vw<=520){card.style.left=''; card.style.top=''; return;}
+  if(!r){x=(vw-cw)/2; y=(vh-ch)/2;}
+  else if(st.side==='right'&&r.right+cw+24<vw){x=r.right+16; y=Math.max(12,Math.min(vh-ch-12,r.top+20));}
+  else if(r.bottom+ch+24<vh){x=r.left; y=r.bottom+pad+12;}
+  else if(r.top-ch-24>0){x=r.left; y=r.top-ch-pad-12;}
+  else {x=(vw-cw)/2; y=Math.max(12,vh-ch-16);}
+  x=Math.max(12,Math.min(vw-cw-12,x)); y=Math.max(12,Math.min(vh-ch-12,y));
+  card.style.left=x+'px'; card.style.top=y+'px';
+}
+function endTour(){
+  var T=_tour; if(!T)return;
+  var st=T.steps[T.i]; if(st&&st.post){try{st.post();}catch(e){}}
+  _tour=null; _tourMark();
+  var el=document.getElementById('tour'); el.style.display='none'; el.setAttribute('aria-hidden','true');
+  document.body.classList.remove('touring');
+  try{ if(T.prevFocus&&T.prevFocus.focus)T.prevFocus.focus(); }catch(e){}
+}
+document.getElementById('tour-next').onclick=function(){ if(!_tour)return; if(_tour.steps[_tour.i].last)endTour(); else _tourShow(_tour.i+1); };
+document.getElementById('tour-back').onclick=function(){ if(_tour)_tourShow(_tour.i-1); };
+document.getElementById('tour-skip').onclick=endTour;
+document.getElementById('tour-x').onclick=endTour;
+window.addEventListener('resize',function(){ if(_tour)_tourPlace(); });
+document.addEventListener('keydown',function(e){
+  if(!_tour)return;
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();endTour();}
+  else if(e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();document.getElementById('tour-next').click();}
+  else if(e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();document.getElementById('tour-back').click();}
+  else if(e.key==='Tab'){
+    var f=[].slice.call(document.querySelectorAll('#tour-card button:not(:disabled)')).filter(function(b){return b.offsetParent!==null&&getComputedStyle(b).visibility!=='hidden';});
+    if(!f.length)return; var a=document.activeElement, i=f.indexOf(a);
+    if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus();}
+    else if(!e.shiftKey&&(i===-1||i===f.length-1)){e.preventDefault();f[0].focus();}
+    e.stopPropagation();
+  } else e.stopPropagation();
+},true);
+// Primeiro login: conta nova (ou sem projetos) que ainda não viu o tutorial neste navegador
+function _maybeFirstLoginTour(user){
+  if(!user||_tourSeen()||_tour)return;
+  var isNew=false;
+  try{ var md=user.metadata; if(md&&md.creationTime&&md.lastSignInTime)isNew=Math.abs(new Date(md.lastSignInTime)-new Date(md.creationTime))<180000; }catch(e){}
+  function go(){
+    var tries=0;
+    (function wait(){
+      var sp=document.getElementById('splash'), busy=(sp&&!sp.classList.contains('sp-out'))||document.querySelector('.mcard')||['modelos-modal','projects-modal','import-modal','share-modal'].some(function(id){var m=document.getElementById(id);return m&&m.style.display==='flex';});
+      if(busy&&tries++<40){setTimeout(wait,500);return;}
+      if(!_fbUser||_fbUser.uid!==user.uid)return;
+      startTour(false);
+    })();
+  }
+  if(isNew){setTimeout(go,900);return;}
+  try{
+    db.collection('users').doc(user.uid).collection('projects').limit(1).get().then(function(snap){ if(snap.empty)setTimeout(go,900); }).catch(function(){});
+  }catch(e){}
+}
+
 // ── Minimap ──
 function drawMinimap(){}
 document.getElementById('wrap').addEventListener('scroll',function(){
@@ -3122,6 +3274,7 @@ auth.onAuthStateChanged(function(user){
       var sbN=document.getElementById('sidebar-user-name');
       if(sbN) sbN.textContent = user.displayName || user.email || 'Usuário';
       var openFlag=_takeOpenProjectsFlag();
+      if(!wasUser)_maybeFirstLoginTour(user);
       setTimeout(_runPendingModelo,700);
       var hasLocalWork=_started&&!_currentProjectId&&!_modeloPreview;       // projeto aberto sem login, ainda fora da conta
       if(_viewOnly||_modeloPreview){
