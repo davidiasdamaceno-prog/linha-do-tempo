@@ -116,6 +116,40 @@ body.home #bar .ri,body.home #bar #project-name-display,body.home #bar #dirty,bo
 
 #share-box{background:#fff;border-radius:14px;width:440px;max-width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2);font-family:'DM Sans',sans-serif;color:#1a1a18}
 #share-scroll{overflow-y:auto;padding:24px;min-height:0}
+#study-box{background:#fff;border-radius:16px;width:560px;max-width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'DM Sans',sans-serif;color:#1a1a18}
+#study-scroll{overflow-y:auto;padding:24px;min-height:0}
+.st-tabs{display:flex;gap:6px;margin-bottom:14px;background:#f1eee8;padding:4px;border-radius:12px}
+.st-tab{flex:1;padding:8px 10px;border:none;border-radius:9px;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#5c574e;cursor:pointer}
+.st-tab.on{background:#fff;color:#1a1a18;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.st-prog{font-size:12px;color:#6b665d;margin-bottom:6px}
+.st-bar{height:5px;background:#ece8e1;border-radius:3px;overflow:hidden;margin-bottom:14px}.st-bar i{display:block;height:100%;background:#7c3aed;transition:width .25s}
+.st-q{font-family:'DM Serif Display',serif;font-size:19px;line-height:1.3;margin-bottom:10px}
+.st-ctx{font-size:13.5px;line-height:1.55;background:#f7f5f1;border-radius:10px;padding:10px 12px;margin-bottom:12px;color:#3a362f}
+.st-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.st-opt{display:flex;align-items:center;gap:10px;text-align:left;padding:11px 13px;border:1.5px solid #ddd8cf;border-radius:11px;background:#fff;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a18;cursor:pointer}
+.st-opt:hover:not(:disabled){border-color:#7c3aed;background:#faf7ff}
+.st-opt:disabled{cursor:default}
+.st-k{flex:none;width:22px;height:22px;border-radius:50%;background:#f1eee8;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#5c574e}
+.st-opt.ok{border-color:#16a34a;background:#f0fdf4;color:#14532d}.st-opt.ok .st-k{background:#16a34a;color:#fff}
+.st-opt.bad{border-color:#dc2626;background:#fef2f2;color:#7f1d1d}.st-opt.bad .st-k{background:#dc2626;color:#fff}
+.st-fb{font-size:13px;line-height:1.5;margin-bottom:10px;min-height:4px}.st-yes{color:#15803d}.st-no{color:#b91c1c}.st-ex{margin-top:4px;color:#4a463f}
+.st-score{font-family:'DM Serif Display',serif;font-size:36px;text-align:center;margin:6px 0 2px}
+.st-scs{text-align:center;font-size:13.5px;color:#4a463f;margin-bottom:14px}
+.st-wrong{background:#f7f5f1;border-radius:10px;padding:8px 12px;margin-bottom:14px;max-height:180px;overflow:auto;font-size:13px;line-height:1.6}
+.st-chk{display:block;font-size:12.5px;color:#4a463f;margin-bottom:10px;cursor:pointer}
+.st-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;min-height:210px;padding:22px 20px;border:1px solid #ddd8cf;border-top:6px solid #7c3aed;border-radius:14px;background:#fff;font-family:'DM Sans',sans-serif;color:#1a1a18;cursor:pointer;text-align:center;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.st-card.flip{background:#faf8ff}
+.st-side{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b665d;font-weight:700}
+.st-big{font-family:'DM Serif Display',serif;font-size:24px;line-height:1.25}
+.st-desc{font-size:13.5px;line-height:1.55;color:#3a362f;max-width:440px}
+.st-tag{font-size:11px;background:#ede9ff;color:#5b21b6;border-radius:10px;padding:2px 9px}
+.st-hint{font-size:11.5px;color:#6b665d}
+.st-keys{font-size:11px;color:#6b665d;margin-top:10px;text-align:right}
+body.dark #study-box{background:#1f1f1b;color:#e8e4df}body.dark .st-tabs{background:#2a2a25}body.dark .st-tab{color:#b5b0a6}body.dark .st-tab.on{background:#3a3a33;color:#e8e4df}
+body.dark .st-opt,body.dark .st-card{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.16)}body.dark .st-card.flip{background:#2f2a3d}body.dark .st-k{background:#3a3a33;color:#cfcac0}
+body.dark .st-opt.ok{background:#14532d;color:#bbf7d0}body.dark .st-opt.bad{background:#5b1a1a;color:#fecaca}
+body.dark .st-ctx,body.dark .st-wrong{background:#2a2a25;color:#d9d4ca}body.dark .st-desc,body.dark .st-ex,body.dark .st-scs{color:#cfcac0}body.dark .st-bar{background:#3a3a33}
+body.dark .st-chk{color:#cfcac0}body.dark .st-yes{color:#86efac}body.dark .st-no{color:#fca5a5}body.dark .st-prog,body.dark .st-hint,body.dark .st-keys,body.dark .st-side{color:#a8a399}
 .sh-go{padding:8px 18px;border-radius:10px;border:none;background:#7c3aed;color:#fff;font-weight:600;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 #viewbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:7px 16px;background:#eff6ff;border-bottom:1px solid #bfdbfe;font-size:12px;color:#1e3a8a}
 #viewbar .vb-b{display:flex;gap:8px;flex-wrap:wrap}
@@ -411,6 +445,9 @@ auth.getRedirectResult().then(function(result){
     <button class="sb-btn" onclick="showShare();closeSidebar()" title="Gera um link para outras pessoas verem esta linha do tempo, só para leitura">
       <span class="sb-icon" style="background:#e0f2fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#0369a1;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></span> Compartilhar link
     </button>
+    <button class="sb-btn" onclick="showStudy();closeSidebar()" title="Quiz e flashcards com os eventos desta linha do tempo">
+      <span class="sb-icon" style="background:#ede9fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#6d28d9;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M2.5 9 12 4l9.5 5L12 14z"/><path d="M6.5 11.3V16c0 1.3 2.5 2.7 5.5 2.7s5.5-1.4 5.5-2.7v-4.7"/><path d="M21.5 9v5.5"/></svg></span> Estudar (quiz e cartões)
+    </button>
     <button class="sb-btn" onclick="closeSidebar();startTour(true)" title="Passo a passo rápido do site">
       <span class="sb-icon" style="background:#fef9c3"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#a16207;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6v.1"/></svg></span> Ver tutorial
     </button>
@@ -460,7 +497,7 @@ auth.getRedirectResult().then(function(result){
     </div>
   </div>
 </div>
-<div id="viewbar" role="status" style="display:none"><span class="vb-t"><b>Somente leitura</b> · <span id="vb-name"></span></span><span class="vb-b"><button type="button" onclick="viewMakeCopy()">Editar uma cópia</button><button type="button" onclick="viewLeave()">Criar a minha</button></span></div>
+<div id="viewbar" role="status" style="display:none"><span class="vb-t"><b>Somente leitura</b> · <span id="vb-name"></span></span><span class="vb-b"><button type="button" onclick="viewMakeCopy()">Editar uma cópia</button><button type="button" onclick="viewLeave()">Criar a minha</button><button type="button" onclick="showStudy()">Estudar</button></span></div>
 <div id="fbar">
   <span class="flbl">Filtros</span>
   <span id="fchips"></span>
@@ -521,6 +558,16 @@ auth.getRedirectResult().then(function(result){
     <div id="share-note" class="mg-sum" style="display:none"></div>
     <div id="share-st" class="mg-st"></div>
     <div class="mg-btns"><button type="button" id="share-native" style="display:none" onclick="nativeShare()">Enviar…</button><button type="button" onclick="closeShare()">Fechar</button></div>
+  </div></div>
+</div>
+
+<!-- Study Modal -->
+<div id="study-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:58;align-items:center;justify-content:center;padding:16px">
+  <div id="study-box" role="dialog" aria-modal="true" aria-label="Modo estudo"><div id="study-scroll">
+    <div class="mg-title">Estudar</div>
+    <p class="mg-sub" id="study-sub"></p>
+    <div id="study-body"></div>
+    <div class="mg-btns" style="margin-top:14px"><button type="button" onclick="closeStudy()">Fechar</button></div>
   </div></div>
 </div>
 
@@ -2639,7 +2686,7 @@ document.addEventListener('keydown',function(e){
   }
   lab(document);
   try{ new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){for(var j=0;j<ms[i].addedNodes.length;j++){var n=ms[i].addedNodes[j]; if(n.nodeType===1){ if(n.matches&&n.matches('button[title],[role=button][title]')&&!n.hasAttribute('aria-label'))n.setAttribute('aria-label',n.getAttribute('title').replace(/\s*\(.*\)\s*$/,'')); lab(n);} } } }).observe(document.body,{childList:true,subtree:true}); }catch(e){}
-  var MODALS=['modelos-modal','projects-modal','import-modal','share-modal'];
+  var MODALS=['modelos-modal','projects-modal','import-modal','share-modal','study-modal'];
   function openModal(){for(var i=0;i<MODALS.length;i++){var m=document.getElementById(MODALS[i]); if(m&&m.style.display==='flex')return m;} return null;}
   var _lastFocus=null;
   document.addEventListener('keydown',function(e){
@@ -2649,6 +2696,7 @@ document.addEventListener('keydown',function(e){
       else if(m.id==='modelos-modal')closeModelos();
       else if(m.id==='projects-modal')closeProjects();
       else if(m.id==='share-modal')closeShare();
+      else if(m.id==='study-modal')closeStudy();
       else m.style.display='none';
       e.preventDefault(); return;
     }
@@ -2811,6 +2859,221 @@ function _initShared(){
   });
 })();
 
+// ══════════════ Modo estudo: quiz e flashcards ══════════════
+var _st=null;
+function _stY(y){return y<0?(Math.abs(y)+' a.C.'):String(y);}
+function _stR(a,b){return _stY(a)+' – '+_stY(b);}
+function _stShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function _stClean(t){return String(t==null?'':t).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();}
+function _stPool(){
+  var P=[];
+  marks.forEach(function(m){(m.events||[]).forEach(function(ev){
+    if(!passF(ev))return;
+    var t=_stClean(ev.text); if(!t)return;
+    P.push({kind:'ev',id:ev.id,year:m.year,title:t,desc:_stClean(ev.desc),color:dispColor(ev.color)});
+  });});
+  brackets.forEach(function(b){
+    if(!passF(b))return;
+    var t=_stClean(b.label); if(!t)return;
+    P.push({kind:'br',id:b.id,year:b.from,to:b.to,title:t,desc:_stClean(b.desc),color:dispColor(b.color)});
+  });
+  return P;
+}
+function _stPick(arr,n){return _stShuf(arr).slice(0,n);}
+function _stYearOpts(year,P){
+  var ys={},near=[];
+  P.forEach(function(p){if(p.year!==year)ys[p.year]=1;});
+  var all=Object.keys(ys).map(Number);
+  all.sort(function(a,b){return Math.abs(a-year)-Math.abs(b-year);});
+  var out=_stPick(all.slice(0,10),3);
+  var k=1; while(out.length<3){var c=year+(Math.random()<.5?-1:1)*k*(5+Math.floor(Math.random()*20)); k++; if(c!==year&&out.indexOf(c)<0&&c!==0)out.push(c);}
+  return out;
+}
+function _stMakeQ(p,P){
+  var evs=P.filter(function(x){return x.kind==='ev';}), brs=P.filter(function(x){return x.kind==='br';});
+  var types=[];
+  if(p.kind==='ev'){
+    types.push('A');
+    var others=evs.filter(function(x){return x.year!==p.year&&x.title!==p.title;});
+    var seen={},uniq=others.filter(function(x){if(seen[x.title])return false;seen[x.title]=1;return true;});
+    if(uniq.length>=3)types.push('B');
+    if(p.desc.length>=50&&_nz(p.desc).indexOf(_nz(p.title))<0&&uniq.length>=3)types.push('C');
+    var ty=types[Math.floor(Math.random()*types.length)];
+    if(ty==='A'){
+      var ds=_stYearOpts(p.year,P), opts=_stShuf([{t:_stY(p.year),ok:true}].concat(ds.map(function(y){return {t:_stY(y)};})));
+      return {p:p,q:'Em que ano aconteceu: '+p.title+'?',opts:opts,ans:_stY(p.year)};
+    }
+    if(ty==='B'){
+      var ds2=_stPick(uniq,3);
+      return {p:p,q:'Qual destes eventos aconteceu em '+_stY(p.year)+'?',opts:_stShuf([{t:p.title,ok:true}].concat(ds2.map(function(x){return {t:x.title};}))),ans:p.title};
+    }
+    var ds3=_stPick(uniq,3), d=p.desc.length>230?(p.desc.slice(0,227).replace(/\s\S*$/,'')+'…'):p.desc;
+    return {p:p,q:'Qual evento corresponde a esta descrição?',ctx:d,opts:_stShuf([{t:p.title,ok:true}].concat(ds3.map(function(x){return {t:x.title};}))),ans:p.title};
+  }
+  // chave (período)
+  var correct=_stR(p.year,p.to), set={}, opts=[{t:correct,ok:true}]; set[correct]=1;
+  _stShuf(brs.filter(function(x){return x!==p;})).forEach(function(x){var r=_stR(x.year,x.to); if(opts.length<4&&!set[r]){set[r]=1;opts.push({t:r});}});
+  var span=Math.max(5,p.to-p.year), g=0;
+  while(opts.length<4&&g++<40){var sh=(Math.random()<.5?-1:1)*Math.max(5,Math.round(span*(.3+Math.random()))), r2=_stR(p.year+sh,p.to+sh+Math.round((Math.random()-.5)*span*.3)); if(!set[r2]){set[r2]=1;opts.push({t:r2});}}
+  return {p:p,q:'Em que período ocorreu: '+p.title+'?',opts:_stShuf(opts),ans:correct};
+}
+function showStudy(){
+  var P=_stPool(), m=document.getElementById('study-modal');
+  _st={mode:'quiz',P:P,total:marks.length+brackets.length};
+  m.style.display='flex';
+  _stRender();
+}
+function closeStudy(){document.getElementById('study-modal').style.display='none';_st=null;}
+function _stEl(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function _stRender(){
+  var root=document.getElementById('study-body'); root.textContent='';
+  var P=_st.P, nEv=P.filter(function(x){return x.kind==='ev';}).length;
+  var sub=document.getElementById('study-sub');
+  if(!P.length){
+    sub.textContent='';
+    root.appendChild(_stEl('div','mg-sum',_st.total?'Os filtros ligados escondem tudo. Desligue algum filtro e tente de novo.':'Abra ou crie uma linha do tempo primeiro. O modo estudo usa os eventos e as chaves dela.'));
+    return;
+  }
+  sub.textContent='Usando '+P.length+' itens desta linha do tempo'+(isFiltering()?' (só os que aparecem com os filtros ligados)':'')+'.';
+  var tabs=_stEl('div','st-tabs'); tabs.setAttribute('role','tablist');
+  [['quiz','Quiz'],['cards','Flashcards']].forEach(function(t){
+    var b=_stEl('button','st-tab'+(_st.mode===t[0]?' on':''),t[1]); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-selected',_st.mode===t[0]?'true':'false');
+    b.onclick=function(){_st.mode=t[0];_st.quiz=null;_st.fc=null;_stRender();};
+    tabs.appendChild(b);
+  });
+  root.appendChild(tabs);
+  var area=_stEl('div','st-area'); area.id='study-area'; root.appendChild(area);
+  if(_st.mode==='quiz'){
+    if(P.length<4){area.appendChild(_stEl('div','mg-sum','Para o quiz são precisos pelo menos 4 itens. Use os flashcards ou adicione mais eventos.'));return;}
+    if(!_st.quiz)_stStartQuiz(P);
+    _stQuizView(area);
+  } else {
+    if(!_st.fc)_stStartCards(P,false);
+    _stCardsView(area);
+  }
+}
+function _stStartQuiz(pool,only){
+  var base=only||pool, n=Math.min(10,base.length);
+  var picks=_stPick(base,n), qs=[];
+  picks.forEach(function(p){
+    // o quiz precisa de itens suficientes para as alternativas; ignora o que não der
+    try{var q=_stMakeQ(p,_st.P); if(q.opts.length>=2)qs.push(q);}catch(e){}
+  });
+  _st.quiz={qs:qs,i:0,score:0,wrong:[],done:false,answered:false};
+}
+function _stQuizView(area){
+  var Q=_st.quiz; area.textContent='';
+  if(Q.done||Q.i>=Q.qs.length){
+    Q.done=true;
+    var pct=Q.qs.length?Math.round(100*Q.score/Q.qs.length):0;
+    area.appendChild(_stEl('div','st-score',Q.score+' de '+Q.qs.length));
+    area.appendChild(_stEl('div','st-scs',pct>=80?'Muito bem! Você domina esse conteúdo.':(pct>=50?'Bom caminho. Revise os que errou abaixo.':'Vale reler a linha do tempo e tentar de novo.')));
+    if(Q.wrong.length){
+      area.appendChild(_stEl('div','mg-lbl','Para revisar'));
+      var ul=_stEl('div','st-wrong');
+      Q.wrong.forEach(function(q){
+        var it=_stEl('div','st-wi'); it.appendChild(_stEl('b',null,q.p.title)); 
+        it.appendChild(_stEl('span',null,' — '+(q.p.kind==='br'?_stR(q.p.year,q.p.to):_stY(q.p.year))));
+        ul.appendChild(it);
+      });
+      area.appendChild(ul);
+    }
+    var bt=_stEl('div','mg-btns');
+    var again=_stEl('button','go','Novo quiz'); again.type='button'; again.onclick=function(){_stStartQuiz(_st.P);_stRender();};
+    bt.appendChild(again);
+    if(Q.wrong.length){var rv=_stEl('button',null,'Só os que errei'); rv.type='button'; rv.onclick=function(){_stStartQuiz(_st.P,Q.wrong.map(function(q){return q.p;}));_stRender();}; bt.insertBefore(rv,again);}
+    var fcb=_stEl('button',null,'Flashcards'); fcb.type='button'; fcb.onclick=function(){_st.mode='cards';_st.fc=null;_stRender();}; bt.insertBefore(fcb,bt.firstChild);
+    area.appendChild(bt); return;
+  }
+  var q=Q.qs[Q.i];
+  area.appendChild(_stEl('div','st-prog','Pergunta '+(Q.i+1)+' de '+Q.qs.length));
+  var bar=_stEl('div','st-bar'); var fill=_stEl('i'); fill.style.width=Math.round(100*Q.i/Q.qs.length)+'%'; bar.appendChild(fill); area.appendChild(bar);
+  var h=_stEl('div','st-q',q.q); h.setAttribute('role','heading'); h.setAttribute('aria-level','3'); area.appendChild(h);
+  if(q.ctx)area.appendChild(_stEl('div','st-ctx',q.ctx));
+  var list=_stEl('div','st-opts'); list.setAttribute('role','group'); list.setAttribute('aria-label','Alternativas');
+  q.opts.forEach(function(o,i){
+    var b=_stEl('button','st-opt'); b.type='button'; b.dataset.i=i;
+    b.appendChild(_stEl('span','st-k',String(i+1))); b.appendChild(_stEl('span',null,o.t));
+    b.onclick=function(){_stAnswer(i);};
+    list.appendChild(b);
+  });
+  area.appendChild(list);
+  var fb=_stEl('div','st-fb'); fb.id='study-fb'; fb.setAttribute('aria-live','polite'); area.appendChild(fb);
+  var nx=_stEl('div','mg-btns'); nx.id='study-nx'; nx.style.display='none';
+  var go=_stEl('button','go',Q.i+1>=Q.qs.length?'Ver resultado':'Próxima'); go.type='button'; go.id='study-next'; go.onclick=function(){Q.i++;Q.answered=false;_stQuizView(document.getElementById('study-area'));};
+  nx.appendChild(go); area.appendChild(nx);
+}
+function _stAnswer(i){
+  var Q=_st&&_st.quiz; if(!Q||Q.answered)return; var q=Q.qs[Q.i]; if(!q||!q.opts[i])return;
+  Q.answered=true; var ok=!!q.opts[i].ok;
+  if(ok)Q.score++; else Q.wrong.push(q);
+  var bs=document.querySelectorAll('#study-area .st-opt');
+  bs.forEach(function(b,k){b.disabled=true; if(q.opts[k].ok)b.classList.add('ok'); else if(k===i)b.classList.add('bad');});
+  var fb=document.getElementById('study-fb'); fb.textContent='';
+  fb.appendChild(_stEl('b',ok?'st-yes':'st-no',ok?'Certo! ':'Não foi dessa vez. '));
+  if(!ok)fb.appendChild(_stEl('span',null,'Resposta: '+q.ans+'. '));
+  var p=q.p, d=p.desc; if(d.length>300)d=d.slice(0,297).replace(/\s\S*$/,'')+'…';
+  var line=p.title+' ('+(p.kind==='br'?_stR(p.year,p.to):_stY(p.year))+')'+(d?': '+d:'');
+  fb.appendChild(_stEl('div','st-ex',line));
+  var nx=document.getElementById('study-nx'); nx.style.display='flex';
+  var nb=document.getElementById('study-next'); if(nb)nb.focus();
+}
+function _stStartCards(P,yearFirst){
+  var keep=(_st.fc&&_st.fc.yearFirst);
+  _st.fc={queue:_stShuf(P),known:0,total:P.length,flipped:false,yearFirst:(yearFirst==null?!!keep:yearFirst)};
+}
+function _stCardsView(area){
+  var F=_st.fc; area.textContent='';
+  if(!F.queue.length){
+    area.appendChild(_stEl('div','st-score','Deck concluído'));
+    area.appendChild(_stEl('div','st-scs','Você marcou os '+F.total+' cartões como sabidos.'));
+    var bt=_stEl('div','mg-btns'); var again=_stEl('button','go','Estudar de novo'); again.type='button'; again.onclick=function(){_stStartCards(_st.P);_stRender();};
+    var qz=_stEl('button',null,'Fazer um quiz'); qz.type='button'; qz.onclick=function(){_st.mode='quiz';_st.quiz=null;_stRender();};
+    bt.appendChild(qz); bt.appendChild(again); area.appendChild(bt); return;
+  }
+  var c=F.queue[0];
+  area.appendChild(_stEl('div','st-prog',F.known+' de '+F.total+' sabidos · '+F.queue.length+' para ver'));
+  var bar=_stEl('div','st-bar'); var fill=_stEl('i'); fill.style.width=Math.round(100*F.known/F.total)+'%'; bar.appendChild(fill); area.appendChild(bar);
+  var lab=_stEl('label','st-chk'); var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=F.yearFirst; cb.onchange=function(){F.yearFirst=cb.checked;F.flipped=false;_stCardsView(document.getElementById('study-area'));}; lab.appendChild(cb); lab.appendChild(document.createTextNode(' Mostrar a data primeiro')); area.appendChild(lab);
+  var when=c.kind==='br'?_stR(c.year,c.to):_stY(c.year);
+  var card=_stEl('button','st-card'); card.type='button'; card.id='study-card'; card.style.borderTopColor=c.color||'#7c3aed';
+  card.setAttribute('aria-label',F.flipped?'Verso do cartão. Clique para virar.':'Frente do cartão. Clique para ver a resposta.');
+  var front=F.yearFirst?when:c.title;
+  if(!F.flipped){
+    card.appendChild(_stEl('span','st-side','Frente'));
+    card.appendChild(_stEl('span','st-big',front));
+    if(c.kind==='br')card.appendChild(_stEl('span','st-tag','período'));
+    card.appendChild(_stEl('span','st-hint','Toque para virar'));
+  } else {
+    card.classList.add('flip');
+    card.appendChild(_stEl('span','st-side','Verso'));
+    card.appendChild(_stEl('span','st-big',F.yearFirst?c.title:when));
+    var d=c.desc; if(d.length>420)d=d.slice(0,417).replace(/\s\S*$/,'')+'…';
+    if(d)card.appendChild(_stEl('span','st-desc',d));
+  }
+  card.onclick=function(){F.flipped=!F.flipped;_stCardsView(document.getElementById('study-area'));var n=document.getElementById('study-card');if(n)n.focus();};
+  area.appendChild(card);
+  var bt2=_stEl('div','mg-btns st-cb');
+  var no=_stEl('button',null,'Ainda não sei'); no.type='button'; no.onclick=function(){F.queue.push(F.queue.shift());F.flipped=false;_stCardsView(document.getElementById('study-area'));};
+  var yes=_stEl('button','go','Já sei'); yes.type='button'; yes.onclick=function(){F.queue.shift();F.known++;F.flipped=false;_stCardsView(document.getElementById('study-area'));};
+  bt2.appendChild(no); bt2.appendChild(yes); area.appendChild(bt2);
+  area.appendChild(_stEl('div','st-keys','Atalhos: espaço vira o cartão · ← ainda não sei · → já sei'));
+}
+document.addEventListener('keydown',function(e){
+  var m=document.getElementById('study-modal'); if(!m||m.style.display!=='flex'||!_st)return;
+  var t=e.target; if(t&&(t.tagName==='INPUT'&&t.type!=='checkbox'||t.tagName==='TEXTAREA'))return;
+  if(_st.mode==='quiz'&&_st.quiz&&!_st.quiz.done){
+    var n=parseInt(e.key,10);
+    if(n>=1&&n<=4&&!_st.quiz.answered){_stAnswer(n-1);e.preventDefault();}
+    else if(((e.key==='Enter'&&!(t&&t.tagName==='BUTTON'))||e.key==='ArrowRight')&&_st.quiz.answered){var nb=document.getElementById('study-next');if(nb){nb.click();e.preventDefault();}}
+  } else if(_st.mode==='cards'&&_st.fc&&_st.fc.queue.length){
+    var F=_st.fc, area=document.getElementById('study-area');
+    if((e.key===' '||e.key==='Enter')&&!(t&&t.tagName==='BUTTON')){F.flipped=!F.flipped;_stCardsView(area);var n2=document.getElementById('study-card');if(n2)n2.focus();e.preventDefault();}
+    else if(e.key==='ArrowRight'){F.queue.shift();F.known++;F.flipped=false;_stCardsView(area);e.preventDefault();}
+    else if(e.key==='ArrowLeft'){F.queue.push(F.queue.shift());F.flipped=false;_stCardsView(area);e.preventDefault();}
+  }
+});
+
 // ══════════════ Tutorial inicial (primeiro login) ══════════════
 // Passo a passo com destaque no elemento. Dá para pular tudo, voltar, avançar ou ir direto a uma etapa pelas bolinhas.
 var _tour=null;
@@ -2819,12 +3082,13 @@ function _tourSteps(){
   var home=document.body.classList.contains('home');
   return [
     {t:first?('Bem-vindo(a), '+first+'!'):'Bem-vindo(a)!',b:'Em cerca de 1 minuto você vê o essencial. Pode <b>pular o tutorial inteiro</b> ou ir direto a qualquer etapa pelas bolinhas. Para rever depois: menu ☰ → <b>Ver tutorial</b>.',sel:null},
-    {t:'Comece como preferir',b:home?'Crie um <b>projeto em branco</b>, <b>importe</b> um arquivo, abra seus <b>projetos</b> salvos ou veja <b>modelos prontos</b> (Brasil, Revoluções, Guerras e o ENEM completo).':'Pelo menu ☰ você cria um projeto em branco, importa um arquivo, abre seus projetos ou vê os <b>modelos prontos</b>.',sel:home?'#blank-state .bs-cards':null,side:'below'},
+    {t:'Comece como preferir',b:home?'Crie um <b>projeto em branco</b>, <b>importe</b> um arquivo, abra seus <b>projetos</b> salvos ou veja <b>modelos prontos</b> (Brasil, Antiguidade, Idade Média, Revoluções, Guerras e o ENEM completo).':'Pelo menu ☰ você cria um projeto em branco, importa um arquivo, abre seus projetos ou vê os <b>modelos prontos</b>.',sel:home?'#blank-state .bs-cards':null,side:'below'},
     {t:'Datas e chaves',b:'<b>+ Data</b> coloca um acontecimento num ano (pode ser a.C.). <b>+ Chave</b> marca um período, como “Segundo Reinado”, em cima ou embaixo da linha.',sel:'#bar .rg.txt'},
     {t:'Filtros por tema',b:'Separe os eventos por assunto (política, economia, cultura…). Clique num filtro para <b>mostrar só aquele tema</b>; o ⓘ mostra os detalhes.',sel:'#fbar'},
     {t:'Clique para ler e editar',b:'Clique em um <b>evento</b> ou <b>chave</b> para ver a descrição; o lápis edita. Arraste a tela para andar na linha, use <b>+ / −</b> (ou a pinça no celular) para o zoom e <b>Décadas</b> para espaçar pelo tempo real.',sel:null},
     {t:'Buscar',b:'Procure por <b>ano</b> (1500, 500 a.C.) ou por <b>palavra</b> (Napoleão, abolição). Atalho: tecla <b>/</b>.',sel:'#bar button[onclick="toggleSearch()"]'},
-    {t:'Menu',b:'Aqui ficam <b>Projetos</b> (com fundir e excluir nos 3 pontinhos), <b>Modelos prontos</b>, <b>Compartilhar link</b> (só leitura), importar e exportar (HTML, PNG, PDF). Seus projetos ficam salvos na sua conta.',sel:'#sidebar',pre:function(){document.getElementById('sidebar').classList.add('open');},post:function(){closeSidebar();},delay:320,side:'right'},
+    {t:'Estudar',b:'No menu ☰ → <b>Estudar</b> você treina com a própria linha do tempo: <b>quiz</b> (em que ano foi? qual evento é este?) e <b>flashcards</b> para virar e memorizar. Funciona também em modelos prontos e links compartilhados.',sel:null},
+    {t:'Menu',b:'Aqui ficam <b>Projetos</b> (com fundir e excluir nos 3 pontinhos), <b>Modelos prontos</b>, <b>Compartilhar link</b> (só leitura), <b>Estudar</b>, importar e exportar (HTML, PNG, PDF). Seus projetos ficam salvos na sua conta.',sel:'#sidebar',pre:function(){document.getElementById('sidebar').classList.add('open');},post:function(){closeSidebar();},delay:320,side:'right'},
     {t:'Tudo pronto!',b:'Dica: abra um <b>modelo pronto</b> para ver como fica uma linha do tempo completa, depois use <b>＋ Meus projetos</b> para guardar uma cópia.',sel:null,last:true}
   ];
 }
@@ -2908,7 +3172,7 @@ function _maybeFirstLoginTour(user){
   function go(){
     var tries=0;
     (function wait(){
-      var sp=document.getElementById('splash'), busy=(sp&&!sp.classList.contains('sp-out'))||document.querySelector('.mcard')||['modelos-modal','projects-modal','import-modal','share-modal'].some(function(id){var m=document.getElementById(id);return m&&m.style.display==='flex';});
+      var sp=document.getElementById('splash'), busy=(sp&&!sp.classList.contains('sp-out'))||document.querySelector('.mcard')||['modelos-modal','projects-modal','import-modal','share-modal','study-modal'].some(function(id){var m=document.getElementById(id);return m&&m.style.display==='flex';});
       if(busy&&tries++<40){setTimeout(wait,500);return;}
       if(!_fbUser||_fbUser.uid!==user.uid)return;
       startTour(false);
