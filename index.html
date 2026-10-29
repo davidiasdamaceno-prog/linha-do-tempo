@@ -155,6 +155,44 @@ body.dark .flt-row:hover{background:#2a2a25}
 @keyframes spPop{to{transform:scale(1)}}
 @keyframes spFade{to{opacity:1}}
 @keyframes spUp{to{opacity:1;transform:none}}
+
+/* ── Tela inicial, logo, selo "não salvo na nuvem", título editável ── */
+.jt-logo{display:flex;flex-direction:column;align-items:center;gap:10px}
+.jt-logo .lg-t{font-family:'DM Serif Display',serif;color:#1a1a18;line-height:1.05}
+.jt-logo svg{display:block;overflow:visible}
+.jt-logo.big .lg-t{font-size:clamp(34px,7vw,52px)}
+.jt-logo.big svg{width:min(340px,76vw);height:auto}
+.jt-logo.mid .lg-t{font-size:28px}
+.jt-logo.mid svg{width:220px;height:auto}
+body.dark .jt-logo .lg-t{color:#e8e4df}
+#blank-state{padding:24px;overflow:auto}
+.bs-tag{font-size:15px;color:#8a867e;text-align:center;max-width:380px}
+.bs-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.bs-card{width:150px;height:150px;border-radius:20px;border:1.5px solid rgba(26,26,24,.14);background:rgba(255,255,255,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#3a3833;transition:transform .15s,box-shadow .15s,border-color .15s,background .15s}
+.bs-card:hover,.bs-card:focus-visible{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.09);background:rgba(255,255,255,.85);border-color:currentColor;outline:none}
+.bs-card svg{width:44px;height:44px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.bs-card.c1{color:#2563eb}.bs-card.c2{color:#b45309}.bs-card.c3{color:#7c3aed}
+.bs-card span{color:#3a3833}
+body.dark .bs-card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.16)}
+body.dark .bs-card:hover{background:rgba(255,255,255,.1)}
+body.dark .bs-card span{color:#e8e4df}
+.bs-foot{font-size:12px;color:#a8a49c;text-align:center;max-width:420px}
+#draft-note{display:none;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;font-size:12px;color:#6b665d;background:rgba(224,164,88,.14);border:1px solid rgba(224,164,88,.45);border-radius:12px;padding:8px 14px;max-width:460px;text-align:center}
+#draft-note button{border:none;border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+#draft-note .dn-go{background:#1a1a18;color:#fff}
+#draft-note .dn-no{background:transparent;color:#8a867e;text-decoration:underline}
+#local-badge{display:none;align-items:center;gap:4px;border:none;background:transparent;color:#c0392b;cursor:pointer;padding:2px 4px;margin-left:6px;border-radius:6px;font-size:11px;font-weight:600;font-family:inherit}
+#local-badge:hover{background:rgba(192,57,43,.1)}
+#local-badge svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#project-name-display{padding:3px 7px;border-radius:7px;transition:background .15s}
+#project-name-display:hover{background:rgba(0,0,0,.06)}
+body.dark #project-name-display:hover{background:rgba(255,255,255,.09)}
+#rename-inline{font:italic 12px 'DM Sans',sans-serif;margin-left:6px;padding:3px 7px;border-radius:7px;border:1.5px solid #7c3aed;outline:none;width:190px;max-width:42vw;background:#fff;color:#111}
+body.dark #rename-inline{background:#2b2b26;color:#e8e4df}
+.jt-logo circle{stroke:#fafaf8;stroke-width:3}
+.jt-logo.mid circle{stroke:#fff}
+body.dark .jt-logo.big circle{stroke:#181814}
+body.dark .bs-card.c1{color:#60a5fa}body.dark .bs-card.c2{color:#f59e0b}body.dark .bs-card.c3{color:#a78bfa}
 </style>
 
 <!-- Firebase SDK -->
@@ -260,7 +298,8 @@ auth.getRedirectResult().then(function(result){
   <button id="hamburger" onclick="toggleSidebar()" title="Menu">☰</button>
   <span class="ti" style="margin-left:4px">Linha do Tempo</span>
   <span id="dirty" onclick="fbSave()" title="Há alterações que ainda não foram salvas — clique para salvar (Ctrl+S)" style="display:none;font-size:11px;color:#c0392b;font-weight:600;cursor:pointer;margin-left:8px;white-space:nowrap">● não salvo</span>
-  <span id="project-name-display" style="font-size:11px;color:#888;font-style:italic;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
+  <span id="project-name-display" style="font-size:12px;color:#888;font-style:italic;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
+  <button id="local-badge" type="button" onclick="fbLogin()" title="Não salvo na nuvem: este projeto está só neste navegador. Clique para entrar com Google e salvar."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .9-7.9A5.5 5.5 0 0 0 7.4 8.6 4.7 4.7 0 0 0 7 18z"/><path d="M3.5 3.5l17 17"/></svg><span>só neste navegador</span></button>
   <div class="ri">
     <div class="rg txt">
       <button class="bg" onclick="onm()">+ Data</button>
@@ -299,8 +338,9 @@ auth.getRedirectResult().then(function(result){
 <!-- Projects Modal -->
 <div id="projects-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;align-items:center;justify-content:center">
   <div style="background:#fff;border-radius:14px;padding:24px;width:380px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2)">
-    <div style="font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:16px">📁 Meus Projetos</div>
-    <button onclick="newProject()" style="width:100%;padding:10px;background:#7c3aed;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:14px;font-family:'DM Sans',sans-serif">+ Novo projeto em branco</button>
+    <div class="jt-logo mid" data-logo="mid" style="margin:4px 0 6px"></div>
+    <div style="font-size:12px;color:#8a867e;text-align:center;margin-bottom:16px;letter-spacing:.4px;text-transform:uppercase">Meus projetos</div>
+    <button onclick="startNewProject()" style="width:100%;padding:10px;background:#7c3aed;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:14px;font-family:'DM Sans',sans-serif">+ Novo projeto em branco</button>
     <div id="projects-list" style="display:flex;flex-direction:column;gap:8px"></div>
     <div style="display:flex;justify-content:flex-end;margin-top:16px">
       <button onclick="closeProjects()" style="padding:6px 16px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12px">Fechar</button>
@@ -323,19 +363,16 @@ auth.getRedirectResult().then(function(result){
 </div>
 
 <!-- Blank state overlay -->
-<div id="blank-state" style="display:flex;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:#fafaf8;z-index:10">
-  <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#9e9488">Linha do Tempo</div>
-  <div style="font-size:14px;color:#b0a898;text-align:center;max-width:320px">Crie uma nova linha do tempo ou importe uma existente.</div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-    <button onclick="newProject()" style="padding:10px 22px;background:#1a1a18;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif">+ Criar nova</button>
-    <button onclick="showImport()" style="padding:10px 22px;background:#b45309;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif">⬆ Importar arquivo</button>
+<div id="blank-state" style="display:flex;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:18px;background:#fafaf8;z-index:10">
+  <div class="jt-logo big" data-logo="big"></div>
+  <div class="bs-tag">Crie sua linha do tempo, importe um arquivo ou abra seus projetos.</div>
+  <div class="bs-cards">
+    <button class="bs-card c1" type="button" onclick="startNewProject()" title="Abre uma linha do tempo em branco"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 10v28M10 24h28"/></svg><span>Criar projeto</span></button>
+    <button class="bs-card c2" type="button" onclick="showImport()" title="Abre um backup (.json) ou um arquivo exportado"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 33V11M15 20l9-9 9 9M10 37h28"/></svg><span>Importar</span></button>
+    <button class="bs-card c3" type="button" onclick="openProjectsFromHome()" title="Seus projetos salvos (pede login com Google)"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 14a3 3 0 0 1 3-3h10l4 5h16a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/></svg><span>Meus projetos</span></button>
   </div>
-  <div id="blank-login-hint">
-    <button onclick="fbLogin()" style="padding:10px 22px;background:#4285f4;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;margin-top:4px">
-      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#fff"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#fff"/><path d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z" fill="#fff"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z" fill="#fff"/></svg>
-      Entrar com Google
-    </button>
-  </div>
+  <div id="draft-note"></div>
+  <div class="bs-foot">Dá para criar e editar sem entrar. Para guardar na nuvem, entre com Google.</div>
 </div>
 <div id="tip" style="position:fixed;display:none;background:#1a1a18;color:#f5f2ee;font-size:12px;font-family:'DM Sans',sans-serif;padding:7px 11px;border-radius:8px;max-width:260px;line-height:1.5;pointer-events:none;z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:pre-wrap"></div>
 <script type="application/json" id="mdata">[{"year":-8000,"events":[{"id":"e1","text":"REVOLUÇÃO AGRÍCOLA","color":"#a3a3a3"}]},{"year":-5000,"events":[{"id":"e2","text":"EGITO ANTIGO","color":"#a3a3a3"}]},{"year":-4000,"events":[{"id":"e3","text":"ESCRITA","color":"#a3a3a3"}]},{"year":-3000,"events":[]},{"year":-2000,"events":[{"id":"e5","text":"GRÉCIA ANTIGA","color":"#a3a3a3"}]},{"year":-1200,"events":[]},{"year":-1100,"events":[]},{"year":-1000,"events":[]},{"year":-900,"events":[]},{"year":-800,"events":[{"id":"e10","text":"ROMA ANTIGA","color":"#a3a3a3"}]},{"year":-700,"events":[]},{"year":-600,"events":[]},{"year":-500,"events":[]},{"year":-400,"events":[]},{"year":-100,"events":[]},{"year":100,"events":[]},{"year":500,"events":[{"id":"e17","text":"476 — QUEDA DO IMP. ROMANO DO OCIDENTE","color":"#a3a3a3"}]},{"year":1000,"events":[]},{"year":1100,"events":[]},{"year":1200,"events":[]},{"year":1300,"events":[]},{"year":1400,"events":[]},{"year":1453,"events":[{"id":"e23","text":"QUEDA DO IMP. ROMANO DO ORIENTE","color":"#a3a3a3"}]},{"year":1494,"events":[{"id":"e24","text":"TRATADO DE TORDESILHAS","color":"#f97316"}]},{"year":1500,"events":[{"id":"e25","text":"D. PEDRO CHEGA AO BRASIL","color":"#22c55e"}]},{"year":1501,"events":[]},{"year":1517,"events":[{"id":"e27","text":"REFORMA PROTESTANTE","color":"#3b82f6"}]},{"year":1534,"events":[{"id":"e28","text":"CAPITANIAS HEREDITÁRIAS","color":"#22c55e"}]},{"year":1545,"events":[{"id":"e29","text":"CONTRARREFORMA","color":"#3b82f6"}]},{"year":1549,"events":[{"id":"e30","text":"GOVERNO GERAL","color":"#22c55e"},{"id":"u1781735374610","text":"CHEGADA JESUÍTAS","color":"#9ca3af"}]},{"year":1555,"events":[{"id":"e31","text":"FRANÇA ANTÁRTICA","color":"#06b6d4"}]},{"year":1560,"events":[{"id":"e32","text":"CONFEDERAÇÃO DOS TAMOIOS","color":"#22c55e"}]},{"year":1580,"events":[]},{"year":1600,"events":[]},{"year":1601,"events":[]},{"year":1612,"events":[{"id":"e36","text":"FRANÇA EQUINOCIAL","color":"#06b6d4"}]},{"year":1621,"events":[{"id":"e37","text":"WIC","color":"#ec4899"}]},{"year":1624,"events":[{"id":"e38","text":"INVASÕES HOLANDESAS","color":"#22c55e"}]},{"year":1640,"events":[{"id":"e39a","text":"GUERRAS DE RESTAURAÇÃO","color":"#f97316"},{"id":"e39b","text":"REVOLUÇÃO PURITANA","color":"#3b82f6"}]},{"year":1641,"events":[{"id":"e40","text":"REVOLTA DE AMADOR BUENO","color":"#22c55e"}]},{"year":1645,"events":[{"id":"e41","text":"INSURREIÇÃO PERNAMBUCANA","color":"#22c55e"}]},{"year":1660,"events":[{"id":"e42","text":"REVOLUÇÃO DA CACHAÇA","color":"#22c55e"}]},{"year":1684,"events":[{"id":"e43","text":"REVOLTA DE BECKMAN","color":"#22c55e"}]},{"year":1688,"events":[{"id":"e44","text":"REVOLUÇÃO GLORIOSA","color":"#3b82f6"}]},{"year":1700,"events":[]},{"year":1701,"events":[]},{"year":1703,"events":[{"id":"e47","text":"TRATADO DE METHUEN","color":"#f97316"}]},{"year":1707,"events":[{"id":"e48","text":"GUERRA DOS EMBOABAS","color":"#22c55e"}]},{"year":1710,"events":[{"id":"e49","text":"GUERRA DOS MASCATES","color":"#22c55e"}]},{"year":1720,"events":[{"id":"e50a","text":"CASAS DE FUNDIÇÃO","color":"#22c55e"},{"id":"e50b","text":"REVOLTA DE VILA RICA/FILIPE DOS SANTOS","color":"#22c55e"}]},{"year":1750,"events":[{"id":"e51","text":"TRATADO DE MADRID","color":"#f97316"}]},{"year":1760,"events":[{"id":"e52","text":"INÍCIO DA REV. INDUSTRIAL","color":"#3b82f6"}]},{"year":1776,"events":[{"id":"e53","text":"INDEPENDÊNCIA DOS EUA","color":"#ef4444"}]},{"year":1777,"events":[]},{"year":1789,"events":[{"id":"e55a","text":"REVOLUÇÃO FRANCESA","color":"#06b6d4"},{"id":"e55b","text":"CONJURAÇÃO MINEIRA","color":"#22c55e"}]},{"year":1791,"events":[{"id":"e56","text":"REVOLUÇÃO DO HAITI","color":"#06b6d4"}]},{"year":1798,"events":[{"id":"e57","text":"CONJURAÇÃO BAIANA","color":"#22c55e"}]},{"year":1800,"events":[]},{"year":1801,"events":[]},{"year":1808,"events":[{"id":"e61","text":"CHEGADA DE DOM JOÃO","color":"#f97316"}]},{"year":1810,"events":[{"id":"e62","text":"TRATADOS DE 1810","color":"#3b82f6"}]},{"year":1815,"events":[{"id":"e63","text":"CONGRESSO DE VIENA","color":"#a3a3a3"}]},{"year":1817,"events":[{"id":"e64","text":"REVOLUÇÃO PERNAMBUCANA","color":"#22c55e"}]},{"year":1820,"events":[{"id":"e65","text":"REVOLUÇÃO DO PORTO","color":"#f97316"}]},{"year":1822,"events":[{"id":"e66","text":"INDEPENDÊNCIA DO BRASIL","color":"#22c55e"}]},{"year":1823,"events":[{"id":"e67","text":"DOUTRINA MONROE","color":"#ef4444","desc":"América para os americanos"},{"id":"u1783818006299","text":"NOITE DA AGONIA","color":"#16a34a","desc":""}]},{"year":1824,"events":[{"id":"e68a","text":"CONSTITUIÇÃO DA MANDIOCA","color":"#22c55e"},{"id":"e68b","text":"CONFEDERAÇÃO DO EQUADOR","color":"#22c55e"}]},{"year":1825,"events":[{"id":"e69","text":"GUERRA DA CISPLATINA","color":"#eab308"}]},{"year":1831,"events":[{"id":"e70a","text":"LEI FEIJÓ","color":"#22c55e"},{"id":"e70b","text":"NOITE DAS GARRAFADAS","color":"#22c55e"}]},{"year":1834,"events":[{"id":"e71","text":"ATO ADICIONAL","color":"#22c55e"}]},{"year":1835,"events":[{"id":"e72a","text":"CABANAGEM","color":"#22c55e"},{"id":"e72b","text":"G. DOS FARRAPOS","color":"#22c55e"},{"id":"e72c","text":"REV. DOS MALÊS","color":"#22c55e"}]},{"year":1837,"events":[{"id":"e73","text":"SABINADA","color":"#22c55e"}]},{"year":1838,"events":[{"id":"e74","text":"BALAIADA","color":"#22c55e"}]},{"year":1840,"events":[{"id":"e75","text":"GOLPE DA MAIORIDADE","color":"#22c55e"}]},{"year":1844,"events":[{"id":"e76","text":"TARIFA ALVES BRANCO","color":"#22c55e"}]},{"year":1845,"events":[{"id":"e77a","text":"BILL ABERDEEN","color":"#3b82f6","desc":"Apreensão de navios negreiros no atlântico"},{"id":"e77b","text":"DESTINO MANIFESTO","color":"#ef4444","desc":"Americanos foram escolhidos por Deus para expandir seu território do oceano Atlântico ao Pacífico, justificou a tomada de terras indígenas e guerras, em nome do progresso."}]},{"year":1848,"events":[{"id":"e78a","text":"REVOLUÇÃO PRAIEIRA","color":"#22c55e"},{"id":"e78b","text":"PRIMAVERA DOS POVOS","color":"#a3a3a3"},{"id":"e78c","text":"UNIF. ITALIANA","color":"#eab308"}]},{"year":1850,"events":[{"id":"e79a","text":"LEI EUSÉBIO DE QUEIRÓS","color":"#22c55e"},{"id":"e79b","text":"LEI DE TERRAS","color":"#22c55e"},{"id":"e79c","text":"ERA MAUÁ","color":"#22c55e"},{"id":"e79d","text":"2ª REV. INDUSTRIAL","color":"#3b82f6"}]},{"year":1862,"events":[{"id":"e80","text":"HOMESTEAD ACT","color":"#ef4444"}]},{"year":1864,"events":[{"id":"e81","text":"GUERRA DO PARAGUAI","color":"#22c55e"}]},{"year":1888,"events":[{"id":"e82","text":"LEI ÁUREA","color":"#22c55e"}]},{"year":1889,"events":[{"id":"e83","text":"GOLPE MILITAR DEODORO","color":"#16a34a"}]},{"year":1891,"events":[{"id":"e84a","text":"1ª CONSTITUIÇÃO REPUBLICANA","color":"#16a34a"},{"id":"e84b","text":"RENÚNCIA DE DEODORO","color":"#16a34a"},{"id":"e84c","text":"1ª REVOLTA DA ARMADA","color":"#16a34a"}]},{"year":1893,"events":[{"id":"e85a","text":"2ª REVOLTA DA ARMADA","color":"#22c55e"},{"id":"e85b","text":"REV. FEDERALISTA","color":"#16a34a","desc":""}]},{"year":1894,"events":[{"id":"e86","text":"GUERRA DE CANUDOS","color":"#22c55e"}]},{"year":1896,"events":[]},{"year":1898,"events":[]},{"year":1900,"events":[]},{"year":1901,"events":[]},{"year":1799,"events":[]},{"year":1836,"events":[{"id":"u1782156139020","text":"ROMANTISMO NO BRASIL","color":"#8b5cf6"}]},{"year":1881,"events":[{"id":"u1782426487762","text":"REALISMO NO BRASIL","color":"#8b5cf6"}]},{"year":1902,"events":[]},{"year":1922,"events":[]}]</script>
@@ -367,15 +404,39 @@ function updateDirtyUI(){
   var d=isDirty(), el=document.getElementById('dirty');
   if(el)el.style.display=d?'inline':'none';
   document.title=(d?'● ':'')+'Linha do Tempo';
+  updateLocalBadge();
+  if(!_fbUser&&_started){clearTimeout(_draftT);_draftT=setTimeout(_saveDraft,700);}   // cópia local (sem login)
   _scheduleAutosave(d);
+}
+// ── Projeto aberto sem login / rascunho local ──
+var _started=false;      // true quando há um projeto aberto (criado, importado ou carregado)
+var _projEpoch=0;        // muda a cada troca de projeto (para um salvamento atrasado não afetar o projeto novo)
+function _switchProject(){_projEpoch++;clearTimeout(_autoT);_autoT=null;_autoSig=null;}
+var DRAFT_KEY='jt_draft_v1', _draftT=null;
+function _saveDraft(){
+  try{
+    if(_fbUser||!_started)return;
+    if(!(marks.length||brackets.length||(_currentProjectName&&_currentProjectName!=='Sem título')))return;
+    localStorage.setItem(DRAFT_KEY,JSON.stringify({name:_currentProjectName,marks:marks,brackets:brackets,filters:filters,t:Date.now()}));
+  }catch(e){}
+}
+function _readDraft(){
+  try{var r=localStorage.getItem(DRAFT_KEY);if(!r)return null;var d=JSON.parse(r);
+    if(d&&Array.isArray(d.marks)&&Array.isArray(d.brackets))return d;}catch(e){}
+  return null;
+}
+function _clearDraft(){try{localStorage.removeItem(DRAFT_KEY);}catch(e){}}
+function updateLocalBadge(){
+  var b=document.getElementById('local-badge');
+  if(b)b.style.display=(!_fbUser&&_started)?'inline-flex':'none';
 }
 // ── Salvamento automático ──
 // Só para quem está logado e num projeto já salvo; espera ~20 s sem novas alterações (debounce),
 // então grava 1 escrita no Firestore. Nunca cria projetos novos sozinho.
 var AUTOSAVE_MS=20000, _autoT=null, _autoSig=null, _saving=false, _autoFails=0;
-function _autoEligible(){return !!(_fbUser&&_currentProjectId&&!_saving&&isDirty());}
+function _autoEligible(){return !!(_fbUser&&!_saving&&isDirty());}   // sem projeto ainda: o 1º salvamento cria o projeto na conta
 function _scheduleAutosave(d){
-  if(!d||!_fbUser||!_currentProjectId){clearTimeout(_autoT);_autoT=null;_autoSig=null;return;}
+  if(!d||!_fbUser){clearTimeout(_autoT);_autoT=null;_autoSig=null;return;}
   var s=_curSig();
   if(_autoT&&s===_autoSig)return;            // nada de novo desde o último agendamento
   clearTimeout(_autoT); _autoSig=s;
@@ -1428,6 +1489,10 @@ function mkRte(id,item){
     b.addEventListener('click',function(){ed.focus();try{document.execCommand(d[0]);}catch(err){}chk();upd();});
     btns[d[0]]=b; bar.appendChild(b);
   });
+  var bClr=mkEl('button',{type:'button',title:'Limpar formatação (Ctrl+\\)','data-cmd':'removeFormat',style:'font-size:11px'},'Tx');
+  bClr.addEventListener('mousedown',function(e){e.preventDefault();});
+  bClr.addEventListener('click',function(){ed.focus();try{document.execCommand('removeFormat');}catch(err){}chk();upd();});
+  bar.appendChild(bClr);
   function upd(){
     defs.forEach(function(d){var on=false;try{on=document.queryCommandState(d[0]);}catch(err){}btns[d[0]].classList.toggle('on',!!on);});
   }
@@ -1438,7 +1503,19 @@ function mkRte(id,item){
   }
   document.addEventListener('selectionchange',onSel);
   ed.addEventListener('input',chk);
+  // Atalhos de formatação (Ctrl no Windows/Linux, ⌘ no Mac): B negrito, I itálico, U sublinhado, \ limpa a formatação
+  var keyCmd={b:'bold',i:'italic',u:'underline'};
   ed.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&!e.altKey){
+      var k=String(e.key||'').toLowerCase(), cmd=null;
+      if(!e.shiftKey&&keyCmd[k])cmd=keyCmd[k];
+      else if(k==='\\')cmd='removeFormat';
+      if(cmd){
+        e.preventDefault();e.stopPropagation();
+        try{document.execCommand(cmd);}catch(err){}
+        chk();upd();return;
+      }
+    }
     if(e.key==='Enter'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();e.stopPropagation();try{document.execCommand('insertLineBreak');}catch(err){}chk();}
   });
   ed.addEventListener('paste',function(e){          // cola só o texto (sem trazer estilos de outros sites)
@@ -1696,6 +1773,7 @@ function oee(year,eid,from){
   for(var i=0;i<marks.length;i++){if(marks[i].year===year){mk=marks[i];break;}} if(!mk)return;
   for(var i=0;i<mk.events.length;i++){if(mk.events[i].id===eid){ev=mk.events[i];break;}} if(!ev)return;
   var ti=mkInp('text',ev.text,'eet');
+  if(ev.text==='NOVO EVENTO'){ ti.value=''; ti.placeholder='NOVO EVENTO'; }   // some ao começar a digitar
   var di=mkRte('eed',ev);
   var cplbl=mkEl('div',{className:'fi'});
   ap(cplbl,[mkEl('label',{textContent:'Cor'}),mkCph('ev',ev.color)]);
@@ -1708,7 +1786,7 @@ function oee(year,eid,from){
 }
 function sev(year,eid,fl){
   _snapshot();
-  var txt=document.getElementById('eet').value.toUpperCase().trim(), col=gc('ev');
+  var txt=document.getElementById('eet').value.toUpperCase().trim()||'NOVO EVENTO', col=gc('ev');
   var rd=_richRead(document.getElementById('eed'));
   for(var i=0;i<marks.length;i++){if(marks[i].year===year){for(var j=0;j<marks[i].events.length;j++){if(marks[i].events[j].id===eid){marks[i].events[j].text=txt;marks[i].events[j].color=col;marks[i].events[j].desc=rd.text;
         if(rd.html)marks[i].events[j].descH=rd.html; else delete marks[i].events[j].descH;
@@ -2480,14 +2558,14 @@ function fbLogout(){
 
 function fbSave(opts){
   var auto = !!(opts && opts.auto === true);   // salvamento automático: silencioso (sem alert)
-  if(!_fbUser){ if(!auto) alert('Faça login primeiro!'); return; }
+  if(!_fbUser){ if(!auto) fbLogin(); return; }   // sem login: pede o login para poder salvar
   if(_saving) return;
   if(marks.length === 0 && brackets.length === 0 && !_currentProjectName){ if(!auto) alert('Nada para salvar — a linha do tempo está vazia.'); return; }
   var btn = document.getElementById('save-btn');
   btn.textContent = '☁ Salvando...';
   btn.disabled = true;
   _saving = true;
-  var pid = _currentProjectId, savedId = pid;
+  var pid = _currentProjectId, savedId = pid, ep = _projEpoch;
   var _sigAtSave=_curSig();
   var projectData = {
     name: _currentProjectName,
@@ -2502,14 +2580,14 @@ function fbSave(opts){
   } else {
     ref = db.collection('users').doc(_fbUser.uid).collection('projects').add(projectData).then(function(docRef){
       savedId = docRef.id;
-      if(_currentProjectId === pid) _currentProjectId = savedId;
+      if(_currentProjectId === pid && _projEpoch === ep) _currentProjectId = savedId;
     });
   }
   ref.then(function(){
     _saving = false; _autoFails = 0;
     btn.textContent = auto ? '✓ Salvo automaticamente' : '✓ Salvo!';
     // só marca como salvo se ainda estamos no mesmo projeto (pode ter trocado durante o salvamento)
-    if(_currentProjectId === savedId) markClean(_sigAtSave);
+    if(_currentProjectId === savedId && _projEpoch === ep){ markClean(_sigAtSave); _clearDraft(); }
     updateProjectNameDisplay();
     setTimeout(function(){ if(!_saving){ btn.textContent = '☁ Salvar'; btn.disabled = false; } }, 2000);
   }).catch(function(e){
@@ -2523,8 +2601,9 @@ function fbSave(opts){
   });
 }
 
-function fbLoad(){
-  if(!_fbUser) return;
+function fbLoad(done){
+  done=done||function(){};
+  if(!_fbUser){ done(); return; }
   db.collection('users').doc(_fbUser.uid).collection('projects')
     .orderBy('updatedAt','desc').limit(1).get().then(function(snap){
       if(!snap.empty){
@@ -2534,6 +2613,7 @@ function fbLoad(){
           marks = JSON.parse(d.marks||'[]');
           brackets = JSON.parse(d.brackets||'[]');
           loadFilters(d.filters);
+          _switchProject(); _started = true;
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
@@ -2545,7 +2625,7 @@ function fbLoad(){
           }
           cmAll(); draw(true);
         } catch(e){ console.error('Erro:', e); }
-        updateBlankState(); updateProjectNameDisplay();
+        updateBlankState(); updateProjectNameDisplay(); done();
       } else {
         // Tenta migrar do formato antigo
         db.collection('timelines').doc(_fbUser.uid).get().then(function(oldDoc){
@@ -2555,6 +2635,7 @@ function fbLoad(){
               var om = JSON.parse(d.marks||'[]');
               var ob = JSON.parse(d.brackets||'[]');
               if(om.length>0||ob.length>0){
+                _switchProject(); _started=true;
                 marks=om; brackets=ob; loadFilters([]);
                 _currentProjectName='Minha Linha do Tempo';
                 _currentProjectId=null;
@@ -2564,12 +2645,12 @@ function fbLoad(){
               }
             } catch(e){ console.error('Erro migração:',e); }
           }
-          updateBlankState(); updateProjectNameDisplay();
-        }).catch(function(){ updateBlankState(); updateProjectNameDisplay(); });
+          updateBlankState(); updateProjectNameDisplay(); done();
+        }).catch(function(){ updateBlankState(); updateProjectNameDisplay(); done(); });
       }
     }).catch(function(e){ 
       console.error('Firestore error:', e);
-      updateBlankState(); updateProjectNameDisplay(); 
+      updateBlankState(); updateProjectNameDisplay(); done();
     });
 }
 
@@ -2581,36 +2662,51 @@ function _hookAutoSave(){
 }
 
 var _authDebounce=null;
+function _takeOpenProjectsFlag(){
+  try{var t=parseInt(sessionStorage.getItem('jt_open_projects')||'0',10);sessionStorage.removeItem('jt_open_projects');
+    return !!t&&(Date.now()-t)<10*60*1000;}catch(e){return false;}
+}
 auth.onAuthStateChanged(function(user){
   console.log('Auth state changed:', user ? user.email : 'null');
   clearTimeout(_authDebounce);
   _authDebounce=setTimeout(function(){
+    var wasUser=_fbUser;
     _fbUser = user;
     var loginBtn = document.getElementById('login-btn');
     var logoutBtn = document.getElementById('logout-btn');
     var saveBtn = document.getElementById('save-btn');
     var projectsBtn = document.getElementById('projects-btn');
-    var blankHint = document.getElementById('blank-login-hint');
     if(user){
       loginBtn.style.display = 'none';
       logoutBtn.style.display = '';
       saveBtn.style.display = '';
       if(projectsBtn) projectsBtn.style.display = '';
-      if(blankHint) blankHint.style.display = 'none';
       var sbN=document.getElementById('sidebar-user-name');
       if(sbN) sbN.textContent = user.displayName || user.email || 'Usuário';
-      fbLoad();
-      setTimeout(function(){ updateBlankState(); updateProjectNameDisplay(); }, 500);
+      var openFlag=_takeOpenProjectsFlag();
+      var hasLocalWork=_started&&!_currentProjectId;       // projeto aberto sem login, ainda fora da conta
+      if(hasLocalWork){
+        // não troca o que a pessoa está fazendo: o trabalho feito sem login vai para a conta
+        if(marks.length||brackets.length||_currentProjectName!=='Sem título') fbSave();
+        updateBlankState(); updateProjectNameDisplay();
+        if(openFlag) showProjects();
+      } else {
+        fbLoad(function(){ if(openFlag) showProjects(); });
+        setTimeout(function(){ updateBlankState(); updateProjectNameDisplay(); }, 500);
+      }
     } else {
       loginBtn.style.display = '';
       logoutBtn.style.display = 'none';
       saveBtn.style.display = 'none';
       if(projectsBtn) projectsBtn.style.display = 'none';
-      if(blankHint) blankHint.style.display = '';
       var sbN2=document.getElementById('sidebar-user-name');
       if(sbN2) sbN2.textContent = '';
-      marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título';
-      cmAll(); draw(false);
+      if(wasUser){   // saiu da conta: limpa a tela (o que estava salvo continua na conta)
+        _switchProject(); _started=false;
+        marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título';
+        _savedSig=JSON.stringify([[],[],[],'Sem título']);
+        cmAll(); draw(false);
+      }
       updateBlankState();
       updateProjectNameDisplay();
     }
@@ -2621,43 +2717,87 @@ auth.onAuthStateChanged(function(user){
 // ── Blank state management ──
 function updateBlankState(){
   var bs = document.getElementById('blank-state');
-  var hasData = marks.length > 0 || brackets.length > 0 || (_currentProjectId !== null) || (_currentProjectName && _currentProjectName !== 'Sem título');
+  var hasData = marks.length > 0 || brackets.length > 0 || (_currentProjectId !== null) || _started || (_currentProjectName && _currentProjectName !== 'Sem título');
   bs.style.display = hasData ? 'none' : 'flex';
-  // Update login hint
-  var hint = document.getElementById('blank-login-hint');
-  if(hint) hint.style.display = _fbUser ? 'none' : '';
+  renderDraftNote();
+  updateLocalBadge();
+}
+// Aviso de rascunho: trabalho feito sem login que ficou guardado neste navegador
+function renderDraftNote(){
+  var n=document.getElementById('draft-note'); if(!n)return;
+  var d=(_fbUser||_started)?null:_readDraft();
+  n.textContent='';
+  if(!d||!(d.marks.length||d.brackets.length)){n.style.display='none';return;}
+  var t=document.createElement('span');
+  t.textContent='Você tem um rascunho não salvo na nuvem: “'+String(d.name||'Sem título').slice(0,60)+'”';
+  var go=document.createElement('button');go.type='button';go.className='dn-go';go.textContent='Retomar';go.addEventListener('click',resumeDraft);
+  var no=document.createElement('button');no.type='button';no.className='dn-no';no.textContent='Descartar';
+  no.addEventListener('click',function(){_clearDraft();renderDraftNote();});
+  n.appendChild(t);n.appendChild(go);n.appendChild(no);n.style.display='flex';
+}
+function resumeDraft(){
+  var d=_readDraft(); if(!d)return;
+  _switchProject();
+  marks=d.marks; brackets=d.brackets; loadFilters(d.filters||[]);
+  _currentProjectId=null; _currentProjectName=d.name||'Sem título'; _started=true;
+  _undoStack=[]; _redoStack=[]; cf=0.5;
+  if(marks.length){var so=marks.slice().sort(function(a,b){return a.year-b.year;});_lastAddedYear=so[so.length-1].year;_scrollToYear=so[0].year;}
+  cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay();
+  if(_fbUser) fbSave();
 }
 
 // ── Project name ──
 function updateProjectNameDisplay(){
   var el = document.getElementById('project-name-display');
-  if(el) el.textContent = _fbUser ? _currentProjectName : '';
+  if(el) el.textContent = (_started||_currentProjectId) ? _currentProjectName : '';
+  updateLocalBadge();
 }
-
-function _doRenameProject(){
-  var name=document.getElementById('rename-proj-name');
-  if(!name||!name.value.trim()) return;
-  var _wasDirty=isDirty();
-  _currentProjectName=name.value.trim();
-  db.collection('users').doc(_fbUser.uid).collection('projects').doc(_currentProjectId).update({name:_currentProjectName});
-  if(!_wasDirty)markClean();   // o nome é salvo na hora; não deixa o aviso aparecer
-  cm(); updateProjectNameDisplay();
+// Troca o nome do projeto (já salva na conta, se o projeto estiver lá)
+function _applyProjectName(v){
+  var wasDirty=isDirty();
+  _currentProjectName=v;
+  if(_fbUser&&_currentProjectId){
+    db.collection('users').doc(_fbUser.uid).collection('projects').doc(_currentProjectId).update({name:v});
+    if(!wasDirty)markClean();   // o nome é salvo na hora; não deixa o aviso aparecer
+  }
+  updateProjectNameDisplay(); updateDirtyUI();
 }
+// Renomear direto na barra: o nome vira um campo no mesmo lugar (sem abrir cartão)
 function renameProject(){
-  if(!_fbUser || !_currentProjectId) return;
-  var ni=mkInp('text',_currentProjectName,'rename-proj-name');
-  sm(mkBox('Renomear Projeto',[mkField('Nome',ni)],[
-    mkBtn('Cancelar','',cm),
-    mkBtn('Salvar','bg',_doRenameProject)
-  ]));
-  setTimeout(function(){var i=document.getElementById('rename-proj-name');if(i)i.focus();},80);
+  var el=document.getElementById('project-name-display');
+  if(!el||el._editing||!(_started||_currentProjectId))return;
+  el._editing=true;
+  var inp=document.createElement('input');
+  inp.type='text'; inp.id='rename-inline'; inp.maxLength=80; inp.value=_currentProjectName; inp.setAttribute('aria-label','Nome do projeto');
+  el.style.display='none'; el.parentNode.insertBefore(inp,el.nextSibling);
+  inp.focus(); inp.select();
+  var done=false;
+  function finish(save){
+    if(done)return; done=true;
+    var v=inp.value.trim();
+    if(inp.parentNode)inp.parentNode.removeChild(inp);
+    el.style.display=''; el._editing=false;
+    if(save&&v&&v!==_currentProjectName)_applyProjectName(v); else updateProjectNameDisplay();
+  }
+  inp.addEventListener('keydown',function(e){
+    e.stopPropagation();
+    if(e.key==='Enter'){e.preventDefault();finish(true);}
+    else if(e.key==='Escape'){e.preventDefault();finish(false);}
+  });
+  inp.addEventListener('blur',function(){finish(true);});
 }
 
 // ── Projects panel ──
 function showProjects(){
-  if(!_fbUser){ alert('Faça login para ver seus projetos.'); return; }
+  if(!_fbUser){ openProjectsFromHome(); return; }
   document.getElementById('projects-modal').style.display = 'flex';
   loadProjectsList();
+}
+// "Meus projetos" na tela inicial: sem login, pede o login e abre a lista logo depois
+function openProjectsFromHome(){
+  if(_fbUser){ showProjects(); return; }
+  try{sessionStorage.setItem('jt_open_projects',String(Date.now()));}catch(e){}
+  fbLogin();
 }
 
 function closeProjects(){
@@ -2686,27 +2826,21 @@ function loadProjectsList(){
     });
 }
 
-function _doCreateProject(){
-  var name=document.getElementById('new-proj-name');
-  if(!name||!name.value.trim()){alert('Digite um nome para o projeto.');return;}
+// Novo projeto: abre direto em branco como "Sem título" (o nome se muda clicando nele, na barra)
+function startNewProject(){
+  if(isDirty()&&!_fbUser&&!confirm('Este projeto ainda não foi salvo na nuvem e ficará só neste navegador. Abrir um novo mesmo assim?'))return;
+  if(isDirty()&&_fbUser)fbSave();   // guarda o atual antes de trocar
+  if(!_fbUser)_clearDraft();
+  _switchProject();
   marks=[]; brackets=[]; loadFilters([]);
-  _currentProjectName=name.value.trim();
-  _currentProjectId=null;
-  cf=0.5;
+  _currentProjectName='Sem título'; _currentProjectId=null; _started=true;
+  _undoStack=[]; _redoStack=[]; cf=0.5;
+  markClean();
   closeProjects();
   cmAll(); draw(false);
-  updateBlankState();
-  updateProjectNameDisplay();
-  if(_fbUser) fbSave();
+  updateBlankState(); updateProjectNameDisplay();
 }
-function newProject(){
-  var ni=mkInp('text','','new-proj-name'); ni.placeholder='Ex: História do Brasil';
-  sm(mkBox('Novo Projeto',[mkField('Nome do projeto',ni)],[
-    mkBtn('Cancelar','',cm),
-    mkBtn('Criar','bg',_doCreateProject)
-  ]));
-  setTimeout(function(){var i=document.getElementById('new-proj-name');if(i)i.focus();},80);
-}
+var newProject=startNewProject;
 
 function openProject(id, name){
   db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).get().then(function(doc){
@@ -2716,6 +2850,7 @@ function openProject(id, name){
       marks = JSON.parse(d.marks||'[]');
       brackets = JSON.parse(d.brackets||'[]');
       loadFilters(d.filters);
+      _switchProject(); _started = true;
       _currentProjectId = id;
       _currentProjectName = name;
       _undoStack = []; _redoStack = [];
@@ -2732,7 +2867,7 @@ function deleteProject(id, encodedName){
   var name = decodeURIComponent(encodedName);
   if(!confirm('Excluir o projeto "'+name+'"? Isso não pode ser desfeito.')) return;
   db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).delete().then(function(){
-    if(_currentProjectId === id){ marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
+    if(_currentProjectId === id){ _switchProject(); _started=false; marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; markClean(); cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
     loadProjectsList();
   });
 }
@@ -2751,6 +2886,7 @@ function closeImport(){
 function handleImport(event){
   var file = event.target.files[0];
   if(!file) return;
+  if(isDirty()&&!_fbUser&&!confirm('Este projeto ainda não foi salvo na nuvem. Importar o arquivo vai substituí-lo na tela. Continuar?')){ event.target.value=''; return; }
   var status = document.getElementById('import-status');
   status.textContent = 'Lendo arquivo...';
   var reader = new FileReader();
@@ -2798,7 +2934,9 @@ function handleImport(event){
         }
         try{ importedFilters = fText ? JSON.parse(fText) : []; }catch(fe){ importedFilters = []; }
       }
-      // Always create as NEW project (never overwrite current)
+      // Entra como projeto novo (nunca grava por cima de um projeto salvo)
+      if(_fbUser&&isDirty())fbSave();   // guarda o atual antes de trocar
+      _switchProject(); _started=true; if(!_fbUser)_clearDraft();
       var projectName = jsonName || file.name.replace(/\.(html|json)$/i,'').replace(/_/g,' ') || 'Importado';
       marks = importedMarks;
       brackets = importedBrackets;
@@ -2830,6 +2968,18 @@ function handleImport(event){
 }
 
 
+// Logo: título + linha colorida com bolinhas (tela inicial e lista de projetos)
+(function(){
+  var cols=['#16a34a','#2563eb','#b45309','#7c3aed','#e11d48'];
+  Array.prototype.forEach.call(document.querySelectorAll('[data-logo]'),function(el,k){
+    var gid='lgg'+k;
+    var svg='<svg viewBox="0 0 300 28" aria-hidden="true"><defs><linearGradient id="'+gid+'" gradientUnits="userSpaceOnUse" x1="6" y1="0" x2="294" y2="0">'
+      +cols.map(function(c,i){return '<stop offset="'+(i/(cols.length-1))+'" stop-color="'+c+'"/>';}).join('')
+      +'</linearGradient></defs><line x1="6" y1="14" x2="294" y2="14" stroke="url(#'+gid+')" stroke-width="4" stroke-linecap="round"/>'
+      +cols.map(function(c,i){return '<circle cx="'+(30+i*60)+'" cy="14" r="7" fill="'+c+'"/>';}).join('')+'</svg>';
+    el.innerHTML='<div class="lg-t">Linha do Tempo</div>'+svg;
+  });
+})();
 cf=0.5;
 renderFilterBar();
 updateModeBtn();
