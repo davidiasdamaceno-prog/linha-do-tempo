@@ -130,6 +130,17 @@ body.home #bar .jt-logo,body.home #bar .ri,body.home #bar #project-name-display,
 #zl{color:#6b665d!important}body.dark #zl{color:#aaa!important}
 .pj-meta,.mo-meta{color:#6b665d}.mo-grp{color:#6b665d}.mg-sub,.mg-lbl,.mo-sub{color:#6b665d}
 
+/* Aviso "excluído" com desfazer por 5 segundos */
+#undo-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:400;display:none;min-width:260px;max-width:min(92vw,460px);background:#1f1f1b;color:#f5f2ec;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.35);overflow:hidden;font-family:'DM Sans',sans-serif}
+#undo-toast .ut-row{display:flex;align-items:center;gap:14px;padding:12px 14px 13px 16px}
+#undo-toast .ut-msg{flex:1;font-size:13.5px;line-height:1.35;min-width:0;overflow-wrap:anywhere}
+#undo-toast .ut-btn{flex:none;border:none;background:transparent;color:#93c5fd;font:700 13px 'DM Sans',sans-serif;padding:6px 10px;border-radius:8px;cursor:pointer}
+#undo-toast .ut-btn:hover{background:rgba(255,255,255,.1)}
+#undo-toast .ut-line{height:3px;background:#93c5fd;transform-origin:left;width:100%}
+#undo-toast.run .ut-line{animation:utshrink 5s linear forwards}
+#undo-toast.hold .ut-line{animation-play-state:paused}
+@keyframes utshrink{from{width:100%}to{width:0}}
+@media(max-width:520px){#undo-toast{bottom:16px}}
 #share-box{background:#fff;border-radius:14px;width:440px;max-width:100%;max-height:85vh;max-height:85dvh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2);font-family:'DM Sans',sans-serif;color:#1a1a18}
 #share-scroll{overflow-y:auto;padding:24px;min-height:0}
 #study-box{background:#fff;border-radius:16px;width:560px;max-width:100%;max-height:90vh;max-height:90dvh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'DM Sans',sans-serif;color:#1a1a18}
@@ -591,6 +602,7 @@ auth.getRedirectResult().then(function(result){
   </div></div>
 </div>
 
+<div id="undo-toast" role="status" aria-live="polite"><div class="ut-row"><span class="ut-msg" id="ut-msg"></span><button type="button" class="ut-btn" id="ut-btn">Desfazer</button></div><div class="ut-line"></div></div>
 <!-- Study Modal -->
 <div id="study-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:58;align-items:center;justify-content:center;padding:16px">
   <div id="study-box" role="dialog" aria-modal="true" aria-label="Modo estudo"><div id="study-scroll">
@@ -721,6 +733,7 @@ window.addEventListener('beforeunload',function(e){
 // ── Undo/Redo stack ──
 var _undoStack=[], _redoStack=[], _MAX_UNDO=30;
 function _snapshot(){
+  if(typeof _utKind!=='undefined'&&_utKind==='tl')hideUndoToast();
   _undoStack.push(JSON.stringify({marks:marks,brackets:brackets,filters:filters}));
   if(_undoStack.length>_MAX_UNDO)_undoStack.shift();
   _redoStack=[];
@@ -2025,8 +2038,10 @@ function oem(year){
 }
 function smy(oldY){_snapshot();
   var ny=parseInt(document.getElementById('emy').value);if(isNaN(ny))return;for(var i=0;i<marks.length;i++){if(marks[i].year===oldY){marks[i]=Object.assign({},marks[i],{year:ny});break;}}cm();draw(true);}
-function dlm(y){_snapshot();
-  if(!confirm('Excluir esta data?'))return;marks=marks.filter(function(m){return m.year!==y;});cm();draw(true);}
+function dlm(y){
+  var n=0; marks.forEach(function(m){if(m.year===y)n=(m.events||[]).length;});
+  _snapshot();marks=marks.filter(function(m){return m.year!==y;});cm();draw(true);
+  showUndoToast('Data '+(y<0?Math.abs(y)+' a.C.':y)+(n?' com '+n+(n===1?' evento':' eventos'):'')+' excluída.',function(){_undo();},'tl');}
 function aev(y){_snapshot();
   var id=uid();for(var i=0;i<marks.length;i++){if(marks[i].year===y){marks[i].events.push({id:id,text:'NOVO EVENTO',color:'#374151'});break;}}cm();draw(true);oee(y,id);}
 
@@ -2091,11 +2106,34 @@ function sev(year,eid,fl){
         _setFlt(marks[i].events[j],fl);break;}}break;}}
   cm(); draw(true);
 }
+// ══════════════ Aviso de exclusão com "Desfazer" (5 segundos, sem lixeira) ══════════════
+var _utT=null, _utLeft=5000, _utStart=0, _utFn=null, _utKind='';
+function showUndoToast(msg,onUndo,kind){
+  var t=document.getElementById('undo-toast'); if(!t)return;
+  _utFn=onUndo; _utKind=kind||''; _utLeft=5000;
+  document.getElementById('ut-msg').textContent=msg;
+  t.style.display='block'; t.classList.remove('run','hold'); void t.offsetWidth; t.classList.add('run');
+  _utArm();
+}
+function _utArm(){clearTimeout(_utT); _utStart=Date.now(); _utT=setTimeout(hideUndoToast,_utLeft);}
+function hideUndoToast(){
+  clearTimeout(_utT); _utT=null; _utFn=null; _utKind='';
+  var t=document.getElementById('undo-toast'); if(t){t.style.display='none'; t.classList.remove('run','hold');}
+}
+function _utDo(){var f=_utFn; hideUndoToast(); if(f){try{f();}catch(e){}}}
+(function(){
+  var t=document.getElementById('undo-toast'), b=document.getElementById('ut-btn'); if(!t||!b)return;
+  b.onclick=_utDo;
+  function pause(){if(!_utT)return; clearTimeout(_utT); _utT=null; _utLeft=Math.max(800,_utLeft-(Date.now()-_utStart)); t.classList.add('hold');}
+  function resume(){if(_utT||!_utFn)return; t.classList.remove('hold'); _utArm();}
+  t.addEventListener('mouseenter',pause); t.addEventListener('mouseleave',resume); t.addEventListener('focusin',pause); t.addEventListener('focusout',resume);
+})();
 function dle(year,eid){
+  var nm=''; for(var k=0;k<marks.length;k++){if(marks[k].year===year){(marks[k].events||[]).forEach(function(e){if(e.id===eid)nm=_srPlain(e.text);});}}
   _snapshot();
-  if(!confirm('Excluir evento?'))return;
   for(var i=0;i<marks.length;i++){if(marks[i].year===year){marks[i].events=marks[i].events.filter(function(e){return e.id!==eid;});break;}}
   cm(); draw(true);
+  showUndoToast('Evento'+(nm?' “'+nm.slice(0,60)+'”':'')+' excluído.',function(){_undo();},'tl');
 }
 
 function onb(){
@@ -2175,8 +2213,10 @@ function seb(bid,fl){
   for(var i=0;i<brackets.length;i++){if(brackets[i].id===bid){var _nb={id:bid,label:l,desc:desc,from:f,to:t,color:c,lane:ln,side:s};if(rd.html)_nb.descH=rd.html;_setFlt(_nb,(fl!==undefined)?fl:brackets[i].flt);brackets[i]=_nb;break;}}
   cm(); draw(true);
 }
-function dlb(bid){_snapshot();
-  if(!confirm('Excluir esta chave?'))return;brackets=brackets.filter(function(b){return b.id!==bid;});cm();draw(true);}
+function dlb(bid){
+  var nm=''; brackets.forEach(function(b){if(b.id===bid)nm=_srPlain(b.label);});
+  _snapshot();brackets=brackets.filter(function(b){return b.id!==bid;});cm();draw(true);
+  showUndoToast('Chave'+(nm?' “'+nm.slice(0,60)+'”':'')+' excluída.',function(){_undo();},'tl');}
 
 // ══════════════ FILTROS: interface ══════════════
 var FPAL=['#2563eb','#16a34a','#c0392b','#d97706','#7c3aed','#0891b2','#db2777','#65a30d'];
@@ -2498,7 +2538,7 @@ function openFilterEditor(fid,from){
 }
 function deleteFilter(fid){
   var f=findFilter(fid); if(!f)return;
-  if(!confirm('Excluir o filtro "'+f.name+'"? Os eventos continuam na linha do tempo, só deixam de pertencer a ele.'))return;
+  var fname=f.name, fa=activeFilters.slice(), fh=hiddenFilters.slice();
   _snapshot();
   eachItem(function(it){
     if(inF(it,fid)){
@@ -2509,6 +2549,7 @@ function deleteFilter(fid){
   filters=filters.filter(function(x){return x.id!==fid;});
   cm();
   applyFilterChange(function(){activeFilters=activeFilters.filter(function(x){return x!==fid;});hiddenFilters=hiddenFilters.filter(function(x){return x!==fid;});});
+  showUndoToast('Filtro “'+String(fname).slice(0,40)+'” excluído (os eventos continuam na linha do tempo).',function(){_undo(); applyFilterChange(function(){activeFilters=fa.filter(function(x){return !!findFilter(x);});hiddenFilters=fh.filter(function(x){return !!findFilter(x);});});},'tl');
 }
 
 function doExp(){
@@ -3992,11 +4033,23 @@ function openProject(id, name){
 
 function deleteProject(id, encodedName){
   var name = decodeURIComponent(encodedName);
-  if(!confirm('Excluir o projeto "'+name+'"? Isso não pode ser desfeito.')) return;
-  db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).delete().then(function(){
-    if(_currentProjectId === id){ _switchProject(); _started=false; marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; markClean(); cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
-    loadProjectsList();
-  });
+  var ref=db.collection('users').doc(_fbUser.uid).collection('projects').doc(id);
+  var wasCurrent=(_currentProjectId === id);
+  // guarda o conteúdo só na memória por 5 segundos, para poder desfazer; não existe lixeira
+  ref.get().then(function(snap){
+    var data=snap.exists?snap.data():null;
+    return ref.delete().then(function(){
+      if(wasCurrent){ _switchProject(); _started=false; marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título'; markClean(); cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay(); }
+      loadProjectsList();
+      showUndoToast('Projeto “'+name.slice(0,60)+'” excluído.',function(){
+        if(!data||!_fbUser)return;
+        ref.set(data).then(function(){
+          loadProjectsList();
+          if(wasCurrent&&!_started&&!marks.length&&!brackets.length)openProject(id,data.name||name);
+        }).catch(function(){alert('Não foi possível desfazer: o projeto já havia sido removido.');});
+      },'proj');
+    });
+  }).catch(function(e){alert('Não foi possível excluir o projeto agora. Tente de novo.');});
 }
 
 // ── Modelos prontos ──
