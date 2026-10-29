@@ -210,7 +210,7 @@ body.dark .bs-card.c1{color:#60a5fa}body.dark .bs-card.c2{color:#f59e0b}body.dar
 .pj-item{display:flex;align-items:center;gap:6px;padding:10px 8px 10px 12px;border:1px solid #e8e4df;border-radius:10px;cursor:pointer;background:#fff;transition:border-color .12s,background .12s}
 .pj-item:hover{border-color:#cfc9bd;background:#fcfbf9}
 .pj-info{flex:1;min-width:0}
-.pj-name{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pj-name{font-size:13px;font-weight:500;white-space:normal;overflow-wrap:anywhere;line-height:1.3}
 .pj-meta{font-size:10px;color:#aaa;margin-top:1px}
 .pj-dots{flex:none;width:30px;height:30px;border-radius:8px;border:none;background:transparent;cursor:pointer;color:#8a867e;display:flex;align-items:center;justify-content:center;padding:0}
 .pj-dots:hover,.pj-dots.on{background:rgba(0,0,0,.07);color:#1a1a18}
@@ -374,7 +374,7 @@ auth.getRedirectResult().then(function(result){
   <button id="hamburger" onclick="toggleSidebar()" title="Menu">☰</button>
   <span class="ti jt-logo bar" data-logo="bar" title="Linha do Tempo"></span>
   <span id="dirty" onclick="fbSave()" title="Há alterações que ainda não foram salvas — clique para salvar (Ctrl+S)" style="display:none;font-size:11px;color:#c0392b;font-weight:600;cursor:pointer;margin-left:8px;white-space:nowrap">● não salvo</span>
-  <span id="project-name-display" style="font-size:12px;color:#888;font-style:italic;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
+  <span id="project-name-display" style="font-size:12px;color:#888;font-style:italic;max-width:min(440px,100%);white-space:normal;overflow-wrap:anywhere;line-height:1.3;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
   <button id="local-badge" type="button" onclick="fbLogin()" title="Não salvo na nuvem: este projeto está só neste navegador. Clique para entrar com Google e salvar."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .9-7.9A5.5 5.5 0 0 0 7.4 8.6 4.7 4.7 0 0 0 7 18z"/><path d="M3.5 3.5l17 17"/></svg><span>só neste navegador</span></button>
   <div class="ri">
     <div class="rg txt">
