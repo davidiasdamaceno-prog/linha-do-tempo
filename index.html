@@ -205,6 +205,39 @@ body.dark #project-name-display:hover{background:rgba(255,255,255,.09)}
 #rename-inline{font:italic 12px 'DM Sans',sans-serif;margin-left:6px;padding:3px 7px;border-radius:7px;border:1.5px solid #7c3aed;outline:none;width:190px;max-width:42vw;background:#fff;color:#111}
 body.dark #rename-inline{background:#2b2b26;color:#e8e4df}
 body.dark .bs-card.c1{color:#60a5fa}body.dark .bs-card.c2{color:#f59e0b}body.dark .bs-card.c3{color:#a78bfa}body.dark .bs-card.c4{color:#2dd4bf}
+#projects-box{background:#fff;border-radius:14px;width:380px;max-width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+#projects-scroll{overflow-y:auto;padding:24px;min-height:0}
+.pj-item{display:flex;align-items:center;gap:6px;padding:10px 8px 10px 12px;border:1px solid #e8e4df;border-radius:10px;cursor:pointer;background:#fff;transition:border-color .12s,background .12s}
+.pj-item:hover{border-color:#cfc9bd;background:#fcfbf9}
+.pj-info{flex:1;min-width:0}
+.pj-name{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pj-meta{font-size:10px;color:#aaa;margin-top:1px}
+.pj-dots{flex:none;width:30px;height:30px;border-radius:8px;border:none;background:transparent;cursor:pointer;color:#8a867e;display:flex;align-items:center;justify-content:center;padding:0}
+.pj-dots:hover,.pj-dots.on{background:rgba(0,0,0,.07);color:#1a1a18}
+#pj-menu{position:fixed;z-index:60;background:#fff;border:1px solid #e8e4df;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;min-width:200px;font-family:'DM Sans',sans-serif}
+#pj-menu button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:none;background:transparent;padding:9px 12px;border-radius:7px;cursor:pointer;font-size:13px;font-family:inherit;color:#1a1a18}
+#pj-menu button:hover:not(:disabled){background:#f4f1ec}
+#pj-menu button:disabled{opacity:.45;cursor:not-allowed}
+#pj-menu button.danger{color:#c0392b}
+.mg-title{font-family:'DM Serif Display',serif;font-size:19px;margin-bottom:4px}
+.mg-sub{font-size:12px;color:#8a867e;line-height:1.45;margin-bottom:14px}
+.mg-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.mg-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid #e8e4df;border-radius:10px;cursor:pointer;background:#fff;transition:border-color .12s,background .12s}
+.mg-row:hover{border-color:#cfc9bd}
+.mg-row.sel{border-color:#7c3aed;background:#f5f0ff}
+.mg-row input{accent-color:#7c3aed;width:16px;height:16px;flex:none;cursor:pointer}
+.mg-row.base{cursor:default;background:#f7f5f1;border-style:dashed}
+.mg-lbl{font-size:11px;color:#8a867e;margin:0 0 5px;font-weight:500}
+.mg-name{width:100%;box-sizing:border-box;padding:9px 11px;border:1.5px solid #ddd8cf;border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:12px}
+.mg-name:focus{outline:none;border-color:#7c3aed}
+.mg-del{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#4a463f;line-height:1.4;margin-bottom:12px;cursor:pointer}
+.mg-del input{margin-top:2px;accent-color:#c0392b}
+.mg-sum{font-size:12px;background:#f7f5f1;border-radius:9px;padding:9px 12px;margin-bottom:12px;color:#4a463f;line-height:1.5}
+.mg-st{font-size:12px;min-height:16px;margin-bottom:8px;color:#6b665d}
+.mg-btns{display:flex;gap:8px;justify-content:flex-end}
+.mg-btns button{padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid #ddd;background:#fff}
+.mg-btns .go{background:#7c3aed;color:#fff;border-color:#7c3aed;font-weight:600}
+.mg-btns .go:disabled{opacity:.45;cursor:not-allowed}
 #modelos-box{background:#fff;border-radius:16px;width:560px;max-width:100%;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'DM Sans',sans-serif;color:#1a1a18}
 .mo-head{display:flex;align-items:center;justify-content:space-between}
 .mo-title{font-family:'DM Serif Display',serif;font-size:21px}
@@ -379,16 +412,19 @@ auth.getRedirectResult().then(function(result){
 <div id="ov"></div>
 
 <!-- Projects Modal -->
-<div id="projects-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;align-items:center;justify-content:center">
-  <div style="background:#fff;border-radius:14px;padding:24px;width:380px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2)">
-    <div class="jt-logo mid" data-logo="mid" style="margin:4px 0 6px"></div>
-    <div style="font-size:12px;color:#8a867e;text-align:center;margin-bottom:16px;letter-spacing:.4px;text-transform:uppercase">Meus projetos</div>
-    <button onclick="startNewProject()" style="width:100%;padding:10px;background:#7c3aed;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:14px;font-family:'DM Sans',sans-serif">+ Novo projeto em branco</button>
-    <div id="projects-list" style="display:flex;flex-direction:column;gap:8px"></div>
-    <div style="display:flex;justify-content:flex-end;margin-top:16px">
-      <button onclick="closeProjects()" style="padding:6px 16px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12px">Fechar</button>
+<div id="projects-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;align-items:center;justify-content:center;padding:16px">
+  <div id="projects-box"><div id="projects-scroll">
+    <div id="proj-main">
+      <div class="jt-logo mid" data-logo="mid" style="margin:4px 0 6px"></div>
+      <div style="font-size:12px;color:#8a867e;text-align:center;margin-bottom:16px;letter-spacing:.4px;text-transform:uppercase">Meus projetos</div>
+      <button onclick="startNewProject()" style="width:100%;padding:10px;background:#7c3aed;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:14px;font-family:'DM Sans',sans-serif">+ Novo projeto em branco</button>
+      <div id="projects-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button onclick="closeProjects()" style="padding:6px 16px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12px">Fechar</button>
+      </div>
     </div>
-  </div>
+    <div id="proj-merge" style="display:none"></div>
+  </div></div>
 </div>
 
 <!-- Import Modal -->
@@ -2872,6 +2908,7 @@ function renameProject(){
 // ── Projects panel ──
 function showProjects(){
   if(!_fbUser){ openProjectsFromHome(); return; }
+  closeMergeView(); closeProjMenu();
   document.getElementById('projects-modal').style.display = 'flex';
   loadProjectsList();
 }
@@ -2883,29 +2920,218 @@ function openProjectsFromHome(){
 }
 
 function closeProjects(){
+  closeProjMenu(); closeMergeView();
   document.getElementById('projects-modal').style.display = 'none';
 }
 
+var _projCache={};   // id -> {name,marks,brackets,filters} (da última listagem)
+function _pjArr(v){try{var a=JSON.parse(v||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
+function _pjEvCount(p){var n=0;p.marks.forEach(function(m){n+=((m&&m.events)||[]).length;});return n;}
 function loadProjectsList(){
   var list = document.getElementById('projects-list');
-  list.innerHTML = '<div style="font-size:12px;color:#aaa;text-align:center">Carregando...</div>';
+  list.textContent=''; var ld=document.createElement('div'); ld.style.cssText='font-size:12px;color:#aaa;text-align:center'; ld.textContent='Carregando...'; list.appendChild(ld);
   db.collection('users').doc(_fbUser.uid).collection('projects')
     .orderBy('updatedAt','desc').get().then(function(snap){
-      list.innerHTML = '';
+      list.textContent='';
+      _projCache={};
       if(snap.empty){
-        list.innerHTML = '<div style="font-size:12px;color:#aaa;text-align:center;padding:16px">Nenhum projeto ainda</div>';
+        var em=document.createElement('div'); em.style.cssText='font-size:12px;color:#aaa;text-align:center;padding:16px'; em.textContent='Nenhum projeto ainda'; list.appendChild(em);
         return;
       }
       snap.forEach(function(doc){
         var d = doc.data();
-        var item = document.createElement('div');
-        item.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #e8e4df;border-radius:10px;cursor:pointer';
-        item.innerHTML = '<div style="flex:1"><div style="font-size:13px;font-weight:500">'+(d.name||'Sem título')+'</div><div style="font-size:10px;color:#aaa">'+(d.updatedAt?new Date(d.updatedAt.toDate()).toLocaleDateString('pt-BR'):'')+'</div></div>'
-          +'<button style="padding:4px 10px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:11px" onclick="event.stopPropagation();deleteProject(\''+doc.id+'\',\''+encodeURIComponent(d.name||'')+'\')">🗑</button>';
-        item.addEventListener('click', function(){ openProject(doc.id, d.name||'Sem título'); });
+        var pr={name:d.name||'Sem título',marks:_pjArr(d.marks),brackets:_pjArr(d.brackets),filters:_pjArr(d.filters)};
+        _projCache[doc.id]=pr;
+        var item = document.createElement('div'); item.className='pj-item'; item.setAttribute('data-id',doc.id);
+        var info=document.createElement('div'); info.className='pj-info';
+        var nm=document.createElement('div'); nm.className='pj-name'; nm.textContent=pr.name; nm.title=pr.name;
+        var dt=''; try{dt=d.updatedAt?new Date(d.updatedAt.toDate()).toLocaleDateString('pt-BR'):'';}catch(e){}
+        var mt=document.createElement('div'); mt.className='pj-meta';
+        mt.textContent=[dt,_pjEvCount(pr)+' eventos',pr.brackets.length+' chaves'].filter(Boolean).join(' · ');
+        info.appendChild(nm); info.appendChild(mt);
+        var dots=document.createElement('button'); dots.type='button'; dots.className='pj-dots'; dots.title='Mais opções'; dots.setAttribute('aria-label','Mais opções do projeto');
+        dots.innerHTML='<svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><circle cx="9" cy="3.5" r="1.7"/><circle cx="9" cy="9" r="1.7"/><circle cx="9" cy="14.5" r="1.7"/></svg>';
+        dots.onclick=function(e){e.stopPropagation();_openProjMenu(dots,doc.id);};
+        item.appendChild(info); item.appendChild(dots);
+        item.addEventListener('click', function(){ closeProjMenu(); openProject(doc.id, pr.name); });
         list.appendChild(item);
       });
+    }).catch(function(){ list.textContent=''; var er=document.createElement('div'); er.style.cssText='font-size:12px;color:#c0392b;text-align:center;padding:16px'; er.textContent='Não foi possível carregar seus projetos.'; list.appendChild(er); });
+}
+
+// ── Menu dos 3 pontinhos (fundir / excluir) ──
+function closeProjMenu(){
+  var m=document.getElementById('pj-menu'); if(m)m.remove();
+  var on=document.querySelector('.pj-dots.on'); if(on)on.classList.remove('on');
+}
+function _openProjMenu(btn,id){
+  var had=!!document.getElementById('pj-menu')&&btn.classList.contains('on');
+  closeProjMenu(); if(had)return;
+  btn.classList.add('on');
+  var pr=_projCache[id]||{name:'projeto'};
+  var many=Object.keys(_projCache).length>1;
+  var m=document.createElement('div'); m.id='pj-menu'; m.setAttribute('role','menu');
+  var bm=document.createElement('button'); bm.type='button'; bm.setAttribute('role','menuitem'); bm.textContent='⇄  Fundir com outro projeto…';
+  if(!many){bm.disabled=true; bm.title='Você precisa de pelo menos 2 projetos para fundir';}
+  bm.onclick=function(e){e.stopPropagation(); closeProjMenu(); showMergeView(id);};
+  var bd=document.createElement('button'); bd.type='button'; bd.className='danger'; bd.setAttribute('role','menuitem'); bd.textContent='🗑  Excluir projeto';
+  bd.onclick=function(e){e.stopPropagation(); closeProjMenu(); deleteProject(id,encodeURIComponent(pr.name));};
+  m.appendChild(bm); m.appendChild(bd);
+  document.getElementById('projects-modal').appendChild(m);
+  var r=btn.getBoundingClientRect(), mw=m.offsetWidth, mh=m.offsetHeight;
+  var left=Math.max(8,Math.min(r.right-mw,window.innerWidth-mw-8));
+  var top=r.bottom+4; if(top+mh>window.innerHeight-8)top=Math.max(8,r.top-mh-4);
+  m.style.left=left+'px'; m.style.top=top+'px';
+}
+document.addEventListener('click',function(e){ if(!document.getElementById('pj-menu'))return; if(e.target.closest&&(e.target.closest('#pj-menu')||e.target.closest('.pj-dots')))return; closeProjMenu(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeProjMenu(); });
+
+// ── Fusão de linhas do tempo ──
+// Junta várias linhas do tempo em uma nova: eventos agrupados por ano (ordenados), chaves redistribuídas em faixas livres,
+// filtros de mesmo nome unificados. Não altera as entradas. Itens repetidos entre projetos (mesmo ano e título) viram um só.
+function mergeTimelines(parts){
+  var out={marks:[],brackets:[],filters:[]}, st={dupEv:0,dupBr:0};
+  var usedId={}, fIds={}, byYear={}, evIdx={}, brIdx={};
+  function clone(o){return JSON.parse(JSON.stringify(o));}
+  function newId(map){var i; do{i=uid();}while(map[i]); return i;}
+  function trimN(s){return _nz(s).replace(/\s+/g,' ').trim();}
+  function mapFlt(arr,fmap){var r=[]; (arr||[]).forEach(function(f){var t=fmap[f]; if(t&&r.indexOf(t)<0)r.push(t);}); return r;}
+  function unionFlt(it,fl){ if(!fl||!fl.length)return; var c=(it.flt||[]).slice(); fl.forEach(function(f){if(c.indexOf(f)<0)c.push(f);}); if(c.length)it.flt=c; }
+  function laneFree(nb,ln){
+    var a=Math.min(nb.from,nb.to), b=Math.max(nb.from,nb.to);
+    for(var k=0;k<out.brackets.length;k++){var ob=out.brackets[k];
+      if(ob.side===nb.side&&ob.lane===ln&&Math.min(ob.from,ob.to)<=b&&a<=Math.max(ob.from,ob.to))return false;}
+    return true;
+  }
+  parts.forEach(function(p,pi){
+    var fmap={};
+    (p.filters||[]).forEach(function(f){
+      if(!f||!f.id||!f.name)return;
+      var ex=null; for(var k=0;k<out.filters.length;k++){if(trimN(out.filters[k].name)===trimN(f.name)){ex=out.filters[k];break;}}
+      if(ex){fmap[f.id]=ex.id;return;}
+      var nf=clone(f); if(fIds[nf.id])nf.id=newId(fIds);
+      fIds[nf.id]=1; out.filters.push(nf); fmap[f.id]=nf.id;
     });
+    (p.marks||[]).forEach(function(m){
+      if(!m||typeof m.year!=='number'||isNaN(m.year))return;
+      var mk=byYear[m.year];
+      if(!mk){mk=clone(m); mk.events=[]; byYear[m.year]=mk; out.marks.push(mk);}
+      (m.events||[]).forEach(function(ev){
+        if(!ev)return;
+        var tn=trimN(ev.text), key=m.year+'|'+tn, fl=mapFlt(ev.flt,fmap);
+        var ex=(tn&&tn!=='novo evento')?evIdx[key]:null;
+        if(ex&&ex.pi!==pi){ unionFlt(ex.ev,fl); if(!ex.ev.desc&&ev.desc){ex.ev.desc=ev.desc; if(ev.descH!=null)ex.ev.descH=ev.descH;} st.dupEv++; return; }
+        var ne=clone(ev); if(fl.length)ne.flt=fl; else delete ne.flt;
+        if(!ne.id||usedId[ne.id])ne.id=newId(usedId);
+        usedId[ne.id]=1; mk.events.push(ne);
+        if(!evIdx[key])evIdx[key]={ev:ne,pi:pi};
+      });
+    });
+    var brs=(p.brackets||[]).filter(function(b){return b&&typeof b.from==='number'&&typeof b.to==='number';});
+    if(pi>0)brs=brs.slice().sort(function(a,b){return (a.lane||0)-(b.lane||0)||a.from-b.from;});
+    brs.forEach(function(b){
+      var fl=mapFlt(b.flt,fmap), key=(b.side||'top')+'|'+b.from+'|'+b.to+'|'+trimN(b.label);
+      var ex=brIdx[key];
+      if(ex&&ex.pi!==pi){ unionFlt(ex.br,fl); if(!ex.br.desc&&b.desc)ex.br.desc=b.desc; st.dupBr++; return; }
+      var nb=clone(b); if(fl.length)nb.flt=fl; else delete nb.flt;
+      if(!nb.side)nb.side='top';
+      if(!nb.id||usedId[nb.id])nb.id=newId(usedId);
+      usedId[nb.id]=1;
+      if(pi>0){var ln=Math.max(0,parseInt(nb.lane,10)||0); while(!laneFree(nb,ln))ln++; nb.lane=ln;}
+      out.brackets.push(nb);
+      if(!brIdx[key])brIdx[key]={br:nb,pi:pi};
+    });
+  });
+  out.marks.sort(function(a,b){return a.year-b.year;});
+  var nEv=0; out.marks.forEach(function(m){nEv+=m.events.length;});
+  out.stats={events:nEv,brackets:out.brackets.length,filters:out.filters.length,dupEv:st.dupEv,dupBr:st.dupBr};
+  return out;
+}
+var _mg=null;
+function _mergeSource(id){
+  // o projeto aberto com alterações ainda não gravadas entra com o que está na tela
+  if(id===_currentProjectId&&isDirty())return {name:_currentProjectName,marks:JSON.parse(JSON.stringify(marks)),brackets:JSON.parse(JSON.stringify(brackets)),filters:JSON.parse(JSON.stringify(filters))};
+  return _projCache[id]||null;
+}
+function showMergeView(baseId){
+  var base=_mergeSource(baseId); if(!base)return;
+  _mg={base:baseId,sel:{},nameEdited:false,busy:false};
+  var box=document.getElementById('proj-merge'); box.textContent='';
+  function el(t,c,x){var e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;}
+  box.appendChild(el('div','mg-title','Fundir linhas do tempo'));
+  var sub=el('div','mg-sub'); sub.appendChild(document.createTextNode('Escolha com quais projetos fundir '));
+  var bn=document.createElement('b'); bn.textContent='“'+base.name+'”'; sub.appendChild(bn);
+  sub.appendChild(document.createTextNode('. Eventos e chaves ficam juntos e ordenados por ano, e filtros com o mesmo nome viram um só. Os originais não são alterados.'));
+  box.appendChild(sub);
+  var list=el('div','mg-list');
+  var r0=el('label','mg-row base'); var c0=document.createElement('input'); c0.type='checkbox'; c0.checked=true; c0.disabled=true; r0.appendChild(c0);
+  var i0=el('div','pj-info'); i0.appendChild(el('div','pj-name',base.name)); i0.appendChild(el('div','pj-meta',_pjEvCount(base)+' eventos · '+base.brackets.length+' chaves · projeto base')); r0.appendChild(i0); list.appendChild(r0);
+  Object.keys(_projCache).forEach(function(id){
+    if(id===baseId)return;
+    var pr=_mergeSource(id); if(!pr)return;
+    var row=el('label','mg-row'); var cb=document.createElement('input'); cb.type='checkbox'; row.appendChild(cb);
+    var inf=el('div','pj-info'); var nm=el('div','pj-name',pr.name); nm.title=pr.name; inf.appendChild(nm); inf.appendChild(el('div','pj-meta',_pjEvCount(pr)+' eventos · '+pr.brackets.length+' chaves')); row.appendChild(inf);
+    cb.onchange=function(){ if(cb.checked)_mg.sel[id]=1; else delete _mg.sel[id]; row.classList.toggle('sel',cb.checked); _mergeRefresh(); };
+    list.appendChild(row);
+  });
+  box.appendChild(list);
+  box.appendChild(el('div','mg-lbl','Nome do novo projeto'));
+  var ni=document.createElement('input'); ni.type='text'; ni.className='mg-name'; ni.id='mg-name'; ni.maxLength=120;
+  ni.oninput=function(){_mg.nameEdited=true;};
+  box.appendChild(ni);
+  var sum=el('div','mg-sum'); sum.id='mg-sum'; box.appendChild(sum);
+  var dl=el('label','mg-del'); var dc=document.createElement('input'); dc.type='checkbox'; dc.id='mg-del'; dl.appendChild(dc);
+  dl.appendChild(el('span',null,'Excluir os projetos originais depois de fundir (não dá para desfazer)')); box.appendChild(dl);
+  var st=el('div','mg-st'); st.id='mg-st'; box.appendChild(st);
+  var bt=el('div','mg-btns');
+  var bb=el('button',null,'Voltar'); bb.type='button'; bb.onclick=closeMergeView;
+  var bg=el('button','go','Fundir'); bg.type='button'; bg.id='mg-go'; bg.disabled=true; bg.onclick=doMerge;
+  bt.appendChild(bb); bt.appendChild(bg); box.appendChild(bt);
+  document.getElementById('proj-main').style.display='none'; box.style.display='block';
+  document.getElementById('projects-scroll').scrollTop=0;
+  _mergeRefresh();
+}
+function closeMergeView(){
+  _mg=null; var m=document.getElementById('proj-merge'); if(m){m.style.display='none'; m.textContent='';}
+  var pm=document.getElementById('proj-main'); if(pm)pm.style.display='block';
+}
+function _mergeIds(){return _mg?[_mg.base].concat(Object.keys(_mg.sel)):[];}
+function _mergeParts(ids){return ids.map(_mergeSource).filter(Boolean).map(function(p){return {name:p.name,marks:p.marks,brackets:p.brackets,filters:p.filters};});}
+function _mergeRefresh(){
+  if(!_mg)return;
+  var ids=_mergeIds(), parts=_mergeParts(ids);
+  var ni=document.getElementById('mg-name'), sum=document.getElementById('mg-sum'), go=document.getElementById('mg-go');
+  if(!_mg.nameEdited)ni.value=parts.map(function(p){return p.name;}).join(' + ').slice(0,120);
+  go.disabled=ids.length<2||_mg.busy;
+  if(ids.length<2){sum.textContent='Marque pelo menos um projeto para fundir.'; return;}
+  var s=mergeTimelines(parts).stats;
+  var t='Resultado: '+s.events+' eventos · '+s.brackets+' chaves · '+s.filters+' filtros';
+  if(s.dupEv||s.dupBr)t+='. Repetidos entre os projetos foram unificados ('+s.dupEv+' eventos, '+s.dupBr+' chaves).';
+  sum.textContent=t;
+}
+function doMerge(){
+  if(!_mg||_mg.busy||!_fbUser)return;
+  var ids=_mergeIds(); if(ids.length<2)return;
+  var parts=_mergeParts(ids); if(parts.length<2)return;
+  var res=mergeTimelines(parts);
+  var name=(document.getElementById('mg-name').value||'').trim().slice(0,120)||parts.map(function(p){return p.name;}).join(' + ').slice(0,120);
+  var sM=JSON.stringify(res.marks), sB=JSON.stringify(res.brackets), sF=JSON.stringify(res.filters);
+  var st=document.getElementById('mg-st'), go=document.getElementById('mg-go');
+  if(sM.length+sB.length+sF.length>900000){st.style.color='#c0392b'; st.textContent='A fusão ficou grande demais para salvar em um único projeto. Tente fundir menos projetos.'; return;}
+  var delOrig=document.getElementById('mg-del').checked;
+  _mg.busy=true; go.disabled=true; st.style.color='#6b665d'; st.textContent='Fundindo…';
+  var col=db.collection('users').doc(_fbUser.uid).collection('projects');
+  col.add({name:name,marks:sM,brackets:sB,filters:sF,updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(ref){
+    var dels=delOrig?ids.map(function(id){return col.doc(id).delete();}):[];
+    return Promise.all(dels).then(function(){return ref;},function(){return ref;});   // se não conseguir excluir, a fusão já está salva
+  }).then(function(ref){
+    var curGone=delOrig&&ids.indexOf(_currentProjectId)>=0;
+    if(_fbUser&&isDirty()&&!curGone)fbSave();   // guarda o projeto aberto antes de trocar de tela
+    closeMergeView();
+    _enterProject(ref.id,name,res.marks,res.brackets,res.filters);
+  }).catch(function(e){
+    _mg.busy=false; go.disabled=false; st.style.color='#c0392b'; st.textContent='Não foi possível fundir agora: '+((e&&e.message)||'erro');
+  });
 }
 
 // Novo projeto: abre direto em branco como "Sem título" (o nome se muda clicando nele, na barra)
@@ -2924,23 +3150,25 @@ function startNewProject(){
 }
 var newProject=startNewProject;
 
+function _enterProject(id,name,mk,br,fl){
+  marks = mk; brackets = br;
+  loadFilters(fl);
+  _switchProject(); _started = true;
+  _currentProjectId = id;
+  _currentProjectName = name;
+  _undoStack = []; _redoStack = [];
+  markClean();
+  closeProjects();
+  cmAll(); draw(true);
+  updateBlankState();
+  updateProjectNameDisplay();
+}
 function openProject(id, name){
   db.collection('users').doc(_fbUser.uid).collection('projects').doc(id).get().then(function(doc){
     if(!doc.exists) return;
     var d = doc.data();
     try {
-      marks = JSON.parse(d.marks||'[]');
-      brackets = JSON.parse(d.brackets||'[]');
-      loadFilters(d.filters);
-      _switchProject(); _started = true;
-      _currentProjectId = id;
-      _currentProjectName = name;
-      _undoStack = []; _redoStack = [];
-      markClean();
-      closeProjects();
-      cmAll(); draw(true);
-      updateBlankState();
-      updateProjectNameDisplay();
+      _enterProject(id,name,JSON.parse(d.marks||'[]'),JSON.parse(d.brackets||'[]'),d.filters);
     } catch(e){ alert('Erro ao abrir projeto.'); }
   });
 }
