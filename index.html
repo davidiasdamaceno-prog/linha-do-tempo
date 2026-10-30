@@ -191,6 +191,13 @@ body.home #bar .jt-logo,body.home #bar .ri,body.home #bar #project-name-display,
 .st-per{display:flex;gap:8px}.st-avail{font-size:12.5px;color:#4a463f;margin:10px 0 12px;min-height:18px}
 .st-themes{margin-bottom:12px}.st-th{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.st-thn{flex:0 0 38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.st-thb{flex:1;height:8px;background:#ece8e1;border-radius:4px;overflow:hidden}.st-thb i{display:block;height:100%}.st-thv{flex:none;font-weight:700;width:34px;text-align:right}
 body.dark .st-sel,body.dark .st-in{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.16)}body.dark .st-avail{color:#cfcac0}body.dark .st-thb{background:#3a3a33}
+#study-area .mg-lbl{margin-top:12px}#study-area .mg-lbl:first-child{margin-top:0}
+.mg-btns .st-go{width:100%;padding:11px 14px;font-size:14px}
+#study-area .mg-btns{justify-content:stretch}
+#study-scroll>.mg-btns{justify-content:center;margin-top:6px!important}
+#study-scroll>.mg-btns button{border:none;background:none;color:#6b665d;text-decoration:underline;font-size:12.5px}
+body.dark #study-scroll>.mg-btns button{background:none;border:none;color:#a8a399}
+.st-tab:focus-visible{outline:2px solid #7c3aed;outline-offset:-2px}.st-tab.on:focus-visible{outline-color:#c4b5fd}
 .st-keys{font-size:11px;color:#6b665d;margin-top:10px;text-align:right}
 body.dark #study-box{background:#1f1f1b;color:#e8e4df}body.dark .st-tabs{background:#2a2a25}body.dark .st-tab{color:#b5b0a6}body.dark .st-tab.on{background:#3a3a33;color:#e8e4df}
 body.dark .st-opt,body.dark .st-card{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.16)}body.dark .st-card.flip{background:#2f2a3d}body.dark .st-k{background:#3a3a33;color:#cfcac0}
@@ -459,6 +466,41 @@ body.dark #cmp-box{background:#1f1f1b;color:#e8e4df}body.dark #cmp-scroll,body.d
 .mo-grp{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#a8a49c;margin:10px 2px 0}.mo-grp:first-child{margin-top:0}
 #modelos-status{font-size:12px;color:#c0392b;text-align:center;min-height:0;margin-top:8px}
 body.dark #modelos-box{background:#1f1f1b;color:#e8e4df}body.dark .mo-item{background:#2a2a25;border-color:rgba(255,255,255,.14)}body.dark .mo-add.done{background:#14532d;color:#bbf7d0;border-color:#166534}body.dark .mo-desc{color:#b5b0a6}body.dark .mo-x:hover{background:rgba(255,255,255,.08)}
+/* ── Design: ícones, contraste, aviso local, mobile ── */
+svg.ic{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;pointer-events:none}
+#hamburger{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;color:#6b665d}
+#hamburger svg.ic{width:20px;height:20px}
+body.dark #hamburger{color:#b8b3a8}
+#bar .rg.ico button svg.ic{width:16px;height:16px}
+#project-name-display{color:#6b665d!important}body.dark #project-name-display{color:#a8a399!important}
+.flbl,#fstat{color:#77726a}body.dark .flbl,body.dark #fstat{color:#a09b91}
+.bs-foot{color:#77726a}body.dark .bs-foot{color:#a09b91}
+.bs-tag{color:#6f6b63}body.dark .bs-tag{color:#aaa59b}
+#local-badge{color:#6f6b63;font-weight:500}
+#local-badge:hover{background:rgba(0,0,0,.06);color:#3a3833}
+body.dark #local-badge{color:#a8a399}body.dark #local-badge:hover{background:rgba(255,255,255,.08);color:#e8e4df}
+#local-badge svg{width:18px;height:18px}
+.bs-card.c4{background:rgba(13,148,136,.09);border-color:rgba(13,148,136,.45)}
+.bs-card.c4:hover,.bs-card.c4:focus-visible{background:rgba(13,148,136,.16)}
+body.dark .bs-card.c4{background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.5)}
+@media(max-width:640px){
+  #bar{padding:6px 10px;gap:4px 6px}
+  #bar .jt-logo.bar{margin-left:0}
+  #project-name-display{flex:1 1 0;min-width:0;max-width:none!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal!important;margin-left:2px!important}
+  #local-badge span{display:none}
+  #local-badge{margin-left:0;padding:4px}
+  .ri{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;gap:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .ri::-webkit-scrollbar,#fbar::-webkit-scrollbar{display:none}
+  .rg{flex:none;gap:4px}
+  .rsep{display:none}
+  #zl{display:none}
+  #bar .rg.txt button{padding:0 9px;height:32px}
+  #bar .rg.ico button{width:30px;height:32px}
+  #fbar{flex-wrap:nowrap;overflow-x:auto;padding:5px 10px;gap:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #fbar .flbl{display:none}
+  #fbar #fchips{flex-wrap:nowrap;flex:none}
+  #fbar .fchip,#fbar .bb,#fstat{white-space:nowrap;flex:none}
+}
 </style>
 
 <!-- Firebase SDK -->
@@ -586,25 +628,25 @@ auth.getRedirectResult().then(function(result){
 </div>
 
 <div id="bar">
-  <button id="hamburger" onclick="toggleSidebar()" title="Menu">☰</button>
+  <button id="hamburger" onclick="toggleSidebar()" title="Menu" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   <span class="ti jt-logo bar" data-logo="bar" title="Linha do Tempo"></span>
   <span id="dirty" onclick="fbSave()" title="Há alterações que ainda não foram salvas — clique para salvar (Ctrl+S)" style="display:none;font-size:11px;color:#c0392b;font-weight:600;cursor:pointer;margin-left:8px;white-space:nowrap">● não salvo</span>
   <span id="project-name-display" style="font-size:12px;color:#888;font-style:italic;max-width:min(440px,100%);white-space:normal;overflow-wrap:anywhere;line-height:1.3;cursor:pointer;margin-left:6px" onclick="renameProject()" title="Clique para renomear"></span>
   <button id="local-badge" type="button" onclick="fbLogin()" title="Não salvo na nuvem: este projeto está só neste navegador. Clique para entrar com Google e salvar."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .9-7.9A5.5 5.5 0 0 0 7.4 8.6 4.7 4.7 0 0 0 7 18z"/><path d="M3.5 3.5l17 17"/></svg><span>só neste navegador</span></button>
   <div class="ri">
     <div class="rg txt">
-      <button class="bg" onclick="onm()">+ Data</button>
-      <button class="bo" onclick="onb()">+ Chave</button>
+      <button class="bg" onclick="onm()" title="Adicionar um acontecimento num ano">+ Data</button>
+      <button class="bo" onclick="onb()" title="Marcar um período (ex.: Segundo Reinado) em cima ou embaixo da linha">+ Chave</button>
       <button onclick="toggleSpacing()" id="modebtn" title="Espaçamento proporcional por década">Décadas</button>
     </div>
     <span class="rsep"></span>
     <div class="rg ico">
       <span id="zl" title="Zoom" style="font-size:11px;color:#aaa;min-width:36px;text-align:center;cursor:default">100%</span>
-      <button onclick="toggleSearch()" title="Buscar ano, evento ou chave (Ctrl+F ou /)" aria-label="Buscar">⚲</button>
-      <button onclick="toggleDark()" id="darkbtn" title="Modo escuro (D)">☾</button>
-      <button onclick="rv()" title="Ir para última data adicionada">⌖</button>
-      <button id="undobtn" onclick="_undo()" title="Desfazer (Ctrl+Z)" style="opacity:0.35">↶</button>
-      <button id="redobtn" onclick="_redo()" title="Refazer (Ctrl+Y)" style="opacity:0.35">↷</button>
+      <button onclick="toggleSearch()" title="Buscar ano, evento ou chave (Ctrl+F ou /)" aria-label="Buscar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
+      <button onclick="toggleDark()" id="darkbtn" title="Modo escuro (D)" aria-label="Modo escuro"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
+      <button onclick="rv()" title="Ir para última data adicionada" aria-label="Ir para última data adicionada"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.2"/><path d="M12 2.5v3.5M12 18v3.5M2.5 12H6M18 12h3.5"/></svg></button>
+      <button id="undobtn" onclick="_undo()" title="Desfazer (Ctrl+Z)" aria-label="Desfazer" style="opacity:0.35"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+      <button id="redobtn" onclick="_redo()" title="Refazer (Ctrl+Y)" aria-label="Refazer" style="opacity:0.35"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
     </div>
   </div>
 </div>
@@ -870,7 +912,7 @@ function usedColors(){
 }
 
 // ── Descrição: nunca mais larga que o título do evento ──
-function dfs(){return Math.max(5,efs()*0.78);}       // fonte da descrição do evento
+function dfs(){return Math.max(6,efs()*0.85);}       // fonte da descrição do evento
 function dcw(fs){return fs*0.54;}                     // largura estimada por caractere (itálico, minúsculas)
 function fitOneLine(text,maxW,fs){                    // uma linha só, cortada com … se não couber
   var cw=dcw(fs), maxCh=Math.max(1,Math.floor(maxW/cw));
@@ -916,7 +958,7 @@ function dispColor(c){
   var h=m[1]; if(h.length===3)h=h.replace(/./g,function(x){return x+x;});
   var r=parseInt(h.substr(0,2),16), g=parseInt(h.substr(2,2),16), b=parseInt(h.substr(4,2),16);
   var neutral=(Math.max(r,g,b)-Math.min(r,g,b))<=24;      // preto / cinzas: ficam bem claros (quase branco)
-  var need=neutral?0.55:0.09;                               // luminância mínima para ler sobre o fundo escuro
+  var need=neutral?0.55:0.15;                               // luminância mínima para ler sobre o fundo escuro
   if(_lum(r,g,b)>=need)return c;
   var lo=0, hi=1, t, i;                                     // mistura com branco o mínimo necessário
   for(i=0;i<14;i++){t=(lo+hi)/2;if(_lum(r+(255-r)*t,g+(255-g)*t,b+(255-b)*t)>=need)hi=t; else lo=t;}
@@ -925,7 +967,7 @@ function dispColor(c){
   return '#'+hx(r)+hx(g)+hx(b)+(m[2]||'');
 }
 var zoom=1, _id=Date.now(), cf=0.5, TLY=280, BLH=24, W=3200, H=600;
-var _scrollToYear=null;
+var _scrollToYear=null, _scrollAtStart=false;
 var _lastAddedYear=null;
 var Gs=[], Gst=1;
 
@@ -975,9 +1017,9 @@ var RM=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],
 function rom(n){var r='';for(var i=0;i<RM.length;i++){while(n>=RM[i][0]){r+=RM[i][1];n-=RM[i][0];}}return r;}
 function yl(y){if(y<0)return Math.abs(y)+' a.C.';if(y>=100&&y<=1400&&y%100===0)return 'SEC '+rom(Math.round(y/100));return String(y);}
 function ir(y){return y>=1500&&y%100===0;}
-function efs(){return Math.max(6,Math.min(16,8*zoom));}
-function yfs(r){return Math.max(7,Math.min(18,(r?11.5:9.5)*zoom));}
-function bfs(){return Math.max(6,Math.min(14,8.5*zoom));}
+function efs(){return Math.max(6,Math.min(20,10*zoom));}
+function yfs(r){return Math.max(7,Math.min(20,(r?13:11)*zoom));}
+function bfs(){return Math.max(6,Math.min(17,10.5*zoom));}
 function tw(s,f){return s.length*(f||efs())*0.62;}
 function ch(mk){var f=efs();if(!mk.events||!mk.events.length)return 10*zoom;var x=0;for(var i=0;i<mk.events.length;i++){var w=Math.max(tw(mk.events[i].text,f),evDescW(mk.events[i]));if(w>x)x=w;}return x/2+10*zoom;}
 function cs(){var s=gs(),st=50*zoom;for(var i=0;i<s.length-1;i++){var n=ch(s[i])+ch(s[i+1])+4*zoom;if(n>st)st=n;}return st;}
@@ -1245,7 +1287,7 @@ function _drawImpl(pc){
       if(br.desc){
         var df=Math.max(5,bf*0.82);
         var dy=isT?(ly+df+1):(ly+df+1);
-        var dtx=te('text',{x:mid,y:dy,'text-anchor':'middle','font-size':df,fill:dispColor(br.color)+'aa','font-family':FN,'font-style':'italic','pointer-events':'none'},descRendered);
+        var dtx=te('text',{x:mid,y:dy,'text-anchor':'middle','font-size':df,fill:dispColor(br.color)+(darkMode?'dd':'aa'),'font-family':FN,'font-style':'italic','pointer-events':'none'},descRendered);
         gr.appendChild(dtx);
         attachTip(ltx,br.label+' — '+br.desc);
         attachTip(lrect,br.label+' — '+br.desc);
@@ -1312,7 +1354,7 @@ function _drawImpl(pc){
               // Descrição em uma linha só (texto completo aparece ao passar o mouse sobre o título)
               var df=dfs(), dw=dline.length*dcw(df);
               mg.appendChild(te('rect',{x:x-(dw+6)/2,y:ey+2,width:dw+6,height:df*1.2+2,fill:BG,'pointer-events':'none'}));
-              mg.appendChild(te('text',{x:x,y:ey+df,'text-anchor':'middle','font-size':df,fill:dispColor(ev.color)+'99','font-family':FN,'font-style':'italic','pointer-events':'none'},dline));
+              mg.appendChild(te('text',{x:x,y:ey+df,'text-anchor':'middle','font-size':df,fill:dispColor(ev.color)+(darkMode?'d0':'99'),'font-family':FN,'font-style':'italic','pointer-events':'none'},dline));
               attachTip(etx,ev.text+' — '+ev.desc);
             }
             (function(y,id){etx.addEventListener('click',function(e){e.stopPropagation();ove(y,id);});})(mk.year,ev.id);
@@ -1342,8 +1384,9 @@ function _drawImpl(pc){
     var w=document.getElementById('wrap');
     if(_scrollToYear!==null){
       var x=xOf(_scrollToYear);
-      w.scrollLeft=x-w.clientWidth/2;
-      _scrollToYear=null;
+      w.scrollLeft=_scrollAtStart?x-Math.min(w.clientWidth*0.45,Math.max(60,(Gs.length?ch(Gs[0]):0)+24)):x-w.clientWidth/2;   // ao abrir um projeto, o primeiro ano fica perto da borda esquerda
+      if(_scrollAtStart){var _ln=ABOVE+TLY, _need=(mlt+2)*BLH*zoom+50; w.scrollTop=Math.max(0,_ln-Math.max(_need,w.clientHeight*0.38));}   // linha visível logo ao abrir
+      _scrollToYear=null; _scrollAtStart=false;
     } else if(_pcY!==null){
       w.scrollLeft=xOf(_pcY)-w.clientWidth/2;
     } else {
@@ -1906,7 +1949,7 @@ function mkRte(id,item){
 }
 // Caixa de descrição dos cartões de leitura: mostra o texto sempre por inteiro, já com a formatação.
 function _descBox(id,item){
-  var box=mkEl('div',{id:id,style:'font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;padding:6px 8px;border:1px solid rgba(128,120,110,.25);border-radius:8px;background:rgba(128,120,110,.07)'});
+  var box=mkEl('div',{id:id,style:'font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;padding:0 0 0 10px;border-left:3px solid rgba(128,120,110,.28)'});
   if(item&&item.descH)_richRender(box,item.descH); else box.textContent=(item&&item.desc)||'';
   return box;
 }
@@ -2301,7 +2344,7 @@ function ove(year,eid){
   var title=mkEl('div',{id:'evv-t',style:'font-size:15px;font-weight:700;line-height:1.25;word-break:break-word;color:'+dispColor(ev.color),textContent:ev.text});
   var desc=ev.desc&&ev.desc.trim()
     ? _descBox('evv-d',ev)
-    : mkEl('div',{id:'evv-d',style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Sem descrição.'});
+    : mkEl('div',{id:'evv-d',style:'font-size:12.5px;color:#8a867e;font-style:italic',textContent:'Sem descrição.'});
   var fl=mkEl('div',{id:'evv-f',style:'display:flex;flex-wrap:wrap;gap:5px'});
   var fs=(ev.flt||[]).map(findFilter).filter(Boolean);
   fs.forEach(function(f){
@@ -2453,7 +2496,7 @@ function ovb(bid){
   var per=mkEl('div',{id:'bv-p',style:'font-size:12px',textContent:yl(br.from)+' → '+yl(br.to)+'  ('+Math.abs(br.to-br.from)+' anos)'});
   var desc=br.desc&&br.desc.trim()
     ? _descBox('bv-d',br)
-    : mkEl('div',{id:'bv-d',style:'font-size:12px;color:#b5ada2;font-style:italic',textContent:'Sem descrição.'});
+    : mkEl('div',{id:'bv-d',style:'font-size:12.5px;color:#8a867e;font-style:italic',textContent:'Sem descrição.'});
   var fl=mkEl('div',{id:'bv-f',style:'display:flex;flex-wrap:wrap;gap:5px'});
   var fs=(br.flt||[]).map(findFilter).filter(Boolean);
   fs.forEach(function(f){
@@ -2842,7 +2885,7 @@ var darkMode=false;
 function toggleDark(){
   darkMode=!darkMode;
   document.body.classList.toggle('dark',darkMode);
-  document.getElementById('darkbtn').textContent=darkMode?'☀':'☾';
+  document.getElementById('darkbtn').innerHTML=darkMode?'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>':'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>';
   BG=darkMode?'#181814':'#fafaf8';
   // Update blank state background
   var bs=document.getElementById('blank-state');
@@ -2965,7 +3008,7 @@ function flashYear(y){
 // ── Filter panel ──
 document.addEventListener('click',function(e){
   var sp=document.getElementById('searchpanel');
-  if(sp.classList.contains('on')&&!sp.contains(e.target)&&e.target.textContent!=='⚲')sp.classList.remove('on');
+  if(sp.classList.contains('on')&&!sp.contains(e.target)&&!(e.target.closest&&e.target.closest('button[onclick="toggleSearch()"]')))sp.classList.remove('on');
 });
 
 // ── Keyboard shortcuts ──
@@ -3100,7 +3143,7 @@ function enterViewOnly(d){
   _viewOnly=true; _imgSrc=d.sid?{sid:d.sid}:null; document.body.classList.add('viewonly');
   _started=true; marks=d.marks; brackets=d.brackets; loadFilters(d.filters||[]);
   _currentProjectId=null; _currentProjectName=d.name; _undoStack=[]; _redoStack=[]; cf=0.5;
-  if(marks.length){var si=marks.slice().sort(function(a,b){return a.year-b.year;}); _lastAddedYear=si[si.length-1].year; _scrollToYear=si[0].year;}
+  if(marks.length){var si=marks.slice().sort(function(a,b){return a.year-b.year;}); _lastAddedYear=si[si.length-1].year; _scrollToYear=si[0].year;_scrollAtStart=true;}
   closeModelos(); closeProjects();
   document.getElementById('vb-name').textContent=d.name; document.getElementById('viewbar').style.display='flex';
   document.title=d.name+' · Linha do Tempo';
@@ -3391,7 +3434,7 @@ function _stSetupView(area){
   });
   area.appendChild(row);
   var av=_stEl('div','st-avail'); av.id='study-avail'; av.setAttribute('aria-live','polite'); area.appendChild(av);
-  var bt=_stEl('div','mg-btns'); var go=_stEl('button','go','Começar'); go.type='button'; go.id='study-start'; go.onclick=function(){_stBegin();}; bt.appendChild(go); area.appendChild(bt);
+  var bt=_stEl('div','mg-btns'); var go=_stEl('button','go st-go','Começar'); go.type='button'; go.id='study-start'; go.onclick=function(){_stBegin();}; bt.appendChild(go); area.appendChild(bt);
   _stSetupAvail();
 }
 function _stSetupAvail(){
@@ -3997,7 +4040,7 @@ function fbLoad(done){
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
             _lastAddedYear=sorted2[sorted2.length-1].year;
-            _scrollToYear=sorted2[0].year;
+            _scrollToYear=sorted2[0].year;_scrollAtStart=true;
           }
           cmAll(); draw(true);
         } catch(e){ console.error('Erro:', e); }
@@ -4130,7 +4173,7 @@ function resumeDraft(){
   marks=d.marks; brackets=d.brackets; loadFilters(d.filters||[]);
   _currentProjectId=null; _currentProjectName=d.name||'Sem título'; _started=true;
   _undoStack=[]; _redoStack=[]; cf=0.5;
-  if(marks.length){var so=marks.slice().sort(function(a,b){return a.year-b.year;});_lastAddedYear=so[so.length-1].year;_scrollToYear=so[0].year;}
+  if(marks.length){var so=marks.slice().sort(function(a,b){return a.year-b.year;});_lastAddedYear=so[so.length-1].year;_scrollToYear=so[0].year;_scrollAtStart=true;}
   cmAll(); draw(true); updateBlankState(); updateProjectNameDisplay();
   if(_fbUser) fbSave();
 }
@@ -4790,7 +4833,7 @@ function _applyModelo(d){
   _undoStack=[]; _redoStack=[]; cf=0.5;
   if(marks.length>0){
     var si=marks.slice().sort(function(a,b){return a.year-b.year;});
-    _lastAddedYear=si[si.length-1].year; _scrollToYear=si[0].year;
+    _lastAddedYear=si[si.length-1].year; _scrollToYear=si[0].year;_scrollAtStart=true;
   }
   closeModelos(); closeProjects();
   cmAll(); draw(true);
@@ -4876,7 +4919,7 @@ function handleImport(event){
       if(marks.length>0){
         var si=marks.slice().sort(function(a,b){return a.year-b.year;});
         _lastAddedYear=si[si.length-1].year;
-        _scrollToYear=si[0].year;
+        _scrollToYear=si[0].year;_scrollAtStart=true;
       }
       cmAll(); draw(true);
       updateBlankState();
