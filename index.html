@@ -1390,8 +1390,7 @@ function getLastYear(){
   return null;
 }
 function rv(){
-  zoom=1;
-  var ly=getLastYear();
+  var ly=getLastYear();   // só rola até a última data; o zoom não muda
   if(ly!==null){ _scrollToYear=ly; draw(false); }
   else { cf=0.5; draw(false); }
 }
@@ -2874,7 +2873,9 @@ function toggleDark(){
   var bs=document.getElementById('blank-state');
   if(bs) bs.style.background=BG;
   renderFilterBar();
-  draw(false);
+  var _w=document.getElementById('wrap'), _st=_w?_w.scrollTop:0;
+  draw(true);   // mantém o ponto da linha que está no centro da tela
+  if(_w)_w.scrollTop=_st;
 }
 
 // ── Search / go to year ──
