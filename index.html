@@ -251,10 +251,12 @@ body.dark #sidebar-header{border-color:#2a2720}
 body.dark #sidebar-user-name{color:#e0dbd5}
 #sidebar-user-email{font-size:10px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #sidebar-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:8px 0 28px}
-.sb-btn{display:flex;align-items:center;gap:12px;padding:11px 20px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;color:#444;transition:background .15s}
+.sb-btn{display:flex;align-items:center;gap:12px;padding:9px 12px;margin:1px 8px;border:none;border-radius:10px;background:none;width:calc(100% - 16px);box-shadow:none;text-align:left;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;color:#444;transition:background .15s}
 .sb-btn:hover{background:#f5f2ee}
-body.dark .sb-btn{color:#ccc}
+body.dark .sb-btn{color:#d6d1c8;background:none;border:none}
 body.dark .sb-btn:hover{background:#2a2a25}
+.sb-btn:focus-visible{outline:2px solid #7c3aed;outline-offset:-2px}
+body.dark .sb-icon{filter:brightness(.88) saturate(.95)}
 .sb-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .sb-divider{height:1px;background:#f0ece6;margin:6px 16px}
 body.dark .sb-divider{background:#2a2720}
@@ -411,32 +413,6 @@ body.dark .bs-card.c1{color:#60a5fa}body.dark .bs-card.c2{color:#f59e0b}body.dar
 #img-lb-c{color:#e8e4df;font-size:12.5px;margin-top:10px;max-width:90vw;text-align:center;line-height:1.4}
 #img-lb-x{position:absolute;top:12px;right:14px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:18px;cursor:pointer}
 body.dark .imgf-cap{color:#e8e4df}body.dark .imgf-x{color:#ccc}
-#cmp-box{background:#fff;border-radius:16px;width:1100px;max-width:100%;height:min(88vh,760px);height:min(88dvh,760px);box-sizing:border-box;padding:20px 22px;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'DM Sans',sans-serif;color:#1a1a18}
-.cmp-sel{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
-.cmp-sel label{display:flex;align-items:center;gap:6px;flex:1 1 220px;min-width:0}
-.cmp-sel select{flex:1;min-width:0;padding:7px 9px;border:1.5px solid #ddd8cf;border-radius:9px;font-size:12.5px;font-family:'DM Sans',sans-serif;background:#fff;color:inherit}
-.cmp-tag{width:22px;height:22px;border-radius:50%;color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none}
-.cmp-tag.a,.cmp-trk.a .cmp-tn i{background:#7c3aed}.cmp-tag.b,.cmp-trk.b .cmp-tn i{background:#0d9488}
-.cmp-zoom{display:flex;gap:4px}.cmp-zoom button{padding:6px 12px;border-radius:16px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12.5px;font-family:inherit;color:inherit}
-#cmp-scroll{flex:1;min-height:0;overflow:auto;border:1.5px solid #e8e4df;border-radius:12px;background:#faf9f7;position:relative}
-#cmp-scroll:focus-visible{outline:2px solid #7c3aed}
-#cmp-in{position:relative}
-.cmp-axis{position:sticky;top:0;height:26px;background:#faf9f7;border-bottom:1px solid #e8e4df;z-index:3}
-.cmp-tick{position:absolute;top:6px;font-size:10.5px;color:#6b665d;transform:translateX(-50%);white-space:nowrap}
-.cmp-gl{position:absolute;top:26px;bottom:0;width:1px;background:rgba(0,0,0,.06);z-index:0}
-.cmp-trk{position:relative;border-bottom:1px dashed #d8d3ca;z-index:1}
-.cmp-tn{position:sticky;left:8px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;background:rgba(250,249,247,.92);border-radius:12px;padding:2px 9px 2px 3px;margin:6px 0 0 8px;z-index:4;max-width:60vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cmp-tn i{width:16px;height:16px;border-radius:50%;display:inline-block;flex:none}
-.cmp-ln{position:absolute;left:0;right:0;height:2px;background:#cfc9bd}
-.cmp-br{position:absolute;height:16px;border:0;border-radius:5px;color:#fff;font-size:10.5px;line-height:16px;padding:0 5px;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;font-family:inherit;opacity:.92}
-.cmp-ev{position:absolute;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);padding:0;cursor:pointer;z-index:2}
-.cmp-lb{position:absolute;border:0;background:none;padding:0;font-size:11px;line-height:15px;text-align:left;cursor:pointer;color:#2a2823;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:inherit;z-index:2}
-.cmp-ld{position:absolute;width:1px;background:rgba(0,0,0,.18)}
-.cmp-br:focus-visible,.cmp-ev:focus-visible,.cmp-lb:focus-visible{outline:2px solid #1a1a18;outline-offset:1px}
-#cmp-info{min-height:54px;max-height:30%;overflow:auto;margin-top:10px;font-size:12.5px;line-height:1.5;color:#4a463f;background:#f7f5f1;border-radius:10px;padding:9px 12px}
-#cmp-info b{color:#1a1a18}
-body.dark #cmp-box{background:#1f1f1b;color:#e8e4df}body.dark #cmp-scroll,body.dark .cmp-axis{background:#171714;border-color:#3a3a33}body.dark .cmp-tn{background:rgba(23,23,20,.92)}body.dark .cmp-lb{color:#e8e4df;background:none;border:0}body.dark .cmp-br{color:#fff;border:0}body.dark #cmp-info{background:#2a2a25;color:#cfc9bd}body.dark #cmp-info b{color:#e8e4df}body.dark .cmp-sel select,body.dark .cmp-zoom button{background:#2a2a25;color:#e8e4df;border-color:#3a3a33}body.dark .cmp-tick{color:#b5b0a6}body.dark .cmp-ln{background:#4a4a42}body.dark .cmp-ev{border-color:#171714}
-@media(max-width:520px){#cmp-box{padding:14px 12px;height:92vh;height:92dvh}.cmp-sel{gap:6px;margin:8px 0}.cmp-sel label{flex:1 1 130px}.cmp-sel select{font-size:12px;padding:6px 5px}.cmp-zoom{flex-wrap:wrap}.cmp-zoom button{padding:5px 9px;font-size:12px}#cmp-info{min-height:44px;max-height:26%;margin-top:6px;padding:7px 10px}#cmp-box .mg-btns{margin-top:6px!important}}
 
 #modelos-box{background:#fff;border-radius:16px;width:1000px;max-width:100%;max-height:88vh;max-height:88dvh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'DM Sans',sans-serif;color:#1a1a18}
 .mo-head{display:flex;align-items:center;justify-content:space-between}
@@ -501,6 +477,30 @@ body.dark .bs-card.c4{background:rgba(45,212,191,.1);border-color:rgba(45,212,19
   #fbar #fchips{flex-wrap:nowrap;flex:none}
   #fbar .fchip,#fbar .bb,#fstat{white-space:nowrap;flex:none}
 }
+/* ── Tema escuro das janelas (projetos, compartilhar, importar, versões, fundir) ── */
+body.dark #projects-box,body.dark #share-box{background:#1f1f1b;color:#e8e4df;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+body.dark #import-box{background:#1f1f1b!important;color:#e8e4df;box-shadow:0 8px 40px rgba(0,0,0,.6)!important}
+body.dark .mg-title{color:#f1ede6}
+body.dark .mg-sub,body.dark .mg-lbl,body.dark .mg-st,body.dark .imp-sub,body.dark #import-status,body.dark .vh-empty{color:#b5b0a6!important}
+body.dark .pj-item,body.dark .mg-row,body.dark .vh-row{background:#2a2a25;border-color:rgba(255,255,255,.14);color:#e8e4df}
+body.dark .pj-item:hover,body.dark .mg-row:hover{background:#32322c;border-color:rgba(255,255,255,.26)}
+body.dark .mg-row.sel{background:#2f2a3d;border-color:#8b5cf6}
+body.dark .mg-row.base{background:#24241f}
+body.dark .pj-name{color:#f1ede6}body.dark .pj-meta{color:#a8a399}
+body.dark .pj-dots{background:transparent;border:none;color:#b5b0a6}
+body.dark .pj-dots:hover,body.dark .pj-dots.on{background:rgba(255,255,255,.1);color:#fff}
+body.dark #pj-menu{background:#2a2a25;border-color:rgba(255,255,255,.16);box-shadow:0 6px 24px rgba(0,0,0,.55)}
+body.dark #pj-menu button{background:transparent;border:none;color:#e8e4df}
+body.dark #pj-menu button:hover:not(:disabled){background:rgba(255,255,255,.08)}
+body.dark #pj-menu button.danger{color:#f87171}
+body.dark .mg-name{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.18)}
+body.dark .mg-sum{background:#2a2a25;color:#cfcac0}body.dark .mg-del{color:#cfcac0}
+body.dark .vh-row button{background:transparent;color:#c4b5fd;border-color:#8b5cf6}
+body.dark .vh-row button:hover{background:rgba(139,92,246,.18)}
+body.dark .mg-btns button{background:#2a2a25;color:#e8e4df;border-color:rgba(255,255,255,.18)}
+body.dark .mg-btns .go,body.dark .sh-go{background:#7c3aed;color:#fff;border-color:#7c3aed}
+body.dark #projects-box button[onclick="closeProjects()"]{background:#2a2a25!important;color:#e8e4df!important;border-color:rgba(255,255,255,.18)!important}
+body.dark #import-box>div button:not([onclick^="document"]){background:#2a2a25!important;color:#e8e4df!important;border-color:rgba(255,255,255,.18)!important}
 </style>
 
 <!-- Firebase SDK -->
@@ -598,9 +598,6 @@ auth.getRedirectResult().then(function(result){
     <button class="sb-btn" onclick="showStudy();closeSidebar()" title="Quiz e flashcards com os eventos desta linha do tempo">
       <span class="sb-icon" style="background:#ede9fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#6d28d9;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M2.5 9 12 4l9.5 5L12 14z"/><path d="M6.5 11.3V16c0 1.3 2.5 2.7 5.5 2.7s5.5-1.4 5.5-2.7v-4.7"/><path d="M21.5 9v5.5"/></svg></span> Estudar (quiz e cartões)
     </button>
-    <button class="sb-btn" onclick="showCompare();closeSidebar()" title="Mostra duas linhas do tempo lado a lado, alinhadas pelo ano">
-      <span class="sb-icon" style="background:#dcfce7"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#15803d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 8h18"/><path d="M3 16h18"/><circle cx="8" cy="8" r="1.8"/><circle cx="15" cy="8" r="1.8"/><circle cx="6" cy="16" r="1.8"/><circle cx="17" cy="16" r="1.8"/></svg></span> Comparar linhas do tempo
-    </button>
     <button class="sb-btn" onclick="closeSidebar();printSummary()" title="Folha com os eventos e chaves em ordem de data, pronta para imprimir ou salvar em PDF">
       <span class="sb-icon" style="background:#fce7f3"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#be185d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="2"/><path d="M7 14h10v7H7z"/></svg></span> Imprimir resumo
     </button>
@@ -611,18 +608,18 @@ auth.getRedirectResult().then(function(result){
       <span class="sb-icon" style="background:#dcfce7"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#15803d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Instalar como aplicativo
     </button>
     <button class="sb-btn" onclick="showImport();closeSidebar()">
-      <span class="sb-icon" style="background:#fff7ed">⬆</span> Importar linha do tempo
+      <span class="sb-icon" style="background:#fff7ed"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#c2410c;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 4h14"/></svg></span> Importar linha do tempo
     </button>
     <div class="sb-divider"></div>
     <button class="sb-btn" onclick="expPNG();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado">
-      <span class="sb-icon" style="background:#f0fdf4">↓</span> Exportar imagem (PNG)
+      <span class="sb-icon" style="background:#f0fdf4"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#15803d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Exportar imagem (PNG)
     </button>
     <button class="sb-btn" onclick="expPDF();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado">
-      <span class="sb-icon" style="background:#fef2f2">↓</span> Exportar PDF
+      <span class="sb-icon" style="background:#fef2f2"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#dc2626;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Exportar PDF
     </button>
     <div class="sb-divider"></div>
     <button id="logout-btn" class="sb-btn" onclick="fbLogout();closeSidebar()" style="display:none;color:#e55">
-      <span class="sb-icon" style="background:#fef2f2">↩</span> Sair da conta
+      <span class="sb-icon" style="background:#fef2f2"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#dc2626;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg></span> Sair da conta
     </button>
   </div>
 </div>
@@ -726,26 +723,12 @@ auth.getRedirectResult().then(function(result){
     <div class="mg-btns" style="margin-top:14px"><button type="button" onclick="closeStudy()">Fechar</button></div>
   </div></div>
 </div>
-<!-- Comparar -->
-<div id="cmp-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:58;align-items:center;justify-content:center;padding:16px">
-  <div id="cmp-box" role="dialog" aria-modal="true" aria-label="Comparar linhas do tempo">
-    <div class="mg-title">Comparar linhas do tempo</div>
-    <div class="cmp-sel">
-      <label><span class="cmp-tag a">A</span><select id="cmp-a" aria-label="Linha A"></select></label>
-      <label><span class="cmp-tag b">B</span><select id="cmp-b" aria-label="Linha B"></select></label>
-      <span class="cmp-zoom"><button type="button" id="cmp-zo" aria-label="Diminuir zoom" title="Diminuir zoom">−</button><button type="button" id="cmp-fit" title="Enquadra o período em que as duas linhas têm itens">Período em comum</button><button type="button" id="cmp-all" title="Mostra do primeiro ao último ano">Tudo</button><button type="button" id="cmp-zi" aria-label="Aumentar zoom" title="Aumentar zoom">+</button></span>
-    </div>
-    <div id="cmp-scroll" tabindex="0" role="region" aria-label="As duas linhas do tempo lado a lado. Role para os lados para navegar."></div>
-    <div id="cmp-info" role="status" aria-live="polite"></div>
-    <div class="mg-btns" style="margin-top:10px"><button type="button" onclick="closeCompare()">Fechar</button></div>
-  </div>
-</div>
 
 <!-- Import Modal -->
 <div id="import-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:55;align-items:center;justify-content:center">
-  <div style="background:#fff;border-radius:14px;padding:24px;width:380px;box-shadow:0 8px 40px rgba(0,0,0,.2)">
-    <div style="font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:8px">⬆ Importar Linha do Tempo</div>
-    <p style="font-size:12px;color:#888;margin-bottom:16px">Selecione um arquivo (.json ou .html) que você já tenha guardado por este site. Ele entra como um projeto novo.</p>
+  <div id="import-box" style="background:#fff;border-radius:14px;padding:24px;width:380px;max-width:calc(100% - 32px);box-shadow:0 8px 40px rgba(0,0,0,.2)">
+    <div style="font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:8px">Importar linha do tempo</div>
+    <p class="imp-sub" style="font-size:12px;color:#6b665d;margin-bottom:16px">Selecione um arquivo (.json ou .html) que você já tenha guardado por este site. Ele entra como um projeto novo.</p>
     <input type="file" id="import-file" accept=".html,.json" style="display:none" onchange="handleImport(event)">
     <button onclick="document.getElementById('import-file').click()" style="width:100%;padding:12px;background:#b45309;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:8px;font-family:'DM Sans',sans-serif">Escolher arquivo (.html ou .json)</button>
     <div id="import-status" style="font-size:12px;color:#666;text-align:center;min-height:20px"></div>
@@ -3060,7 +3043,7 @@ document.addEventListener('keydown',function(e){
   }
   lab(document);
   try{ new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){for(var j=0;j<ms[i].addedNodes.length;j++){var n=ms[i].addedNodes[j]; if(n.nodeType===1){ if(n.matches&&n.matches('button[title],[role=button][title]')&&!n.hasAttribute('aria-label'))n.setAttribute('aria-label',n.getAttribute('title').replace(/\s*\(.*\)\s*$/,'')); lab(n);} } } }).observe(document.body,{childList:true,subtree:true}); }catch(e){}
-  var MODALS=['modelos-modal','projects-modal','import-modal','share-modal','study-modal','cmp-modal'];
+  var MODALS=['modelos-modal','projects-modal','import-modal','share-modal','study-modal'];
   function openModal(){for(var i=0;i<MODALS.length;i++){var m=document.getElementById(MODALS[i]); if(m&&m.style.display==='flex')return m;} return null;}
   var _lastFocus=null;
   document.addEventListener('keydown',function(e){
@@ -3071,7 +3054,6 @@ document.addEventListener('keydown',function(e){
       else if(m.id==='projects-modal')closeProjects();
       else if(m.id==='share-modal')closeShare();
       else if(m.id==='study-modal')closeStudy();
-      else if(m.id==='cmp-modal')closeCompare();
       else m.style.display='none';
       e.preventDefault(); return;
     }
@@ -3626,7 +3608,7 @@ function _tourSteps(){
     {t:'Clique para ler e editar',b:'Clique em um <b>evento</b> ou <b>chave</b> para ver a descrição; o lápis edita. Arraste a tela para andar na linha, use <b>+ / −</b> (ou a pinça no celular) para o zoom e <b>Décadas</b> para espaçar pelo tempo real.',sel:null},
     {t:'Buscar',b:'Procure por <b>ano</b> (1500, 500 a.C.) ou por <b>palavra</b> (Napoleão, abolição). Atalho: tecla <b>/</b>.',sel:'#bar button[onclick="toggleSearch()"]'},
     {t:'Estudar',b:'No menu ☰ → <b>Estudar</b> você treina com a própria linha do tempo: <b>quiz</b> (em que ano foi? qual evento é este?) e <b>flashcards</b> para virar e memorizar. Funciona também em modelos prontos e links compartilhados.',sel:null},
-    {t:'Menu',b:'Aqui ficam <b>Projetos</b> (nos 3 pontinhos: histórico de versões, fundir e excluir), <b>Modelos prontos</b>, <b>Compartilhar link</b> (só leitura), <b>Estudar</b>, <b>Comparar linhas do tempo</b>, <b>Imprimir resumo</b>, importar e exportar (PNG, PDF). Seus projetos ficam salvos na sua conta.',sel:'#sidebar',pre:function(){document.getElementById('sidebar').classList.add('open');},post:function(){closeSidebar();},delay:320,side:'right'},
+    {t:'Menu',b:'Aqui ficam <b>Projetos</b> (nos 3 pontinhos: histórico de versões, fundir e excluir), <b>Modelos prontos</b>, <b>Compartilhar link</b> (só leitura), <b>Estudar</b>, <b>Imprimir resumo</b>, importar e exportar (PNG, PDF). Seus projetos ficam salvos na sua conta.',sel:'#sidebar',pre:function(){document.getElementById('sidebar').classList.add('open');},post:function(){closeSidebar();},delay:320,side:'right'},
     {t:'Tudo pronto!',b:'Dica: abra um <b>modelo pronto</b> para ver como fica uma linha do tempo completa, depois use <b>＋ Meus projetos</b> para guardar uma cópia.',sel:null,last:true}
   ];
 }
@@ -3710,7 +3692,7 @@ function _maybeFirstLoginTour(user){
   function go(){
     var tries=0;
     (function wait(){
-      var sp=document.getElementById('splash'), busy=(sp&&!sp.classList.contains('sp-out'))||document.querySelector('.mcard')||['modelos-modal','projects-modal','import-modal','share-modal','study-modal','cmp-modal'].some(function(id){var m=document.getElementById(id);return m&&m.style.display==='flex';});
+      var sp=document.getElementById('splash'), busy=(sp&&!sp.classList.contains('sp-out'))||document.querySelector('.mcard')||['modelos-modal','projects-modal','import-modal','share-modal','study-modal'].some(function(id){var m=document.getElementById(id);return m&&m.style.display==='flex';});
       if(busy&&tries++<40){setTimeout(wait,500);return;}
       if(!_fbUser||_fbUser.uid!==user.uid)return;
       startTour(false);
@@ -4483,139 +4465,6 @@ function _verRestore(id,v,btn){
   }).catch(function(e){ if(_vh){_vh.busy=false; btn.disabled=false;} alert('Não foi possível restaurar agora. Nada foi alterado.'); });
 }
 
-// ══════════════ Comparar duas linhas do tempo (lado a lado, só leitura) ══════════════
-var _cmp=null, _cmpProj={};
-function _cmpSources(){
-  var o=[];
-  if(marks.length||brackets.length)o.push({id:'cur',grp:'Aberta agora',label:(_currentProjectName&&_currentProjectName!=='Sem título')?_currentProjectName:'Linha atual'});
-  Object.keys(_cmpProj).forEach(function(id){o.push({id:'p:'+id,grp:'Meus projetos',label:_cmpProj[id].name});});
-  _getModelos().forEach(function(m){o.push({id:'m:'+m.key,grp:'Modelos prontos',label:m.title});});
-  return o;
-}
-function _cmpFill(sel,keep){
-  sel.textContent=''; var grp=null, g=null;
-  _cmpSources().forEach(function(o){
-    if(o.grp!==grp){grp=o.grp; g=document.createElement('optgroup'); g.label=grp; sel.appendChild(g);}
-    var op=document.createElement('option'); op.value=o.id; op.textContent=o.label; g.appendChild(op);
-  });
-  if(keep&&[].some.call(sel.options,function(x){return x.value===keep;}))sel.value=keep;
-}
-function _cmpLoad(id,cb){
-  function cl(o){return JSON.parse(JSON.stringify(o));}
-  if(id==='cur'){cb({name:(_currentProjectName&&_currentProjectName!=='Sem título')?_currentProjectName:'Linha atual',marks:cl(marks),brackets:cl(brackets)});return;}
-  if(id.indexOf('p:')===0){var p=_cmpProj[id.slice(2)]; cb(p?{name:p.name,marks:p.marks,brackets:p.brackets}:null);return;}
-  if(id.indexOf('m:')===0){
-    var key=id.slice(2), m=_getModelos().filter(function(x){return x.key===key;})[0]; if(!m){cb(null);return;}
-    _modeloData(m,function(d){cb({name:m.title,marks:d.marks,brackets:d.brackets});},function(){cb(null);}); return;
-  }
-  cb(null);
-}
-function showCompare(){
-  var a=document.getElementById('cmp-a'), b=document.getElementById('cmp-b');
-  _cmp={A:null,B:null,ppy:0,fit:0,com:0,comLo:0,min:0,max:0,tok:0};
-  _cmpFill(a); _cmpFill(b);
-  var n=a.options.length; if(n>1){ if(a.options[0].value==='cur'){a.selectedIndex=0; b.selectedIndex=Math.min(1,n-1);} else {a.selectedIndex=0; b.selectedIndex=1;} }
-  a.onchange=b.onchange=function(){_cmpLoadBoth('com');};
-  document.getElementById('cmp-zi').onclick=function(){_cmpZoom(1.5);};
-  document.getElementById('cmp-zo').onclick=function(){_cmpZoom(1/1.5);};
-  document.getElementById('cmp-fit').onclick=function(){_cmpRender('com');};
-  document.getElementById('cmp-all').onclick=function(){_cmpRender('all');};
-  document.getElementById('cmp-modal').style.display='flex';
-  _cmpLoadBoth('com');
-  if(_fbUser){
-    db.collection('users').doc(_fbUser.uid).collection('projects').orderBy('updatedAt','desc').get().then(function(snap){
-      if(!_cmp)return; _cmpProj={};
-      snap.forEach(function(doc){var d=doc.data(); _cmpProj[doc.id]={name:d.name||'Sem título',marks:_pjArr(d.marks),brackets:_pjArr(d.brackets)};});
-      var ka=a.value, kb=b.value; _cmpFill(a,ka); _cmpFill(b,kb);
-    }).catch(function(){});
-  }
-}
-function closeCompare(){document.getElementById('cmp-modal').style.display='none'; _cmp=null; document.getElementById('cmp-scroll').textContent='';}
-function _cmpLoadBoth(mode){
-  if(!_cmp)return; var tok=++_cmp.tok, ia=document.getElementById('cmp-a').value, ib=document.getElementById('cmp-b').value;
-  var sc=document.getElementById('cmp-scroll'); sc.textContent=''; var ld=document.createElement('div'); ld.className='vh-empty'; ld.textContent='Carregando…'; sc.appendChild(ld);
-  _cmpLoad(ia,function(A){ _cmpLoad(ib,function(B){
-    if(!_cmp||tok!==_cmp.tok)return;
-    _cmp.A=A; _cmp.B=B; _cmpRender(mode);
-  });});
-}
-function _cmpItems(d){
-  var ev=[], br=[];
-  (d&&d.marks||[]).forEach(function(m){ if(!m||typeof m.year!=='number')return; (m.events||[]).forEach(function(e){ev.push({y:m.year,t:_srPlain(e.text),d:_srPlain(e.desc),c:e.color||'#7c3aed'});});});
-  (d&&d.brackets||[]).forEach(function(b){ if(!b||typeof b.from!=='number'||typeof b.to!=='number')return; br.push({a:Math.min(b.from,b.to),z:Math.max(b.from,b.to),t:_srPlain(b.label),d:_srPlain(b.desc),c:b.color||'#6b665d'}); });
-  ev.sort(function(a,b){return a.y-b.y;}); br.sort(function(a,b){return a.a-b.a||a.z-b.z;});
-  return {ev:ev,br:br};
-}
-function _cmpZoom(f){
-  if(!_cmp||!_cmp.fit)return; var sc=document.getElementById('cmp-scroll');
-  var cy=(sc.scrollLeft+sc.clientWidth/2)/_cmp.ppy+_cmp.min;
-  _cmp.ppy=Math.max(_cmp.fit,Math.min(600,_cmp.ppy*f)); _cmpRender(null);
-  sc.scrollLeft=Math.max(0,(cy-_cmp.min)*_cmp.ppy-sc.clientWidth/2);
-}
-function _cmpInfo(tag,it,isBr){
-  var box=document.getElementById('cmp-info'); box.textContent='';
-  var h=document.createElement('div'); var b=document.createElement('b');
-  b.textContent=tag+' · '+(isBr?(_stY(it.a)+' – '+_stY(it.z)):_stY(it.y))+' · '+(it.t||'(sem título)'); h.appendChild(b); box.appendChild(h);
-  if(it.d){var p=document.createElement('div'); p.textContent=it.d; box.appendChild(p);}
-  else if(isBr){var q=document.createElement('div'); q.textContent='Período'; box.appendChild(q);}
-}
-function _cmpRender(mode){
-  if(!_cmp)return;
-  var sc=document.getElementById('cmp-scroll'); sc.textContent='';
-  var info=document.getElementById('cmp-info'); info.textContent='Clique em um evento ou período para ver os detalhes. Os dois lados usam a mesma escala de anos.';
-  var T=[{tag:'A',cls:'a',name:(_cmp.A&&_cmp.A.name)||'—',it:_cmpItems(_cmp.A)},{tag:'B',cls:'b',name:(_cmp.B&&_cmp.B.name)||'—',it:_cmpItems(_cmp.B)}];
-  var lo=Infinity, hi=-Infinity;
-  T.forEach(function(t){ t.it.ev.forEach(function(e){lo=Math.min(lo,e.y);hi=Math.max(hi,e.y);}); t.it.br.forEach(function(b){lo=Math.min(lo,b.a);hi=Math.max(hi,b.z);}); });
-  if(!isFinite(lo)){var em=document.createElement('div'); em.className='vh-empty'; em.textContent='Nenhuma das duas linhas tem eventos ou chaves para mostrar.'; sc.appendChild(em); return;}
-  var span=Math.max(1,hi-lo), pad=Math.max(1,span*0.03); _cmp.min=lo-pad; _cmp.max=hi+pad; span=_cmp.max-_cmp.min;
-  var avail=Math.max(320,(sc.clientWidth||900)-24); _cmp.fit=avail/span;
-  // período em comum: do início do mais novo ao fim do mais antigo; sem sobreposição, mostra tudo
-  var los=[],his=[]; T.forEach(function(t){var l=Infinity,h=-Infinity; t.it.ev.forEach(function(e){l=Math.min(l,e.y);h=Math.max(h,e.y);}); t.it.br.forEach(function(b){l=Math.min(l,b.a);h=Math.max(h,b.z);}); if(isFinite(l)){los.push(l);his.push(h);}});
-  var cl=Math.max.apply(null,los), ch=Math.min.apply(null,his);
-  if(los.length===2&&cl<ch){var cp=Math.max(1,(ch-cl)*0.04); _cmp.comLo=cl-cp; _cmp.com=Math.min(600,avail/(ch-cl+2*cp));} else {_cmp.comLo=_cmp.min; _cmp.com=_cmp.fit;}
-  if(mode==='all'||!_cmp.ppy)_cmp.ppy=_cmp.fit; if(mode==='com'||(!mode&&!_cmp.ppy))_cmp.ppy=Math.max(_cmp.fit,_cmp.com);
-  var ppy=_cmp.ppy, W=Math.ceil(span*ppy)+24;
-  function X(y){return 12+(y-_cmp.min)*ppy;}
-  var inn=document.createElement('div'); inn.id='cmp-in'; inn.style.width=W+'px';
-  // eixo (marcas em anos redondos, no mínimo 70px entre elas)
-  var steps=[1,2,5,10,25,50,100,250,500,1000,2000,5000], step=steps[steps.length-1];
-  for(var i=0;i<steps.length;i++){ if(steps[i]*ppy>=70){step=steps[i];break;} }
-  var ax=document.createElement('div'); ax.className='cmp-axis'; inn.appendChild(ax);
-  for(var y=Math.ceil(_cmp.min/step)*step; y<=_cmp.max; y+=step){
-    var tk=document.createElement('span'); tk.className='cmp-tick'; tk.style.left=X(y)+'px'; tk.textContent=_stY(y); ax.appendChild(tk);
-    var gl=document.createElement('div'); gl.className='cmp-gl'; gl.style.left=X(y)+'px'; inn.appendChild(gl);
-  }
-  T.forEach(function(t){
-    var trk=document.createElement('div'); trk.className='cmp-trk '+t.cls; inn.appendChild(trk);
-    var tn=document.createElement('div'); tn.className='cmp-tn'; var dot=document.createElement('i'); tn.appendChild(dot); tn.appendChild(document.createTextNode(t.tag+' · '+t.name)); trk.appendChild(tn);
-    var top0=34, lanes=[], LANE=20;
-    t.it.br.forEach(function(b){
-      var x1=X(b.a), x2=Math.max(x1+8,X(b.z)), ln=0;
-      while(lanes[ln]!==undefined&&lanes[ln]>x1-3)ln++;
-      lanes[ln]=x2;
-      var el=document.createElement('button'); el.type='button'; el.className='cmp-br'; el.style.cssText='left:'+x1+'px;width:'+(x2-x1)+'px;top:'+(top0+ln*LANE)+'px;background:'+b.c;
-      el.textContent=b.t; el.title=b.t+' ('+_stY(b.a)+' – '+_stY(b.z)+')'; el.onclick=function(){_cmpInfo(t.tag,b,true);}; trk.appendChild(el);
-    });
-    var base=top0+Math.max(1,lanes.length)*LANE+10;
-    var ln2=document.createElement('div'); ln2.className='cmp-ln'; ln2.style.top=base+'px'; trk.appendChild(ln2);
-    var rows=[], ROW=16, maxRows=0;
-    t.it.ev.forEach(function(e){
-      var x=X(e.y), w=Math.min(150,Math.max(30,e.t.length*6.2)), r=0;
-      while(r<4&&rows[r]!==undefined&&rows[r]>x-2)r++;
-      var dt=document.createElement('button'); dt.type='button'; dt.className='cmp-ev'; dt.style.cssText='left:'+(x-5.5)+'px;top:'+(base-5)+'px;background:'+e.c;
-      dt.title=_stY(e.y)+' · '+e.t; dt.setAttribute('aria-label',_stY(e.y)+': '+e.t); dt.onclick=function(){_cmpInfo(t.tag,e,false);}; trk.appendChild(dt);
-      if(r<4){
-        rows[r]=x+w+6; maxRows=Math.max(maxRows,r+1);
-        var ld=document.createElement('div'); ld.className='cmp-ld'; ld.style.cssText='left:'+x+'px;top:'+(base+6)+'px;height:'+(r*ROW+3)+'px'; trk.appendChild(ld);
-        var lb=document.createElement('button'); lb.type='button'; lb.className='cmp-lb'; lb.tabIndex=-1; lb.setAttribute('aria-hidden','true'); lb.style.cssText='left:'+(x+4)+'px;top:'+(base+8+r*ROW)+'px;width:'+w+'px';
-        lb.textContent=e.t; lb.onclick=function(){_cmpInfo(t.tag,e,false);}; trk.appendChild(lb);
-      }
-    });
-    trk.style.height=(base+14+Math.max(1,maxRows)*ROW+8)+'px';
-  });
-  sc.appendChild(inn);
-  if(mode==='com')sc.scrollLeft=Math.max(0,(_cmp.comLo-_cmp.min)*ppy); else if(mode==='all')sc.scrollLeft=0;
-}
 function _mergeIds(){return _mg?[_mg.base].concat(Object.keys(_mg.sel)):[];}
 function _mergeParts(ids){return ids.map(_mergeSource).filter(Boolean).map(function(p){return {name:p.name,marks:p.marks,brackets:p.brackets,filters:p.filters};});}
 function _mergeRefresh(){
@@ -4972,7 +4821,7 @@ function _anyLayerOpen(){
   var lb=document.getElementById('img-lb'); if(lb&&lb.style.display==='flex')return true;
   if(_tour)return true;
   if(document.querySelectorAll('#ov > .mcard').length)return true;
-  var ids=['modelos-modal','projects-modal','import-modal','share-modal','study-modal','cmp-modal'];
+  var ids=['modelos-modal','projects-modal','import-modal','share-modal','study-modal'];
   for(var i=0;i<ids.length;i++){var m=document.getElementById(ids[i]); if(m&&m.style.display==='flex')return true;}
   var sp=document.getElementById('searchpanel'); if(sp&&sp.classList.contains('on'))return true;
   var sb=document.getElementById('sidebar'); if(sb&&sb.classList.contains('open'))return true;
@@ -4983,8 +4832,7 @@ function _closeTopLayer(){
   if(_tour){try{endTour();}catch(e){}return true;}
   var cs=document.querySelectorAll('#ov > .mcard');
   if(cs.length){closeCard(_topCard());return true;}
-  var m=document.getElementById('cmp-modal'); if(m&&m.style.display==='flex'){closeCompare();return true;}
-  m=document.getElementById('study-modal'); if(m&&m.style.display==='flex'){closeStudy();return true;}
+  var m=document.getElementById('study-modal'); if(m&&m.style.display==='flex'){closeStudy();return true;}
   m=document.getElementById('share-modal'); if(m&&m.style.display==='flex'){closeShare();return true;}
   m=document.getElementById('import-modal'); if(m&&m.style.display==='flex'){closeImport();return true;}
   m=document.getElementById('modelos-modal'); if(m&&m.style.display==='flex'){closeModelos();return true;}
