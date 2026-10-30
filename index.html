@@ -775,7 +775,7 @@ function updateDirtyUI(){
 var _started=false;      // true quando há um projeto aberto (criado, importado ou carregado)
 var _projEpoch=0;        // muda a cada troca de projeto (para um salvamento atrasado não afetar o projeto novo)
 var _modeloPreview=false;   // modelo pronto aberto só para ver: não grava na conta nem vira rascunho até a pessoa editar
-function _switchProject(){_projEpoch++;clearTimeout(_autoT);_autoT=null;_autoSig=null;_modeloPreview=false;if(typeof _leaveView==='function')_leaveView();}
+function _switchProject(){_projEpoch++;if(typeof _imgKnown!=='undefined'){_imgKnown={};_imgGone={};}clearTimeout(_autoT);_autoT=null;_autoSig=null;_modeloPreview=false;if(typeof _leaveView==='function')_leaveView();}
 var DRAFT_KEY='jt_draft_v1', _draftT=null;
 function _saveDraft(){
   try{
@@ -2182,6 +2182,34 @@ function _imgCompress(file){
     im.onerror=function(){URL.revokeObjectURL(url);rej('lida');};
     im.src=url;
   });
+}
+
+// Limpeza: imagem que saiu do projeto é apagada da conta depois de 2 minutos (tempo para o Ctrl+Z),
+// desde que nenhum outro projeto nem as versões guardadas deste projeto ainda usem.
+var _imgKnown={}, _imgGone={}, _imgSweepT=null;
+function _imgTrack(){ _imgIds().forEach(function(id){_imgKnown[id]=1;}); }
+function _imgSweep(){
+  var pid=_currentProjectId; if(!_fbUser||!pid||_viewOnly)return;
+  var live={}; _imgIds().forEach(function(id){live[id]=1;});
+  var now=Date.now(), due=[], wait=false;
+  Object.keys(_imgKnown).forEach(function(id){
+    if(live[id]){delete _imgGone[id];return;}
+    if(!_imgGone[id]){_imgGone[id]=now;wait=true;}
+    else if(now-_imgGone[id]>=120000)due.push(id); else wait=true;
+  });
+  clearTimeout(_imgSweepT); if(wait)_imgSweepT=setTimeout(_imgSweep,125000);
+  if(!due.length)return;
+  var uref=db.collection('users').doc(_fbUser.uid);
+  Promise.all([uref.collection('projects').get(),_verCol(pid).get()]).then(function(r){
+    var used={}; function add(a){a.forEach(function(i){used[i]=1;});}
+    r[0].forEach(function(d){ if(d.id!==pid)add(_imgIdsOf(_pjArr(d.data().marks))); });
+    r[1].forEach(function(d){add(_imgIdsOf(_pjArr(d.data().marks)));});
+    add(_imgIds());
+    due.forEach(function(id){
+      if(used[id]||_imgPend[id])return;
+      uref.collection('images').doc(id).delete().then(function(){delete _imgKnown[id];delete _imgGone[id];delete _imgCache[id];}).catch(function(){});
+    });
+  }).catch(function(){});
 }
 // campo "Imagens" do formulário de edição do evento
 function _mkImgField(ev){
@@ -3913,7 +3941,7 @@ function fbSave(opts){
     _saving = false; _autoFails = 0;
     btn.textContent = auto ? '✓ Salvo automaticamente' : '✓ Salvo!';
     // só marca como salvo se ainda estamos no mesmo projeto (pode ter trocado durante o salvamento)
-    if(_currentProjectId === savedId && _projEpoch === ep){ markClean(_sigAtSave); _clearDraft(); _verBase={pid:savedId,s:{name:projectData.name,marks:projectData.marks,brackets:projectData.brackets,filters:projectData.filters}}; }
+    if(_currentProjectId === savedId && _projEpoch === ep){ markClean(_sigAtSave); _clearDraft(); _imgTrack(); _imgSweep(); _verBase={pid:savedId,s:{name:projectData.name,marks:projectData.marks,brackets:projectData.brackets,filters:projectData.filters}}; }
     updateProjectNameDisplay();
     setTimeout(function(){ if(!_saving){ btn.textContent = '☁ Salvar'; btn.disabled = false; } }, 2000);
   }).catch(function(e){
@@ -3943,7 +3971,7 @@ function fbLoad(done){
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
-          markClean(); _verSetBase(doc.id);
+          markClean(); _verSetBase(doc.id); _imgKnown={}; _imgGone={}; _imgTrack();
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
             _lastAddedYear=sorted2[sorted2.length-1].year;
@@ -4321,7 +4349,7 @@ function closeMergeView(){
 
 // ══════════════ Histórico de versões ══════════════
 // No máximo 1 versão por hora por projeto (criada ao salvar, guardando como o projeto estava antes) e só as 10 mais recentes.
-var VER_MAX=10, _vh=null, _verBase=null;
+var VER_MAX=3, _vh=null, _verBase=null;
 function _verStrs(){return {name:_currentProjectName,marks:JSON.stringify(marks),brackets:JSON.stringify(brackets),filters:JSON.stringify(filters)};}
 function _verSetBase(pid){ _verBase=pid?{pid:pid,s:_verStrs()}:null; }
 function _verCol(pid){return db.collection('users').doc(_fbUser.uid).collection('projects').doc(pid).collection('versions');}
@@ -4589,7 +4617,7 @@ function _enterProject(id,name,mk,br,fl){
   _currentProjectId = id;
   _currentProjectName = name;
   _undoStack = []; _redoStack = [];
-  markClean(); _verSetBase(id);
+  markClean(); _verSetBase(id); _imgKnown={}; _imgGone={}; _imgTrack();
   closeProjects();
   cmAll(); draw(true);
   updateBlankState();
