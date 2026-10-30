@@ -3941,7 +3941,7 @@ function fbSave(opts){
     _saving = false; _autoFails = 0;
     btn.textContent = auto ? '✓ Salvo automaticamente' : '✓ Salvo!';
     // só marca como salvo se ainda estamos no mesmo projeto (pode ter trocado durante o salvamento)
-    if(_currentProjectId === savedId && _projEpoch === ep){ markClean(_sigAtSave); _clearDraft(); _imgTrack(); _imgSweep(); _verBase={pid:savedId,s:{name:projectData.name,marks:projectData.marks,brackets:projectData.brackets,filters:projectData.filters}}; }
+    if(_currentProjectId === savedId && _projEpoch === ep){ markClean(_sigAtSave); _clearDraft(); _imgTrack(); _imgSweep(); _rememberProject(savedId); _verBase={pid:savedId,s:{name:projectData.name,marks:projectData.marks,brackets:projectData.brackets,filters:projectData.filters}}; }
     updateProjectNameDisplay();
     setTimeout(function(){ if(!_saving){ btn.textContent = '☁ Salvar'; btn.disabled = false; } }, 2000);
   }).catch(function(e){
@@ -3955,11 +3955,33 @@ function fbSave(opts){
   });
 }
 
+
+// ── Lembrar o último projeto aberto (neste aparelho e na conta) ──
+function _lastKey(){return 'jt_last:'+(_fbUser?_fbUser.uid:'');}
+function _lastProjId(){
+  try{var v=localStorage.getItem(_lastKey()); if(v)return Promise.resolve(v);}catch(e){}
+  try{
+    return db.collection('users').doc(_fbUser.uid).collection('meta').doc('state').get().then(function(d){
+      var v=d&&d.exists&&d.data()&&d.data().lastProject; return (typeof v==='string'&&/^[A-Za-z0-9]{6,40}$/.test(v))?v:null;
+    }).catch(function(){return null;});
+  }catch(e){return Promise.resolve(null);}
+}
+function _rememberProject(id){
+  if(!_fbUser||!id||typeof id!=='string')return;
+  try{ if(localStorage.getItem(_lastKey())===id)return; localStorage.setItem(_lastKey(),id); }catch(e){}
+  try{ db.collection('users').doc(_fbUser.uid).collection('meta').doc('state').set({lastProject:id,updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(){}); }catch(e){}
+}
 function fbLoad(done){
   done=done||function(){};
   if(!_fbUser){ done(); return; }
-  db.collection('users').doc(_fbUser.uid).collection('projects')
-    .orderBy('updatedAt','desc').limit(1).get().then(function(snap){
+  var _pcol=db.collection('users').doc(_fbUser.uid).collection('projects');
+  // volta no último projeto que estava aberto (não só no último salvo); se ele não existir mais, abre o mais recente
+  _lastProjId().then(function(pid){
+    if(!pid)return null;
+    return _pcol.doc(pid).get().then(function(d){return (d&&d.exists)?{empty:false,docs:[d]}:null;});
+  }).catch(function(){return null;}).then(function(snap0){
+    return snap0||_pcol.orderBy('updatedAt','desc').limit(1).get();
+  }).then(function(snap){
       if(!snap.empty){
         var doc = snap.docs[0];
         var d = doc.data();
@@ -3971,7 +3993,7 @@ function fbLoad(done){
           _currentProjectId = doc.id;
           _currentProjectName = d.name||'Minha Linha do Tempo';
           _undoStack = []; _redoStack = [];
-          markClean(); _verSetBase(doc.id); _imgKnown={}; _imgGone={}; _imgTrack();
+          markClean(); _verSetBase(doc.id); _imgKnown={}; _imgGone={}; _imgTrack(); _rememberProject(doc.id);
           if(marks.length>0){
             var sorted2=marks.slice().sort(function(a,b){return a.year-b.year;});
             _lastAddedYear=sorted2[sorted2.length-1].year;
@@ -4617,7 +4639,7 @@ function _enterProject(id,name,mk,br,fl){
   _currentProjectId = id;
   _currentProjectName = name;
   _undoStack = []; _redoStack = [];
-  markClean(); _verSetBase(id); _imgKnown={}; _imgGone={}; _imgTrack();
+  markClean(); _verSetBase(id); _imgKnown={}; _imgGone={}; _imgTrack(); _rememberProject(id);
   closeProjects();
   cmAll(); draw(true);
   updateBlankState();
