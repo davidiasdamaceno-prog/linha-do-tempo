@@ -45,7 +45,9 @@ body.dark .bo{color:#fb923c;border-color:#7c2d12;background:#1c0a00}
 .bb{color:#1e3a5f;border-color:#bfdbfe;background:#eff6ff}
 body.dark .bb{color:#60a5fa;border-color:#1e3a5f;background:#0c1a2e}
 
-#wrap{flex:1;overflow:scroll;position:relative}
+#wrap{flex:1;overflow:scroll;position:relative;touch-action:none;overscroll-behavior:contain}
+#svgbox{display:inline-block;vertical-align:top;line-height:0;transform-origin:0 0}
+#svgbox>svg{display:block}
 .fnav{position:fixed;z-index:40;top:calc(50% + 30px);transform:translateY(-50%);align-items:center;gap:6px;padding:9px 14px;border-radius:24px;background:#1f2937;color:#fff;border:0;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);font-family:'DM Sans',sans-serif;user-select:none}
 .fnav:hover{background:#111827}
 #fnav-l{left:14px}
@@ -656,7 +658,7 @@ auth.getRedirectResult().then(function(result){
   <button class="bb" onclick="newFilter()" title="Criar um novo filtro">+ Filtro</button>
   <span id="fstat"></span>
 </div>
-<div id="wrap" style="cursor:grab"><svg id="svg"></svg></div>
+<div id="wrap" style="cursor:grab"><div id="svgbox"><svg id="svg"></svg></div></div>
 </div>
 <div id="searchpanel" role="search">
   <div class="sp-row">
@@ -1469,7 +1471,7 @@ wp2.addEventListener('wheel',function(e){
 // ── Touch: single-finger pan (H+V) + two-finger pinch zoom ──
 var touch={on:false,x:0,y:0,sl:0,st:0,moved:false,pinch:false};
 var DRAG_THRESHOLD=5;
-var svgEl=document.getElementById('svg');
+var svgEl=document.getElementById('svgbox');   // o transform da pinça vai na caixa, não no <svg>: assim o layout dos milhares de elementos não é refeito a cada quadro
 
 // Pinch state
 var distanciaInicial=0;
@@ -1516,50 +1518,74 @@ wp2.addEventListener('touchstart',function(e){
     }
     pinchYear=(propMode&&_pAnch.length)?yearAtX(anchorX):null;
     lastCx=startCx; lastCy=startCy;
-    escalaAtual=1;
+    escalaAtual=1; _pz=null;
+    _stopFling();
+    // Durante o gesto o SVG vira uma camada da GPU: o navegador só escala a imagem pronta (sem repintar nem refazer o layout)
     svgEl.style.transformOrigin='0 0';
-    svgEl.style.transform='';
+    svgEl.style.willChange='transform';
+    svgEl.style.transform='translate3d(0,0,0)';
   } else if(e.touches.length===1&&!touch.pinch){
+    _stopFling();
     touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
-           sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
+           sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false,vx:0,vy:0,t:performance.now(),lx:e.touches[0].pageX,ly:e.touches[0].pageY};
   }
 },{passive:false});
+
+// Pinça: só guarda a posição dos dedos; o transform é aplicado uma vez por quadro (requestAnimationFrame).
+// Sem mexer em scrollLeft/scrollTop durante o gesto (isso forçava o layout a cada evento e travava em linhas grandes).
+var _pz=null, _pzRaf=0, _panRaf=0, _panX=0, _panY=0, _flingRaf=0;
+function _pzApply(){
+  _pzRaf=0; if(!_pz||!touch.pinch)return;
+  var f=_pz.f, tx=_pz.cx-anchorX*f+scrollInicialL, ty=_pz.cy-anchorY*f+scrollInicialT;
+  svgEl.style.transform='translate3d('+tx+'px,'+ty+'px,0) scale('+f+')';
+  document.getElementById('zl').textContent=Math.round(zoom*100)+'%';
+}
+function _panApply(){ _panRaf=0; wp2.scrollLeft=_panX; wp2.scrollTop=_panY; }
+function _stopFling(){ if(_flingRaf){cancelAnimationFrame(_flingRaf);_flingRaf=0;} }
+function _startFling(vx,vy){   // inércia depois de arrastar com um dedo
+  _stopFling(); var last=performance.now();
+  (function step(now){
+    var dt=Math.min(40,now-last); last=now;
+    wp2.scrollLeft-=vx*dt; wp2.scrollTop-=vy*dt;
+    var k=Math.pow(0.0025,dt/1000); vx*=k; vy*=k;   // atrito: perde ~99,7% da velocidade por segundo
+    if(Math.abs(vx)>0.02||Math.abs(vy)>0.02)_flingRaf=requestAnimationFrame(step); else _flingRaf=0;
+  })(last);
+}
+wp2.addEventListener('wheel',_stopFling,{passive:true});
 
 wp2.addEventListener('touchmove',function(e){
   if(touch.pinch&&e.touches.length===2){
     e.preventDefault();
     var rc=wp2.getBoundingClientRect();
-    // Centro atual dos dedos
     var cx=(e.touches[0].clientX+e.touches[1].clientX)/2-rc.left;
     var cy=(e.touches[0].clientY+e.touches[1].clientY)/2-rc.top;
-    // Nova distância
     var distanciaAtual=distancia(e.touches);
     // Fator de escala relativo ao INÍCIO (não ao frame anterior — evita drift)
     var fatorEscala=distanciaAtual/distanciaInicial;
-    // Limita o zoom
     var novoZoom=Math.min(Math.max(zoomInicial*fatorEscala,0.25),5);
     fatorEscala=novoZoom/zoomInicial;
-    // Aplica transform visual (suave, GPU)
-    svgEl.style.transform='scale('+fatorEscala+')';
-    // Ajusta scroll para manter o ponto anchorado sob os dedos
-    wp2.scrollLeft=anchorX*fatorEscala-cx;
-    wp2.scrollTop=anchorY*fatorEscala-cy;
-    // Guarda para touchend
-    lastCx=cx; lastCy=cy;
-    escalaAtual=fatorEscala;
-    zoom=novoZoom;
-    document.getElementById('zl').textContent=Math.round(zoom*100)+'%';
+    lastCx=cx; lastCy=cy; escalaAtual=fatorEscala; zoom=novoZoom;
+    _pz={f:fatorEscala,cx:cx,cy:cy};
+    if(!_pzRaf)_pzRaf=requestAnimationFrame(_pzApply);
   } else if(touch.on&&e.touches.length===1){
-    var dx=e.touches[0].pageX-touch.x,dy=e.touches[0].pageY-touch.y;
+    var t0=e.touches[0], dx=t0.pageX-touch.x, dy=t0.pageY-touch.y;
     if(!touch.moved&&(Math.abs(dx)>DRAG_THRESHOLD||Math.abs(dy)>DRAG_THRESHOLD))touch.moved=true;
-    if(touch.moved){wp2.scrollLeft=touch.sl-dx;wp2.scrollTop=touch.st-dy;e.preventDefault();}
+    if(touch.moved){
+      var now=performance.now(), dt=now-touch.t;
+      if(dt>0){touch.vx=0.8*touch.vx+0.2*((t0.pageX-touch.lx)/dt); touch.vy=0.8*touch.vy+0.2*((t0.pageY-touch.ly)/dt);}
+      touch.t=now; touch.lx=t0.pageX; touch.ly=t0.pageY;
+      _panX=touch.sl-dx; _panY=touch.st-dy;
+      if(!_panRaf)_panRaf=requestAnimationFrame(_panApply);
+      e.preventDefault();
+    }
   }
 },{passive:false});
 
 wp2.addEventListener('touchend',function(e){
   if(touch.pinch&&e.touches.length<2){
-    // Remove transform e redesenha com zoom real
-    svgEl.style.transform='';
+    // Remove transform e redesenha com zoom real (uma única vez, no fim do gesto)
+    if(_pzRaf){cancelAnimationFrame(_pzRaf);_pzRaf=0;} _pz=null;
+    svgEl.style.transform=''; svgEl.style.willChange='';
     var _fIdx=pinchFIdx, _cx=lastCx, _cy=lastCy;
     var _py=pinchYear;   // modo Décadas: ano que estava sob os dedos
     var _fallbackSL=anchorX*escalaAtual-lastCx;
@@ -1581,9 +1607,13 @@ wp2.addEventListener('touchend',function(e){
     escalaAtual=1;
     if(e.touches.length===1){
       touch={on:true,pinch:false,x:e.touches[0].pageX,y:e.touches[0].pageY,
-             sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false};
+             sl:wp2.scrollLeft,st:wp2.scrollTop,moved:false,vx:0,vy:0,t:performance.now(),lx:e.touches[0].pageX,ly:e.touches[0].pageY};
     }
   } else if(e.touches.length===0){
+    if(touch.on&&touch.moved&&!touch.pinch){
+      if(_panRaf){cancelAnimationFrame(_panRaf);_panRaf=0;wp2.scrollLeft=_panX;wp2.scrollTop=_panY;}
+      if(performance.now()-touch.t<80&&(Math.abs(touch.vx)>0.15||Math.abs(touch.vy)>0.15))_startFling(touch.vx,touch.vy);
+    }
     touch.on=false;
     touch.pinch=false;
   }
