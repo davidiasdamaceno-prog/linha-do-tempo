@@ -80,6 +80,7 @@ body.dark #mdbar{background:#23231f}
 .rte-bar{display:flex;gap:4px;margin-bottom:4px}
 .rte-bar button{width:28px;height:24px;border:1px solid #ddd;background:#fafaf8;border-radius:6px;cursor:pointer;font-size:12px;padding:0;color:#444;line-height:1;font-family:'DM Sans',sans-serif}
 .rte-bar button:hover{background:#f0ece6}
+.rte-bar button svg{display:block;margin:auto}
 .rte-bar button.on{background:#e3ddd5;border-color:#b5ada2}
 body.dark .rte-bar button{background:#1a1a16;border-color:#3a3730;color:#e0dbd5}
 body.dark .rte-bar button.on{background:#3a3730}
@@ -1903,7 +1904,143 @@ function _richRead(root){
   return {text:text,html:fmt?html:''};
 }
 function _inEd(el){return !!(el&&el.closest&&el.closest('[contenteditable="true"]'));}
-// Editor de descrição: barra B / I / U + área que cresce com o texto (o texto aparece sempre por inteiro).
+// ── Listas na descrição (marcadores "• " e numeração "1. ") ──
+// São só texto no começo da linha: assim aparecem iguais nas dicas, na busca, na exportação e no compartilhamento.
+var _LI_B='• ', _LI_RE_B=/^• /, _LI_RE_N=/^(\d{1,2})\. /;
+function _rteToks(root){      // textos e <br> na ordem do documento (o <br> conta como uma quebra de linha)
+  var out=[], w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,null), n;
+  while((n=w.nextNode())){ if(n.nodeType===3)out.push(n); else if(n.nodeName==='BR')out.push(n); }
+  return out;
+}
+function _rteStr(root){
+  return _rteToks(root).map(function(t){return t.nodeType===3?t.nodeValue:'\n';}).join('');
+}
+function _rteIdx(root,node,off){    // posição (nó, deslocamento) -> índice no texto corrido
+  var r=document.createRange(); r.setStart(root,0); r.setEnd(node,off);
+  var d=document.createElement('div'); d.appendChild(r.cloneContents()); return _rteStr(d).length;
+}
+function _rtePos(root,idx){         // índice no texto corrido -> posição (nó, deslocamento)
+  var toks=_rteToks(root), acc=0, last=[root,root.childNodes.length];
+  for(var i=0;i<toks.length;i++){
+    var t=toks[i];
+    if(t.nodeType===3){
+      var L=t.nodeValue.length;
+      if(idx>=acc&&idx<=acc+L)return [t,idx-acc];
+      acc+=L; last=[t,L];
+    } else {
+      var par=t.parentNode, k=Array.prototype.indexOf.call(par.childNodes,t);
+      if(idx===acc)return [par,k];
+      acc+=1; last=[par,k+1];
+    }
+  }
+  return last;
+}
+function _rteLines(S){              // [{s: início, e: fim (sem a quebra), t: texto}]
+  var ls=[], a=0, parts=S.split('\n');
+  parts.forEach(function(t){ls.push({s:a,e:a+t.length,t:t});a+=t.length+1;});
+  return ls;
+}
+function _rteMarker(t){
+  if(_LI_RE_B.test(t))return {k:'b',len:2};
+  var m=_LI_RE_N.exec(t); if(m)return {k:'n',len:m[0].length,n:+m[1]};
+  return null;
+}
+// Aplica a lista (kind: 'b' marcadores, 'n' numeração) nas linhas da seleção; se todas já estão nela, tira.
+function _rteList(ed,kind){
+  ed.focus();
+  var sel=window.getSelection(); if(!sel||!sel.rangeCount||!ed.contains(sel.anchorNode))return;
+  var rg=sel.getRangeAt(0);
+  var a=_rteIdx(ed,rg.startContainer,rg.startOffset), b=_rteIdx(ed,rg.endContainer,rg.endOffset);
+  var S=_rteStr(ed), ls=_rteLines(S), i0=-1, i1=-1;
+  ls.forEach(function(l,ix){ if(i0<0&&a<=l.e)i0=ix; if(b>=l.s)i1=ix; });
+  if(i0<0)i0=ls.length-1; if(i1<i0)i1=i0;
+  var sel_=[]; for(var i=i0;i<=i1;i++)sel_.push(i);
+  var tg=sel_.filter(function(ix){return ls[ix].t.trim().length;});
+  if(!tg.length)tg=[sel_[0]];
+  var allOn=tg.every(function(ix){var m=_rteMarker(ls[ix].t);return m&&m.k===kind;});
+  var ops=[];    // {idx, del, ins}
+  function setLine(ix,ins){ var m=_rteMarker(ls[ix].t); ops.push({idx:ls[ix].s,del:m?m.len:0,ins:ins}); }
+  if(allOn){ tg.forEach(function(ix){setLine(ix,'');}); }
+  else if(kind==='b'){ tg.forEach(function(ix){setLine(ix,_LI_B);}); }
+  else {
+    var n=1, pm=tg[0]>0?_rteMarker(ls[tg[0]-1].t):null;
+    if(pm&&pm.k==='n')n=pm.n+1;
+    tg.forEach(function(ix){setLine(ix,(n++)+'. ');});
+    var nx=tg[tg.length-1]+1;                      // continua a numeração nas linhas numeradas logo abaixo
+    while(nx<ls.length){var mm=_rteMarker(ls[nx].t); if(!mm||mm.k!=='n')break; setLine(nx,(n++)+'. '); nx++;}
+  }
+  _rteApply(ed,ops,a,b);
+}
+function _rteApply(ed,ops,a,b){
+  ops=ops.filter(function(o){return o.del||o.ins;});
+  ops.sort(function(x,y){return y.idx-x.idx;});     // de baixo para cima: os índices de cima não mudam
+  var sel=window.getSelection();
+  ops.forEach(function(o){
+    if(o.del){
+      var p1=_rtePos(ed,o.idx), p2=_rtePos(ed,o.idx+o.del), r=document.createRange();
+      r.setStart(p1[0],p1[1]); r.setEnd(p2[0],p2[1]); sel.removeAllRanges(); sel.addRange(r);
+      try{document.execCommand('delete');}catch(err){}
+    }
+    if(o.ins){
+      var p=_rtePos(ed,o.idx), r2=document.createRange(); r2.setStart(p[0],p[1]); r2.collapse(true);
+      sel.removeAllRanges(); sel.addRange(r2);
+      try{document.execCommand('insertText',false,o.ins);}catch(err){}
+    }
+  });
+  function mv(i){var d=0;ops.forEach(function(o){ if(i>=o.idx+o.del)d+=o.ins.length-o.del; else if(i>o.idx)d+=o.ins.length-(i-o.idx); });return i+d;}
+  var na=mv(a), nb=mv(b), q1=_rtePos(ed,na), q2=_rtePos(ed,nb), r3=document.createRange();
+  r3.setStart(q1[0],q1[1]); r3.setEnd(q2[0],q2[1]); sel.removeAllRanges(); sel.addRange(r3);
+}
+// Enter dentro de uma lista continua a lista; Enter num item vazio sai dela. Devolve true se tratou a tecla.
+function _rteEnter(ed){
+  var sel=window.getSelection(); if(!sel||!sel.rangeCount||!sel.isCollapsed)return false;
+  var rg=sel.getRangeAt(0), c=_rteIdx(ed,rg.startContainer,rg.startOffset);
+  var S=_rteStr(ed), ls=_rteLines(S), ix=-1;
+  ls.forEach(function(l,k){ if(ix<0&&c<=l.e)ix=k; });
+  if(ix<0)return false;
+  var l=ls[ix], m=_rteMarker(l.t); if(!m||c<l.s+m.len)return false;
+  if(l.t.length===m.len){ _rteApply(ed,[{idx:l.s,del:m.len,ins:''}],c,c); return true; }   // item vazio: sai da lista
+  try{document.execCommand('insertLineBreak');}catch(err){}
+  var p=c+1, ops=[];       // a quebra empurra o cursor uma casa; o novo item recebe o marcador
+  if(m.k==='b')ops.push({idx:p,del:0,ins:_LI_B});
+  else {
+    var n=m.n+1; ops.push({idx:p,del:0,ins:(n++)+'. '});
+    var S2=_rteStr(ed), ls2=_rteLines(S2), nxt=0;
+    ls2.forEach(function(L,k){ if(L.s===p&&!nxt)nxt=k+1; });
+    while(nxt<ls2.length){var mm=_rteMarker(ls2[nxt].t); if(!mm||mm.k!=='n')break; ops.push({idx:ls2[nxt].s,del:mm.len,ins:(n++)+'. '}); nxt++;}
+  }
+  _rteApply(ed,ops,p,p);
+  return true;
+}
+// Backspace logo depois do marcador apaga o marcador inteiro.
+function _rteBack(ed){
+  var sel=window.getSelection(); if(!sel||!sel.rangeCount||!sel.isCollapsed)return false;
+  var rg=sel.getRangeAt(0), c=_rteIdx(ed,rg.startContainer,rg.startOffset);
+  var ls=_rteLines(_rteStr(ed)), ix=-1;
+  ls.forEach(function(l,k){ if(ix<0&&c<=l.e)ix=k; });
+  if(ix<0)return false;
+  var l=ls[ix], m=_rteMarker(l.t); if(!m||c!==l.s+m.len)return false;
+  _rteApply(ed,[{idx:l.s,del:m.len,ins:''}],c,c); return true;
+}
+function _rteListState(ed){        // marcador da linha onde está o cursor: 'b', 'n' ou null
+  var sel=window.getSelection(); if(!sel||!sel.rangeCount)return null;
+  var rg=sel.getRangeAt(0), c=_rteIdx(ed,rg.startContainer,rg.startOffset);
+  var ls=_rteLines(_rteStr(ed)), r=null;
+  for(var k=0;k<ls.length;k++){ if(c<=ls[k].e){ var m=_rteMarker(ls[k].t); r=m?m.k:null; break; } }
+  return r;
+}
+function _rteIcon(kind){
+  var NS_='http://www.w3.org/2000/svg', sv=document.createElementNS(NS_,'svg');
+  sv.setAttribute('viewBox','0 0 16 16'); sv.setAttribute('width','14'); sv.setAttribute('height','14'); sv.setAttribute('aria-hidden','true');
+  function ln(y){var l=document.createElementNS(NS_,'line');l.setAttribute('x1','6.5');l.setAttribute('x2','14.5');l.setAttribute('y1',y);l.setAttribute('y2',y);l.setAttribute('stroke','currentColor');l.setAttribute('stroke-width','1.5');l.setAttribute('stroke-linecap','round');sv.appendChild(l);}
+  [3.5,8,12.5].forEach(function(y,i){
+    ln(y);
+    if(kind==='b'){var c=document.createElementNS(NS_,'circle');c.setAttribute('cx','2.6');c.setAttribute('cy',y);c.setAttribute('r','1.3');c.setAttribute('fill','currentColor');sv.appendChild(c);}
+    else {var t=document.createElementNS(NS_,'text');t.setAttribute('x','0.6');t.setAttribute('y',y+2);t.setAttribute('font-size','5.6');t.setAttribute('font-weight','700');t.setAttribute('fill','currentColor');t.setAttribute('font-family','DM Sans,sans-serif');t.textContent=String(i+1);sv.appendChild(t);}
+  });
+  return sv;
+}
+// Editor de descrição: barra B / I / U / listas + área que cresce com o texto (o texto aparece sempre por inteiro).
 function mkRte(id,item){
   var wrap=mkEl('div',{className:'rte-wrap'});
   var bar=mkEl('div',{className:'rte-bar'});
@@ -1923,8 +2060,18 @@ function mkRte(id,item){
   bClr.addEventListener('mousedown',function(e){e.preventDefault();});
   bClr.addEventListener('click',function(){ed.focus();try{document.execCommand('removeFormat');}catch(err){}chk();upd();});
   bar.appendChild(bClr);
+  var lbtns={};
+  [['b','Lista com marcadores (Ctrl+Shift+8)'],['n','Lista numerada (Ctrl+Shift+7)']].forEach(function(d){
+    var lb=mkEl('button',{type:'button',title:d[1],'aria-label':d[1],'data-cmd':'list-'+d[0]});
+    lb.appendChild(_rteIcon(d[0]));
+    lb.addEventListener('mousedown',function(e){e.preventDefault();});
+    lb.addEventListener('click',function(){_rteList(ed,d[0]);chk();upd();});
+    lbtns[d[0]]=lb; bar.appendChild(lb);
+  });
   function upd(){
     defs.forEach(function(d){var on=false;try{on=document.queryCommandState(d[0]);}catch(err){}btns[d[0]].classList.toggle('on',!!on);});
+    var ls=_rteListState(ed);
+    lbtns.b.classList.toggle('on',ls==='b'); lbtns.n.classList.toggle('on',ls==='n');
   }
   function onSel(){
     if(!ed.isConnected){document.removeEventListener('selectionchange',onSel);return;}
@@ -1946,7 +2093,15 @@ function mkRte(id,item){
         chk();upd();return;
       }
     }
-    if(e.key==='Enter'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();e.stopPropagation();try{document.execCommand('insertLineBreak');}catch(err){}chk();}
+    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&!e.altKey&&(e.code==='Digit8'||e.code==='Digit7')){
+      e.preventDefault();e.stopPropagation();_rteList(ed,e.code==='Digit8'?'b':'n');chk();upd();return;
+    }
+    if(e.key==='Backspace'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&_rteBack(ed)){e.preventDefault();e.stopPropagation();chk();upd();return;}
+    if(e.key==='Enter'&&!e.ctrlKey&&!e.metaKey){
+      e.preventDefault();e.stopPropagation();
+      if(!_rteEnter(ed)){try{document.execCommand('insertLineBreak');}catch(err){}}
+      chk();upd();
+    }
   });
   ed.addEventListener('paste',function(e){          // cola só o texto (sem trazer estilos de outros sites)
     e.preventDefault();
