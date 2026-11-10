@@ -2060,18 +2060,29 @@ function mkRte(id,item){
   bClr.addEventListener('mousedown',function(e){e.preventDefault();});
   bClr.addEventListener('click',function(){ed.focus();try{document.execCommand('removeFormat');}catch(err){}chk();upd();});
   bar.appendChild(bClr);
-  var lbtns={};
-  [['b','Lista com marcadores (Ctrl+Shift+8)'],['n','Lista numerada (Ctrl+Shift+7)']].forEach(function(d){
-    var lb=mkEl('button',{type:'button',title:d[1],'aria-label':d[1],'data-cmd':'list-'+d[0]});
-    lb.appendChild(_rteIcon(d[0]));
-    lb.addEventListener('mousedown',function(e){e.preventDefault();});
-    lb.addEventListener('click',function(){_rteList(ed,d[0]);chk();upd();});
-    lbtns[d[0]]=lb; bar.appendChild(lb);
+  // Um só botão de lista: cada clique avança  sem lista → marcadores → numerada → sem lista.
+  var lb=mkEl('button',{type:'button','data-cmd':'list'});
+  lb.addEventListener('mousedown',function(e){e.preventDefault();});
+  lb.addEventListener('click',function(){
+    var st=_rteListState(ed);
+    _rteList(ed,st==='b'?'n':(st==='n'?'n':'b'));    // numerada sobre numerada = tira a lista
+    chk();upd();
   });
+  bar.appendChild(lb);
+  var _lbSt='x';
+  function setListBtn(st){
+    if(st===_lbSt)return; _lbSt=st;
+    while(lb.firstChild)lb.removeChild(lb.firstChild);
+    lb.appendChild(_rteIcon(st==='n'?'n':'b'));
+    var t=st==='b'?'Lista com marcadores — clique para numerar (Ctrl+Shift+8)':st==='n'?'Lista numerada — clique para tirar a lista (Ctrl+Shift+7)':'Lista — clique para marcadores (Ctrl+Shift+8) e de novo para numerada';
+    lb.title=t; lb.setAttribute('aria-label',t);
+    lb.classList.toggle('on',!!st);
+  }
+  setListBtn(null);
   function upd(){
     defs.forEach(function(d){var on=false;try{on=document.queryCommandState(d[0]);}catch(err){}btns[d[0]].classList.toggle('on',!!on);});
     var ls=_rteListState(ed);
-    lbtns.b.classList.toggle('on',ls==='b'); lbtns.n.classList.toggle('on',ls==='n');
+    setListBtn(ls);
   }
   function onSel(){
     if(!ed.isConnected){document.removeEventListener('selectionchange',onSel);return;}
