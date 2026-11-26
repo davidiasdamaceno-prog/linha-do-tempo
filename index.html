@@ -153,6 +153,9 @@ body.home #bar .jt-logo,body.home #bar .ri,body.home #bar #project-name-display,
   #print-summary h1{font-family:'DM Serif Display',Georgia,serif;font-size:20pt;margin:0 0 2pt}
   #print-summary .ps-meta{font-size:9pt;color:#444;margin-bottom:12pt;border-bottom:1px solid #999;padding-bottom:6pt}
   #print-summary .ps-it{display:flex;gap:10pt;padding:5pt 0;border-bottom:.5pt solid #ddd;page-break-inside:avoid;break-inside:avoid}
+  #print-summary .ps-c{flex:1;min-width:0}
+  #print-summary .ps-e{break-inside:avoid;page-break-inside:avoid}
+  #print-summary .ps-e+.ps-e{margin-top:5pt;padding-top:5pt;border-top:.5pt dotted #bbb}
   #print-summary .ps-y{flex:0 0 66pt;font-weight:700;font-size:10.5pt}
   #print-summary .ps-t{font-weight:700}
   #print-summary .ps-k{font-size:8.5pt;color:#555;text-transform:uppercase;letter-spacing:.04em}
@@ -2596,16 +2599,21 @@ function _buildSummary(){
   var fl=[]; activeFilters.forEach(function(id){var f=findFilter(id); if(f)fl.push(f.name);});
   meta.textContent=items.length+' itens'+(fl.length?' · só: '+fl.join(', '):'')+' · gerado em '+new Date().toLocaleDateString('pt-BR');
   box.appendChild(meta);
+  var prev=null, col=null;   // eventos do mesmo ano ficam juntos no mesmo bloco
   items.forEach(function(it){
-    var row=document.createElement('div'); row.className='ps-it';
-    var y=document.createElement('div'); y.className='ps-y'; y.textContent=(it.k==='br')?(_stY(it.y)+' – '+_stY(it.to)):_stY(it.y); row.appendChild(y);
-    var c=document.createElement('div');
+    var same=prev&&it.k==='ev'&&prev.k==='ev'&&prev.y===it.y;
+    if(!same){
+      var row=document.createElement('div'); row.className='ps-it';
+      var y=document.createElement('div'); y.className='ps-y'; y.textContent=(it.k==='br')?(_stY(it.y)+' – '+_stY(it.to)):_stY(it.y); row.appendChild(y);
+      col=document.createElement('div'); col.className='ps-c'; row.appendChild(col); box.appendChild(row);
+    }
+    var c=document.createElement('div'); c.className='ps-e'; col.appendChild(c);
     if(it.k==='br'){var k=document.createElement('div'); k.className='ps-k'; k.textContent='Período'; c.appendChild(k);}
     var t=document.createElement('div'); t.className='ps-t'; t.textContent=it.t; c.appendChild(t);
     if(it.d){var d=document.createElement('div'); d.className='ps-d'; d.textContent=it.d; c.appendChild(d);}
     it.imgs.forEach(function(im){ var src=_imgCache[im.id]; if(!src)return; var g=document.createElement('img'); g.className='ps-img'; g.src=src; g.alt=im.cap||'Imagem do evento'; c.appendChild(g);
       if(im.cap){var cp=document.createElement('div'); cp.className='ps-d'; cp.style.fontSize='8pt'; cp.textContent=im.cap; c.appendChild(cp);} });
-    row.appendChild(c); box.appendChild(row);
+    prev=it;
   });
   return items.length;
 }
