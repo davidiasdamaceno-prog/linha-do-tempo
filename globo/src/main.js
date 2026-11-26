@@ -332,6 +332,30 @@ function updateFnav(){
 [fnL,fnR].forEach(function(b){b.onclick=function(){if(b._t)flyTo(b._t.lon,b._t.lat,view.k,900);};});
 /* ---------- faixa do tempo ---------- */
 var track=$('track'), winEl=$('win'), dotsEl=$('dots'), axisEl=$('axis'), lbl=$('winLbl');
+/* período editável: clique nos anos e digite (ex.: 1789 – 1815, ou 500 a.C.) */
+var lblR=el('span','wr'),lblN=el('span',''),rEdit=false;lbl.textContent='';lbl.appendChild(lblR);lbl.appendChild(lblN);
+lblR.tabIndex=0;lblR.setAttribute('role','button');lblR.title='Clique para digitar o período';
+var PEN='<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+function parseYr(t){var m=/^\s*(-?\d{1,7})\s*(a\.?\s*c\.?|d\.?\s*c\.?)?\s*$/i.exec(String(t));if(!m)return null;var v=+m[1];if(m[2]&&m[2].charAt(0).toLowerCase()==='a')v=-Math.abs(v);return v;}
+function showRange(){if(rEdit)return;lblR.innerHTML='<b>'+fy(win.a)+' – '+fy(win.b)+'</b>'+PEN;}
+function startRangeEdit(){
+ if(rEdit)return;rEdit=true;stage.dataset.edr=1;lblR.classList.add('ed');lblR.textContent='';
+ var ia=document.createElement('input'),ib=document.createElement('input');[ia,ib].forEach(function(i){i.type='text';i.inputMode='numeric';i.autocomplete='off';i.spellcheck=false;});
+ ia.value=fy(win.a);ib.value=fy(win.b);ia.setAttribute('aria-label','Ano inicial');ib.setAttribute('aria-label','Ano final');
+ lblR.appendChild(ia);lblR.appendChild(document.createTextNode(' – '));lblR.appendChild(ib);
+ function done(){rEdit=false;lblR.classList.remove('ed','bad');delete stage.dataset.edr;showRange();}
+ function apply(){var a=parseYr(ia.value),b=parseYr(ib.value);
+  if(a===null||b===null){lblR.classList.remove('bad');void lblR.offsetWidth;lblR.classList.add('bad');(a===null?ia:ib).focus();return;}
+  if(a>b){var t=a;a=b;b=t;}
+  if(a===b)b=a+Math.max(1,Math.round((D1-D0)*0.004));
+  done();setWindow(a,b);}
+ function key(e){e.stopPropagation();if(e.key==='Enter'){e.preventDefault();apply();}else if(e.key==='Escape'){e.preventDefault();done();}}
+ [ia,ib].forEach(function(i){i.addEventListener('keydown',key);i.addEventListener('keyup',function(e){e.stopPropagation();});i.addEventListener('pointerdown',function(e){e.stopPropagation();});i.addEventListener('focus',function(){i.select();});
+  i.addEventListener('blur',function(){setTimeout(function(){if(rEdit&&sr.activeElement!==ia&&sr.activeElement!==ib)done();},120);});});
+ ia.focus();
+}
+lblR.addEventListener('click',function(e){if(!rEdit)startRangeEdit();});
+lblR.addEventListener('keydown',function(e){if(!rEdit&&(e.key==='Enter'||e.key===' ')){e.preventDefault();startRangeEdit();}});
 function WP(y){if(y<=KN[0][0])return 0;for(var i=1;i<KN.length;i++){if(y<=KN[i][0]){var a=KN[i-1],b=KN[i];return a[1]+(y-a[0])/(b[0]-a[0])*(b[1]-a[1]);}}return 1;}
 function WPi(u){if(u<=0)return KN[0][0];for(var i=1;i<KN.length;i++){if(u<=KN[i][1]){var a=KN[i-1],b=KN[i];return a[0]+(u-a[1])/(b[1]-a[1])*(b[0]-a[0]);}}return KN[KN.length-1][0];}
 function fy(y){y=Math.round(y);return y<0?(-y)+' a.C.':String(y);}
@@ -347,7 +371,7 @@ function selectEvent(e){
  var g=e.g;flyTo(g.lon,g.lat,Math.max(view.k,2.2),900);openCard([g],e.id);}
 function syncTL(){winEl.style.left=xOf(win.a)+'%';winEl.style.width=(xOf(win.b)-xOf(win.a))+'%';
  var n=0;EVENTS.forEach(function(e,i){var inW=e.y>=win.a&&e.y<=win.b;var on=e.on;if(inW&&on)n++;dotEls[i].style.opacity=on?(inW?1:.35):0;dotEls[i].style.pointerEvents=on?'auto':'none';});
- lbl.innerHTML='<b>'+fy(win.a)+' – '+fy(win.b)+'</b> · '+n+' de '+EVENTS.filter(function(e){return e.on;}).length+' eventos no período';
+ showRange();lblN.textContent=' · '+n+' de '+EVENTS.filter(function(e){return e.on;}).length+' eventos no período';
  var pre=sr.querySelectorAll('.pre');for(var i=0;i<pre.length;i++){var p=PRESETS[i];pre[i].classList.toggle('on',Math.abs(win.a-p[1])<1.5&&Math.abs(win.b-p[2])<1.5);}
 
  var mid=(win.a+win.b)/2,act=CHAVES.filter(function(c){return c.a<=mid&&mid<=c.b;}).sort(function(x,y){return (x.b-x.a)-(y.b-y.a);}).slice(0,6),key=act.map(function(c){return c.l;}).join('|');

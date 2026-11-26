@@ -55,6 +55,14 @@ canvas.drag{cursor:grabbing}canvas.hov{cursor:pointer}
 #presets{display:flex;gap:8px;flex-wrap:wrap}
 #winLbl{margin-left:auto;font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums}
 #winLbl b{color:var(--ink);font-weight:500}
+#winLbl .wr{display:inline-flex;align-items:center;gap:6px;cursor:text;border-radius:7px;padding:2px 6px;margin:-2px 0 -2px -6px;transition:background .2s}
+#winLbl .wr:hover{background:var(--soft)}
+#winLbl .wr svg{opacity:.4;transition:opacity .2s}#winLbl .wr:hover svg{opacity:.85}
+#winLbl .wr.ed{background:var(--soft);cursor:default;gap:4px}
+#winLbl .wr input{width:116px;font:inherit;font-variant-numeric:tabular-nums;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:2px 6px;background:var(--panel);text-align:center}
+#winLbl .wr input:focus{outline:2px solid var(--ink);outline-offset:-1px}
+#winLbl .wr.bad{animation:wrShk .32s}
+@keyframes wrShk{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 #track{position:relative;height:50px;margin:0 8px;touch-action:none;user-select:none;-webkit-user-select:none}
 #rail{position:absolute;left:0;right:0;top:12px;height:8px;border-radius:4px;background:var(--soft);border:1px solid var(--line)}
 #win{position:absolute;top:8px;height:16px;border-radius:5px;background:rgba(80,120,200,.18);border:1.5px solid #3b6fd6;cursor:grab}
