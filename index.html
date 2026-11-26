@@ -5065,7 +5065,8 @@ function _jtgHost(){
     top:function(){var t=0; ['bar','fbar'].forEach(function(id){var e=document.getElementById(id); if(e&&e.offsetParent!==null){var b=e.getBoundingClientRect().bottom; if(b>t)t=b;}}); return Math.round(t);},
     range:_jtgRange,
     openEvent:function(y,id){ove(y,id);},
-    setPlace:_jtgSetPlace
+    setPlace:_jtgSetPlace,
+    fkey:function(){return activeFilters.join(',')+'|'+hiddenFilters.join(',');}
   };
 }
 function openGlobo(opts){
