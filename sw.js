@@ -1,12 +1,12 @@
 // Service worker da Linha do Tempo: deixa o site abrir sem internet depois da primeira visita.
 // Para forçar todo mundo a baixar tudo de novo, troque o número da versão.
-var VERSION = 'v1';
+var VERSION = 'v2';
 var CORE = 'jt-core-' + VERSION;      // página, ícones e modelos (nossos arquivos)
 var EXT = 'jt-ext-' + VERSION;        // fontes e scripts do Firebase (de outros domínios)
 var PRECACHE = [
   './', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
   'modelos/antiguidade.json', 'modelos/idade-media.json', 'modelos/segunda-guerra.json',
-  'modelos/grandes-revolucoes.json', 'modelos/revolucao-francesa.json', 'modelos/revolucao-russa-urss.json', 'modelos/guerras-guerra-fria.json'
+  'modelos/grandes-revolucoes.json', 'modelos/revolucao-francesa.json', 'modelos/revolucao-russa-urss.json', 'modelos/guerras-guerra-fria.json', 'globo/globo.js', 'globo/geo.json'
 ];
 var EXT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'www.gstatic.com'];
 
