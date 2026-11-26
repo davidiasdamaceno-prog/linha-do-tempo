@@ -1,0 +1,17 @@
+{
+  "name": "globo",
+  "private": true,
+  "description": "Fontes do Globo da Linha do Tempo (gera ../globo.js)",
+  "scripts": {
+    "build": "esbuild main.js --bundle --minify --format=iife --loader:.css=text --loader:.html=text --outfile=../globo.js"
+  },
+  "dependencies": {
+    "d3-geo": "^3.1.2",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3"
+  }
+}

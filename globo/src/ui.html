@@ -1,0 +1,27 @@
+<div id="app">
+ <main>
+  <div id="stage">
+   <button id="back" class="bk" aria-label="Voltar para a linha do tempo" title="Voltar para a linha do tempo">←<span>Linha do tempo</span></button>
+   <canvas id="cv" aria-label="Globo terrestre com os eventos"></canvas>
+   <button id="nolug" hidden></button>
+   <div id="nolugList" hidden></div>
+   <div id="eraTag"></div>
+   <div id="zoom"><button id="zin" aria-label="Aproximar">+</button><button id="zout" aria-label="Afastar">−</button><button id="zhome" aria-label="Centralizar" title="Centralizar">⌖</button></div>
+   <div id="tip"></div>
+   <div id="pick" hidden>
+    <div class="pkT"><span id="pkTitle"></span><button id="pkX" aria-label="Cancelar">×</button></div>
+    <input id="pkQ" type="text" placeholder="Buscar cidade, país ou região…" autocomplete="off" spellcheck="false">
+    <div id="pkRes"></div>
+    <div id="pkHint">ou toque no mapa para marcar o lugar</div>
+    <div id="pkSel" hidden><span id="pkName"></span></div>
+    <div class="pkB"><button id="pkNone" hidden>Sem lugar</button><button id="pkOk" class="pri" disabled>Confirmar</button></div>
+   </div>
+  </div>
+  <aside id="card" aria-live="polite"><header><h2 id="cardT"></h2><button id="cardX" aria-label="Fechar">×</button></header><div id="cardBody"></div></aside>
+ </main>
+ <section id="tl">
+  <div class="tlTop"><button id="play" aria-label="Percorrer o tempo" title="Percorrer o tempo">▶</button><div id="presets"></div><span id="winLbl"></span></div>
+  <div id="track"><div id="rail"></div><div id="dots"></div><div id="win"><div class="h l"></div><div class="h r"></div></div><div id="axis"></div></div>
+  <div id="chv" class="chv"></div>
+ </section>
+</div>

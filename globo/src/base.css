@@ -1,0 +1,13 @@
+:host{--bg:#f6f3ed;--panel:#fffdf9;--ink:#1f1d1a;--mute:#6f6a60;--line:#e1dbcf;--soft:#efe9dd;--on:#1f1d1a;--onink:#fffdf9;--shadow:0 6px 24px rgba(40,30,10,.12)}
+:host([data-theme="dark"]){--bg:#14130f;--panel:#1c1b16;--ink:#ece7df;--mute:#9a948a;--line:#34312a;--soft:#26241e;--on:#ece7df;--onink:#14130f;--shadow:0 6px 24px rgba(0,0,0,.45)}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+.ctl{display:flex;align-items:center;gap:8px}
+.ctl>label{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.ctl.dis{opacity:.4;pointer-events:none;transition:opacity .3s}.ctl{transition:opacity .3s}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--bg)}
+.seg button{border:0;background:transparent;padding:6px 11px;font-size:12.5px;color:var(--mute);transition:background .25s,color .25s}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--on);color:var(--onink)}
+.seg button:not(.on):hover{background:var(--soft);color:var(--ink)}
+@media(max-width:720px){.ctl>label{display:none}.seg button{padding:5px 9px;font-size:12px}}
