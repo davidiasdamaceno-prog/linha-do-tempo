@@ -1,6 +1,6 @@
 // Service worker da Linha do Tempo: deixa o site abrir sem internet depois da primeira visita.
 // Para forçar todo mundo a baixar tudo de novo, troque o número da versão.
-var VERSION = 'v12';
+var VERSION = 'v13';
 var CORE = 'jt-core-' + VERSION;      // página, ícones e modelos (nossos arquivos)
 var EXT = 'jt-ext-' + VERSION;        // fontes e scripts do Firebase (de outros domínios)
 var PRECACHE = [

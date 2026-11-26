@@ -343,7 +343,7 @@ body.dark #viewmenu{background:#26251f;border-color:#3a3730;color:#ddd;box-shado
 .vm-seg{display:flex;gap:4px;flex-wrap:wrap}
 .vm-seg button{flex:1 1 auto;border:1px solid #e0dbd3;background:transparent;border-radius:9px;padding:6px 8px;font:inherit;font-size:11.5px;cursor:pointer;color:inherit;transition:background .18s,border-color .18s,color .18s}
 .vm-seg button:hover{background:rgba(120,110,95,.1)}
-.vm-seg button.on{background:#1f2937;border-color:#1f2937;color:#fff}
+.vm-seg button.on{background:var(--accent,#4d6190);border-color:var(--accent,#4d6190);color:#fff}
 body.dark .vm-seg button{border-color:#4a463d}
 body.dark .vm-seg button.on{background:#4d6190;border-color:#6b82b3;color:#fff}
 .vm-seg small{display:block;opacity:.65;font-size:10px;margin-top:1px}
@@ -643,6 +643,105 @@ body.dark #moremenu button{color:#e8e4df!important}
 }
 body.dark .pn-sum,body.dark .pn-h,body.dark .vm-h,body.dark .pn-ev .y,body.dark .pn-gh i,body.dark .pn-chip small{color:#a39d90}
 body.dark .vm-h i{color:#948e82}
+
+/* ===== Acabamento: escala de espaçamento, raios e sombras ===== */
+:root{--r-s:8px;--r-m:12px;--r-l:16px;--sh-1:0 1px 3px rgba(0,0,0,.08);--sh-2:0 8px 24px rgba(0,0,0,.14);--sh-3:0 18px 48px rgba(0,0,0,.2);--ease:cubic-bezier(.4,0,.2,1);--t-fast:.18s;--t-mid:.26s;--ink-2:#57534e;--accent:#4d6190}
+/* Menu lateral */
+#sidebar-header{padding:16px 16px 14px;border-bottom:1px solid #f0ece6;display:flex;flex-direction:column;gap:10px}
+#login-btn{width:100%;min-height:42px;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 14px;background:#fff;color:#3c4043;border:1px solid #dadce0;border-radius:var(--r-m);font:600 13.5px Inter,system-ui,sans-serif;cursor:pointer;box-shadow:var(--sh-1);transition:background var(--t-fast),box-shadow var(--t-fast)}
+#login-btn:hover{background:#f8f9fa;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+#login-btn .g-ic{display:flex;width:18px;height:18px;flex:none}
+#sb-profile{display:flex;align-items:center;gap:11px;min-width:0}
+#sidebar-avatar{width:38px;height:38px;border-radius:50%;flex:none;background:var(--accent) center/cover no-repeat;color:#fff;display:flex;align-items:center;justify-content:center;font:600 15px Inter,system-ui,sans-serif}
+.sb-who{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+#sidebar-user-name{font-size:13.5px;font-weight:600;padding:0}
+#sidebar-user-email{font-size:11.5px;color:#7d786d}
+#save-btn{width:100%;min-height:38px;display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;background:var(--accent);color:#fff;border:0;border-radius:var(--r-m);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;transition:filter var(--t-fast)}
+#save-btn:hover{filter:brightness(1.08)}
+#sidebar .sbi{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#save-btn .sbi{width:17px;height:17px}
+.sb-group{padding:14px 20px 5px;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#8a857a}
+.sb-group:first-child{padding-top:8px}
+#sidebar .sb-icon{background:transparent!important;color:var(--ink-2);width:26px;height:26px;border-radius:0;filter:none!important}
+#sidebar .sb-btn{gap:10px;padding:8px 12px;color:#2b2926;transition:background var(--t-fast),color var(--t-fast)}
+#sidebar .sb-btn:hover .sb-icon{color:var(--accent)}
+#sidebar-foot{border-top:1px solid #f0ece6;padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
+#sidebar #logout-btn{color:#b4372b}
+#sidebar #logout-btn .sb-icon{color:#b4372b}
+body.dark #sidebar-header,body.dark #sidebar-foot{border-color:#2a2720}
+body.dark #login-btn{background:#2a2a25;color:#e8e4df;border-color:#44413a}
+body.dark #login-btn:hover{background:#33332d}
+body.dark #sidebar .sb-btn{color:#e0dbd2}
+body.dark #sidebar .sb-icon{color:#aaa49a}
+body.dark #sidebar .sb-btn:hover .sb-icon{color:#9db3e6}
+body.dark .sb-group{color:#8f897d}
+body.dark #sidebar-user-email{color:#a39d90}
+body.dark #sidebar #logout-btn,body.dark #sidebar #logout-btn .sb-icon{color:#f08a7e}
+/* Avisos (no lugar de alert) */
+#notices{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:420;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:min(92vw,460px)}
+.nt{pointer-events:auto;display:flex;align-items:flex-start;gap:10px;width:100%;padding:12px 12px 12px 14px;background:#1f1f1b;color:#f5f2ec;border-radius:var(--r-m);box-shadow:var(--sh-3);font-size:13.5px;line-height:1.4;border-left:4px solid #93c5fd;opacity:0;transform:translateY(10px);transition:opacity var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
+.nt.in{opacity:1;transform:none}
+.nt.err{border-left-color:#f87171}.nt.ok{border-left-color:#4ade80}
+.nt .nt-m{flex:1;min-width:0;overflow-wrap:anywhere}
+.nt button{flex:none;border:0;background:transparent;color:#bbb;font-size:15px;line-height:1;width:24px;height:24px;border-radius:6px;cursor:pointer;padding:0}
+.nt button:hover{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:520px){#notices{bottom:16px}}
+/* Atalhos */
+.kb-grid{display:grid;grid-template-columns:1fr auto;gap:2px 18px;font-size:13px;align-items:center}
+.kb-grid .kb-h{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#7d786d;margin:12px 0 4px}
+.kb-grid .kb-h:first-child{margin-top:0}
+.kb-grid span.d{padding:5px 0}
+.kb-grid span.k{display:flex;gap:4px;justify-content:flex-end;padding:5px 0}
+kbd{font:600 11.5px Inter,system-ui,sans-serif;min-width:22px;text-align:center;padding:2px 7px;border-radius:6px;border:1px solid #d8d3ca;border-bottom-width:2px;background:#faf8f4;color:#3a3732}
+body.dark kbd{background:#2a2a25;border-color:#4a463d;color:#e0dbd2}
+body.dark .kb-grid .kb-h{color:#a39d90}
+/* Foco visível por teclado em tudo */
+:where(button,a,input,select,textarea,[role="button"],[tabindex]):focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:inherit}
+body.dark :where(button,a,input,select,textarea,[role="button"],[tabindex]):focus-visible{outline-color:#9db3e6}
+svg text:focus-visible{outline:none;text-decoration:underline}
+
+/* Cabeçalho: um botão principal, o resto discreto */
+#bar .rg.txt .bg{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+#bar .rg.txt .bg:hover{filter:brightness(1.1)}
+#bar .rg.txt .bo{background:#fff;border-color:#d8d3ca;color:#3a3732;font-weight:600}
+#bar .rg.txt .bo:hover{background:#f5f2ee}
+body.dark #bar .rg.txt .bg{background:#5b73a1;border-color:#5b73a1;color:#fff}
+body.dark #bar .rg.txt .bo{background:#2a2a25;border-color:#4a463d;color:#e8e4df}
+body.dark #bar .rg.txt .bo:hover{background:#33332d}
+.seg-g{display:inline-flex;border:1px solid #d8d3ca;border-radius:20px;overflow:hidden;background:#fff}
+.seg-g button{border:0!important;border-radius:0!important;background:transparent!important}
+.seg-g button+button{border-left:1px solid #e3ded6!important}
+.seg-g button:hover{background:rgba(120,110,95,.1)!important}
+body.dark .seg-g{background:#2a2a25;border-color:#4a463d}
+body.dark .seg-g button+button{border-left-color:#4a463d!important}
+#viewbtn.mod .vdot{display:flex;align-items:center;justify-content:center;position:static;min-width:16px;height:16px;padding:0 4px;margin-left:6px;border-radius:8px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;line-height:1}
+#local-badge span{display:none}
+#local-badge{padding:5px;border-radius:50%}
+#zoomctl{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:20;display:flex;align-items:center;gap:2px;padding:3px;background:#fff;border:1px solid #e3ded6;border-radius:999px;box-shadow:var(--sh-2)}
+#zoomctl button{width:28px;height:28px;padding:0;border:0;border-radius:50%;background:transparent;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2)}
+#zoomctl button:hover{background:rgba(120,110,95,.12)}
+#zoomctl svg.ic{width:15px;height:15px}
+#zoomctl #zl{min-width:40px;text-align:center;font-size:11.5px;font-weight:600;color:#57534e;font-variant-numeric:tabular-nums}
+body.dark #zoomctl{background:#23231f;border-color:#3a3730}
+body.dark #zoomctl #zl{color:#cfcac0}
+body.dark #zoomctl button{color:#cfcac0;background:transparent}
+body.home #zoomctl,body.globo-on #zoomctl{display:none}
+@media(max-width:640px){#zoomctl{display:none}}
+
+.vm-tabs{display:flex;gap:2px;margin:8px 0 12px;padding:3px;background:rgba(120,110,95,.1);border-radius:10px}
+.vm-tab{flex:1;border:0!important;background:transparent!important;border-radius:8px!important;padding:6px 4px!important;font-size:12px!important;font-weight:600;color:#6f6a60!important;cursor:pointer;transition:background var(--t-fast),color var(--t-fast),box-shadow var(--t-fast)}
+.vm-tab.on{background:#fff!important;color:#1f1d1a!important;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+body.dark .vm-tab{color:#a39d90!important}
+body.dark .vm-tab.on{background:#3a3a33!important;color:#f1ede6!important}
+.vm-panel{display:none}
+.vm-panel.on{display:block;animation:vmIn .22s var(--ease)}
+@keyframes vmIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.vm-foot{border-top:1px solid #eee8de;margin:2px -14px 0;padding:10px 14px 0}
+body.dark .vm-foot{border-color:#3a3730}
+.vm-reset{width:100%;border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:600;padding:6px;border-radius:8px;cursor:pointer}
+.vm-reset:hover{background:rgba(77,97,144,.1)}
+body.dark .vm-reset{color:#9db3e6}
+@media (prefers-reduced-motion:reduce){.vm-panel.on{animation:none}}
 </style>
 
 <!-- Firebase SDK -->
@@ -718,54 +817,32 @@ auth.getRedirectResult().then(function(result){
 <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- Sidebar -->
-<div id="sidebar">
+<div id="sidebar" role="navigation" aria-label="Menu principal">
   <div id="sidebar-header">
-    <div id="sidebar-user-name" style="font-size:13px;font-weight:600;color:#1a1a18;padding:4px 0 12px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-    <button id="login-btn" onclick="fbLogin()" style="width:100%;min-height:42px;padding:8px 14px;background:#4285f4;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:600;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;white-space:nowrap;box-shadow:0 1px 3px rgba(66,133,244,.35)">
-      <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:#fff;border-radius:7px;flex:none"><svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="display:block"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z" fill="#EA4335"/></svg></span>
-      <span style="line-height:1">Entrar com Google</span>
-    </button>
-    <button id="save-btn" onclick="fbSave()" style="display:none;width:100%;padding:8px;background:#166534;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif">☁ Salvar</button>
+    <button id="login-btn" type="button" onclick="fbLogin()"><span class="g-ic"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72A5.41 5.41 0 0 1 3.68 9c0-.6.1-1.18.29-1.72V4.95H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.05z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg></span><span>Entrar com Google</span></button>
+    <div id="sb-profile" style="display:none"><span id="sidebar-avatar" aria-hidden="true"></span><span class="sb-who"><span id="sidebar-user-name"></span><span id="sidebar-user-email"></span></span></div>
+    <button id="save-btn" type="button" onclick="fbSave()" style="display:none"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .9-7.9A5.5 5.5 0 0 0 7.3 8.6 4.5 4.5 0 0 0 7 18z"/></svg><span>Salvar na nuvem</span></button>
   </div>
   <div id="sidebar-body">
-    <button class="sb-btn" onclick="showProjects();closeSidebar()">
-      <span class="sb-icon" style="background:#ede9ff">📁</span> Projetos
-    </button>
-    <button class="sb-btn" onclick="showModelos();closeSidebar()">
-      <span class="sb-icon" style="background:#ccfbf1"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true" style="stroke:#0d9488;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round"><rect x="7" y="7" width="14" height="14" rx="3.5"/><rect x="27" y="7" width="14" height="14" rx="3.5"/><rect x="7" y="27" width="14" height="14" rx="3.5"/><path d="M27 34h14M27 40h9"/></svg></span> Modelos prontos
-    </button>
-    <button class="sb-btn" onclick="showShare();closeSidebar()" title="Gera um link para outras pessoas verem esta linha do tempo, só para leitura">
-      <span class="sb-icon" style="background:#e0f2fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#0369a1;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></span> Compartilhar link
-    </button>
-    <button class="sb-btn" onclick="showStudy();closeSidebar()" title="Quiz e flashcards com os eventos desta linha do tempo">
-      <span class="sb-icon" style="background:#ede9fe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#6d28d9;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M2.5 9 12 4l9.5 5L12 14z"/><path d="M6.5 11.3V16c0 1.3 2.5 2.7 5.5 2.7s5.5-1.4 5.5-2.7v-4.7"/><path d="M21.5 9v5.5"/></svg></span> Estudar (quiz e cartões)
-    </button>
-    <button class="sb-btn" onclick="openGlobo()" title="Os eventos no mapa: um globo com o lugar de cada acontecimento">
-      <span class="sb-icon" style="background:#dbeafe"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#1d4ed8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9z"/></svg></span> Globo
-    </button>
-    <button class="sb-btn" onclick="closeSidebar();printSummary()" title="Folha com os eventos e chaves em ordem de data, pronta para imprimir ou salvar em PDF">
-      <span class="sb-icon" style="background:#fce7f3"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#be185d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="2"/><path d="M7 14h10v7H7z"/></svg></span> Imprimir resumo
-    </button>
-    <button class="sb-btn" onclick="closeSidebar();startTour(true)" title="Passo a passo rápido do site">
-      <span class="sb-icon" style="background:#fef9c3"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#a16207;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6v.1"/></svg></span> Ver tutorial
-    </button>
-    <button class="sb-btn" id="sb-install" style="display:none" onclick="installApp();closeSidebar()" title="Instala o site como aplicativo, com ícone na tela inicial e uso sem internet">
-      <span class="sb-icon" style="background:#dcfce7"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#15803d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Instalar como aplicativo
-    </button>
-    <button class="sb-btn" onclick="showImport();closeSidebar()">
-      <span class="sb-icon" style="background:#fff7ed"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#c2410c;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 4h14"/></svg></span> Importar linha do tempo
-    </button>
-    <div class="sb-divider"></div>
-    <button class="sb-btn" onclick="expPNG();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado">
-      <span class="sb-icon" style="background:#f0fdf4"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#15803d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Exportar imagem (PNG)
-    </button>
-    <button class="sb-btn" onclick="expPDF();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado">
-      <span class="sb-icon" style="background:#fef2f2"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#dc2626;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span> Exportar PDF
-    </button>
-    <div class="sb-divider"></div>
-    <button id="logout-btn" class="sb-btn" onclick="fbLogout();closeSidebar()" style="display:none;color:#e55">
-      <span class="sb-icon" style="background:#fef2f2"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="stroke:#dc2626;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg></span> Sair da conta
-    </button>
+    <div class="sb-group" role="presentation">Arquivo</div>
+    <button class="sb-btn" onclick="showProjects();closeSidebar()"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="sb-t">Projetos</span></button>
+    <button class="sb-btn" onclick="showModelos();closeSidebar()"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><path d="M14 15h6.5M14 19h6.5"/></svg></span><span class="sb-t">Modelos prontos</span></button>
+    <button class="sb-btn" onclick="showImport();closeSidebar()"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 4h14"/></svg></span><span class="sb-t">Importar linha do tempo</span></button>
+    <div class="sb-group" role="presentation">Explorar e estudar</div>
+    <button class="sb-btn" onclick="openGlobo()" title="Os eventos no mapa: um globo com o lugar de cada acontecimento"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9z"/></svg></span><span class="sb-t">Globo</span></button>
+    <button class="sb-btn" onclick="showStudy();closeSidebar()" title="Quiz e flashcards com os eventos desta linha do tempo"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9 12 4l9.5 5L12 14z"/><path d="M6.5 11.3V16c0 1.3 2.5 2.7 5.5 2.7s5.5-1.4 5.5-2.7v-4.7"/><path d="M21.5 9v5.5"/></svg></span><span class="sb-t">Estudar (quiz e cartões)</span></button>
+    <div class="sb-group" role="presentation">Compartilhar e exportar</div>
+    <button class="sb-btn" onclick="showShare();closeSidebar()" title="Gera um link para outras pessoas verem esta linha do tempo, só para leitura"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></span><span class="sb-t">Compartilhar link</span></button>
+    <button class="sb-btn" onclick="closeSidebar();printSummary()" title="Folha com os eventos e chaves em ordem de data, pronta para imprimir ou salvar em PDF"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="2"/><path d="M7 14h10v7H7z"/></svg></span><span class="sb-t">Imprimir resumo</span></button>
+    <button class="sb-btn" onclick="expPNG();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="9" cy="9" r="1.8"/><path d="m21 16-5-5-8 8"/></svg></span><span class="sb-t">Exportar imagem (PNG)</span></button>
+    <button class="sb-btn" onclick="expPDF();closeSidebar()" title="Exporta o que está na tela; com filtro ligado, só o que está filtrado"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span><span class="sb-t">Exportar PDF</span></button>
+    <div class="sb-group" role="presentation">Ajuda</div>
+    <button class="sb-btn" onclick="closeSidebar();startTour(true)" title="Passo a passo rápido do site"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6v.1"/></svg></span><span class="sb-t">Ver tutorial</span></button>
+    <button class="sb-btn" onclick="closeSidebar();showKeys()" title="Lista de atalhos (tecla ?)"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10 10h.01M14 10h.01M17.5 10h.01M7 14h10"/></svg></span><span class="sb-t">Atalhos de teclado</span></button>
+    <button class="sb-btn" id="sb-install" onclick="installApp();closeSidebar()" style="display:none" title="Instala o site como aplicativo, com ícone na tela inicial e uso sem internet"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></span><span class="sb-t">Instalar como aplicativo</span></button>
+  </div>
+  <div id="sidebar-foot">
+    <button id="logout-btn" class="sb-btn" type="button" onclick="fbLogout();closeSidebar()" style="display:none"><span class="sb-icon"><svg class="sbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg></span><span class="sb-t">Sair da conta</span></button>
   </div>
 </div>
 
@@ -779,12 +856,13 @@ auth.getRedirectResult().then(function(result){
     <div class="rg txt">
       <button class="bg" onclick="onm()" title="Adicionar um acontecimento num ano">+ Data</button>
       <button class="bo" onclick="onb()" title="Marcar um período (ex.: Segundo Reinado) em cima ou embaixo da linha">+ Chave</button>
-      <button onclick="toggleSpacing()" id="modebtn" title="Espaçamento proporcional por década">Décadas</button>
-      <button onclick="toggleViewMenu(event)" id="viewbtn" aria-haspopup="dialog" aria-expanded="false" title="Detalhe, cores, tipos de chave e mapa de eras">Exibir<span class="vdot"></span></button>
+      <div class="seg-g" role="group" aria-label="Visualização">
+        <button onclick="toggleSpacing()" id="modebtn" title="Espaçamento proporcional por década">Décadas</button>
+        <button onclick="toggleViewMenu(event)" id="viewbtn" aria-haspopup="dialog" aria-expanded="false" title="Detalhe, cores, tipos de chave e mapa de eras">Exibir<span class="vdot"></span></button>
+      </div>
     </div>
     <span class="rsep"></span>
     <div class="rg ico">
-      <span id="zl" title="Zoom" style="font-size:11px;color:#aaa;min-width:36px;text-align:center;cursor:default">100%</span>
       <button onclick="toggleSearch()" title="Buscar ano, evento ou chave (Ctrl+F ou /)" aria-label="Buscar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
       <button onclick="toggleDark()" id="darkbtn" title="Modo escuro (D)" aria-label="Modo escuro"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
       <button onclick="rv()" title="Ir para última data adicionada" aria-label="Ir para última data adicionada"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.2"/><path d="M12 2.5v3.5M12 18v3.5M2.5 12H6M18 12h3.5"/></svg></button>
@@ -794,6 +872,7 @@ auth.getRedirectResult().then(function(result){
     </div>
   </div>
 </div>
+<div id="zoomctl" role="group" aria-label="Zoom"><button type="button" onclick="dz(-1)" aria-label="Afastar" title="Afastar (−)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span id="zl" title="Zoom">100%</span><button type="button" onclick="dz(1)" aria-label="Aproximar" title="Aproximar (+)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>
 <div id="moremenu" role="menu" aria-label="Mais opções"></div>
 <div id="viewmenu" role="dialog" aria-label="Opções de exibição"></div>
 <div id="viewbar" role="status" style="display:none"><span class="vb-t"><b>Somente leitura</b> · <span id="vb-name"></span></span><span class="vb-b"><button type="button" onclick="viewMakeCopy()">Editar uma cópia</button><button type="button" onclick="viewLeave()">Criar a minha</button><button type="button" onclick="showStudy()">Estudar</button></span></div>
@@ -1664,6 +1743,55 @@ function toggleMore(e){
   m.classList.add('on'); b.setAttribute('aria-expanded','true');
 }
 document.addEventListener('click',function(e){var m=document.getElementById('moremenu'); if(m&&m.classList.contains('on')&&!m.contains(e.target)){m.classList.remove('on');var b=document.getElementById('morebtn');if(b)b.setAttribute('aria-expanded','false');}});
+
+/* ---------- Avisos (substituem alert) ---------- */
+(function(){
+  var host=null;
+  window._notify=function(msg,kind){
+    msg=String(msg==null?'':msg); if(!msg)return;
+    if(!host){host=document.createElement('div'); host.id='notices'; host.setAttribute('aria-live','polite'); document.body.appendChild(host);}
+    if(!kind)kind=/^(erro|não foi possível|sem internet|aguarde|digite|preencha|dê um nome|já existe|ano já|abra ou|os filtros|esta versão)/i.test(msg)?'err':'';
+    var n=document.createElement('div'); n.className='nt'+(kind?' '+kind:''); n.setAttribute('role',kind==='err'?'alert':'status');
+    var m=document.createElement('div'); m.className='nt-m'; m.textContent=msg; n.appendChild(m);
+    var x=document.createElement('button'); x.type='button'; x.setAttribute('aria-label','Fechar aviso'); x.textContent='✕'; n.appendChild(x);
+    var gone=false, close=function(){ if(gone)return; gone=true; n.classList.remove('in'); setTimeout(function(){if(n.parentNode)n.parentNode.removeChild(n);},300); };
+    x.addEventListener('click',close);
+    while(host.children.length>=3)host.removeChild(host.firstChild);
+    host.appendChild(n); requestAnimationFrame(function(){requestAnimationFrame(function(){n.classList.add('in');});});
+    setTimeout(close,Math.min(12000,3800+msg.length*55));
+  };
+  window.alert=function(msg){ window._notify(msg); };
+})();
+function _sbProfile(user){
+  var lb=document.getElementById('login-btn'), pf=document.getElementById('sb-profile'); if(!pf)return;
+  if(!user){pf.style.display='none'; if(lb)lb.style.display=''; return;}
+  pf.style.display='flex'; if(lb)lb.style.display='none';
+  var av=document.getElementById('sidebar-avatar'), em=document.getElementById('sidebar-user-email');
+  if(em)em.textContent=user.email||'';
+  if(av){
+    if(user.photoURL){av.style.backgroundImage='url("'+String(user.photoURL).replace(/["\\\n]/g,'')+'")'; av.textContent='';}
+    else{av.style.backgroundImage=''; av.textContent=((user.displayName||user.email||'?').trim().charAt(0)||'?').toUpperCase();}
+  }
+}
+/* ---------- Atalhos de teclado ---------- */
+function showKeys(){
+  var rows=[['Linha do tempo'],['Mover','← → ↑ ↓'],['Aproximar / afastar','+  −'],['Voltar ao início do trecho','0'],['Buscar','/','ou','Ctrl','F'],['Modo escuro','D'],
+    ['Edição'],['Desfazer','Ctrl','Z'],['Refazer','Ctrl','Y'],['Salvar na nuvem','Ctrl','S'],
+    ['Geral'],['Fechar janela, busca ou destaque','Esc'],['Mostrar esta lista','?']];
+  var g=mkEl('div',{className:'kb-grid'});
+  rows.forEach(function(r){
+    if(r.length===1){g.appendChild(mkEl('div',{className:'kb-h',textContent:r[0]}));return;}
+    g.appendChild(mkEl('span',{className:'d',textContent:r[0]}));
+    var k=mkEl('span',{className:'k'}); r.slice(1).forEach(function(t){ if(t==='ou'){k.appendChild(mkEl('span',{textContent:'ou',style:'font-size:11px;color:#8a857a;align-self:center'}));} else k.appendChild(mkEl('kbd',{textContent:t})); }); g.appendChild(k);
+  });
+  var box=mkBox('Atalhos de teclado',[g],[mkBtn('Fechar','',cm)]);
+  sm(box,{key:'keys',mode:'view',width:CARD_W,rebuild:function(){showKeys();return true;}});
+}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='?'||e.ctrlKey||e.metaKey||e.altKey)return;
+  var t=(e.target.tagName||'').toLowerCase(); if(t==='input'||t==='textarea'||t==='select'||(e.target.isContentEditable))return;
+  e.preventDefault(); showKeys();
+});
 var _hlId=null, _stkRaf=0;
 function _brHLPath(gr){
   var p=gr&&gr.querySelector('path[data-vis]'); if(!p)return;
@@ -3234,10 +3362,11 @@ function _viewStats(){
   filters.forEach(function(f){if(f.g&&gps.indexOf(f.g)<0)gps.push(f.g);});
   return {n:n,tot:tot,tps:tps,tpOrder:tpOrder,gps:gps,hasImp:n[1]>0};
 }
+function _viewModCount(){var n=0,h=false;for(var k in viewOpts.hideTp){if(viewOpts.hideTp[k])h=true;} if(viewOpts.detail>1)n++; if(viewOpts.colorBy)n++; if(h)n++; if(viewOpts.fmode!=='facet')n++; if(viewOpts.map===false)n++; return n;}
 function _viewIsMod(){var h=false;for(var k in viewOpts.hideTp){if(viewOpts.hideTp[k])h=true;} return viewOpts.detail>1||!!viewOpts.colorBy||h;}
 function _viewApply(kind){
   _saveView();
-  var b=document.getElementById('viewbtn'); if(b)b.classList.toggle('mod',_viewIsMod());
+  var b=document.getElementById('viewbtn'); if(b){b.classList.toggle('mod',_viewModCount()>0); var vd=b.querySelector('.vdot'); if(vd)vd.textContent=_viewModCount()||'';}
   if(kind==='color'){draw(false);}
   else if(kind==='map'){_mmRefresh();}
   else {
@@ -3252,22 +3381,34 @@ function _vmSeg(opts,cur,fn){
   opts.forEach(function(o){var b=mkEl('button',{type:'button',className:o.v===cur?'on':''}); b.textContent=o.t; if(o.s){var sm=mkEl('small',{}); sm.textContent=o.s; b.appendChild(sm);} b.addEventListener('click',function(){fn(o.v);}); d.appendChild(b);});
   return d;
 }
-function _vmSec(box,title,hint){var sec=mkEl('div',{className:'vm-s'}); var h=mkEl('div',{className:'vm-h'}); h.appendChild(mkEl('span',{textContent:title})); if(hint){var i=mkEl('i',{}); i.textContent=hint; h.appendChild(i);} sec.appendChild(h); box.appendChild(sec); return sec;}
+var _vmP=null, _vmTab=0;
+function _vmSec(box,title,hint){var sec=mkEl('div',{className:'vm-s'}); var h=mkEl('div',{className:'vm-h'}); h.appendChild(mkEl('span',{textContent:title})); if(hint){var i=mkEl('i',{}); i.textContent=hint; h.appendChild(i);} sec.appendChild(h); (_vmP||box).appendChild(sec); return sec;}
 function _buildViewMenu(){
   var box=document.getElementById('viewmenu'); if(!box)return;
   while(box.firstChild)box.removeChild(box.firstChild);
   var st=_viewStats(), sec;
   var top=mkEl('div',{className:'vm-top'}); top.appendChild(mkEl('b',{},'Exibir'));
   var xb=mkEl('button',{type:'button',className:'vm-x','aria-label':'Fechar'},'×'); xb.addEventListener('click',function(){toggleViewMenu();}); top.appendChild(xb); box.appendChild(top);
+  var tabs=mkEl('div',{className:'vm-tabs',role:'tablist'}), panels=[], names=['Conteúdo','Aparência','Ferramentas'];
+  names.forEach(function(n,k){
+    var tb=mkEl('button',{type:'button',className:'vm-tab'+(k===_vmTab?' on':''),role:'tab','aria-selected':k===_vmTab?'true':'false'},n);
+    tb.addEventListener('click',function(){_vmTab=k; tabs.querySelectorAll('.vm-tab').forEach(function(t,q){t.classList.toggle('on',q===k);t.setAttribute('aria-selected',q===k?'true':'false');}); panels.forEach(function(p,q){p.classList.toggle('on',q===k);});});
+    tabs.appendChild(tb);
+    var p=mkEl('div',{className:'vm-panel'+(k===_vmTab?' on':''),role:'tabpanel'}); panels.push(p);
+  });
+  box.appendChild(tabs); panels.forEach(function(p){box.appendChild(p);});
+  _vmP=panels[0];
   if(st.hasImp){
     sec=_vmSec(box,'Nível de detalhe','quanto mostrar na linha');
     sec.appendChild(_vmSeg([{v:3,t:'Só marcos',s:st.n[3]+' eventos'},{v:2,t:'Principais',s:st.n[2]+' eventos'},{v:1,t:'Tudo',s:st.tot+' eventos'}],viewOpts.detail,function(v){viewOpts.detail=v;_viewApply('detail');}));
     sec.appendChild(mkEl('div',{className:'vm-note',textContent:'Os eventos menos importantes saem da linha e do globo; os anos que ficam vazios somem, e a linha encolhe.'}));
   }
   if(st.gps.length){
+    _vmP=panels[1];
     sec=_vmSec(box,'Colorir eventos por');
     var co=[{v:'',t:'Original'}]; st.gps.forEach(function(g){co.push({v:g,t:g});});
     sec.appendChild(_vmSeg(co,viewOpts.colorBy,function(v){viewOpts.colorBy=v;_viewApply('color');}));
+    _vmP=panels[0];
     sec=_vmSec(box,'Combinar filtros','quando usar mais de um');
     sec.appendChild(_vmSeg([{v:'facet',t:'Cruzar grupos',s:'Europa + Guerras = guerras da Europa'},{v:'or',t:'Qualquer um',s:'Europa ou Guerras'}],viewOpts.fmode,function(v){viewOpts.fmode=v;_viewApply('filter');}));
   }
@@ -3284,6 +3425,7 @@ function _buildViewMenu(){
     sec.appendChild(ck);
     sec.appendChild(mkEl('div',{className:'vm-note',textContent:'Esconder um tipo fecha as faixas vazias: o que sobrou fica junto da linha.'}));
   }
+  _vmP=panels[2];
   sec=_vmSec(box,'Panorama','o que acontecia ao mesmo tempo');
   var pb=mkEl('button',{type:'button',className:'vm-act'},'Abrir panorama do ponto atual'); pb.addEventListener('click',function(){openPanorama();}); sec.appendChild(pb);
   if(_modeloKey){
@@ -3291,9 +3433,23 @@ function _buildViewMenu(){
     var lb2=mkEl('button',{type:'button',className:'vm-act'},'Copiar link do recorte atual'); lb2.addEventListener('click',function(){_copyRecorte(lb2);}); sec.appendChild(lb2);
     sec.appendChild(mkEl('div',{className:'vm-note',textContent:'O link abre este modelo no trecho que você está vendo, com os mesmos filtros e opções de exibição.'}));
   }
+  _vmP=panels[1];
   sec=_vmSec(box,'Mapa de eras');
   sec.appendChild(_vmSeg([{v:true,t:'Mostrar'},{v:false,t:'Esconder'}],viewOpts.map,function(v){viewOpts.map=v;_viewApply('map');}));
-  var b=document.getElementById('viewbtn'); if(b)b.classList.toggle('mod',_viewIsMod());
+  sec=_vmSec(box,'Tema');
+  sec.appendChild(_vmSeg([{v:false,t:'Claro'},{v:true,t:'Escuro'}],!!darkMode,function(v){ if(!!darkMode!==v)toggleDark(); _buildViewMenu(); }));
+  _vmP=null;
+  // painéis vazios somem; sem nada para mostrar numa aba, ela também
+  panels.forEach(function(p,k){ if(!p.children.length){tabs.children[k].style.display='none'; if(_vmTab===k){_vmTab=0;}} });
+  if(!panels[_vmTab].children.length){for(var q=0;q<panels.length;q++){if(panels[q].children.length){_vmTab=q;break;}}}
+  tabs.querySelectorAll('.vm-tab').forEach(function(t,q){t.classList.toggle('on',q===_vmTab);}); panels.forEach(function(p,q){p.classList.toggle('on',q===_vmTab);});
+  var n=_viewModCount();
+  if(n){
+    var ft=mkEl('div',{className:'vm-foot'}); var rb=mkEl('button',{type:'button',className:'vm-reset'},'Restaurar padrão ('+n+')');
+    rb.addEventListener('click',function(){ viewOpts.detail=1; viewOpts.colorBy=''; viewOpts.hideTp={}; viewOpts.fmode='facet'; viewOpts.map=true; _viewApply('detail'); });
+    ft.appendChild(rb); box.appendChild(ft);
+  }
+  var b=document.getElementById('viewbtn'); if(b){b.classList.toggle('mod',n>0); var vd=b.querySelector('.vdot'); if(vd)vd.textContent=n||'';}
 }
 function toggleViewMenu(ev){
   if(ev)ev.stopPropagation();
@@ -4968,6 +5124,7 @@ auth.onAuthStateChanged(function(user){
       if(projectsBtn) projectsBtn.style.display = '';
       var sbN=document.getElementById('sidebar-user-name');
       if(sbN) sbN.textContent = user.displayName || user.email || 'Usuário';
+      _sbProfile(user);
       var openFlag=_takeOpenProjectsFlag();
       if(!wasUser)_maybeFirstLoginTour(user);
       setTimeout(_runPendingModelo,700);
@@ -4992,6 +5149,7 @@ auth.onAuthStateChanged(function(user){
       if(projectsBtn) projectsBtn.style.display = 'none';
       var sbN2=document.getElementById('sidebar-user-name');
       if(sbN2) sbN2.textContent = '';
+      _sbProfile(null);
       if(wasUser){   // saiu da conta: limpa a tela (o que estava salvo continua na conta)
         _switchProject(); _started=false;
         marks=[]; brackets=[]; loadFilters([]); _currentProjectId=null; _currentProjectName='Sem título';
