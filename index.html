@@ -365,7 +365,7 @@ body.dark .vm-seg button.on{background:#e5e7eb;border-color:#e5e7eb;color:#111}
 @media (prefers-reduced-motion:reduce){#fcoll,#fhead .chev{transition:none}}
 /* com o globo aberto (telas largas), a lista de filtros vira um painel que flutua por cima do mapa */
 @media (min-width:641px){
-  body.globo-on #fbar{position:relative;z-index:60}
+  body.globo-on #fbar{position:relative;z-index:46}
   body.globo-on #fcoll{position:absolute;left:0;right:0;top:100%;display:block;flex:none;z-index:61;background:#fff;border:1px solid #e8e3da;border-top:0;border-radius:0 0 16px 16px;box-shadow:0 18px 40px rgba(40,30,15,.18);padding:6px 16px 14px;max-height:min(64vh,560px);overflow-y:auto;visibility:visible;transform:translateY(0);transition:opacity .26s ease,transform .32s cubic-bezier(.4,0,.2,1),visibility 0s}
   body.globo-on #fbar.fclosed #fcoll{opacity:0;transform:translateY(-10px);visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .28s cubic-bezier(.4,0,.2,1),visibility 0s .28s}
   body.globo-on #fcin{overflow:visible}
@@ -1119,7 +1119,8 @@ function setFilterState(fid,st){
 }
 function visBrackets(){
   var hiding=false,k; for(k in viewOpts.hideTp){if(viewOpts.hideTp[k]){hiding=true;break;}}
-  var thin=viewOpts.detail>1&&brackets.length>0;                            // detalhe menor encolhe a linha: os nomes das chaves podem passar a se encostar
+  var grav=brackets.some(function(b){return b.tp;});                          // modelos com tipo de chave: cada faixa desce até o lugar livre mais perto da linha
+  var thin=(viewOpts.detail>1||grav)&&brackets.length>0;                            // detalhe menor encolhe a linha: os nomes das chaves podem passar a se encostar
   if(!isFiltering()&&!hiding&&!thin)return brackets;
   var vis=brackets.filter(function(b){return tpShown(b)&&(!isFiltering()||passF(b));});
   var lane=vis.map(function(b){return b.lane;});
@@ -1128,7 +1129,7 @@ function visBrackets(){
     var ext=vis.map(function(b){var x1=xOf(b.from),x2=xOf(b.to); if(x2<=x1)x2=x1+20; var lw=(b.label||'').length*bf*0.74+14, mid=(x1+x2)/2; return [Math.min(x1,mid-lw/2),Math.max(x2,mid+lw/2)];});
     ord.sort(function(i,j){return (vis[i].lane-vis[j].lane)||(vis[i].from-vis[j].from);});
     ord.forEach(function(i){
-      var sd=vis[i].side==='bottom'?'bottom':'top', L=vis[i].lane, e=ext[i], arr, ok;
+      var sd=vis[i].side==='bottom'?'bottom':'top', L=grav?0:vis[i].lane, e=ext[i], arr, ok;
       for(;;){arr=pk[sd][L]||(pk[sd][L]=[]); ok=true; for(var q=0;q<arr.length;q++){if(e[0]<arr[q][1]+6&&e[1]>arr[q][0]-6){ok=false;break;}} if(ok)break; L++;}
       arr.push(e); lane[i]=L;
     });
