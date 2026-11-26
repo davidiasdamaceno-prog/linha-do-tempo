@@ -257,7 +257,11 @@ function clickCountry(p){var ll=proj.invert?proj.invert(p):null;if(!ll||!isFinit
  openCountry(f);}
 function openCountry(f){selC={f:f};var nm=geo.ptn[f.properties.name]||f.properties.name;openKey='ctry:'+nm;
  var evs=countryEvents(f);
- showList(nm,evs.length?evs.length+(evs.length===1?' evento neste país':' eventos neste país')+' · toque para abrir':'Nenhum evento com lugar neste país',evs,{dim:true,place:true,fly:true});
+ var nl=evs.filter(function(e){return e.y>=win.a&&e.y<=win.b;}).length;
+ showList(nm,evs.length?evs.length+(evs.length===1?' evento neste país':' eventos neste país')+(nl&&nl<evs.length?' · '+nl+' em destaque no período':' · toque para abrir'):'Nenhum evento com lugar neste país',evs,{dim:true,place:true,fly:true});
+ cardBody.scrollTop=0;
+ var first=cardBody.querySelector('.ev:not(.dim)');   // leva direto aos eventos em destaque (os de fora do período ficam esmaecidos acima)
+ if(first&&cardBody.querySelector('.ev.dim'))setTimeout(function(){var top=first.offsetTop-(cardBody.firstElementChild?cardBody.firstElementChild.offsetTop:0);try{cardBody.scrollTo({top:Math.max(0,top-4),behavior:'smooth'});}catch(x){cardBody.scrollTop=Math.max(0,top-4);}},160);
  if(evs.length&&evs.length<=40)fitEvents(evs);}
 function flyTo(lon,lat,k,ms){var dl=((lon-view.lon+540)%360)-180;fly={t0:performance.now(),ms:ms||900,s:{lon:view.lon,lat:view.lat,k:view.k},dl:dl,lat:clampLat(lat),k:k};inertia=null;wake();}
 $('zin').onclick=function(){flyTo(view.lon,view.lat,Math.min(14,view.k*1.6),350);};
