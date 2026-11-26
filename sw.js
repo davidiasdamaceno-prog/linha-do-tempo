@@ -1,6 +1,6 @@
 // Service worker da Linha do Tempo: deixa o site abrir sem internet depois da primeira visita.
 // Para forçar todo mundo a baixar tudo de novo, troque o número da versão.
-var VERSION = 'v2';
+var VERSION = 'v3';
 var CORE = 'jt-core-' + VERSION;      // página, ícones e modelos (nossos arquivos)
 var EXT = 'jt-ext-' + VERSION;        // fontes e scripts do Firebase (de outros domínios)
 var PRECACHE = [
@@ -51,6 +51,8 @@ self.addEventListener('fetch', function (e) {
   }
   if (url.origin === self.location.origin) {
     if (/sw\.js$/.test(url.pathname)) return;   // o próprio service worker não passa por aqui
+    // o globo muda com frequência: tenta a versão nova primeiro (sem internet, usa a guardada)
+    if (url.pathname.indexOf('/globo/') >= 0) { e.respondWith(networkFirst(req, CORE)); return; }
     e.respondWith(staleWhileRevalidate(req, CORE));
     return;
   }
