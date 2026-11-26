@@ -1,0 +1,12 @@
+Copyright (c) 2026 Davi. Todos os direitos reservados.
+All rights reserved.
+
+Este software e o seu código-fonte são de propriedade de Davi. Nenhuma parte
+pode ser copiada, modificada, distribuída ou usada em outros projetos sem
+autorização prévia e por escrito do autor. É permitido apenas visualizar o
+código e usar o site publicado.
+
+Componentes de terceiros mantêm suas próprias licenças:
+- Fonte Inter (SIL Open Font License 1.1): fonts/LICENSE-Inter.txt
+- d3-geo e dados de fronteiras usados no globo: licenças dos respectivos autores
+- Firebase SDK: Apache License 2.0
