@@ -347,9 +347,18 @@ function syncTL(){winEl.style.left=xOf(win.a)+'%';winEl.style.width=(xOf(win.b)-
 function setWindow(a,b,quiet){a=Math.max(D0,a);b=Math.min(D1,b);if(WP(b)-WP(a)<.008){b=WPi(WP(a)+.008);}setPlay(false);winTween={t0:performance.now(),ms:quiet?500:650,a0:win.a,a1:a,b0:win.b,b1:b};wake();}
 var PRESETS=[],presEl=$('presets'),scrRange=null;
 function cap(s){s=String(s||'');return s.charAt(0)+s.slice(1).toLowerCase();}
+// escolhe até k chaves sem sobreposição que cobrem a maior parte do eixo (em escala do tempo comprimido): programação dinâmica de intervalos ponderados
+function tile(list,k){
+ var L=list.filter(function(c){return c.b>c.a;}).sort(function(x,y){return x.b-y.b||x.a-y.a;}),n=L.length;if(!n)return [];
+ var w=L.map(function(c){return WP(c.b)-WP(c.a);});
+ var p=L.map(function(c,i){var lo=0,hi=i-1,r=-1;while(lo<=hi){var m=(lo+hi)>>1;if(L[m].b<=c.a){r=m;lo=m+1;}else hi=m-1;}return r;});
+ var dp=[],ch=[];for(var j=0;j<=k;j++){dp.push(new Array(n+1).fill(0));ch.push(new Array(n+1).fill(0));}
+ for(var j=1;j<=k;j++)for(var i=1;i<=n;i++){var a=dp[j][i-1],b=w[i-1]+dp[j-1][p[i-1]+1];if(b>a){dp[j][i]=b;ch[j][i]=1;}else dp[j][i]=a;}
+ var res=[],i=n,j=k;while(i>0&&j>0){if(ch[j][i]){res.push(L[i-1]);i=p[i-1]+1;j--;}else i--;}
+ return res.reverse();}
 function buildPresets(){PRESETS=[['Tudo',D0,D1]];
  if(scrRange)PRESETS.push(['Na linha do tempo',scrRange[0],scrRange[1]]);
- CHAVES.slice().sort(function(x,y){return (y.b-y.a)-(x.b-x.a);}).reduce(function(acc,c){if(acc.length>=10)return acc;var ok=acc.every(function(o){var ov=Math.min(o.b,c.b)-Math.max(o.a,c.a);return ov<=0.1*Math.min(o.b-o.a,c.b-c.a);});if(ok)acc.push(c);return acc;},[]).sort(function(x,y){return x.a-y.a;}).forEach(function(c){var n=cap(c.l);if(n.length>26)n=n.slice(0,25)+'…';PRESETS.push([n,c.a,c.b]);});
+ tile(CHAVES,8).forEach(function(c){var n=cap(c.l);if(n.length>26)n=n.slice(0,25)+'…';PRESETS.push([n,c.a,c.b]);});
  presEl.textContent='';PRESETS.forEach(function(p){var b=el('button','pre',p[0]);b.onclick=function(){setWindow(p[1],p[2]);};presEl.appendChild(b);});}
 // arrastar a janela
 var tdrag=null;
