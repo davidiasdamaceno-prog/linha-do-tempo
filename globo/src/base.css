@@ -1,5 +1,5 @@
 :host{--bg:#f6f3ed;--panel:#fffdf9;--ink:#1f1d1a;--mute:#6f6a60;--line:#e1dbcf;--soft:#efe9dd;--on:#1f1d1a;--onink:#fffdf9;--shadow:0 6px 24px rgba(40,30,10,.12)}
-:host([data-theme="dark"]){--bg:#14130f;--panel:#1c1b16;--ink:#ece7df;--mute:#9a948a;--line:#34312a;--soft:#26241e;--on:#ece7df;--onink:#14130f;--shadow:0 6px 24px rgba(0,0,0,.45)}
+:host([data-theme="dark"]){--bg:#14130f;--panel:#1c1b16;--ink:#ece7df;--mute:#9a948a;--line:#34312a;--soft:#26241e;--on:#4d6190;--onink:#f7f4ee;--shadow:0 6px 24px rgba(0,0,0,.45)}
 *{box-sizing:border-box}
 button{font:inherit;color:inherit;cursor:pointer}
 .ctl{display:flex;align-items:center;gap:8px}
