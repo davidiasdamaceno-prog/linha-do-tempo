@@ -3328,7 +3328,7 @@ function _cleanShared(o){
       var ne={id:str(e.id||('s'+nEv),64),text:str(e.text,200),color:col(e.color),desc:str(e.desc,4000)};
       if(Array.isArray(e.imgs)){var im=_imgList(e); if(im.length)ne.imgs=im;} if(typeof e.descH==='string')ne.descH=str(e.descH,12000);
       var f=flt(e.flt); if(f&&f.length)ne.flt=f; var lg=_lugOk(e.lug); if(lg)ne.lug=lg; evs.push(ne); });
-    if(evs.length)mk.push({year:Math.round(m.year),events:evs});
+    mk.push({year:Math.round(m.year),events:evs});   // anos sem evento também contam: são marcas da linha
   });
   var br=[]; o.b.slice(0,1500).forEach(function(b,i){
     if(!b||typeof b!=='object'||typeof b.from!=='number'||typeof b.to!=='number'||!isFinite(b.from)||!isFinite(b.to))return;
@@ -3342,7 +3342,7 @@ function enterViewOnly(d){
   _switchProject();
   _viewOnly=true; _imgSrc=d.sid?{sid:d.sid}:null; document.body.classList.add('viewonly');
   _started=true; marks=d.marks; brackets=d.brackets; loadFilters(d.filters||[]);
-  _currentProjectId=null; _currentProjectName=d.name; _undoStack=[]; _redoStack=[]; cf=0.5;
+  _currentProjectId=null; _currentProjectName=d.name; _undoStack=[]; _redoStack=[]; cf=0.5; zoom=1;
   if(marks.length){var si=marks.slice().sort(function(a,b){return a.year-b.year;}); _lastAddedYear=si[si.length-1].year; _scrollToYear=si[0].year;_scrollAtStart=true;}
   closeModelos(); closeProjects();
   document.getElementById('vb-name').textContent=d.name; document.getElementById('viewbar').style.display='flex';
