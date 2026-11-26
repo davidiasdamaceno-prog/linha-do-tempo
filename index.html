@@ -281,6 +281,18 @@ body.dark #fbar{background:#1e1e1a;border-color:#2a2720}
 .flbl{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
 #fchips{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 #fstat{margin-left:auto;font-size:10px;color:#999}
+#fbar{row-gap:0}
+#fhead{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:3px 6px 3px 2px;margin-left:-2px;border-radius:8px;cursor:pointer;color:inherit;font:inherit}
+#fhead:hover{background:rgba(120,110,95,.1)}
+#fhead .chev{width:14px;height:14px;fill:none;stroke:#999;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+#fbar.fclosed #fhead .chev{transform:rotate(-90deg)}
+#fsum{font-size:10px;font-weight:600;color:#fff;background:#6b7280;border-radius:9px;padding:1px 7px;display:none}
+#fsum.on{display:inline-block;animation:fsumIn .25s ease}
+@keyframes fsumIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+#fcoll{display:grid;grid-template-rows:1fr;flex:0 0 100%;opacity:1;transition:grid-template-rows .38s cubic-bezier(.4,0,.2,1),opacity .28s ease}
+#fcin{overflow:hidden;min-height:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:3px 0 2px}
+#fbar.fclosed #fcoll{grid-template-rows:0fr;opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){#fcoll,#fhead .chev{transition:none}}
 .fchip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:14px;border:1px solid var(--fc,#888);color:var(--fc,#888);font-size:11px;font-weight:500;cursor:pointer;user-select:none;background:transparent;transition:background .15s,color .15s}
 .fchip:hover{background:color-mix(in srgb,var(--fc,#888) 14%,transparent)}
 .fchip.on{background:var(--fc,#888);color:#fff}
@@ -486,7 +498,9 @@ body.dark .bs-card.c4{background:rgba(45,212,191,.1);border-color:rgba(45,212,19
   #bar .rg.txt button{padding:0 9px;height:32px}
   #bar .rg.ico button{width:30px;height:32px}
   #fbar{flex-wrap:nowrap;overflow-x:auto;padding:5px 10px;gap:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  #fbar .flbl{display:none}
+  #fbar #fcoll{display:block;flex:none;max-width:4000px;transition:max-width .38s cubic-bezier(.4,0,.2,1),opacity .28s}
+  #fbar.fclosed #fcoll{max-width:0;grid-template-rows:none}
+  #fbar #fcin{flex-wrap:nowrap;overflow:hidden;padding:0}
   #fbar #fchips{flex-wrap:nowrap;flex:none}
   #fbar .fchip,#fbar .bb,#fstat{white-space:nowrap;flex:none}
 }
@@ -665,10 +679,12 @@ auth.getRedirectResult().then(function(result){
 </div>
 <div id="viewbar" role="status" style="display:none"><span class="vb-t"><b>Somente leitura</b> · <span id="vb-name"></span></span><span class="vb-b"><button type="button" onclick="viewMakeCopy()">Editar uma cópia</button><button type="button" onclick="viewLeave()">Criar a minha</button><button type="button" onclick="showStudy()">Estudar</button></span></div>
 <div id="fbar">
-  <span class="flbl">Filtros</span>
-  <span id="fchips"></span>
-  <button class="bb" onclick="newFilter()" title="Criar um novo filtro">+ Filtro</button>
+  <button type="button" id="fhead" onclick="toggleFilters()" aria-expanded="true" aria-controls="fcoll" title="Abrir ou fechar a lista de filtros"><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><span class="flbl">Filtros</span><span id="fsum"></span></button>
   <span id="fstat"></span>
+  <div id="fcoll"><div id="fcin">
+    <span id="fchips"></span>
+    <button class="bb" onclick="newFilter()" title="Criar um novo filtro">+ Filtro</button>
+  </div></div>
 </div>
 <div id="wrap" style="cursor:grab"><div id="svgbox"><svg id="svg"></svg></div></div>
 </div>
@@ -2860,7 +2876,25 @@ function updateFilterStat(VB){
   if(!n2&&!VB.length){el.textContent='Nenhum item neste filtro ainda — use ✎ para adicionar';return;}
   el.textContent=n2+(n2===1?' evento':' eventos')+' · '+VB.length+(VB.length===1?' chave':' chaves');
 }
+// abrir/fechar a lista de filtros (lembra a escolha neste navegador)
+var _fClosed=false;
+try{_fClosed=localStorage.getItem('jt_fclosed')==='1';}catch(e){}
+function _applyFClosed(){
+  var b=document.getElementById('fbar'); if(!b)return;
+  b.classList.toggle('fclosed',_fClosed);
+  var h=document.getElementById('fhead'); if(h)h.setAttribute('aria-expanded',_fClosed?'false':'true');
+}
+function toggleFilters(){
+  _fClosed=!_fClosed; _applyFClosed();
+  try{localStorage.setItem('jt_fclosed',_fClosed?'1':'0');}catch(e){}
+}
+function _updateFSum(){
+  var el=document.getElementById('fsum'); if(!el)return;
+  var n=activeFilters.length+hiddenFilters.length;
+  el.classList.toggle('on',n>0); el.textContent=n?(n+(n===1?' ativo':' ativos')):'';
+}
 function renderFilterBar(){
+  _updateFSum();
   var c=document.getElementById('fchips'); if(!c)return;
   while(c.firstChild)c.removeChild(c.firstChild);
   var all=mkEl('span',{className:'fchip'+(isFiltering()?'':' on'),title:'Mostrar tudo'});
@@ -5043,7 +5077,7 @@ function handleImport(event){
   });
 })();
 cf=0.5;
-renderFilterBar();
+_applyFClosed();renderFilterBar();
 updateModeBtn();
 draw(false);
 updateBlankState();
