@@ -1534,6 +1534,37 @@ function _drawImpl(pc){
       g.appendChild(mg);
     })(Gs[mi],mi);
   }
+  // começo e fim de chave que caem entre duas colunas (sem ano na linha): o ano aparece no eixo, na cor da chave
+  (function(){
+    if(!VB.length||!Gs.length)return;
+    var have={},seen={},items=[],eg=ne('g'); eg.setAttribute('data-keep','1');
+    Gs.forEach(function(m){have[m.year]=1;});
+    VB.forEach(function(b){[b.from,b.to].forEach(function(y){if(typeof y!=='number'||have[y]||seen[y])return; seen[y]=1; items.push({y:y,x:xOf(y),b:b});});});
+    if(!items.length)return;
+    items.sort(function(a,b){return a.x-b.x;});
+    var yf=Math.max(6,yfs(false)*0.82), th=Math.max(2,4*zoom), ylY=TLY-th-Math.max(4,5*zoom);
+    function nearMark(x,w){   // algum ano de coluna encosta neste rótulo? (busca binária pelas colunas, que estão em ordem)
+      var lo=0,hi=Gs.length-1;
+      while(lo<hi){var m=(lo+hi)>>1; if(xi(m)<x)lo=m+1; else hi=m;}
+      for(var k=Math.max(0,lo-2);k<=Math.min(Gs.length-1,lo+2);k++){
+        var f=yfs(ir(Gs[k].year)), mw=yl(Gs[k].year).length*f*0.62+10;
+        if(Math.abs(xi(k)-x)<(mw+w)/2+3)return true;
+      }
+      return false;
+    }
+    var lastR=-1e9;
+    items.forEach(function(it){
+      var t=yl(it.y), w=t.length*yf*0.62+8, l=it.x-w/2;
+      if(l<lastR+3||nearMark(it.x,w))return;
+      lastR=it.x+w/2;
+      var col=dispColor(it.b.color);
+      eg.appendChild(te('rect',{x:l,y:ylY-yf,width:w,height:yf+3,fill:BG,'pointer-events':'none'}));
+      var tx=te('text',{x:it.x,y:ylY,'text-anchor':'middle','font-size':yf,'font-weight':'500',fill:col,'font-family':FN,'pointer-events':'none'},t);
+      tx.appendChild(document.createElementNS(NS,'title')).textContent=yl(it.y)+' · início/fim de '+it.b.label;
+      eg.appendChild(tx);
+    });
+    g.appendChild(eg);
+  })();
   requestAnimationFrame(function(){
     var w=document.getElementById('wrap');
     if(_scrollToYear!==null){
