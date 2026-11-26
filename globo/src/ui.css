@@ -14,7 +14,11 @@ canvas.drag{cursor:grabbing}canvas.hov{cursor:pointer}
 #zoom button{width:38px;height:36px;border:0;background:transparent;font-size:18px;line-height:1;transition:background .2s}
 #zoom button+button{border-top:1px solid var(--line)}
 #zoom button:hover{background:var(--soft)}
-#tip{position:absolute;pointer-events:none;background:var(--on);color:var(--onink);padding:5px 9px;border-radius:7px;font-size:12px;white-space:nowrap;opacity:0;transition:opacity .15s;transform:translate(10px,-34px);z-index:3}
+#tip{position:absolute;pointer-events:none;background:var(--on);color:var(--onink);padding:5px 9px;border-radius:7px;font-size:12px;white-space:nowrap;opacity:0;transition:opacity .15s;transform:translate(12px,12px);z-index:3;max-width:260px}
+#tip b{display:block;font-weight:600;margin-bottom:2px}
+#tip .tr{overflow:hidden;text-overflow:ellipsis;font-size:11.5px;opacity:.92}
+#tip .ty{display:inline-block;min-width:44px;opacity:.7;font-variant-numeric:tabular-nums}
+#tip .tm{font-size:11px;opacity:.65;margin-top:1px}
 #card{position:absolute;z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;
  right:12px;top:12px;bottom:12px;width:340px;transform:translateX(calc(100% + 24px));opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s}
 #card.open{transform:none;opacity:1;pointer-events:auto}
@@ -37,7 +41,8 @@ canvas.drag{cursor:grabbing}canvas.hov{cursor:pointer}
 .ev.open .more{grid-template-rows:1fr}
 .ev .more>div{overflow:hidden}
 .ev .more p{white-space:pre-wrap;margin:0;padding:0 12px 4px 30px;line-height:1.55;color:var(--ink);font-size:13.5px}
-.ev .more .row{display:flex;gap:8px;align-items:center;padding:8px 12px 12px 30px;flex-wrap:wrap}
+.ev .more .row{display:flex;flex-direction:column;gap:8px;padding:8px 12px 12px}
+.ev .more .row .tags{display:flex;flex-wrap:wrap;gap:6px}
 .ev .tag{font-size:11px;color:var(--mute);border:1px solid var(--line);background:transparent;border-radius:999px;padding:2px 8px}
 .ev .go{border:1px solid var(--line);background:transparent;border-radius:8px;padding:5px 10px;font-size:12px;transition:background .2s}
 .ev .go:hover{background:var(--soft)}
@@ -67,6 +72,7 @@ canvas.drag{cursor:grabbing}canvas.hov{cursor:pointer}
 @media(max-width:720px){
  #card{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:62%;transform:translateY(calc(100% + 16px))}
  #card.open{transform:none}
+ #card.srch{top:auto}
  #eraTag{max-width:calc(100% - 70px);bottom:8px;left:8px;font-size:10.5px;padding:6px 8px}
  #zoom{right:8px;bottom:8px}#zoom button{width:34px;height:32px}
  #tl{padding:8px 16px 10px}
@@ -109,8 +115,10 @@ canvas.drag{cursor:grabbing}canvas.hov{cursor:pointer}
 .pkB button.pri{background:var(--on);color:var(--onink);border-color:var(--on)}
 .pkB button:disabled{opacity:.4;cursor:default}
 canvas.pk{cursor:crosshair}
-.ev .more .row .acts{display:flex;gap:6px;flex-wrap:nowrap;width:100%}
-.ev .more .row .acts .go{flex:0 1 auto;white-space:nowrap;padding:5px 9px}
+.ev .more .row .acts{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px}
+.ev .more .row .acts .go{white-space:nowrap;padding:6px 4px;font-size:12px;overflow:hidden;text-overflow:ellipsis}
+.ev.nolugit{border-style:dashed}.ev.nolugit .tt{color:var(--mute)}
+#card.srch{top:72px}
 @media(max-width:720px){
  .bk span{display:none}
  #nolug{left:56px;top:11px}#nolugList{left:8px;top:50px}#stage>#back{left:8px;top:8px}

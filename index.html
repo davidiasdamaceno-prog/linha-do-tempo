@@ -118,6 +118,11 @@ body.dark .fi input,body.dark .fi select,body.dark .fi textarea{background:#1a1a
 body.dark .sr-it:hover,body.dark .sr-it.sel{background:rgba(255,255,255,.08)}
 body.dark .sr-y,body.dark .sr-s,body.dark .sr-none{color:#b5b0a6}
 body.dark #searchpanel{background:#23231f;border-color:#3a3730}
+/* com o globo aberto: a busca fica no canto, acima dele, e os resultados aparecem como cartões ao lado */
+body.globo-on #searchpanel{z-index:50;top:calc(var(--jtg-top,96px) + 10px);left:auto;right:12px;transform:none;width:min(340px,calc(100vw - 24px));padding:8px 10px}
+body.globo-on #searchres{display:none!important}
+body.globo-on #fstat{display:none!important}
+@media(max-width:720px){body.globo-on #searchpanel{right:8px;top:calc(var(--jtg-top,96px) + 6px)}}
 #searchpanel.on{display:flex}
 #searchinput{flex:1;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid #ddd;outline:none;font-family:'DM Sans',sans-serif}
 body.dark #searchinput{background:#1a1a16;border-color:#3a3730;color:#e0dbd5}
@@ -3143,6 +3148,7 @@ function _srSnippet(desc,words){
 var _srList=[], _srSel=-1;
 function _srRender(list,q){
   _srList=list; _srSel=list.length?0:-1;
+  if(window.JTGlobo&&JTGlobo.isOpen())JTGlobo.search(list,q);   // no globo, os resultados viram cartões ao lado
   var box=document.getElementById('searchres'); if(!box)return;
   box.textContent='';
   if(!q){box.classList.remove('on');return;}
@@ -3164,6 +3170,7 @@ function _srRender(list,q){
   if(list.length>show.length){var mo=document.createElement('div'); mo.className='sr-none'; mo.textContent='+ '+(list.length-show.length)+' resultados. Refine a busca.'; box.appendChild(mo);}
 }
 function _srGo(r){
+  if(window.JTGlobo&&JTGlobo.isOpen()){ if(r.kind==='br')JTGlobo.range(r.year,r.to); else JTGlobo.goto(r.id); return; }
   toggleSearch();
   flashYear(r.year);
   setTimeout(function(){ if(r.kind==='br')ovb(r.id); else ove(r.year,r.id); },380);
@@ -3177,7 +3184,7 @@ function _srMove(d){
 function doSearch(){
   var q=document.getElementById('searchinput').value;
   var y=_srYear(q);
-  if(y!==null){ flashYear(y); toggleSearch(); return; }
+  if(y!==null){ if(window.JTGlobo&&JTGlobo.isOpen()){JTGlobo.year(y);toggleSearch();return;} flashYear(y); toggleSearch(); return; }
   if(_srList.length){ _srGo(_srList[Math.max(0,_srSel)]); }
 }
 document.getElementById('searchinput').addEventListener('focus',function(){this.select();});
