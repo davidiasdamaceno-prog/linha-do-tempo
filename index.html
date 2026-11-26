@@ -2788,10 +2788,13 @@ function _scrollWrapTo(L){
   try{wp.scrollTo({left:L,behavior:'smooth'});}catch(e){wp.scrollLeft=L;}
 }
 function gotoFilterRegion(){
-  var wp=document.getElementById('wrap'), it=_fnavItems();
-  if(!wp||!it.length)return;
-  var minX=it[0].x, maxX=it[it.length-1].x, W=wp.clientWidth;
-  _scrollWrapTo((maxX-minX)<=W*0.8 ? (minX+maxX)/2-W/2 : minX-W/2);
+  // o desenho ajusta a rolagem no próximo quadro; só depois disso dá para rolar até os eventos do filtro
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    var wp=document.getElementById('wrap'), it=_fnavItems();
+    if(!wp||!it.length)return;
+    var minX=it[0].x, maxX=it[it.length-1].x, W=wp.clientWidth;
+    _scrollWrapTo((maxX-minX)<=W*0.8 ? (minX+maxX)/2-W/2 : minX-W/2);
+  });});
 }
 function updateFilterNav(){
   var L=document.getElementById('fnav-l'), R=document.getElementById('fnav-r'), wp=document.getElementById('wrap');
@@ -5081,6 +5084,7 @@ function _jtgHost(){
     range:_jtgRange,
     openEvent:function(y,id){ove(y,id);},
     setPlace:_jtgSetPlace,
+    filtering:function(){return activeFilters.length>0;},
     fkey:function(){return activeFilters.join(',')+'|'+hiddenFilters.join(',');}
   };
 }

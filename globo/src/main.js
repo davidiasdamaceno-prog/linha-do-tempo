@@ -104,7 +104,8 @@ function eraKey(m){return m<1494?'n':m<1534?'t':m<1580?'c':m<1640?'u':m<1750?'t2
 function clampLat(l){return Math.max(-85,Math.min(85,l));}
 
 function vis(lon,lat){return geoDistance([lon,lat],[view.lon,view.lat])<Math.PI/2-0.03;}
-function render(){
+function render(){try{drawScene();}finally{updateFnav();}}
+function drawScene(){
  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,W,H);
  proj.translate([W/2+off.x,H/2+off.y]).scale(R0*view.k).rotate([-view.lon,-view.lat,0]);
  var R=proj.scale(),CX=W/2+off.x,CY=H/2+off.y;
@@ -303,6 +304,21 @@ function closeCard(){card.classList.remove('open');openKey=null;wake();}
 $('cardX').onclick=closeCard;
 
 
+/* ---------- setas dos eventos do filtro fora da tela (como na linha do tempo) ---------- */
+var fnL=$('fnL'),fnR=$('fnR');
+function fnFill(b,n,t,left){if(!n){b.hidden=true;return;}b.hidden=false;b.textContent=left?'← '+n:n+' →';b._t=t;
+ b.title=n+(n===1?' evento do filtro ':' eventos do filtro ')+(left?'à esquerda':'à direita')+' — clique para ir ao próximo ('+fy(t.y)+')';}
+function updateFnav(){
+ stage.classList.toggle('co',card.classList.contains('open'));
+ if(!host||!host.filtering||!host.filtering()){fnL.hidden=fnR.hidden=true;return;}
+ var nl=0,nr=0,pl=null,pr=null,dl=1e9,dr=1e9;
+ EVENTS.forEach(function(e){if(!e.on)return;
+  var on=vis(e.lon,e.lat);if(on){var p=proj([e.lon,e.lat]);on=!!p&&p[0]>=16&&p[0]<=W-16&&p[1]>=16&&p[1]<=H-16;}
+  if(on)return;
+  var d=((e.lon-view.lon+540)%360)-180;
+  if(d<0){nl++;if(-d<dl){dl=-d;pl=e;}}else{nr++;if(d<dr){dr=d;pr=e;}}});
+ fnFill(fnL,nl,pl,true);fnFill(fnR,nr,pr,false);}
+[fnL,fnR].forEach(function(b){b.onclick=function(){if(b._t)flyTo(b._t.lon,b._t.lat,view.k,900);};});
 /* ---------- faixa do tempo ---------- */
 var track=$('track'), winEl=$('win'), dotsEl=$('dots'), axisEl=$('axis'), lbl=$('winLbl');
 function WP(y){if(y<=KN[0][0])return 0;for(var i=1;i<KN.length;i++){if(y<=KN[i][0]){var a=KN[i-1],b=KN[i];return a[1]+(y-a[0])/(b[0]-a[0])*(b[1]-a[1]);}}return 1;}
@@ -342,12 +358,17 @@ track.addEventListener('pointerdown',function(e){track.setPointerCapture(e.point
  var mode_=e.target.classList.contains('l')?'l':e.target.classList.contains('r')?'r':(u>=ua&&u<=ub?'m':'new');
  if(mode_==='new'){var sp=ub-ua,a=Math.max(0,Math.min(1-sp,u-sp/2));win.a=WPi(a);win.b=WPi(a+sp);mode_='m';syncTL();wake();}
  tdrag={m:mode_,u0:u,a0:WP(win.a),b0:WP(win.b)};});
-track.addEventListener('pointermove',function(e){if(!tdrag)return;var t=trackX(e),u=t.x/t.w,d=u-tdrag.u0,MS=.008;
+// bolinhas sob a faixa azul: a faixa fica por cima delas, então o ponteiro é procurado à mão (dica e clique)
+function dotAt(e){var r=track.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=null,bd=9;if(y<2||y>28)return null;
+ EVENTS.forEach(function(ev,i){if(!ev.on)return;var d=Math.abs(xOf(ev.y)/100*r.width-x);if(d<bd){bd=d;best=ev;}});return best;}
+track.addEventListener('pointermove',function(e){if(tdrag)return;var ev=e.target.classList.contains('h')?null:dotAt(e);var tt=ev?fy(ev.y)+' · '+ev.t:'';
+ if(winEl.title!==tt)winEl.title=tt;winEl.style.cursor=ev?'pointer':'';});
+track.addEventListener('pointermove',function(e){if(!tdrag)return;var t=trackX(e),u=t.x/t.w,d=u-tdrag.u0,MS=.008;if(Math.abs(d*t.w)>3)tdrag.moved=true;
  if(tdrag.m==='m'){var sp=tdrag.b0-tdrag.a0,a=Math.max(0,Math.min(1-sp,tdrag.a0+d));win.a=WPi(a);win.b=WPi(a+sp);}
  else if(tdrag.m==='l'){win.a=WPi(Math.max(0,Math.min(tdrag.b0-MS,tdrag.a0+d)));}
  else{win.b=WPi(Math.min(1,Math.max(tdrag.a0+MS,tdrag.b0+d)));}
  syncTL();wake();});
-function tEnd(){tdrag=null;}track.addEventListener('pointerup',tEnd);track.addEventListener('pointercancel',tEnd);
+function tEnd(e){var td=tdrag;tdrag=null;if(td&&td.m==='m'&&!td.moved&&e&&e.type==='pointerup'&&!e.target.classList.contains('h')){var ev=dotAt(e);if(ev)selectEvent(ev);}}track.addEventListener('pointerup',tEnd);track.addEventListener('pointercancel',tEnd);
 // tocar a linha
 var playBtn=$('play');
 function setPlay(v){playing=v;playBtn.textContent=v?'❚❚':'▶';if(v){loop.last=performance.now();if(WP(win.b)>=.995){var s0=WP(win.b)-WP(win.a);win.a=D0;win.b=WPi(s0);}wake();}}
