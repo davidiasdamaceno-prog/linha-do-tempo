@@ -363,6 +363,15 @@ body.dark .vm-seg button.on{background:#e5e7eb;border-color:#e5e7eb;color:#111}
 #fcin{overflow:hidden;min-height:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:3px 0 2px}
 #fbar.fclosed #fcoll{grid-template-rows:0fr;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){#fcoll,#fhead .chev{transition:none}}
+/* com o globo aberto (telas largas), a lista de filtros vira um painel que flutua por cima do mapa */
+@media (min-width:641px){
+  body.globo-on #fbar{position:relative;z-index:60}
+  body.globo-on #fcoll{position:absolute;left:0;right:0;top:100%;display:block;flex:none;z-index:61;background:#fff;border:1px solid #e8e3da;border-top:0;border-radius:0 0 16px 16px;box-shadow:0 18px 40px rgba(40,30,15,.18);padding:6px 16px 14px;max-height:min(64vh,560px);overflow-y:auto;visibility:visible;transform:translateY(0);transition:opacity .26s ease,transform .32s cubic-bezier(.4,0,.2,1),visibility 0s}
+  body.globo-on #fbar.fclosed #fcoll{opacity:0;transform:translateY(-10px);visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .28s cubic-bezier(.4,0,.2,1),visibility 0s .28s}
+  body.globo-on #fcin{overflow:visible}
+  body.dark.globo-on #fcoll{background:#1e1e1a;border-color:#2e2b24;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+}
+
 .fchip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:14px;border:1px solid var(--fc,#888);color:var(--fc,#888);font-size:11px;font-weight:500;cursor:pointer;user-select:none;background:transparent;transition:background .15s,color .15s}
 .fchip:hover{background:color-mix(in srgb,var(--fc,#888) 14%,transparent)}
 .fchip.on{background:var(--fc,#888);color:#fff}
@@ -3249,15 +3258,27 @@ function openPanorama(y){
 // abrir/fechar a lista de filtros (lembra a escolha neste navegador)
 var _fClosed=false;
 try{_fClosed=localStorage.getItem('jt_fclosed')==='1';}catch(e){}
+var _fGOpen=false;      // com o globo aberto o painel de filtros flutua sobre o mapa e começa fechado (não é lembrado)
+function _fOver(){return document.body.classList.contains('globo-on')&&window.innerWidth>640;}
+function _fEffClosed(){return _fOver()?!_fGOpen:_fClosed;}
 function _applyFClosed(){
   var b=document.getElementById('fbar'); if(!b)return;
-  b.classList.toggle('fclosed',_fClosed);
-  var h=document.getElementById('fhead'); if(h)h.setAttribute('aria-expanded',_fClosed?'false':'true');
+  var c=_fEffClosed();
+  b.classList.toggle('fclosed',c);
+  var h=document.getElementById('fhead'); if(h)h.setAttribute('aria-expanded',c?'false':'true');
 }
 function toggleFilters(){
+  if(_fOver()){_fGOpen=!_fGOpen; _applyFClosed(); return;}
   _fClosed=!_fClosed; _applyFClosed();
   try{localStorage.setItem('jt_fclosed',_fClosed?'1':'0');}catch(e){}
 }
+(function(){
+  var was=document.body.classList.contains('globo-on');
+  new MutationObserver(function(){var now=document.body.classList.contains('globo-on'); if(now!==was){was=now;_fGOpen=false;_applyFClosed();}}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',_applyFClosed);
+  document.addEventListener('pointerdown',function(e){if(_fOver()&&_fGOpen){var fb=document.getElementById('fbar'); if(fb&&!fb.contains(e.target)){_fGOpen=false;_applyFClosed();}}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&_fOver()&&_fGOpen){_fGOpen=false;_applyFClosed();}});
+})();
 function _updateFSum(){
   var el=document.getElementById('fsum'); if(!el)return;
   var n=activeFilters.length+hiddenFilters.length;
